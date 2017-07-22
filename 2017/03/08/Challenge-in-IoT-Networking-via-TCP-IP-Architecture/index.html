@@ -1,0 +1,1293 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IoT,TCP/IP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="TCP/IP体系结构下物联网络存在的挑战。">
+<meta name="keywords" content="IoT,TCP&#x2F;IP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Challenge in IoT Networking via TCP-IP Architecture">
+<meta property="og:url" content="https://fzy-line.github.io/2017/03/08/Challenge-in-IoT-Networking-via-TCP-IP-Architecture/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="TCP/IP体系结构下物联网络存在的挑战。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/3/8-1.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/3/8-2.png">
+<meta property="og:updated_time" content="2017-03-21T15:27:36.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Challenge in IoT Networking via TCP-IP Architecture">
+<meta name="twitter:description" content="TCP/IP体系结构下物联网络存在的挑战。">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/3/8-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2017/03/08/Challenge-in-IoT-Networking-via-TCP-IP-Architecture/"/>
+
+
+
+
+
+  <title>Challenge in IoT Networking via TCP-IP Architecture | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/03/08/Challenge-in-IoT-Networking-via-TCP-IP-Architecture/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Challenge in IoT Networking via TCP-IP Architecture</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T23:12:59+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文研读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文研读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/03/08/Challenge-in-IoT-Networking-via-TCP-IP-Architecture/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　TCP/IP体系结构下物联网络存在的挑战。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Challenge in IoT Networking via TCP-IP Architecture</div><div class="line"></div><div class="line">        TCP/IP体系结构下物联网络存在的挑战</div><div class="line"></div><div class="line">  Wentao Shang                    Yingdi Yu</div><div class="line">      UCLA                         UCLA</div><div class="line"> Los Angeles, CA              Los Angeles, CA</div><div class="line">wentao@cs.ucla.edu          yingdi@cs.ucla.edu</div><div class="line"></div><div class="line"> </div><div class="line"></div><div class="line">  Ralph Droms                    Lixia Zhang</div><div class="line"> Cisco Systems                      UCLA</div><div class="line"> Cambridge, MA                 Los Angeles, CA</div><div class="line">rdroms@cisco.com              lixia@cs.ucla.edu</div></pre></td></tr></table></figure>
+<p>　　<strong>摘要：</strong>物联网将大量的资源限制设备连接起来，近年来正在变得越来越受欢迎。现在的物联网系统很大程度上基于TCP/IP协议(特别是IPv6)。然而，到目前为止的观察表明最初设计的TCP/IP协议栈并不能很好的适合物联网环境。在过去的几年里，国际互联网工程任务组花了大量的精力在修改协议以使它适合物联网部署方案。这些努力引起对在TCP/IP体系结构中已存在协议的扩展，此外还有多种新协议的开发。然而新的问题持续出现。在本文中，我们分析了TCP/IP应用于物联网环境的挑战并且评论了IETF提出的多种解决方案。我们已经存在的基于IP的解决方案在支持物联网应用上是不高效或不足的，因此，一个更有效地解决方案或许存在于信息中心网络体系架构中。</p>
+<p>　　<strong>关键字：</strong>物联网;TCP/IP;网络体系结构</p>
+<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><p>　　物联网通常是指不同种类的计算设备互联来支持各种监控和控制应用。为了兼容来自于不同供应商的设备和应用程序的异构性，现代的物联网系统采用了几十年前为全球有线网络而开发的TCP/IP协议套件标准作为网络解决方案。然而，物联网网络与传统的有线计算机网络在下文详细阐述的基本方面有所不同。这些不同使得将TCP/IP技术应用于IoT环境造成巨大的挑战，并且应对这些挑战将会对网络体系结构造成深远的影响。这篇文章目标是系统地认识IoT环境下形成的挑战，并且阐明应对这些挑战的未来方向。</p>
+<p>　　物联网网络通常包含大量的廉价的、资源受限的设备。这些设备的设计绝大多数受低的制造和运营成本的驱动。因此，IoT设备通常配备有限的计算能力并且需要电池能够支持长时间的操作（比如一年）。由于电力的限制，IoT网络通常采用低能耗二层技术，比如IEEE 802.15.4、蓝牙LE 、低功耗的WIFI，这些技术通常使用相较于传统以太网链路更小的MTU和更低的传输速率。因此，一个对于IoT网络协议的直接挑战是将包大小适应于受限链路(在2.1节讨论)。为了节省能量，物联网节点可能不总是位于有线网络。此外，一个IoT系统可能被部署在没有有线网络基础设施的环境(例如，森林，水下，战场)，因此不得不依赖无线网络技术来通信。这给TCP/IP协议体系结构带来了更多的挑战，第一，mesh网络采用不被传统IP编址体系结构所支持的多链路子网模型(在2.2节讨论)。第二，广播和多播在以电池供电的网络来说是昂贵的，因为一个单独的多播将包含一系列多跳转发并且可能唤醒很多睡眠的节点(在2.3节讨论)。第三，一个可扩展的路由机制现在对于发生在网状网络上的IP通信是必须的(在2.4节讨论)。最后，TCP形式的可靠并且按序字节流传送对于需要为其数据定制控制和优先级的应用程序通常是不适合。</p>
+<p>　　大多数IoT应用与大量传感器和执行器交互来在周围环境执行各种监控和控制任务。他们的设计模式本质上要求高效和可扩展的支持命名配置和发现，数据采集和驱动操作的安全保护，一个面向资源的通信接口，比如表现层状态转化（REST）。不幸的是，现存的那些问题的解决方案大多被今天的Web技术广泛的使用，不满足受限制的物联网环境。例如，传统的基于DNS的命名服务在缺乏基础设施支持的专用服务器的IoT部署场景中并不适用。应用层内容缓存和代理在断断续续连接的动态网络环境中通常是低效的。除此之外，基于信道的安全协议，比如TLS和DTLS，用于确保REST通信的安全，在IoT设备协议操作和资源消耗方面加以高额开销(在4.3节讨论)。</p>
+<p>　　本文的剩余部分详细讨论了上述的每个问题，我们寻求确定导致难于将TCP/IP应用于IoT世界的原因。我们同样也调查了目前对于那些问题的解决方案，这些解决方案可能已被标准化或者正在被IETF积极开发，我们还分析了为什么他们通常不足够解决这些问题。本文的目的是提供见解并指出未来IoT网络体系结构的设计方向。</p>
+<h4 id="网络层存在的问题"><a href="#网络层存在的问题" class="headerlink" title="网络层存在的问题"></a>网络层存在的问题</h4><p>　　IP，特别是IPv6，是为今天的因特网环境设计的，将台式机和笔记本电脑作为终端设备与有线连接的服务器通信。在这一节中，我们讨论当前主机和网络的哪些特性存在于IP中却并不再存在于IoT世界中，已经做了什么去裁剪IP和其他同类的协议去使它们适应IoT环境。</p>
+<h5 id="小MTU值"><a href="#小MTU值" class="headerlink" title="小MTU值"></a>小MTU值</h5><p>　　在IoT网络中受限的低能源链路通常只有很小的MTU值。例如，IEEE 802.15.4-2006最大的物理层帧大小仅仅为127字节，这与今天IP网络通常假定最小MTU值为1500字节甚至更高形成鲜明的对比。在20世纪90年代（早在IoT出现之前）为传统因特网开发的IPv6版本包括两个对于小的MTU链路存在问题的设计方案。第一，IPv6使用一个40字节的固定长度的头部，后跟可选的扩展头部，这给小包带来了一个大的协议开销，第二，IPv6规范要求所有能够运行IPv6的网络支持最小1280字节的MTU大小，这对受限链路是不现实的。</p>
+<p>　　为了使IPv6适应于802.15.4网络，6LoWPAN阐述了在链路层和网络层之间存在一个适配层，实现了处理上面提到问题的两种机制：头部压缩和链路层分片。头部压缩允许除去未使用的区域(例如，流标签和流量类型)和冗余信息(例如，IPv6地址中的接口标识符可以由L2 MAC地址而得，因此被删去)。为了给应用程序负载留出足够的空间，它也为可扩展头部和UDP头部定义了压缩方案，这两种方案都频繁的用于IoT中。链路层帧隐藏了802.15.4的实际MTU大小并且给网络层错觉它运行在符合标准的能够支持1280字节MTU的链路。然而，很少有IoT应用发送的包能够达到MTU限制。</p>
+<p>　　在IPv6中拥有固定长度的头部的主要目的是提高协议的处理速度。设定一个最小的MTU是为了避免网络内部包的分裂(该问题被广泛认为引起性能问题)和减小路由器的工作量。这两个原因都用于在现有因特网进行性能优化，没有考虑受限的小的MTU的物联网环境。适配层的加入填补了旧的设计与新的使用需求之间的不匹配，这不可避免地引入了额外的复杂性和开销。</p>
+<h5 id="多链路子网"><a href="#多链路子网" class="headerlink" title="多链路子网"></a>多链路子网</h5><p>　　当前的IPv4和IPv6子网模式考虑了两种二层网络：多访问链路(多个节点共享相同的访问媒介)，和点对点链路，在同一条链路中存在两个节点。这两种网络都假定相同子网的节点都可以一跳范围内互相可达。另一方面，一个IoT mesh网络包含一个二层设备连接在一起并且没有任何三层设备在其间的链路集合。这本质上创造了一个多链路子网模型，这是原始的IP地址体系结构没有预料到的。</p>
+<p>　　RFC 4903，多链路子网问题，在文档中说明了IETF社区决定抛弃多链路子网模型的原因，因为在二层链路和IP子网之间的一一映射。主要的考虑围绕许多现存的协议依赖的一跳可达模型。首先，子网内的多链路转发给TTL/多跳限制处理带来了麻烦。在IP网络通过设置TTL/多跳限制为1或255并在接收时核实该值是否保持不变来将通信范围限制到一个单独的子网是常见做法。多链路子网模式将打破任何遵循这样做法的协议，因为进行IP多链路转发的节点将会有必要减少TTL/跳数限制值。第二个问题是链路范围内的多播不工作在没有给多播路由(这在今天的因特网中也是不可用的)适当支持的多链路子网。因此，在多链路子网中依赖链路范围内的多播的遗留协议(例如ARP、DHCP、邻居发现和多路由协议)将同样被打破。</p>
+<p>　　根本上，上述问题是由旧的IP子网模式与新的物联网网状网络之间的不匹配造成的。为了避免这些技术问题，我们必须或者依赖二层机制将多链路透明的连接成一个单独的网络(类似于多个以太网段的桥接)，或者用不同的前缀将网状网络划分成多个子网。第一种方法需要一些形式的子网内部路由能力，这将在2.4节讨论。第二种方法介绍了一种在网络配置中的新的复杂性，因为前缀分配必须通过网状网络传播(例如，通过前缀代表)，网中的链路形式在动态环境中可能随着时间改变。</p>
+<h5 id="多播效率"><a href="#多播效率" class="headerlink" title="多播效率"></a>多播效率</h5><p>　　许多基于IP的协议大量使用IP多播来实现两种功能之一：通知组中的所有成员，当并不确切地知道询问谁时做查询。然而，支持多播包传送对于受限的IoT网状网络是一个重大挑战。第一，大多数无线MAC地址协议禁用多播的链路层确认，在链路层丢包也不能被恢复。第二，由于同时存在的多种MAC协议(例如，不同版本的WIFI)和链路层速率适配，多播接收者将经历不同的数据传输速率。第三，IoT节点将不时地转换到睡眠模式来保存能量，因此可能会丢失一些多播包。最后，当节点通过一个网状网络连接，一个多播包需要沿着多路径经过多跳被转发，潜在地唤醒许多沉睡的节点并且使已经稀缺的网络资源超过负载。</p>
+<p>　　为了应对在多播支持中的这些困难，遗留的协议必须重新设计以在IP多播被应用于约束IoT环境之前最小化使用IP多播。当物联网节点需要发送通知给多播接收者，而不是将包多播，他们可以暂时缓冲这些数据包在一些众所周知的位置，等待收件人按需通过单播拉取（根据他们的睡眠时间表）。当他们想要对一组进行查询，它们可以将查询发送到预先配置通过按优先级收集信息来回答问题的指定节点，而不是用多播在网络中洪泛。为了克服困难来支持多播同时适配睡眠节点，这些新的方法使用按需单播拉动取代组播。</p>
+<p>　　一个对该协议的改进的例子是6LoWPAN的IPv6邻居发现优化。原始的IPv6邻居发现依靠多播得知默认网关路由器，解决邻居的IP解析到MAC地址，并进行重复地址检测。当将邻居发现功能适应于6LoWPAN，而不是周期地让路由器多播路由通告（这将唤醒睡眠节点或错过这些节点），优化的协议允许约束节点用路由请求消息按需更新路由通告信息。另一个扩展是在路由器上维护主机地址的注册表，使路由器能够响应地址解析和代表端节点的重复地址检测请求，因此查询节点通过单播消息简单地发送请求到默认路由器。</p>
+<p>　　另一个解决方案叫做MPL（Multicast Protocol for Low power and Lossy Networks，用于低功耗和有损网络的组播协议），被IETF roll WG提出，从根本上改变约束网络上的转发语义。MPL在MPL转发者（即节点参与MPL）之间使用可控的洪泛通过同步在整个多播域内传播多播包，不需要任何组播路由协议来维护拓扑信息。每个多播包被包生成器ID和一个序列号标识，以便于允许重复检测。同时，近期的包被MPL转发者在变化窗口样式中缓存（例如，FIFO缓存），这能够被用于未来重传。这种新的多播转发协议已经被当前的ZigBee IP规范采纳。</p>
+<h5 id="网状网络路由"><a href="#网状网络路由" class="headerlink" title="网状网络路由"></a>网状网络路由</h5><p>　　典型物联网网络的拓扑结构分为两类：星型拓扑结构和点对点mesh拓扑结构。在星型网络中路由配置是简单的，因为其中的集线器节点可以充当外围节点的默认网关。然而，星型拓扑的部署规模受到单一集线器节点信号覆盖的限制，使其不适用于覆盖广泛领域的应用场景。网状拓扑结构通过节点中继彼此的数据包使其能够大面积覆盖。因为洪泛整个网络太过昂贵，在网状网络内实现高效的数据包转发，路由机制是必要的。</p>
+<p>　　网状网络路由可以支持在链路层或网络层。链路层方法，在IETF术语中称做mesh-under，依赖于2层代理来将多个链路加入到一个“单跳IP”子网。网络层方法，称作router-over，则是依赖IP路由器通过多跳转发数据包。在本段的剩余部分，我们描述了现有对于这两个类别的解决方案。</p>
+<p>　　IEEE提出了802.15.5标准来支持由IEEE 802.15.4链路组成的网状网络的链路层路由。基本的做法是先为L2地址分配构造一颗穿过Mesh网络的生成树：生成树的根节点分配连续链路层地址块给它的子节点，进一步分配它的子块给它的后代。这种寻址方式保证同一祖先节点下的链路层地址落入同一范围内。一旦地址被分配，节点开始交换本地链路状态信息与他们的近邻，他们各自建立自己的两跳邻居表，包含邻居的地址块的范围，树的层次和跳距离。当转发数据包到一个超越两跳距离的目的地时，发送节点采用简单的探索选择下一跳，它接近生成树树根（从而更了解网络拓扑结构），但离发送节点不太远。这个解决方案的一个缺点是由于新节点动态加入网络，为了适应拓扑的变化，地址分配过程可能需要重新执行。</p>
+<p>　　IETF通过router-over方法解决mesh网络的路由问题，并且已经开发了RPL（低功耗有损网络IPv6路由协议）作为当前的标准解决方案。RPL与IEEE 802.15.5本着同样的精神，它的模型节点的集群作为一个生成树称为目标导向的DAG（DODAG），所有的路径终止于根。当在DODAG内部两节点互相通信，它们的数据包遍历到根节点或公共祖先，然后按照向下链接到目的地。然而，不像IEEE 802.15.5 分配拓扑相关的L2地址，RPL不作出任何关于IP地址分配的假设。这有效地禁止路由条目聚集超出常用前缀共享。在根附近的节点维护这样的路由表变得非常具有挑战性，它在最坏的情况下，必须保留子网中每个设备的路由条目。RPL也提供了另一种“非存储”模式，它只有根节点维护路由表。当沿着下行链路路径转发数据包时，根节点需要将全部源路由信息插入到数据包报头中。虽然它减少了非根节点上的内存使用量，“非存储”模式增加了向下数据包的头部大小，这对于小MTU网络是有问题的（见2.1节）。</p>
+<p>　　我们应该注意物联网中Mesh网络路由的根本挑战来自于在多链路环境中为每个主机维护路由信息的要求。传统IP网络中这不是一个问题，路由器或自学习网桥可以为路由和转发提供基础设施支持。然而，在受限的物联网环境，每个主机路由都由在网格中使用路由协议的每个节点来维护，在转发过程中消耗大量内存，或以IP数据包作为源路由，这与链路层小MTU限制冲突。由于IP的面向主机的通信语义，路由在基于IP的物联网网格技术里仍然将是一个重大的挑战。</p>
+<h4 id="传输层的问题"><a href="#传输层的问题" class="headerlink" title="传输层的问题"></a>传输层的问题</h4><p>　　在TCP/IP体系结构中的传输层提供拥塞控制和可靠的交付，两者都是通过TCP来实现，它是在互联网中占主导地位的传输层协议。多年来，TCP被设计在一个点对点的没有严格的延迟要求的长期存活的连接有效地提供大容量的数据。它将发送者与接收者之间的通信建模为字节流，并执行可靠的顺序交付在流中的每一个字节。</p>
+<p>　　然而，物联网应用常面临着各种各样TCP不能有效地支持的通信模式。第一，由于资源限制，设备可能经常进入睡眠模式，因此，在物联网应用中保持长期存活的连接是不可行的。第二，许多物联网通信只涉及少量的数据，建立连接的开销不可接受。第三，一些应用程序（如设备驱动）可能有低延迟的要求，不可容忍TCP握手引起的延迟。当工作在有损无线网络中时，TCP的按次序的交付和重传机制也可能导致队头阻塞，引入不必要的延迟。此外，大多数无线MAC协议也实现链路层自动重传请求（ARQ），如果二层转发延迟比TCP超时重传时间长，这可能进一步削弱TCP性能。</p>
+<p>　　尽管一些工业物联网标准仍然要求TCP支持（比如ZigBee IP），但是越来越多的物联网协议决定将传输功能构建到应用层，选择UDP作为传输层协议，它基本上将传输层转换为复用模块。这种趋势强调了应用层成帧的需要。随着应用级成帧，网络可以识别单个应用程序数据单元，因此，从而实现更灵活的传输支持，例如，适用于不同类型的ADU不同的重传策略，使用网络内部缓存使数据分发更有效等。不幸的是，当前的TCP/IP体系结构不允许应用程序嵌入应用程序语义到网络层信息包，因此未能为应用层框架提供足够的支持。</p>
+<h4 id="应用层的问题"><a href="#应用层的问题" class="headerlink" title="应用层的问题"></a>应用层的问题</h4><p>　　大多数物联网应用程序实施面向资源的请求响应通信模型。例如，监视应用程序请求传感器生成的数据；以及控制应用程序通过执行器请求操作物理对象。这些应用程序类似于今天的Web服务，采用REST架构在应用层通信。受Web取得巨大成功的影响，物联网社区一直致力于把REST架构带到物联网应用。例如，IETF的核心工作组定义了”约束应用协议”（COAP）标准，一个为资源受限环境定制的基于UDP的数据传输协议，为物联网应用提供REST式通信。在应用层实现REST的需求突出了在TCP/IP体系结构的低层缺少重要功能的支持，包括资源发现、缓存和安全。在这一部分中，我们探讨当前物联网应用弥补这些差距和限制他们的解决方案的局限性。</p>
+<h5 id="资源发现"><a href="#资源发现" class="headerlink" title="资源发现"></a>资源发现</h5><p>　　资源导向型通信模型通常需要一个资源发现机制，通过它应用程序可以请求或调用资源的操作。在传统的IP网络资源发现的解决方案是基于DNS服务发现。然而，该解决方案支持物联网应用有几个限制。</p>
+<p>　　首先，DNS-SD旨在支持服务发现，那里的服务通常是指一个正在运行的程序（例如，在某些打印机上运行的打印服务）。相对来说，在物联网的资源范围涵盖了更广泛的范围：除了服务，它也可以指物联网设备，传感器数据等。因此，物联网资源发现需要一个更一般的方法来识别异构资源。例如，不使用DNS记录，CoAP协议采用基于URI命名方案来标识资源（像HTTP）。在此基础上，IETF core 工作组提出了CoRE-RD，一种基于CoAP的资源发现机制，依赖较少约束的资源目录（RD）服务器存储资源托管在其他设备元。</p>
+<p>　　其次，当专用的服务，如DNS和CoRE-RD，在本地环境中不可用时，传统的服务发现往往依赖于组播时。例如，DNS-SD使用组播DNS(MDNS)[5]作为本地网络中服务发现和名字解析的通信载体。然而，正如我们在第2.3节分析，在物联网环境中链路本地多播存在效率问题。使用多播的一种替代方案是同步资源元信息通过网络以一个对等的方式(这在精神上类似于我们在2.3讨论的MPL组播转发协议)。例如，IETF的homenet WG正在开发家庭网络控制协议(HNCP)使用由分布式节点一致性协议定义的同步机制来分发家庭网络配置(DNCP)</p>
+<p>　　值得注意的是，这些解决方案的必要性是由于网络和TCP/IP传输层是无法发现通过应用层的定义名字的资源。例如，IPv6的邻居发现协议只能发现在网络层及以下配置。而在DNS SRV记录SD通常识别服务的IP地址和端口号。鉴于物联网应用中的资源发现的普遍需求，一个高效的物联网网络架构应包括资源发现作为其核心功能之一，并使应用程序免于实现自己的解决方案。</p>
+<h5 id="缓存"><a href="#缓存" class="headerlink" title="缓存"></a>缓存</h5><p>　　TCP/IP通信模型要求客户端（资源请求者）和服务器（资源持有者）同时在线。然而，在IoT场景，受限设备可能频繁的进入睡眠模式来节省能量。此外，动态和/或间歇性网络环境通常使它很难使通信双方保持稳定的连接。因此，IoT应用通常依赖缓存和代理来实现高效的数据分发。所选的代理节点可以代表睡眠节点请求资源并且暂时存储响应数据直到请求节点醒来。缓存的内容同样也可以被用来服务相同的来自其它共享同一个代理的节点的请求，这可以节省网络带宽并降低响应延迟。资源起源服务器也会指定一些代理节点来代表自己处理请求（被称为反向代理），因此，它可以减少客户端流量，并当它需要时候可以脱机。</p>
+<p>　　虽然它是有益的，但是在IoT环境中应用层缓存通过CoAP和HTTP实现有几个限制。第一，为了利用内容缓存能力，客户机需要显式选择正向或反向代理节点。这些预先配置的缓存点对于所有客户端节点可能不是最佳的。客户端可以利用资源发现机制来按需查找附近的代理。但这样的解决方案对整个系统引入了额外的复杂度。第二，在连通性是间歇性的动态网络环境，预先选定的代理点可能成为完全不可达。当网络拓扑结构发生变化时，客户端需要重新配置或重新发现代理，否则停止使用缓存和代理。第三，缓存和代理<br>打破了目前的安全协议假设的终端到终端的连接（我们将在第4.3节讨论），这使得保护应用程序数据变得更加困难。</p>
+<p>　　为了使缓存功能在IoT环境中高效且灵活，网络体系结构需要在网络内部无处不在地提供机会缓存并且允许应用程序使用它们而不产生配置和通信开销。这进一步需要网络层知道应用层资源并且将缓存集成到转发过程中，以便当包在网络中传播时，每个网络包可以访问缓存。它也需要一个安全模型的根本变化以使网络内的缓存安全可靠。</p>
+<h5 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h5><p>　　安全对于物联网应用程序是至关重要的，由于他们与物理世界的紧密互动。基于IP的应用的主流的安全性模型是基于信道的安全。比如安全传输层协议（TLS）和，它提供了源服务器和客户端之间的安全通信信道。然而，安全通道解决方案不适合到物联网环境有几个原因。</p>
+<p>　　基于信道安全的第一个问题是建立一个安全信道的开销。TLS和DTLS都需要两次或更多轮的安全握手来对信道进行身份验证并且在第一个应用程序数据发送之前协商安全参数。</p>
+<p>　　第二个问题是信道的两端必须保持信道状态直到它被关闭。这可能会对内存使用造成很大的压力，当一个设备需要在一个密集的网状网络同时与许多同等的设备进行通信。注意这个问题，连同第一个，导致一个艰难的权衡。减轻一个问题的努力。（例如，通过按需建立短暂的信道减少内存使用）可能使其他的恶化（例如，每一个新的短暂信道都会有自己的握手开销）。</p>
+<p>　　最后但同样重要的是，一旦应用程序数据逃脱信道，基于信道的安全不能保证请求响应的安全性。当代理（比如，高速缓存和代理服务器）部署缓存应用程序数据，这是最麻烦的部分。资源的所有者需要信任代理正确地实施访问控制策略，而资源请求者需要信任代理提供真实的没有被篡改的数据。</p>
+<p>　　上述限制突出了针对物联网应用的不同安全模型的需求。另一种模式，已在IETF提出了object-based security（基于对象的安全），这直接保证了应用数据单元而不是通过该信道的数据传输，每个数据对象都应该携带必要的认证信息（比如，数字签名），因此，无论数据如何检索，任何接收数据的人都可以验证其有效性。当数据保密性备受关注，数据的发起人可以对内容进行加密，以便只有预期接收者可以对数据进行解密。类似的想法使用基于对象的安全也出现了物联网区域之外，例如在IETF jose WG安全JSON对象。</p>
+<h4 id="重新思考体系结构"><a href="#重新思考体系结构" class="headerlink" title="重新思考体系结构"></a>重新思考体系结构</h4><p>　　著名的间接性原则说：“计算机科学中的所有问题都可以通过另一个间接层解决”，但有一个问题不解决，是太多中间层的存在，其中精确描述了当前物联网网络架构的现状。</p>
+<p>　　<img src="http://ohe7ixo05.bkt.clouddn.com/2017/3/8-1.png" alt="8-1"></p>
+<p>　　图1显示了基于IP的物联网堆栈的分层结构。为了支持REST接口，物联网的应用通常采用协议CoAP或HTTP作为作为消息传递协议。通常，应用程序还需要与消息层顶部的公共服务交互（比如COAP资源目录和对象安全支持）。传输层上方， TLS和DTLS被添加来保证通信信道的安全。此外，有多个基础设施服务为了方便IP网络通信，这是必要的，比如， ICMP, DHCP, 邻居发现(ND), DNS and RPL</p>
+<p>　　<img src="http://ohe7ixo05.bkt.clouddn.com/2017/3/8-2.png" alt="8-2"></p>
+<p>　　如果我们通过聚焦来自应用程序视角的核心功能重新检查网络协议栈，我们将能够获得一个十分不同的图片，如图2所示。代替“everything over IP”,IoT应用程序以一个不同的范式聚集，该范式叫做“everything over REST”。在IoT协议栈底部，IoT协议栈使用数据传输协议，比如UDP和6LoWPAN。在协议栈的中心，一个REST的消息协议实现所有的服务组件，通过IoT应用程序定义的应用程序数据单元的简单抽象操作。新的视角和现存的协议栈层次视图的对比反映了IoT应用程序的期望和TCP/IP体系结构现实之间严重的不匹配。</p>
+<pre><code>REST层包含几个实现关键功能的子模块：
+
+基于URI的将应用层数据交付到网络目的地的通信机制；
+
+高效的数据分发缓存机制；
+
+保护个人ADUs完整性和保密性的对象安全机制；
+
+可以针对不同的网络环境实现多种算法的拥塞控制模块；
+
+协助应用程序操作的命名配置与资源发现；
+
+将不能融入一个单一的ADU的大数据分块的排序机制；
+
+根据应用的需求支持包重传和排序的可靠性机制；
+</code></pre><p>　　目前所有这些功能由应用层协议实现（包括REST接口本身）。然而，如果移动到核心网络，一些这些功能可以更有效。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>　　当TCP/IP协议栈在20世纪80年代早期首次开发，目标是通过有线连接主机计算机，尽管协议栈在IP规范发布后仍在不断演进，但是体系结构设计背后的基本假设没有改变。物联网网络代表了一种新型的应用程序，在没有显著修改协议栈的情况下IP体系结构不能很容易地适应它。</p>
+<p>　　在本文中，我们讨论了TCP/IP协议应用到物联网的来自网络和传输层的挑战。我们还讨论了应用层协议，像COAP，如何为较低层不支持的所需功能提供自己的解决方案。从应用的角度来看，通过比较当前的物联网堆栈与所需的架构，不匹配更为明显。我们提出了一个体系结构的变化，移动RSET相关组件到到核心网络层，并且最终达到了一个比现有的应用层解决方案更高效的架构。这一新的物联网协议栈将拥抱ICN设计，天然地实现所需的功能，在网络内更高效。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IoT/" rel="tag"># IoT</a>
+          
+            <a href="/tags/TCP-IP/" rel="tag"># TCP/IP</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/04/MQTT协议学习笔记（一）/" rel="next" title="MQTT协议学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> MQTT协议学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/12/6LoWPAN-Border-Router：CETIC-6LBR介绍/" rel="prev" title="6LoWPAN Border Router：CETIC-6LBR介绍">
+                6LoWPAN Border Router：CETIC-6LBR介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">101</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层存在的问题"><span class="nav-number">2.</span> <span class="nav-text">网络层存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#小MTU值"><span class="nav-number">2.1.</span> <span class="nav-text">小MTU值</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多链路子网"><span class="nav-number">2.2.</span> <span class="nav-text">多链路子网</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多播效率"><span class="nav-number">2.3.</span> <span class="nav-text">多播效率</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网状网络路由"><span class="nav-number">2.4.</span> <span class="nav-text">网状网络路由</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#传输层的问题"><span class="nav-number">3.</span> <span class="nav-text">传输层的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#应用层的问题"><span class="nav-number">4.</span> <span class="nav-text">应用层的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#资源发现"><span class="nav-number">4.1.</span> <span class="nav-text">资源发现</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存"><span class="nav-number">4.2.</span> <span class="nav-text">缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安全"><span class="nav-number">4.3.</span> <span class="nav-text">安全</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#重新思考体系结构"><span class="nav-number">5.</span> <span class="nav-text">重新思考体系结构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "618f17049c1a4102b00fb81c88cbf7d7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

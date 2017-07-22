@@ -1,0 +1,1242 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="［Android,图灵机器人］," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="图灵机器人—-中文语境下智能度最高的机器人大脑。之前写了一个有意思的小Demo，其实也比较简单，只是使用了图灵机器人的SDK来做了一个简单的聊天机器人，不过图灵机器人确实比较智能，而且功能十分丰富，它不仅提供了数据访问接口，还集成了SDK供大家使用，所以很方便很实用。如果无聊了，就自己动手来做一个聊天机器人解解闷吧！">
+<meta name="keywords" content="［Android,图灵机器人］">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android聊天机器人之图灵机器人">
+<meta property="og:url" content="https://fzy-line.github.io/2016/09/22/Android聊天机器人之图灵机器人/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="图灵机器人—-中文语境下智能度最高的机器人大脑。之前写了一个有意思的小Demo，其实也比较简单，只是使用了图灵机器人的SDK来做了一个简单的聊天机器人，不过图灵机器人确实比较智能，而且功能十分丰富，它不仅提供了数据访问接口，还集成了SDK供大家使用，所以很方便很实用。如果无聊了，就自己动手来做一个聊天机器人解解闷吧！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/22-1.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/22-2.png">
+<meta property="og:updated_time" content="2016-11-30T02:09:02.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android聊天机器人之图灵机器人">
+<meta name="twitter:description" content="图灵机器人—-中文语境下智能度最高的机器人大脑。之前写了一个有意思的小Demo，其实也比较简单，只是使用了图灵机器人的SDK来做了一个简单的聊天机器人，不过图灵机器人确实比较智能，而且功能十分丰富，它不仅提供了数据访问接口，还集成了SDK供大家使用，所以很方便很实用。如果无聊了，就自己动手来做一个聊天机器人解解闷吧！">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/22-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2016/09/22/Android聊天机器人之图灵机器人/"/>
+
+
+
+
+
+  <title>Android聊天机器人之图灵机器人 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2016/09/22/Android聊天机器人之图灵机器人/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android聊天机器人之图灵机器人</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-22T10:07:29+08:00">
+                2016-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2016/09/22/Android聊天机器人之图灵机器人/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　图灵机器人—-中文语境下智能度最高的机器人大脑。之前写了一个有意思的小Demo，其实也比较简单，只是使用了图灵机器人的SDK来做了一个简单的聊天机器人，不过图灵机器人确实比较智能，而且功能十分丰富，它不仅提供了数据访问接口，还集成了SDK供大家使用，所以很方便很实用。如果无聊了，就自己动手来做一个聊天机器人解解闷吧！</p>
+<a id="more"></a>
+<h5 id="下载Android版本SDK"><a href="#下载Android版本SDK" class="headerlink" title="下载Android版本SDK"></a>下载Android版本SDK</h5><p>图灵机器人官网：<a href="http://www.tuling123.com/" target="_blank" rel="external">http://www.tuling123.com/</a></p>
+<p>注册之后创建机器人，就可以得到APIKEY和密钥，然后下载SDK，如下图：</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/22-1.png" alt="22-1"></p>
+<h5 id="将SDK添加到工程中"><a href="#将SDK添加到工程中" class="headerlink" title="将SDK添加到工程中"></a>将SDK添加到工程中</h5><p>将SDK压缩包中的libs文件夹复制到工程目录替换掉原来的libs。</p>
+<h5 id="添加权限"><a href="#添加权限" class="headerlink" title="添加权限"></a>添加权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.RECORD_AUDIO&quot; /&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot; /&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.READ_PHONE_STATE&quot; /&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.READ_CONTACTS&quot; /&gt;</div><div class="line">&lt;uses-permission android:name=&quot;android.permission.ACCESS_WIFI_STATE&quot; /&gt;</div></pre></td></tr></table></figure>
+<h5 id="SDK初始化"><a href="#SDK初始化" class="headerlink" title="SDK初始化"></a>SDK初始化</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">SDKInitBuilder builder = new SDKInitBuilder(this)</div><div class="line">                .setSecret(TURING_SECRET).setTuringKey(TURING_APIKEY)</div><div class="line">                .setUniqueId(UNIQUEID);</div><div class="line">SDKInit.init(builder, new InitListener() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onFail(String arg0) &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public void onComplete() &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">        mTuringApiManager = new TuringApiManager(MainActivity.this);</div><div class="line">        mTuringApiManager.setHttpListener(myHttpConnectionListener);</div><div class="line">        // ttsManager.startTTS(&quot;你好啊&quot;);              </div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h5 id="聊天机器人Demo"><a href="#聊天机器人Demo" class="headerlink" title="聊天机器人Demo"></a>聊天机器人Demo</h5><p>实现的效果如下：</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/22-2.png" alt="22-2"></p>
+<p>实现步骤：</p>
+<h5 id="定义消息实体类"><a href="#定义消息实体类" class="headerlink" title="定义消息实体类"></a>定义消息实体类</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">public class ChatMessage &#123;</div><div class="line">    private String name;    //消息的名字</div><div class="line">    private String msg;     //消息的内容</div><div class="line">    private Type type;      //消息的类型</div><div class="line">    private Date date;      //消息的时间</div><div class="line">    </div><div class="line">    //消息类型：发送、接收</div><div class="line">    public enum Type &#123;</div><div class="line">        INCOMING, OUTCOMING</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public ChatMessage() &#123;</div><div class="line">        // TODO Auto-generated constructor stub</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public ChatMessage(String msg,Type type,Date date) &#123;</div><div class="line">        // TODO Auto-generated constructor stub</div><div class="line">        setMsg(msg);</div><div class="line">        setType(type);</div><div class="line">        setDate(date);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //生成各成员属性的set和get方法</div><div class="line">    public String getName() &#123;</div><div class="line">        return name;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void setName(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public String getMsg() &#123;</div><div class="line">        return msg;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void setMsg(String msg) &#123;</div><div class="line">        this.msg = msg;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public Type getType() &#123;</div><div class="line">        return type;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void setType(Type type) &#123;</div><div class="line">        this.type = type;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public Date getDate() &#123;</div><div class="line">        return date;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public void setDate(Date date) &#123;</div><div class="line">        this.date = date;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="编写适配器类"><a href="#编写适配器类" class="headerlink" title="编写适配器类"></a>编写适配器类</h5><p>使用适配器将数据与视图绑定起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">public class ChatMessageAdapter extends BaseAdapter &#123;</div><div class="line"></div><div class="line">    private List&lt;ChatMessage&gt; mDatas;</div><div class="line">    private Context mContext;</div><div class="line">    </div><div class="line">    //使用ViewHolder临时存储view，提高效率</div><div class="line">    private final class ViewHolder &#123;</div><div class="line">        TextView mDate;</div><div class="line">        TextView mMsg;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    public ChatMessageAdapter(Context context, List&lt;ChatMessage&gt; data) &#123;</div><div class="line">        // TODO Auto-generated constructor stub</div><div class="line">        mDatas = data;</div><div class="line">        mContext = context;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public int getCount() &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">        return mDatas.size();</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public Object getItem(int position) &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">        return mDatas.get(position);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public long getItemId(int position) &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">        return position;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //得到布局的类型</div><div class="line">    @Override</div><div class="line">    public int getItemViewType(int position) &#123;</div><div class="line">        ChatMessage chatMessage = mDatas.get(position);</div><div class="line">        if (chatMessage.getType() == Type.INCOMING) &#123;</div><div class="line">            return 0;</div><div class="line">        &#125;</div><div class="line">        return 1;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public int getViewTypeCount() &#123;</div><div class="line">        return 2;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public View getView(int position, View convertView, ViewGroup parent) &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">        ViewHolder viewHolder = null;</div><div class="line">        if (convertView == null) &#123;</div><div class="line">            //更具不同的布局，加载不同的控件</div><div class="line">            if (getItemViewType(position) == 0) &#123;</div><div class="line">                convertView = LayoutInflater.from(mContext).inflate(</div><div class="line">                        R.layout.item_from_msg, null);</div><div class="line">                viewHolder = new ViewHolder();</div><div class="line">                viewHolder.mDate = (TextView) convertView</div><div class="line">                        .findViewById(R.id.id_form_msg_date);</div><div class="line">                viewHolder.mMsg = (TextView) convertView</div><div class="line">                        .findViewById(R.id.id_from_msg_info);</div><div class="line">            &#125; else &#123;</div><div class="line">                convertView = LayoutInflater.from(mContext).inflate(</div><div class="line">                        R.layout.item_to_msg, null);</div><div class="line">                viewHolder = new ViewHolder();</div><div class="line">                viewHolder.mDate = (TextView) convertView</div><div class="line">                        .findViewById(R.id.id_to_msg_date);</div><div class="line">                viewHolder.mMsg = (TextView) convertView</div><div class="line">                        .findViewById(R.id.id_to_msg_info);</div><div class="line">            &#125;</div><div class="line">            convertView.setTag(viewHolder);     //使用setTag把view缓存起来</div><div class="line">        &#125; else &#123;</div><div class="line">            viewHolder = (ViewHolder) convertView.getTag();     //使用getTag得到view</div><div class="line">        &#125;</div><div class="line">        ChatMessage chatMessage = mDatas.get(position);</div><div class="line">        // 设置数据</div><div class="line">        SimpleDateFormat df = new SimpleDateFormat(&quot;yyyy-MM-dd HH:mm:ss&quot;);</div><div class="line">        viewHolder.mDate.setText(df.format(chatMessage.getDate()));</div><div class="line">        viewHolder.mMsg.setText(chatMessage.getMsg());</div><div class="line">        return convertView;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="实现业务逻辑"><a href="#实现业务逻辑" class="headerlink" title="实现业务逻辑"></a>实现业务逻辑</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div></pre></td><td class="code"><pre><div class="line">public class MainActivity extends Activity &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 申请的turing的apikey</div><div class="line">     * **/</div><div class="line">    private final String TURING_APIKEY = &quot;56433fe6f67942ff80c4d7bd2d20fe34&quot;;</div><div class="line">    /**</div><div class="line">     * 申请的secret</div><div class="line">     * **/</div><div class="line">    private final String TURING_SECRET = &quot;d9989eac6e4cab39&quot;;</div><div class="line">    private final String UNIQUEID = &quot;131313131&quot;;</div><div class="line">    private TuringApiManager mTuringApiManager;</div><div class="line">    private ListView mMsgs;</div><div class="line">    private ChatMessageAdapter mAdapter;</div><div class="line">    private List&lt;ChatMessage&gt; mDatas;</div><div class="line">    </div><div class="line">    private EditText mInputMsg;</div><div class="line">    private Button mSendMsg;</div><div class="line"></div><div class="line">    //设置监听</div><div class="line">    HttpConnectionListener myHttpConnectionListener = new HttpConnectionListener() &#123;</div><div class="line"></div><div class="line">    @Override</div><div class="line">    public void onSuccess(RequestResult result) &#123;</div><div class="line">        // TODO Auto-generated method stub</div><div class="line">        if (result != null) &#123;</div><div class="line">            String res = result.getContent().toString();    //获取服务器返回数据</div><div class="line">            System.out.println(res);</div><div class="line">            JSONObject jo;</div><div class="line">            try &#123;</div><div class="line">                jo = new JSONObject(res);   //解析JSON格式数据</div><div class="line">                String text = jo.getString(&quot;text&quot;);</div><div class="line">                mDatas.add(new ChatMessage(text, Type.INCOMING, new Date())); </div><div class="line">                mAdapter.notifyDataSetChanged();    //更新UI</div><div class="line">                mMsgs.setSelection(mDatas.size()-1);</div><div class="line">            &#125; catch (JSONException e) &#123;</div><div class="line">                // TODO Auto-generated catch block</div><div class="line">                e.printStackTrace();</div><div class="line">            &#125;   </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    public void onError(ErrorMessage arg0) &#123;</div><div class="line">    // TODO Auto-generated method stub</div><div class="line">    </div><div class="line">    &#125;</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">        requestWindowFeature(Window.FEATURE_NO_TITLE);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        </div><div class="line">        //SDK初始化</div><div class="line">        SDKInitBuilder builder = new SDKInitBuilder(this)</div><div class="line">                    .setSecret(TURING_SECRET).setTuringKey(TURING_APIKEY)</div><div class="line">                    .setUniqueId(UNIQUEID);</div><div class="line">        </div><div class="line">        SDKInit.init(builder, new InitListener() &#123;</div><div class="line">        </div><div class="line">            @Override</div><div class="line">            public void onFail(String arg0) &#123;</div><div class="line">                // TODO Auto-generated method stub</div><div class="line">            </div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            @Override</div><div class="line">            public void onComplete() &#123;</div><div class="line">                // TODO Auto-generated method stub</div><div class="line">                mTuringApiManager = new TuringApiManager(MainActivity.this);</div><div class="line">                mTuringApiManager.setHttpListener(myHttpConnectionListener);</div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">        </div><div class="line">        initView();     //初始化视图</div><div class="line">        initDatas();    //初始化数据</div><div class="line">        </div><div class="line">        //发送消息按钮的监听事件</div><div class="line">        mSendMsg.setOnClickListener(new OnClickListener()</div><div class="line">        &#123;</div><div class="line">            @Override</div><div class="line">            public void onClick(View v)</div><div class="line">            &#123;</div><div class="line">                final String toMsg = mInputMsg.getText().toString();</div><div class="line">                if (TextUtils.isEmpty(toMsg))</div><div class="line">                &#123;</div><div class="line">                    Toast.makeText(MainActivity.this,&quot;发送消息不能为空！&quot;,Toast.LENGTH_SHORT).show();</div><div class="line">                    return;</div><div class="line">                &#125;</div><div class="line">            </div><div class="line">                //得到输入框的内容，转化成一个消息对象</div><div class="line">                ChatMessage toMessage = new ChatMessage(toMsg,Type.OUTCOMING,new Date());</div><div class="line">                mDatas.add(toMessage);</div><div class="line">                mAdapter.notifyDataSetChanged();</div><div class="line">                mMsgs.setSelection(mDatas.size()-1);</div><div class="line">                </div><div class="line">                //清空输入框</div><div class="line">                mInputMsg.setText(&quot;&quot;);</div><div class="line">                </div><div class="line">                //发送消息到图灵服务器</div><div class="line">                mTuringApiManager.requestTuringAPI(toMsg);</div><div class="line">            </div><div class="line">            &#125;</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //初始化数据</div><div class="line">    private void initDatas()</div><div class="line">    &#123;</div><div class="line">        mDatas = new ArrayList&lt;ChatMessage&gt;();</div><div class="line">        mDatas.add(new ChatMessage(&quot;你好，小农为您服务&quot;, Type.INCOMING, new Date()));</div><div class="line">        mAdapter = new ChatMessageAdapter(this, mDatas);</div><div class="line">        mMsgs.setAdapter(mAdapter);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    //初始化视图</div><div class="line">    private void initView()</div><div class="line">    &#123;</div><div class="line">        mMsgs = (ListView) findViewById(R.id.id_listview_msgs);</div><div class="line">        mInputMsg = (EditText) findViewById(R.id.id_input_msg);</div><div class="line">        mSendMsg = (Button) findViewById(R.id.id_send_msg);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/［Android-图灵机器人］/" rel="tag"># ［Android,图灵机器人］</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/08/数据结构基础之队列/" rel="next" title="数据结构基础之队列">
+                <i class="fa fa-chevron-left"></i> 数据结构基础之队列
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/03/Android逆向分析之反编译/" rel="prev" title="Android逆向分析之反编译">
+                Android逆向分析之反编译 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">101</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载Android版本SDK"><span class="nav-number">1.</span> <span class="nav-text">下载Android版本SDK</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#将SDK添加到工程中"><span class="nav-number">2.</span> <span class="nav-text">将SDK添加到工程中</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#添加权限"><span class="nav-number">3.</span> <span class="nav-text">添加权限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SDK初始化"><span class="nav-number">4.</span> <span class="nav-text">SDK初始化</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#聊天机器人Demo"><span class="nav-number">5.</span> <span class="nav-text">聊天机器人Demo</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定义消息实体类"><span class="nav-number">6.</span> <span class="nav-text">定义消息实体类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编写适配器类"><span class="nav-number">7.</span> <span class="nav-text">编写适配器类</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#实现业务逻辑"><span class="nav-number">8.</span> <span class="nav-text">实现业务逻辑</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "618f17049c1a4102b00fb81c88cbf7d7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

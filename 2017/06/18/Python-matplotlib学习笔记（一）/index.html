@@ -1,0 +1,1547 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,Matplotlib," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Python数据分析与展示课程之Matplotlib绘图库学习。">
+<meta name="keywords" content="Python,Matplotlib">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python matplotlib学习笔记（一）">
+<meta property="og:url" content="https://fzy-line.github.io/2017/06/18/Python-matplotlib学习笔记（一）/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="Python数据分析与展示课程之Matplotlib绘图库学习。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-1.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-2.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-3.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-4.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-5.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-6.png">
+<meta property="og:updated_time" content="2017-06-18T07:55:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python matplotlib学习笔记（一）">
+<meta name="twitter:description" content="Python数据分析与展示课程之Matplotlib绘图库学习。">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2017/06/18/Python-matplotlib学习笔记（一）/"/>
+
+
+
+
+
+  <title>Python matplotlib学习笔记（一） | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/06/18/Python-matplotlib学习笔记（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python matplotlib学习笔记（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-18T15:44:52+08:00">
+                2017-06-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/06/18/Python-matplotlib学习笔记（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　Python数据分析与展示课程之Matplotlib绘图库学习。</p>
+<a id="more"></a>
+<h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>　　Matplotlib 是一个 Python 的 2D绘图库，它以各种硬拷贝格式和跨平台的交互式环境生成出版质量级别的图形。它能让使用者很轻松地将数据图形化，并且提供多样化的输出格式。</p>
+<h5 id="pyplot"><a href="#pyplot" class="headerlink" title="pyplot"></a>pyplot</h5><p>　　matplotlib.pyplot是绘制各类可视化图形的命令子库，它是是命令行式函数的集合，相当于快捷方式，每一个函数都对图像作了修改，比如创建图形，在图像上创建画图区域，在画图区域上画线，在线上标注等。</p>
+<p>　　安装matplot之前先要安装Numpy，Numpy也是python的一个扩展包，提供基础的科学计算。</p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">python -m pip install -U pip setuptools</div><div class="line">python -m pip install matplotlib</div></pre></td></tr></table></figure>
+<h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>　　使用matplotlib绘制了x平方在区间[-6，6]的图像：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line"></div><div class="line">import numpy as np</div><div class="line">import matplotlib.pyplot as plt</div><div class="line"></div><div class="line">x = np.arange(-6,7,1)</div><div class="line">y = x**2</div><div class="line"></div><div class="line">plt.plot(x,y,&apos;b--&apos;)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-1.png" alt="18-1"></p>
+<h4 id="plot函数"><a href="#plot函数" class="headerlink" title="plot函数"></a>plot函数</h4><h5 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h5><p>　　plt.plot(x, y, format_string, **kwargs)</p>
+<p>　　参数说明：</p>
+<ul>
+<li><p>x ： X轴数据，列表或数组，可选</p>
+</li>
+<li><p>y ： Y轴数据，列表或数组</p>
+</li>
+<li><p>format_string ： 控制曲线的格式字符串，可选</p>
+</li>
+<li><p>**kwargs ：第二组或更多(x,y,format_string)</p>
+</li>
+</ul>
+<p>　　plt.plot()只有一个输入列表或数组时，参数被当作Y轴，X轴以索引自动生成</p>
+<p>　　plt.plot(x,y)当有两个以上参数时，按照X轴和Y轴顺序绘制数据点</p>
+<p>　　<strong>注意：当绘制多条曲线时，各条曲线的x不能省略</strong></p>
+<h5 id="format-string"><a href="#format-string" class="headerlink" title="format_string"></a>format_string</h5><p>　　format_string：由颜色字符、风格字符和标记字符组成</p>
+<ul>
+<li>颜色设置</li>
+</ul>
+<p>　　plot 方法的关键字参数 color(或c) 用来设置线的颜色。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">颜色字符</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">颜色字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">‘b’</td>
+<td style="text-align:center">blue 蓝色</td>
+<td style="text-align:center">‘y’</td>
+<td style="text-align:center">yellow 黄色</td>
+</tr>
+<tr>
+<td style="text-align:center">‘g’</td>
+<td style="text-align:center">green 绿色</td>
+<td style="text-align:center">‘k’</td>
+<td style="text-align:center">black 黑色</td>
+</tr>
+<tr>
+<td style="text-align:center">‘r’</td>
+<td style="text-align:center">red 红色</td>
+<td style="text-align:center">‘w’</td>
+<td style="text-align:center">white 白色</td>
+</tr>
+<tr>
+<td style="text-align:center">‘c’</td>
+<td style="text-align:center">cyan 青绿色</td>
+<td style="text-align:center">‘#rrggbb’</td>
+<td style="text-align:center">RGB颜色</td>
+</tr>
+<tr>
+<td style="text-align:center">‘m’</td>
+<td style="text-align:center">magenta 洋红色</td>
+<td style="text-align:center">‘0.8’</td>
+<td style="text-align:center">灰度值</td>
+</tr>
+</tbody>
+</table>
+<p>　　其中，</p>
+<p>　　<strong>RGB颜色字符串：</strong>(r, g, b) 或 (r, g, b, a)，其中 r g b a 取均为[0, 1]之间</p>
+<p>　　<strong>灰度值字符串：</strong>[0, 1]之间的浮点数的字符串形式，表示灰度值。0表示黑色，1表示白色</p>
+<ul>
+<li>样式设置</li>
+</ul>
+<p>　　plot方法的关键字参数linestyle(或ls)用来设置线条的样式。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">样式字符</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">样式字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">‘-‘</td>
+<td style="text-align:center">实线风格</td>
+<td style="text-align:center">‘–’</td>
+<td style="text-align:center">虚线风格</td>
+</tr>
+<tr>
+<td style="text-align:center">‘-.’</td>
+<td style="text-align:center">点划线风格</td>
+<td style="text-align:center">‘:’</td>
+<td style="text-align:center">虚线风格</td>
+</tr>
+<tr>
+<td style="text-align:center">‘’ ‘ ‘</td>
+<td style="text-align:center">无线条</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>标记设置</li>
+</ul>
+<p>　　plot方法的关键字参数marker用来设置标记风格。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">标记字符</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:center">标记字符</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">‘.’</td>
+<td style="text-align:center">点标记</td>
+<td style="text-align:center">‘,’</td>
+<td style="text-align:center">像素标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘o’</td>
+<td style="text-align:center">圆圈标记</td>
+<td style="text-align:center">‘v’</td>
+<td style="text-align:center">下三角标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘^’</td>
+<td style="text-align:center">上三角标记</td>
+<td style="text-align:center">‘&lt;’</td>
+<td style="text-align:center">左三角标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘&gt;’</td>
+<td style="text-align:center">右三角标记</td>
+<td style="text-align:center">‘1’</td>
+<td style="text-align:center">下花三角标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘2’</td>
+<td style="text-align:center">上花三角标记</td>
+<td style="text-align:center">‘3’</td>
+<td style="text-align:center">左花三角标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘4’</td>
+<td style="text-align:center">右花三角标记</td>
+<td style="text-align:center">‘s’</td>
+<td style="text-align:center">正方形标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘p’</td>
+<td style="text-align:center">五边形标记</td>
+<td style="text-align:center">‘*’</td>
+<td style="text-align:center">星标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘h’</td>
+<td style="text-align:center">六边形1标记</td>
+<td style="text-align:center">‘H’</td>
+<td style="text-align:center">六边形2标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘+’</td>
+<td style="text-align:center">十字标记</td>
+<td style="text-align:center">‘x’</td>
+<td style="text-align:center">x标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘D’</td>
+<td style="text-align:center">菱形标记</td>
+<td style="text-align:center">‘d’</td>
+<td style="text-align:center">瘦菱形标记</td>
+</tr>
+<tr>
+<td style="text-align:center">‘</td>
+<td style="text-align:center">‘</td>
+<td style="text-align:center">垂直线标记</td>
+<td style="text-align:center">‘_’</td>
+<td>_标记</td>
+</tr>
+</tbody>
+</table>
+<p>　　markersize(ms)设置标记大小</p>
+<p>　　markerfacecolor(mfc)设置标记颜色</p>
+<p>　　markeredgecolor(mec)设置标记边缘的颜色</p>
+<p>　　markeredgewidth(mew)设置标记边缘的宽度</p>
+<p>　　更多属性设置请参考matplotlib的官方文档。</p>
+<p>　　<strong>可以通过格式化参数指定线条的颜色和样式：</strong></p>
+<p>　　例如：’b–*’表示蓝色，虚线，用星号标记点</p>
+<ul>
+<li>线条宽度</li>
+</ul>
+<p>　　设置plot方法的关键字参数 linewidth(或lw) 可以改变线条的粗细，其值为浮点数。</p>
+<ul>
+<li>线条标签</li>
+</ul>
+<p>　　label : 给所绘制的曲线一个名字</p>
+<p>　　label标签指定的名字在图示(legend)中显示，需在plt.show()之前调用plt.legend()。在字符串前后添加”$”符号，matplotlib会使用其内嵌的latex引擎绘制的数学公式。</p>
+<p>　　图示默认绘制于图的右下角，legend方法可接受一个loc关键字参数来设定图例的位置，可取值为数字或字符串：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">数字</th>
+<th style="text-align:center">字符串</th>
+<th style="text-align:center">说明</th>
+<th style="text-align:left">数字</th>
+<th>字符串</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">0</td>
+<td style="text-align:center">‘best’</td>
+<td style="text-align:center">默认</td>
+<td style="text-align:left">1</td>
+<td>‘upper right’</td>
+<td>右上角</td>
+</tr>
+<tr>
+<td style="text-align:right">2</td>
+<td style="text-align:center">‘upper left’</td>
+<td style="text-align:center">左上角</td>
+<td style="text-align:left">3</td>
+<td>‘lower left’</td>
+<td>左下角</td>
+</tr>
+<tr>
+<td style="text-align:right">4</td>
+<td style="text-align:center">‘lower right’</td>
+<td style="text-align:center">右下角</td>
+<td style="text-align:left">5</td>
+<td>‘right’</td>
+<td>右侧</td>
+</tr>
+<tr>
+<td style="text-align:right">6</td>
+<td style="text-align:center">‘center left’</td>
+<td style="text-align:center">左侧居中</td>
+<td style="text-align:left">7</td>
+<td>‘center right’</td>
+<td>右侧居中</td>
+</tr>
+<tr>
+<td style="text-align:right">8</td>
+<td style="text-align:center">‘lower center’</td>
+<td style="text-align:center">底部居中</td>
+<td style="text-align:left">9</td>
+<td>‘upper center’</td>
+<td>上方居中</td>
+</tr>
+<tr>
+<td style="text-align:right">10</td>
+<td style="text-align:center">‘center’</td>
+<td style="text-align:center">正中间</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>示例程序</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line"></div><div class="line">import numpy as np</div><div class="line">import matplotlib.pyplot as plt</div><div class="line"></div><div class="line">x = np.arange(-6,7,1)</div><div class="line">y = x**1</div><div class="line">z = x**2</div><div class="line"></div><div class="line">plt.title(&apos;x and x square&apos;)</div><div class="line">plt.plot(x,y,&apos;b--&apos;,marker=&apos;+&apos;,label=&quot;$x^2$&quot;)    #`b-`是`color=&quot;blue&quot;,linestyle=&quot;-&quot;`的简写形式</div><div class="line">plt.plot(x,z,color=&apos;r&apos;,linestyle=&apos;--&apos;,marker=&apos;*&apos;,label=&quot;$x^3$&quot;,linewidth=2)</div><div class="line"></div><div class="line">plt.legend(loc=1)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-2.png" alt="18-2"></p>
+<h4 id="绘图区域设置"><a href="#绘图区域设置" class="headerlink" title="绘图区域设置"></a>绘图区域设置</h4><h5 id="绘图区域的概念"><a href="#绘图区域的概念" class="headerlink" title="绘图区域的概念"></a>绘图区域的概念</h5><p>　　在matplotlib中，整个图像为一个Figure对象。在Figure对象中可以包含一个，或者多个Axes对象。每个Axes对象都是一个拥有自己坐标系统的绘图区域。其逻辑关系如下：</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-3.png" alt="18-3"></p>
+<p>　　一个Figure对应一张图片。Title为标题。Axis为坐标轴，Label为坐标轴标注。Tick为刻度线，Tick Label为刻度注释。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-4.png" alt="18-4"></p>
+<h5 id="绘制子图"><a href="#绘制子图" class="headerlink" title="绘制子图"></a>绘制子图</h5><p>plt.subplot(nrows, ncols, plot_number)</p>
+<p>在全局绘图区域中创建一个分区体系，并定位到一个子绘图区域</p>
+<p>参数说明：</p>
+<ul>
+<li><p>nrows ： 将整个绘图区域分成几行</p>
+</li>
+<li><p>ncols ： 将整个绘图区域分成几列</p>
+</li>
+<li><p>plot_number ： 当前绘制的区域编号</p>
+</li>
+</ul>
+<p>例如：</p>
+<p>plt.subplot(3,2,4)，也可省略逗号plt.subplot(324)</p>
+<h5 id="示例程序1"><a href="#示例程序1" class="headerlink" title="示例程序1"></a>示例程序1</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line"></div><div class="line">import numpy as np</div><div class="line">import matplotlib.pyplot as plt</div><div class="line"></div><div class="line">x = np.arange(-6,7,1)</div><div class="line">y = x**1</div><div class="line">z = x**2</div><div class="line"></div><div class="line">plt.subplot(2,1,1)</div><div class="line">plt.plot(x,y)</div><div class="line"></div><div class="line">plt.subplot(212)</div><div class="line">plt.plot(x,z,&apos;r--&apos;)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-5.png" alt="18-5"></p>
+<h5 id="设置图表标题"><a href="#设置图表标题" class="headerlink" title="设置图表标题"></a>设置图表标题</h5><p>plt.title(‘标题字符串’)用于设置图表的标题。</p>
+<h5 id="设置坐标轴"><a href="#设置坐标轴" class="headerlink" title="设置坐标轴"></a>设置坐标轴</h5><ul>
+<li>轴区间设置</li>
+</ul>
+<ol>
+<li><p>axis方法：axis([xmin,xmax,ymin,ymax])</p>
+</li>
+<li><p>设置x轴的最大最小区间：xlim((xmin,xmax)) </p>
+</li>
+<li><p>设置y轴的最大最小区间：ylim((ymin,ymax))</p>
+</li>
+</ol>
+<ul>
+<li>轴标签设置</li>
+</ul>
+<ol>
+<li><p>plt.xlabel()方法用于设置x轴的轴标签</p>
+</li>
+<li><p>plt.ylabel()方法用于设置x轴的轴标签</p>
+</li>
+</ol>
+<h5 id="设置网格线"><a href="#设置网格线" class="headerlink" title="设置网格线"></a>设置网格线</h5><p>　　plt.grid()函数可以提供是否显示网格的选项，在plot()之后加上grid(True)即可在坐标上显示网格。</p>
+<h5 id="保存图像"><a href="#保存图像" class="headerlink" title="保存图像"></a>保存图像</h5><p>　　plt.savefig()将输出图形存储为文件，存储位置为当前python脚本所在目录，默认PNG格式，可以通过dpi修改输出质量。</p>
+<h5 id="示例程序2"><a href="#示例程序2" class="headerlink" title="示例程序2"></a>示例程序2</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#coding=utf-8</div><div class="line">import numpy as np</div><div class="line">import matplotlib.pyplot as plt</div><div class="line"></div><div class="line">x = np.arange(-6,7,1)</div><div class="line">y = x</div><div class="line">plt.axis([-6,6,-6,6])  </div><div class="line">plt.xlabel(&apos;x&apos;)</div><div class="line">plt.ylabel(&apos;y&apos;)</div><div class="line">plt.plot(x,y)</div><div class="line">plt.grid(True)  #设置显示网格</div><div class="line"></div><div class="line">plt.savefig(&apos;example2&apos;, dpi=600)</div><div class="line">plt.show()</div></pre></td></tr></table></figure>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/6/18-6.png" alt="18-6"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Matplotlib/" rel="tag"># Matplotlib</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/17/Just-Twenty-Two/" rel="next" title="Just Twenty Two">
+                <i class="fa fa-chevron-left"></i> Just Twenty Two
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/22/转-Ubuntu下修改环境变量的三种方法/" rel="prev" title="[转]Ubuntu下修改环境变量的三种方法">
+                [转]Ubuntu下修改环境变量的三种方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">101</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#pyplot"><span class="nav-number">1.1.</span> <span class="nav-text">pyplot</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装"><span class="nav-number">1.2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#测试"><span class="nav-number">1.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#plot函数"><span class="nav-number">2.</span> <span class="nav-text">plot函数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#函数定义"><span class="nav-number">2.1.</span> <span class="nav-text">函数定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#format-string"><span class="nav-number">2.2.</span> <span class="nav-text">format_string</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘图区域设置"><span class="nav-number">3.</span> <span class="nav-text">绘图区域设置</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#绘图区域的概念"><span class="nav-number">3.1.</span> <span class="nav-text">绘图区域的概念</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#绘制子图"><span class="nav-number">3.2.</span> <span class="nav-text">绘制子图</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例程序1"><span class="nav-number">3.3.</span> <span class="nav-text">示例程序1</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置图表标题"><span class="nav-number">3.4.</span> <span class="nav-text">设置图表标题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置坐标轴"><span class="nav-number">3.5.</span> <span class="nav-text">设置坐标轴</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#设置网格线"><span class="nav-number">3.6.</span> <span class="nav-text">设置网格线</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#保存图像"><span class="nav-number">3.7.</span> <span class="nav-text">保存图像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#示例程序2"><span class="nav-number">3.8.</span> <span class="nav-text">示例程序2</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "618f17049c1a4102b00fb81c88cbf7d7",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
