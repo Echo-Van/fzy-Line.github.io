@@ -93,14 +93,14 @@
 <meta name="description" content="NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是">
 <meta name="keywords" content="IoT,NDN,Cache">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Caching in Named Data Networking for the Wireless Internet of Things">
-<meta property="og:url" content="https://fzy-line.github.io/2017/03/18/Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/index.html">
+<meta property="og:title" content="[译]Caching in Named Data Networking for the Wireless Internet of Things">
+<meta property="og:url" content="https://fzy-line.github.io/2017/03/18/译-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-03-21T15:26:32.000Z">
+<meta property="og:updated_time" content="2017-07-22T12:33:35.915Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Caching in Named Data Networking for the Wireless Internet of Things">
+<meta name="twitter:title" content="[译]Caching in Named Data Networking for the Wireless Internet of Things">
 <meta name="twitter:description" content="NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是">
 
 
@@ -129,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="https://fzy-line.github.io/2017/03/18/Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/"/>
+  <link rel="canonical" href="https://fzy-line.github.io/2017/03/18/译-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/"/>
 
 
 
 
 
-  <title>Caching in Named Data Networking for the Wireless Internet of Things | Line's Blog</title>
+  <title>[译]Caching in Named Data Networking for the Wireless Internet of Things | Line's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -309,7 +309,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/03/18/Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/03/18/译-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fzy-Line">
@@ -326,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Caching in Named Data Networking for the Wireless Internet of Things</h1>
+          <h1 class="post-title" itemprop="name headline">[译]Caching in Named Data Networking for the Wireless Internet of Things</h1>
         
 
         <div class="post-meta">
@@ -379,7 +379,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/03/18/Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/03/18/译-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -446,15 +446,15 @@
 <p>　　内容属性，我们考虑的数据剩余的新鲜度。根据NDN，任何生产者可能在数据包中包括一个以秒为单位的新鲜度的值，和一个标识信息产生时刻的时间戳 ts 。</p>
 <p>　　尽管节点自动丢弃CS中的每个过期的数据包，相同数据包的更新鲜的和不新鲜的版本可以在网络中共存，并且消费者应用程序有兴趣获取不同新鲜度需求的相同数据包。例如，消费者C1可以以最多30分钟的新鲜度获得一个路段污染的值，同时，另一个消费者C2可以获取同样的数据包，但是以最多10分钟的新鲜度。接收两个兴趣包的节点可以提供具有数据的缓存副本给第一请求，但是转发第二请求，因为所拥有的数据对于C2来说不够新鲜。这也意味着，在一定时期内，两个版本的具有不同的新鲜度值的相同数据将在网络中可用。</p>
 <p>　　更新鲜的数据包在缓存决策中应该有更高的优先级，因为他们更可能适应消费者的新鲜度要求。因此，我们定义数据包的未归一化剩余新鲜度FR为：</p>
-<p>$$ FR = 1 - \frac{currentTime-t_s}{f} $$ </p>
+<p>$$ FR = 1 - \frac{currentTime-t_s}{f} $$</p>
 <p>　　根据公式（1），如果时间戳ts与当前时间相等，那么FR=1，数据包被认为是最近生成的，然而，当当前时间增加，剩余的新鲜度降低。当然，有负FR值得包是过期的并且根本不会被缓存。</p>
 <h5 id="缓存概率"><a href="#缓存概率" class="headerlink" title="缓存概率"></a>缓存概率</h5><p>　　为了正确定义数据包的缓存概率，我们考虑一个缓存效用函数Fu，它同时考虑到上述归一化参数，EN，OC，FR，该函数可以写作如下：</p>
-<p>$$F_u = \sum_{i=1}^{N_p} w(i)g(x_i)=0$$ </p>
+<p>$$F_u = \sum_{i=1}^{N_p} w(i)g(x_i)=0$$</p>
 <p>　　其中，$ N_p = 3^1 $，权重 $ w_i $是这样一个值，$0\le w_i\le1$，并且$ \sum_{i=1}^{N} w_i = 1$。因此，权重表达了标准化参数xi在计算效用值时的重要性。</p>
 <p>　　Fu 必须在[0：1]之间取值，并且作为节点缓存概率的函数：如果Fu 趋向于1则包缓存的概率高，反之亦然，如果Fu 趋近于0则包缓存的概率低。</p>
 <p>　　函数$ g(x_i) $的模型通过考虑它应该满足的需求来设计。第一，它应该提供一个介于0和1之间的值，并且，当Xi值随着整个缓存的效用成正比例（反比例）时，必须增加（减少）单调。第二，它也应该满足参数XI越接近极限值，对效用将产生更高影响的条件。通过这样来做，缓存决策偏爱更新鲜的内容，它更可能存储在具有较高能量和主要缓存能力的节点。</p>
 <p>　　满足这种性质的数学函数是幂函数,$ g(x_i)  =  x_i^n, n \ge  1 $，依据第二需求的相关性进行选择。因此，效用函数通过幂函数的加权和来表达。</p>
-<p>$$ F_u = w_1 * EN^n + w_2 * (1 - OC)^n + w_3 * FR^n $$ </p>
+<p>$$ F_u = w_1 * EN^n + w_2 * (1 - OC)^n + w_3 * FR^n $$</p>
 <p>　　在数据包的接收时，任何节点计算赋的值，以获得该数据的缓存概率。
 　　</p>
 <h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><h5 id="模拟设置"><a href="#模拟设置" class="headerlink" title="模拟设置"></a>模拟设置</h5><p>　　为了评估提出的 pCASTING 解决方案的性能，我们考虑了一个智慧城市的场景，如图1，代表一个大小为600平米的城市区域。</p>
@@ -651,7 +651,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">101</span>
+                <span class="site-state-item-count">102</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -673,7 +673,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">82</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
