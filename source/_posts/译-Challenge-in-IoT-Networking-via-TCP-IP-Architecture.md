@@ -1,5 +1,5 @@
 ---
-title: Challenge in IoT Networking via TCP-IP Architecture
+title: '[译]Challenge in IoT Networking via TCP-IP Architecture'
 date: 2017-03-08 23:12:59
 tags: [IoT,TCP/IP,IoT]
 categories: 论文研读
@@ -19,7 +19,7 @@ Challenge in IoT Networking via TCP-IP Architecture
  Los Angeles, CA              Los Angeles, CA
 wentao@cs.ucla.edu          yingdi@cs.ucla.edu
 
- 
+
 
   Ralph Droms                    Lixia Zhang
  Cisco Systems                      UCLA

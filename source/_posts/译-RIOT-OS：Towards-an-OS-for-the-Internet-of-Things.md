@@ -1,5 +1,5 @@
 ---
-title: RIOT OS：Towards an OS for the Internet of Things
+title: '[译]RIOT OS：Towards an OS for the Internet of Things'
 date: 2017-06-15 20:52:10
 tags: [IoT,NDN]
 categories: 论文研读

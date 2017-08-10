@@ -1,4 +1,5 @@
-title: The analysis of 6LowPAN technology
+---
+title: '[译]The analysis of 6LowPAN technology'
 author: fzy-Line
 tags:
   - IoT

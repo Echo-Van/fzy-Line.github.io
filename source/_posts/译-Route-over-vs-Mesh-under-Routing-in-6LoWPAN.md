@@ -1,5 +1,5 @@
 ---
-title: Route-over vs Mesh-under Routing in 6LoWPAN
+title: '[译]Route-over vs Mesh-under Routing in 6LoWPAN'
 date: 2017-03-26 23:02:53
 tags: [IoT,6LoWPAN,Route]
 categories: 论文研读
@@ -69,7 +69,7 @@ mathjax: true
 $$ P\_{ro} = \sum\_{i=1}^Np(1-p)^{i-1}  $$
 
 
-在route-over方案中，丢失的片段以逐跳的方式被恢复。因此，对于h跳距离，到达多跳距离的概率是相同的，因为每次将所有分片重新组合、分片并以相同的概率发送到下一跳。 
+在route-over方案中，丢失的片段以逐跳的方式被恢复。因此，对于h跳距离，到达多跳距离的概率是相同的，因为每次将所有分片重新组合、分片并以相同的概率发送到下一跳。
 
 　　由于mesh-under方案中丢失的分片是进行端到端的检查，则对于特定次数的重传N和对于h跳距离，分片到达的概率为等式2Pmu。
 
@@ -154,5 +154,3 @@ $$ E[f(H,F)] = F.H.E[r(N)] $$
 #### 结论
 
 　　在本文中，我们分析了route-over和mesh-under路由方案的概率模型。得出的结论是，从源到目的地的转发分片route-over方案比mesh-under方案更可靠。清楚的是如果在route-over和mesh-under方案中采用选择性重传，route-over方案在传输数量方面表现优于mesh-under方案。然而，在总延时方面，mesh-under方案优于router-over方案。将来，我们要在IEEE 802.15.4仿真环境中模拟route-over和mesh-under方案，并增强其性能评估。我们还计划模拟route-over和mesh-under方案的SRRO和SRMU机制。
-
-

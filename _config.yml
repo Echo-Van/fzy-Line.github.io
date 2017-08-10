@@ -66,6 +66,11 @@ pagination_dir: page
 ## Themes: https://hexo.io/themes/
 theme: next
 
+sitemap:
+  path: sitemap.xml
+baidusitemap:
+  path: baidusitemap.xml
+
 search:
   path: search.xml
   field: post

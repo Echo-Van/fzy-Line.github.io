@@ -1,5 +1,5 @@
 ---
-title: 基于IPV6和ZIGBEE技术的智能家居系统(全文翻译)
+title: '[译]Smart Home System Based on IPV6 and ZIGBEE Technology'
 date: 2017-01-23 22:51:09
 tags: [IPv6,ZigBee,智能家居]
 categories: 论文研读

@@ -1,5 +1,5 @@
 ---
-title: The Design and Implementation of the NDN Protocol Stack for RIOT-OS
+title: '[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS'
 date: 2017-04-20 12:37:24
 author: fzy-Line
 tags:
@@ -137,4 +137,3 @@ Email: {wentao,aa,lixia}@cs.ucla.edu
 　　我们实现NDN-RIOT，一个用于RIOT-OS的轻量级NDN协议栈，它展示了将NDN以数据为中心的通信和安全模型引入受约束的IoT平台的可行性，为开发比TCP/IP更为全面的IoT应用提供了坚实的基础。然而，它只是朝向支持NDN的IoT应用程序的第一步，还有几个重要领域尚待探索。
 
 　　首先，我们需要对RIOT-OS上的NDN协议操作相关的能耗进行全面的调查。另外，我们需要向NDN-RIOT添加一个与转发策略进行交互的接口，然后由IoT应用来实现能量感知分组转发策略和其他功能。第三，我们还计划对目前已经确定的实现进行多项改进，包括扩展兴趣包流水线操作和自动重传等传输层功能API和通过微型基准扩展性能优化。此外，我们计划在NDN-RIOT之上设计高级框架，如自动配置和发现，以促进物联网应用。我们邀请更广泛的社区加入我们，探索这个令人兴奋的物联网研究领域。
-

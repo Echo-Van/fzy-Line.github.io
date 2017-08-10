@@ -1,5 +1,5 @@
 ---
-title: Caching in Named Data Networking for the Wireless Internet of Things
+title: '[译]Caching in Named Data Networking for the Wireless Internet of Things'
 date: 2017-03-18 23:26:07
 tags: [IoT,NDN,Cache]
 categories: 论文研读
@@ -104,7 +104,7 @@ t University Mediterranea of Reggio Calabria, Italy, E-mail: name.surname@unirc.
 
 　　更新鲜的数据包在缓存决策中应该有更高的优先级，因为他们更可能适应消费者的新鲜度要求。因此，我们定义数据包的未归一化剩余新鲜度FR为：
 
-$$ FR = 1 - \frac{currentTime-t_s}{f} $$ 
+$$ FR = 1 - \frac{currentTime-t_s}{f} $$
 
 　　根据公式（1），如果时间戳ts与当前时间相等，那么FR=1，数据包被认为是最近生成的，然而，当当前时间增加，剩余的新鲜度降低。当然，有负FR值得包是过期的并且根本不会被缓存。
 
@@ -112,7 +112,7 @@ $$ FR = 1 - \frac{currentTime-t_s}{f} $$
 
 　　为了正确定义数据包的缓存概率，我们考虑一个缓存效用函数Fu，它同时考虑到上述归一化参数，EN，OC，FR，该函数可以写作如下：
 
-$$F\_u = \sum\_{i=1}^{N\_p} w(i)g(x\_i)=0$$ 
+$$F\_u = \sum\_{i=1}^{N\_p} w(i)g(x\_i)=0$$
 
 　　其中，$ N_p = 3^1 $，权重 $ w\_i $是这样一个值，$0\le w\_i\le1$，并且$ \sum\_{i=1}^{N} w\_i = 1$。因此，权重表达了标准化参数xi在计算效用值时的重要性。
 
@@ -122,7 +122,7 @@ $$F\_u = \sum\_{i=1}^{N\_p} w(i)g(x\_i)=0$$
 
 　　满足这种性质的数学函数是幂函数,$ g(x_i)  =  x_i^n, n \ge  1 $，依据第二需求的相关性进行选择。因此，效用函数通过幂函数的加权和来表达。
 
-$$ F\_u = w\_1 \* EN^n + w\_2 \* (1 - OC)^n + w\_3 \* FR^n $$ 
+$$ F\_u = w\_1 \* EN^n + w\_2 \* (1 - OC)^n + w\_3 \* FR^n $$
 
 　　在数据包的接收时，任何节点计算赋的值，以获得该数据的缓存概率。
 　　
