@@ -4,8 +4,30 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2017/08/20/%E8%AF%91-CoAP-for-Content-Centric-Networks/</loc>
+    <lastmod>2017-08-22T13:19:55.234Z</lastmod>
+    <data>
+        <display>
+        <title>[译]CoAP for Content-Centric Networks</title>
+        <pubTime>2017-08-20T14:02:52.000Z</pubTime>
+        
+        <tag>CoAP</tag>
+         
+        <tag>CCN</tag>
+         
+         
+           
+             
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2017/08/10/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E5%9B%9B%EF%BC%89/</loc>
-    <lastmod>2017-08-10T05:20:53.462Z</lastmod>
+    <lastmod>2017-08-10T05:20:54.000Z</lastmod>
     <data>
         <display>
         <title>Github Pages + Hexo搭建博客（四）</title>
@@ -27,7 +49,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/07/16/Contiki-OS%E4%B8%ADCoAP%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
-    <lastmod>2017-08-02T13:12:32.125Z</lastmod>
+    <lastmod>2017-08-02T13:12:34.000Z</lastmod>
     <data>
         <display>
         <title>Contiki-OS中CoAP协议实现（上）</title>
@@ -51,7 +73,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/07/22/%E8%AF%91-ndnSIM%EF%BC%9ANDN-simulator-for-NS-3/</loc>
-    <lastmod>2017-07-22T12:47:47.773Z</lastmod>
+    <lastmod>2017-07-22T12:47:48.000Z</lastmod>
     <data>
         <display>
         <title>[译]ndnSIM：NDN simulator for NS-3</title>
@@ -73,7 +95,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/01/23/%E8%AF%91-Smart%20Home%20System%20Based%20on%20IPV6%20and%20ZIGBEE%20Technology/</loc>
-    <lastmod>2017-07-22T12:41:22.794Z</lastmod>
+    <lastmod>2017-07-22T12:41:24.000Z</lastmod>
     <data>
         <display>
         <title>[译]Smart Home System Based on IPV6 and ZIGBEE Technology</title>
@@ -97,7 +119,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/04/09/%E8%AF%91-The-analysis-of-6LowPAN-technology/</loc>
-    <lastmod>2017-07-22T12:36:28.838Z</lastmod>
+    <lastmod>2017-07-22T12:36:30.000Z</lastmod>
     <data>
         <display>
         <title>[译]The analysis of 6LowPAN technology</title>
@@ -119,7 +141,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/04/20/%E8%AF%91-The-Design-and-Implementation-of-the-NDN-Protocol-Stack-for-RIOT-OS/</loc>
-    <lastmod>2017-07-22T12:36:15.269Z</lastmod>
+    <lastmod>2017-07-22T12:36:16.000Z</lastmod>
     <data>
         <display>
         <title>[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS</title>
@@ -141,7 +163,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/03/26/%E8%AF%91-Route-over-vs-Mesh-under-Routing-in-6LoWPAN/</loc>
-    <lastmod>2017-07-22T12:35:12.659Z</lastmod>
+    <lastmod>2017-07-22T12:35:14.000Z</lastmod>
     <data>
         <display>
         <title>[译]Route-over vs Mesh-under Routing in 6LoWPAN</title>
@@ -165,7 +187,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/06/15/%E8%AF%91-RIOT-OS%EF%BC%9ATowards-an-OS-for-the-Internet-of-Things/</loc>
-    <lastmod>2017-07-22T12:34:51.557Z</lastmod>
+    <lastmod>2017-07-22T12:34:52.000Z</lastmod>
     <data>
         <display>
         <title>[译]RIOT OS：Towards an OS for the Internet of Things</title>
@@ -187,7 +209,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/03/18/%E8%AF%91-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/</loc>
-    <lastmod>2017-07-22T12:33:35.915Z</lastmod>
+    <lastmod>2017-07-22T12:33:36.000Z</lastmod>
     <data>
         <display>
         <title>[译]Caching in Named Data Networking for the Wireless Internet of Things</title>
@@ -211,7 +233,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/05/05/%E8%AF%91-Named-Data-Networking-Based-Smart-Home-Lighting/</loc>
-    <lastmod>2017-07-22T12:32:34.447Z</lastmod>
+    <lastmod>2017-07-22T12:32:36.000Z</lastmod>
     <data>
         <display>
         <title>[译]Named Data Networking Based Smart Home Lighting</title>
@@ -233,7 +255,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/07/02/%E8%AF%91-Performance-evaluation-of-MQTT-and-CoAP-via-a-common-middleware/</loc>
-    <lastmod>2017-07-22T12:32:09.938Z</lastmod>
+    <lastmod>2017-07-22T12:32:10.000Z</lastmod>
     <data>
         <display>
         <title>[译]Performance evaluation of MQTT and CoAP via a common middleware</title>
@@ -257,7 +279,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2017/03/08/%E8%AF%91-Challenge-in-IoT-Networking-via-TCP-IP-Architecture/</loc>
-    <lastmod>2017-07-22T12:31:53.111Z</lastmod>
+    <lastmod>2017-07-22T12:31:54.000Z</lastmod>
     <data>
         <display>
         <title>[译]Challenge in IoT Networking via TCP-IP Architecture</title>
