@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="6LoWPAN,MQTT," />
+  <meta name="keywords" content="MQTT,安全," />
 
 
 
@@ -90,20 +90,20 @@
 
 
 
-<meta name="description" content="6LoWPAN无线传感网络中无线传感节点采用MQTT作为应用层协议是一种很好的选择，通过结合边界路由器、MQTT代理服务器和远程客户端可以实现无线传感网络的数据上传、管理以及远程控制等功能。本文通过Contiki操作系统中实现的MQTT协议来介绍6LoWPAN中MQTT客户端功能的实现。">
-<meta name="keywords" content="6LoWPAN,MQTT">
+<meta name="description" content="HiveMQ团队对MQTT安全方面的系列总结文章写得很不错，所以想要将其翻译整理一下。">
+<meta name="keywords" content="MQTT,安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="6LoWPAN中MQTT实现（上）">
-<meta property="og:url" content="https://fzy-line.github.io/2017/06/30/6LoWPAN中MQTT实现（上）/index.html">
+<meta property="og:title" content="[译]MQTT的安全机制总结">
+<meta property="og:url" content="https://fzy-line.github.io/2017/08/25/译-MQTT的安全机制总结/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="6LoWPAN无线传感网络中无线传感节点采用MQTT作为应用层协议是一种很好的选择，通过结合边界路由器、MQTT代理服务器和远程客户端可以实现无线传感网络的数据上传、管理以及远程控制等功能。本文通过Contiki操作系统中实现的MQTT协议来介绍6LoWPAN中MQTT客户端功能的实现。">
+<meta property="og:description" content="HiveMQ团队对MQTT安全方面的系列总结文章写得很不错，所以想要将其翻译整理一下。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/3/7-1.png">
-<meta property="og:updated_time" content="2017-07-02T07:12:50.000Z">
+<meta property="og:image" content="http://www.hivemq.com/wp-content/uploads/mqttsecurityfundamentals.png">
+<meta property="og:updated_time" content="2017-08-25T01:58:47.381Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="6LoWPAN中MQTT实现（上）">
-<meta name="twitter:description" content="6LoWPAN无线传感网络中无线传感节点采用MQTT作为应用层协议是一种很好的选择，通过结合边界路由器、MQTT代理服务器和远程客户端可以实现无线传感网络的数据上传、管理以及远程控制等功能。本文通过Contiki操作系统中实现的MQTT协议来介绍6LoWPAN中MQTT客户端功能的实现。">
-<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/3/7-1.png">
+<meta name="twitter:title" content="[译]MQTT的安全机制总结">
+<meta name="twitter:description" content="HiveMQ团队对MQTT安全方面的系列总结文章写得很不错，所以想要将其翻译整理一下。">
+<meta name="twitter:image" content="http://www.hivemq.com/wp-content/uploads/mqttsecurityfundamentals.png">
 
 
 
@@ -131,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://fzy-line.github.io/2017/06/30/6LoWPAN中MQTT实现（上）/"/>
+  <link rel="canonical" href="https://fzy-line.github.io/2017/08/25/译-MQTT的安全机制总结/"/>
 
 
 
 
 
-  <title>6LoWPAN中MQTT实现（上） | Line's Blog</title>
+  <title>[译]MQTT的安全机制总结 | Line's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -311,7 +311,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/06/30/6LoWPAN中MQTT实现（上）/">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/08/25/译-MQTT的安全机制总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="fzy-Line">
@@ -328,7 +328,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">6LoWPAN中MQTT实现（上）</h1>
+          <h1 class="post-title" itemprop="name headline">[译]MQTT的安全机制总结</h1>
         
 
         <div class="post-meta">
@@ -340,8 +340,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-30T15:06:02+08:00">
-                2017-06-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-25T09:28:05+08:00">
+                2017-08-25
               </time>
             
 
@@ -365,6 +365,17 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/IoT/" itemprop="url" rel="index">
                     <span itemprop="name">IoT</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/MQTT/" itemprop="url" rel="index">
+                    <span itemprop="name">MQTT</span>
                   </a>
                 </span>
 
@@ -402,29 +413,40 @@
       
 
       
-        <p>　　6LoWPAN无线传感网络中无线传感节点采用MQTT作为应用层协议是一种很好的选择，通过结合边界路由器、MQTT代理服务器和远程客户端可以实现无线传感网络的数据上传、管理以及远程控制等功能。本文通过Contiki操作系统中实现的MQTT协议来介绍6LoWPAN中MQTT客户端功能的实现。</p>
+        <p>　　HiveMQ团队对MQTT安全方面的系列总结文章写得很不错，所以想要将其翻译整理一下。</p>
 <a id="more"></a>
-<h4 id="MQTT简介"><a href="#MQTT简介" class="headerlink" title="MQTT简介"></a>MQTT简介</h4><p>　　MQTT（Message Queuing Telemetry Transport，即消息队列遥测传输协议）是基于TCP/IP协议的基于发布订阅的消息传递协议。它被设计用于与需要“小代码占用”或网络带宽有限的远程位置的连接。</p>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/3/7-1.png" alt="7-1"></p>
-<p>　　实现MQTT协议需要：客户端和服务器端。</p>
-<p>　　MQTT协议中有三种身份：发布者（Publish）、代理（Broker）（服务器）、订阅者（Subscribe）。其中，消息的发布者和订阅者都是客户端，消息代理是服务器，消息发布者可以同时是订阅者。</p>
-<p>　　MQTT传输的消息分为：主题（Topic）和负载（payload）两部分。</p>
-<p>　　Topic，可以理解为消息的类型，订阅者订阅（Subscribe）后，就会收到该主题的消息内容（payload）payload，可以理解为消息的内容，是指订阅者具体要使用的内容。
-　　</p>
-<h4 id="MQTT-API"><a href="#MQTT-API" class="headerlink" title="MQTT API"></a>MQTT API</h4><p>　　MQTT 的实现在Contiki的 apps/mqtt 目录下，它使用tcp-socket库，当前在Contiki中MQTT的实现只支持QoS 0和1。</p>
-<h5 id="MQTT注册"><a href="#MQTT注册" class="headerlink" title="MQTT注册"></a>MQTT注册</h5><p><strong>注意：初始化MQTT引擎，必须在使用任何其他MQTT函数之前调用。</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 初始化MQTT引擎.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param app_process 指向处理MQTT连接的应用程序进程的指针.</div><div class="line">* \param client_id 指向MQTT客户端ID的指针.</div><div class="line">* \param event_callback 回调函数负责处理来自MQTT引擎的回调.</div><div class="line">* \param max_segment_size MQTT/TCP连接的最大TCP分片大小.</div><div class="line">* \return MQTT_STATUS_OK or MQTT_STATUS_INVALID_ARGS_ERROR</div><div class="line">*/</div><div class="line">mqtt_status_t mqtt_register(struct mqtt_connection *conn,</div><div class="line">                            struct process *app_process,</div><div class="line">                            char *client_id,</div><div class="line">                            mqtt_event_callback_t event_callback,</div><div class="line">                            uint16_t max_segment_size);</div></pre></td></tr></table></figure>
-<h5 id="MQTT连接"><a href="#MQTT连接" class="headerlink" title="MQTT连接"></a>MQTT连接</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 连接到一个MQTT代理.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param host MQTT代理服务器的IP地址.</div><div class="line">* \param port MQTT代理的MQTT服务端口.</div><div class="line">* \param keep_alive 保持连接的心跳频率，服务器端从客户端接收消息的最大时间间隔.</div><div class="line">* \return MQTT_STATUS_OK or an error status</div><div class="line">*/</div><div class="line">mqtt_status_t mqtt_connect(struct mqtt_connection *conn,</div><div class="line">                            char *host,</div><div class="line">                            uint16_t port,</div><div class="line">                            uint16_t keep_alive);</div></pre></td></tr></table></figure>
-<h5 id="MQTT断开连接"><a href="#MQTT断开连接" class="headerlink" title="MQTT断开连接"></a>MQTT断开连接</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 与MQTT代理断开连接.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">*/</div><div class="line">void mqtt_disconnect(struct mqtt_connection *conn);</div></pre></td></tr></table></figure>
-<h5 id="MQTT订阅主题"><a href="#MQTT订阅主题" class="headerlink" title="MQTT订阅主题"></a>MQTT订阅主题</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 订阅一个MQTT主题.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param mid 指向message ID的指针.</div><div class="line">* \param topic 指向要订阅的主题的指针.</div><div class="line">* \param qos_level 服务质量等级.</div><div class="line">* \return MQTT_STATUS_OK or some error status</div><div class="line">*/</div><div class="line">mqtt_status_t mqtt_subscribe(struct mqtt_connection *conn,</div><div class="line">                                uint16_t *mid,</div><div class="line">                                char *topic,</div><div class="line">                                mqtt_qos_level_t qos_level);</div></pre></td></tr></table></figure>
-<h5 id="MQTT取消订阅"><a href="#MQTT取消订阅" class="headerlink" title="MQTT取消订阅"></a>MQTT取消订阅</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 取消订阅的主题.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param mid 指向message ID的指针.</div><div class="line">* \param topic 指向要取消订阅的主题的指针.</div><div class="line">* \return MQTT_STATUS_OK or some error status</div><div class="line">*/</div><div class="line">mqtt_status_t mqtt_unsubscribe(struct mqtt_connection *conn,</div><div class="line">                                uint16_t *mid,</div><div class="line">                                char *topic);</div></pre></td></tr></table></figure>
-<h5 id="MQTT发布消息"><a href="#MQTT发布消息" class="headerlink" title="MQTT发布消息"></a>MQTT发布消息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 发布消息到一个MQTT主题.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param mid 指向message ID的指针.</div><div class="line">* \param topic 指向要发布消息的主题的指针.</div><div class="line">* \param payload 指向主题有效载荷的指针.</div><div class="line">* \param payload_size 有效载荷大小.</div><div class="line">* \param qos_level 服务质量等级.</div><div class="line">* \param retain 保持标志，如果RETAIN标志设置为1，则表示服务器要保留这次推送的信息，如果有新的订阅者出现，就把这消息推送给它.</div><div class="line">* \return MQTT_STATUS_OK or some error status</div><div class="line">*/</div><div class="line">mqtt_status_t mqtt_publish(struct mqtt_connection *conn,</div><div class="line">                            uint16_t *mid,</div><div class="line">                            char *topic,</div><div class="line">                            uint8_t *payload,</div><div class="line">                            uint32_t payload_size,</div><div class="line">                            mqtt_qos_level_t qos_level,</div><div class="line">                            mqtt_retain_t retain);</div></pre></td></tr></table></figure>
-<h5 id="MQTT用户名密码"><a href="#MQTT用户名密码" class="headerlink" title="MQTT用户名密码"></a>MQTT用户名密码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 设置MQTT客户端的用户名和密码.</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param username 指向用户名的指针.</div><div class="line">* \param password 指向密码的指针.</div><div class="line">*/</div><div class="line">void mqtt_set_username_password(struct mqtt_connection *conn,</div><div class="line">                                char *username,</div><div class="line">                                char *password);</div></pre></td></tr></table></figure>
-<h5 id="MQTT遗言"><a href="#MQTT遗言" class="headerlink" title="MQTT遗言"></a>MQTT遗言</h5><p>　　遗言就是一个由客户端预先定义好的主题和对应消息，附加在CONNECT的可变头部中，在客户端连接出现异常的情况下，由服务器主动发布此消息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* \brief 为MQTT客户端设置遗言主题和消息</div><div class="line">* \param conn 指向MQTT连接的指针.</div><div class="line">* \param topic 指向遗言主题的指针.</div><div class="line">* \param message 指向遗言消息的指针.</div><div class="line">* \param qos 服务质量等级.</div><div class="line">*/</div><div class="line">void mqtt_set_last_will(struct mqtt_connection *conn,</div><div class="line">                        char *topic,</div><div class="line">                        char *message,</div><div class="line">                        mqtt_qos_level_t qos);</div></pre></td></tr></table></figure>
-<h5 id="MQTT状态检测"><a href="#MQTT状态检测" class="headerlink" title="MQTT状态检测"></a>MQTT状态检测</h5><p>　　可以使用以下帮助函数来声明MQTT连接状态，以检查节点是否连接到代理，如果连接已建立并且缓冲区中有空间可以发布，则使用mqtt_ready。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#define mqtt_connected(conn) \</div><div class="line">((conn)-&gt;state == MQTT_CONN_STATE_CONNECTED_TO_BROKER ? 1 : 0)</div><div class="line"></div><div class="line">#define mqtt_ready(conn) \</div><div class="line">(!(conn)-&gt;out_queue_full &amp;&amp; mqtt_connected((conn)))</div></pre></td></tr></table></figure>
-<p>参考文献：<a href="https://github.com/marcozennaro/IPv6-WSN-book" target="_blank" rel="external">IPv6-WSN-book：https://github.com/marcozennaro/IPv6-WSN-book</a></p>
+<p>　　HiveMQ 是一个企业级的 MQTT 代理，主要用于企业和新兴的机器到机器M2M通讯和内部传输，最大程度的满足可伸缩性、易管理和安全特性。提供免费的个人版。HiveMQ 提供了开源的插件开发包。</p>
+<p>　　<strong>注：本文翻译自：<a href="http://www.hivemq.com/blog/mqtt-security-fundamentals-wrap-up" target="_blank" rel="external">MQTT Security Fundamentals Wrap-Up</a></strong></p>
+<p><img src="http://www.hivemq.com/wp-content/uploads/mqttsecurityfundamentals.png" alt="22-1"></p>
+<p>　　在我们的超连接世界中，安全是一个非常重要的方面，从每个IoT应用程序的开始就应该考虑安全性。我们的MQTT安全基础系列的目标是讨论通过MQTT协议保护数据交换的几个概念。</p>
+<p>　　对于没有跟随整个系列的每个人来说，这里是所有按顺序排列的文章：</p>
+<ul>
+<li><a href="http://www.hivemq.com/introducing-the-mqtt-security-fundamentals/" target="_blank" rel="external">Introducing the MQTT Security Fundamentals</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-authentication-username-password/" target="_blank" rel="external">Authentication with Username and Password</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-advanced-authentication-mechanisms/" target="_blank" rel="external">Advanced Authentication Mechanisms</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-authorization/" target="_blank" rel="external">Authorization</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-tls-ssl/" target="_blank" rel="external">TLS / SSL</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-x509-client-certificate-authentication/" target="_blank" rel="external">X509 Client Certificate Authentication</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-oauth-2-0-mqtt/" target="_blank" rel="external">OAuth 2.0 &amp; MQTT</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-payload-encryption/" target="_blank" rel="external">MQTT Payload Encryption</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-mqtt-message-data-integrity/" target="_blank" rel="external">MQTT Message Data Integrity</a></li>
+<li><a href="http://www.hivemq.com/mqtt-security-fundamentals-securing-mqtt-systems/" target="_blank" rel="external">Securing MQTT Systems</a></li>
+</ul>
+<p>　　文章翻译目录：</p>
+<ul>
+<li><a href="http://fanzhenyu.me/2017/08/23/译-MQTT安全基础知识介绍/" target="_blank" rel="external">[译]MQTT安全基础知识介绍</a></li>
+<li><a href="http://fanzhenyu.me/2017/08/24/译-MQTT安全基础：使用用户名和密码进行身份验证/" target="_blank" rel="external">[译]MQTT安全基础：使用用户名和密码进行身份验证</a></li>
+<li>[译]MQTT安全基础：高级认证机制</li>
+<li>[译]MQTT安全基础：授权</li>
+<li>[译]MQTT安全基础：TLS / SSL</li>
+<li>[译]MQTT安全基础：X509客户端证书认证</li>
+<li>[译]MQTT安全基础：OAuth 2.0和MQTT</li>
+<li>[译]MQTT安全基础：MQTT有效载荷加密</li>
+<li>[译]MQTT安全基础 - MQTT消息数据完整性</li>
+<li>[译]MQTT安全基础 - 保护MQTT系统</li>
+</ul>
+<p>　　感谢并关注更多MQTT相关内容， </p>
+<p>　　HiveMQ团队 </p>
 
       
     </div>
@@ -475,9 +497,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/6LoWPAN/" rel="tag"># 6LoWPAN</a>
-          
             <a href="/tags/MQTT/" rel="tag"># MQTT</a>
+          
+            <a href="/tags/安全/" rel="tag"># 安全</a>
           
         </div>
       
@@ -490,8 +512,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/22/转-Ubuntu下修改环境变量的三种方法/" rel="next" title="[转]Ubuntu下修改环境变量的三种方法">
-                <i class="fa fa-chevron-left"></i> [转]Ubuntu下修改环境变量的三种方法
+              <a href="/2017/08/24/译-MQTT安全基础：使用用户名和密码进行身份验证/" rel="next" title="[译]MQTT安全基础：使用用户名和密码进行身份验证">
+                <i class="fa fa-chevron-left"></i> [译]MQTT安全基础：使用用户名和密码进行身份验证
               </a>
             
           </div>
@@ -499,10 +521,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/02/译-Performance-evaluation-of-MQTT-and-CoAP-via-a-common-middleware/" rel="prev" title="[译]Performance evaluation of MQTT and CoAP via a common middleware">
-                [译]Performance evaluation of MQTT and CoAP via a common middleware <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -572,17 +590,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/logo.jpg"
@@ -597,7 +606,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">105</span>
+                <span class="site-state-item-count">108</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -608,7 +617,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -619,7 +628,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -700,22 +709,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#MQTT简介"><span class="nav-number">1.</span> <span class="nav-text">MQTT简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MQTT-API"><span class="nav-number">2.</span> <span class="nav-text">MQTT API</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT注册"><span class="nav-number">2.1.</span> <span class="nav-text">MQTT注册</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT连接"><span class="nav-number">2.2.</span> <span class="nav-text">MQTT连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT断开连接"><span class="nav-number">2.3.</span> <span class="nav-text">MQTT断开连接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT订阅主题"><span class="nav-number">2.4.</span> <span class="nav-text">MQTT订阅主题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT取消订阅"><span class="nav-number">2.5.</span> <span class="nav-text">MQTT取消订阅</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT发布消息"><span class="nav-number">2.6.</span> <span class="nav-text">MQTT发布消息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT用户名密码"><span class="nav-number">2.7.</span> <span class="nav-text">MQTT用户名密码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT遗言"><span class="nav-number">2.8.</span> <span class="nav-text">MQTT遗言</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#MQTT状态检测"><span class="nav-number">2.9.</span> <span class="nav-text">MQTT状态检测</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
