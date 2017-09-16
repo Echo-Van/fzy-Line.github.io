@@ -1,8 +1,10 @@
 ---
-title: Contiki-OS中CoAP协议实现（上）
+title: Contiki中CoAP协议实现（上）
 date: 2017-07-16 21:04:42
-tags: [CoAP, Contiki-OS, 6LoWPAN]
-categories: IoT
+tags: [CoAP, Contiki, 6LoWPAN]
+categories: 
+- IoT
+- CoAP
 ---
 
 

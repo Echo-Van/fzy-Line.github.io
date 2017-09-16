@@ -1,8 +1,10 @@
 ---
 title: CoAP协议详解（一）
 date: 2017-03-01 18:26:53
-tags: [网络,CoAP]
-categories: 网络学习
+tags: [CoAP]
+categories: 
+- IoT
+- CoAP
 ---
 
 　　CoAP(Constrained Application Protocol)协议是为物联网中资源受限设备制定的应用层协议。由于物联网中的很多设备都是资源受限型的，即只有少量的内存空间和有限的计算能力，所以传统的HTTP协议应用在物联网上就显得过于庞大而不适用。IETF的CoRE工作组提出了一种基于REST架构的CoAP协议。

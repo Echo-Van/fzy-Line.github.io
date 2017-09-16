@@ -1,8 +1,10 @@
 ---
-title: 6LoWPAN中MQTT实现（上）
+title: Contiki中MQTT协议实现（上）
 date: 2017-06-30 15:06:02
-tags: [MQTT,6LoWPAN]
-categories: IoT
+tags: [MQTT,Contiki,6LoWPAN]
+categories: 
+- IoT
+- MQTT
 ---
 
 　　6LoWPAN无线传感网络中无线传感节点采用MQTT作为应用层协议是一种很好的选择，通过结合边界路由器、MQTT代理服务器和远程客户端可以实现无线传感网络的数据上传、管理以及远程控制等功能。本文通过Contiki操作系统中实现的MQTT协议来介绍6LoWPAN中MQTT客户端功能的实现。
