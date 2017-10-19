@@ -2,7 +2,7 @@
 title: 树莓派+USB摄像头+yeelink实现云监控
 date: 2016-06-10 11:20:43
 tags: ［树莓派,监控,yeelink］
-categories: 树莓派
+categories: Raspberry Pi
 ---
 
 #### 配置USB摄像头
@@ -10,9 +10,9 @@ categories: 树莓派
 ##### 检查摄像头是否被树莓派检测到
 
 输入命令：
- 
+
 ```
-$ lsusb 
+$ lsusb
 ```
 
 <!--more-->
@@ -29,7 +29,7 @@ $ lsusb
 要想拍摄照片，你要安装fswebcam，这是一款小型摄像头程序。你可以直接通过Raspbian的仓库来安装fswebcam。
 
  输入命令：
- 
+
 ```
 sudo apt-get install fswebcam
 ```
@@ -39,14 +39,14 @@ sudo apt-get install fswebcam
 
 
  - 到[yeelink官网](http://www.yeelink.net/)注册一个账号
- 
+
  - 添加一个新设备,填写基本信息
 ![10-2](http://ohe7ixo05.bkt.clouddn.com/2016/6/10-2.jpg)
 
  - 点击管理设备，然后添加一个传感器
 ![10-3](http://ohe7ixo05.bkt.clouddn.com/2016/6/10-3.jpg)
 
- - 查看API文档 
+ - 查看API文档
 ![10-4](http://ohe7ixo05.bkt.clouddn.com/2016/6/10-4.jpg)
 ![10-5](http://ohe7ixo05.bkt.clouddn.com/2016/6/10-6.jpg)
 

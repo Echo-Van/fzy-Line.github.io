@@ -2,7 +2,7 @@
 title: 树莓派安装Linux操作系统
 date: 2016-05-18 10:32:49
 tags: ［树莓派,Linux］
-categories: 树莓派
+categories: Raspberry Pi
 ---
 
 #### 树莓派上可安装的操作系统
@@ -53,7 +53,7 @@ categories: 树莓派
 
 （1）到[树莓派官网](www.raspberrypi.org)下载你需要的官方系统镜像
 
-（2）下载安装镜像的工具win32diskimager 
+（2）下载安装镜像的工具win32diskimager
 
 （3）运行Win32DiskImager，在软件中选择系统镜像（img文件），然后device(设备）下选择TF卡盘符，
 点击write，等待写入完全，等到出现对话框write successful就说明成功了。

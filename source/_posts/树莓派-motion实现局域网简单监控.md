@@ -2,7 +2,7 @@
 title: 树莓派+motion实现局域网简单监控
 date: 2016-06-14 11:28:26
 tags: ［树莓派,监控,motion］
-categories: 树莓派
+categories: Raspberry Pi
 ---
 
 #### 检查USB摄像头
@@ -68,7 +68,7 @@ sudo vim /etc/motion/motion.conf
 
 ##### 配置启动
 
-（1）输入下面命令启动服务： 
+（1）输入下面命令启动服务：
 
 ```
 sudo service motion start  

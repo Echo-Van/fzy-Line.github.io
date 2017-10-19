@@ -2,7 +2,7 @@
 title: 树莓派+DHT11温湿度传感器+yeelink物联网云
 date: 2016-06-02 11:04:13
 tags: ［树莓派,DHT11,yeelink］
-categories: 树莓派
+categories: Raspberry Pi
 ---
 
 #### 配置准备
@@ -64,12 +64,12 @@ while j < 40:
      k = 0
      while GPIO.input(channel) == GPIO.LOW:
          continue
-     
+
      while GPIO.input(channel) == GPIO.HIGH:
          k += 1
          if k > 100:
              break
-     
+
      if k < 8:
          data.append(0)
      else:
@@ -177,7 +177,7 @@ sudo crontab -e
 
 ##### 让脚本自动运行
 
-加入下面一行, 让脚本每1分钟运行一次，即每1分钟上传一次数据，然后保存退出 
+加入下面一行, 让脚本每1分钟运行一次，即每1分钟上传一次数据，然后保存退出
 
 ```
 */1 * * * * /home/pi/mytest/yeelink.sh

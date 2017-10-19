@@ -2,7 +2,7 @@
 title: '[译]MQTT的安全机制总结'
 date: 2017-08-25 09:28:05
 tags: [MQTT,安全]
-categories: 
+categories:
 - IoT
 - MQTT
 ---
@@ -37,15 +37,15 @@ categories:
 
 - [[译]MQTT安全基础知识介绍](http://fanzhenyu.me/2017/08/23/译-MQTT安全基础知识介绍/)
 - [[译]MQTT安全基础：使用用户名和密码进行身份验证](http://fanzhenyu.me/2017/08/24/译-MQTT安全基础：使用用户名和密码进行身份验证/)
-- [译]MQTT安全基础：高级认证机制
-- [译]MQTT安全基础：授权
-- [译]MQTT安全基础：TLS / SSL
+- [[译]MQTT安全基础：高级认证机制](http://fanzhenyu.me/2017/09/23/译-MQTT安全基础：高级认证机制/)
+- [[译]MQTT安全基础：授权](http://fanzhenyu.me/2017/09/28/译-MQTT安全基础：授权/)
+- [[译]MQTT安全基础：TLS / SSL](http://fanzhenyu.me/2017/10/10/译-MQTT安全基础：TLS/SSL/)
 - [译]MQTT安全基础：X509客户端证书认证
 - [译]MQTT安全基础：OAuth 2.0和MQTT
 - [译]MQTT安全基础：MQTT有效载荷加密
 - [译]MQTT安全基础 - MQTT消息数据完整性
 - [译]MQTT安全基础 - 保护MQTT系统
 
-　　感谢并关注更多MQTT相关内容， 
+　　感谢并关注更多MQTT相关内容，
 
-　　HiveMQ团队 
+　　HiveMQ团队

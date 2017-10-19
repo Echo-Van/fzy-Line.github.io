@@ -2,7 +2,7 @@
 title: 树莓派自动发送ip到指定邮箱
 date: 2016-05-26 10:51:23
 tags: ［树莓派,ip］
-categories: 树莓派
+categories: Raspberry Pi
 ---
 
 　　知道树莓派的ip地址才能通过SSH或者VNC在你的电脑上操作树莓派，树莓派开机自动发送ip地址到指定邮箱会让你使用树莓派更加方便！
@@ -105,5 +105,3 @@ sudo vim /etc/rc.local
 在文件中添加/usr/bin/python/home/pi/send_ip.py然后保存退出
 
 特别提示：收到的邮件有可能在垃圾箱里，不要以为是脚本的问题，其实是邮箱的问题，请注意查看！另外，有的邮箱不支持smtp，所以无法使用。搜狐和网易的邮箱亲测可用。
-
-
