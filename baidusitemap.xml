@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2017/11/25/IEEE-802-15-4%E6%A0%87%E5%87%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2017-11-25T04:07:15.792Z</lastmod>
+    <data>
+        <display>
+        <title>IEEE 802.15.4标准学习笔记（一）</title>
+        <pubTime>2017-11-25T04:00:04.000Z</pubTime>
+        
+        <tag>网络</tag>
+         
+        <tag>802.15.4</tag>
+         
+         
+           
+             
+              <breadCrumb title="网络学习" url="https://fzy-line.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2017/11/24/RIOT-OS%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E4%B8%8E%E6%A0%B7%E4%BE%8B%E8%A7%A3%E6%9E%90/</loc>
     <lastmod>2017-11-24T13:33:51.350Z</lastmod>
     <data>
@@ -523,9 +545,9 @@
         
         <tag>6LoWPAN</tag>
          
-        <tag>MQTT</tag>
-         
         <tag>Contiki</tag>
+         
+        <tag>MQTT</tag>
          
          
            
@@ -550,9 +572,9 @@
         
         <tag>6LoWPAN</tag>
          
-        <tag>Contiki</tag>
-         
         <tag>CoAP</tag>
+         
+        <tag>Contiki</tag>
          
          
            
@@ -853,9 +875,9 @@
         
         <tag>IoT</tag>
          
-        <tag>MQTT</tag>
-         
         <tag>CoAP</tag>
+         
+        <tag>MQTT</tag>
          
          
            
