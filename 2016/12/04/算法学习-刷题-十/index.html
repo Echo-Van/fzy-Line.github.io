@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="继续使用Python进行算法练习解题，此篇博客的5道题依然来自于牛客网（专业IT笔试面试备考平台）在线编程之：华为机试在线训练(6-10题)。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-12-04T14:38:56.000Z">
+<meta property="og:updated_time" content="2017-11-26T03:11:47.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习-刷题(十)">
 <meta name="twitter:description" content="继续使用Python进行算法练习解题，此篇博客的5道题依然来自于牛客网（专业IT笔试面试备考平台）在线编程之：华为机试在线训练(6-10题)。">
@@ -361,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法学习/" itemprop="url" rel="index">
-                    <span itemprop="name">算法学习</span>
+                  <a href="/categories/Data-structure-and-algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Data structure and algorithm</span>
                   </a>
                 </span>
 
@@ -422,7 +422,7 @@
 <h5 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h5><p>如果一个数是质数，那么它的倍数都不是质数。</p>
 <p>我们不需要考虑是否是质数因子，因为每次得到的那个因子肯定是质数因子，其他数都可以从这些质数因子相乘得到。比如，i = 4能被整除的不可能出现，因为当i=2时已经被全求出来了。</p>
 <p>这个题的思路其实不太好描述，还是看代码吧！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while True:</div><div class="line">    try:</div><div class="line">        n = int(raw_input())</div><div class="line">        i = 2</div><div class="line">        while n&gt;1:</div><div class="line">            while(n%i == 0):</div><div class="line">                print i,    </div><div class="line">                n = n/i</div><div class="line">            i += 1</div><div class="line">             </div><div class="line">    except:</div><div class="line">        break</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while True:</div><div class="line">    try:</div><div class="line">        n = int(raw_input())</div><div class="line">        i = 2</div><div class="line">        while n&gt;1:</div><div class="line">            while(n%i == 0):</div><div class="line">                print i,    </div><div class="line">                n = n/i</div><div class="line">            i += 1</div><div class="line"></div><div class="line">    except:</div><div class="line">        break</div></pre></td></tr></table></figure>
 <p>python中print输出一行，如果想多次输出的内容不换行，可以在print后面加逗号.</p>
 <h4 id="取近似值"><a href="#取近似值" class="headerlink" title="取近似值"></a>取近似值</h4><h5 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h5><p>写出一个程序，接受一个正浮点数值，输出该数值的近似整数值。如果小数点后数值大于等于5,向上取整；小于5，则向下取整。</p>
 <p>输入描述:</p>
@@ -471,6 +471,7 @@
 <p>输出例子:</p>
 <p>3</p>
 <h5 id="Python实现-4"><a href="#Python实现-4" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">import sys</div><div class="line"></div><div class="line">def count(input_str):   #自定义处理函数</div><div class="line">    s = []</div><div class="line">    cnt = 0</div><div class="line">    for ch in input_str:    #去除重复的字符</div><div class="line">        if ch not in s:</div><div class="line">            s.append(ch)</div><div class="line"></div><div class="line">    for c in s:     #统计个数</div><div class="line">        if (ord(c) &gt;=0 and ord(c) &lt;= 127):</div><div class="line">            cnt+=1</div><div class="line"></div><div class="line">    print cnt</div><div class="line"></div><div class="line">input_str = sys.stdin.readline()    #根据题目要求要实现多组数据的测试</div><div class="line">count(input_str)    #调用函数处理</div></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -657,7 +658,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="近来，越来越感受到Python的魅力，简洁的书写，相对高效的实现，写起来很舒服。以前只是用python做一些应用，也只是需要什么就去学什么，并没有真正系统地学习这门语言，现在结合书本和教学视频系统地进行学习，然后再通过Python来练习这些算法题，突然发现也是一种不错的学习方式。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-12-03T04:15:58.000Z">
+<meta property="og:updated_time" content="2017-11-26T03:11:41.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习-刷题(九)">
 <meta name="twitter:description" content="近来，越来越感受到Python的魅力，简洁的书写，相对高效的实现，写起来很舒服。以前只是用python做一些应用，也只是需要什么就去学什么，并没有真正系统地学习这门语言，现在结合书本和教学视频系统地进行学习，然后再通过Python来练习这些算法题，突然发现也是一种不错的学习方式。">
@@ -361,8 +361,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/算法学习/" itemprop="url" rel="index">
-                    <span itemprop="name">算法学习</span>
+                  <a href="/categories/Data-structure-and-algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Data structure and algorithm</span>
                   </a>
                 </span>
 
@@ -428,7 +428,7 @@
 <h5 id="Python实现-1"><a href="#Python实现-1" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">input_str = raw_input()     #获取字符串</div><div class="line">tag = raw_input()   #获取目标字符</div><div class="line">lst = list(input_str.lower())   #题目中说明不区分大小写，所以全部转换从小写，然后将字符串转换成列表</div><div class="line">print lst.count(tag.lower())    #统计字符在列表中出现的次数</div></pre></td></tr></table></figure>
 <h4 id="明明的随机数"><a href="#明明的随机数" class="headerlink" title="明明的随机数"></a>明明的随机数</h4><h5 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h5><p>明明想在学校中请一些同学一起做一项问卷调查，为了实验的客观性，他先用计算机生成了N个1到1000之间的随机整数（N≤1000），对于其中重复的数字，只保留一个，把其余相同的数去掉，不同的数对应着不同的学生的学号。然后再把这些数从小到大排序，按照排好的顺序去找同学做调查。请你协助明明完成“去重”与“排序”的工作。</p>
 <p>Input Param n    输入随机数的个数</p>
-<p>inputArray       n个随机整数组成的数组 </p>
+<p>inputArray       n个随机整数组成的数组</p>
 <p>Return Value OutputArray    输出处理后的随机整数</p>
 <p>注：测试用例保证输入参数的正确性，答题者无需验证。测试用例不止一组。</p>
 <p>输入描述:</p>
@@ -455,11 +455,11 @@
 <h5 id="python实现"><a href="#python实现" class="headerlink" title="python实现"></a>python实现</h5><p>这里采用一种巧妙地办法，因为要以8为间隔输出字符串，所以我们先判断字符串长度是否为0，如果不为0，则在字符串末尾添加7个0，这样就不用考虑后面会缺几个0了，方便后面的输出，输出时我们只要以8为间隔输出，然后不满8个字符就不用输出了，肯定是末尾我们补上的多余的0了。</p>
 <p>以下三种写法基本思路一样，关键在于输出的时候可以采用不同的办法进行处理。</p>
 <p>（1）写法一</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># -*- coding: utf-8 -*-</div><div class="line"> </div><div class="line">str1 = raw_input()</div><div class="line">str2 = raw_input()</div><div class="line">  </div><div class="line">def splitstr(string):</div><div class="line">    if(len(string) != 0):</div><div class="line">        string += &quot;0000000&quot;</div><div class="line">    while(len(string) &gt;= 8):    #字符串长度大于等于8才打印出来</div><div class="line">        print string[0:8]   #使用分片的方法切分字符串</div><div class="line">        string = string[8:]</div><div class="line">  </div><div class="line">splitstr(str1)</div><div class="line">splitstr(str2)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"># -*- coding: utf-8 -*-</div><div class="line"></div><div class="line">str1 = raw_input()</div><div class="line">str2 = raw_input()</div><div class="line"></div><div class="line">def splitstr(string):</div><div class="line">    if(len(string) != 0):</div><div class="line">        string += &quot;0000000&quot;</div><div class="line">    while(len(string) &gt;= 8):    #字符串长度大于等于8才打印出来</div><div class="line">        print string[0:8]   #使用分片的方法切分字符串</div><div class="line">        string = string[8:]</div><div class="line"></div><div class="line">splitstr(str1)</div><div class="line">splitstr(str2)</div></pre></td></tr></table></figure>
 <p>（2）写法二</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">a = raw_input()</div><div class="line">b = raw_input()</div><div class="line"> </div><div class="line">def substr(line):</div><div class="line">    left = len(line)%8</div><div class="line">    if left!=0:</div><div class="line">        line += &quot;0&quot; * (8-left)</div><div class="line">    for i in range(len(line)/8):    #字符串长度大于等于8才打印出来</div><div class="line">        print line[i*8 : (i+1)*8]   #使用索引加分片的方法切分字符串</div><div class="line"> </div><div class="line">substr(a)</div><div class="line">substr(b)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">a = raw_input()</div><div class="line">b = raw_input()</div><div class="line"></div><div class="line">def substr(line):</div><div class="line">    left = len(line)%8</div><div class="line">    if left!=0:</div><div class="line">        line += &quot;0&quot; * (8-left)</div><div class="line">    for i in range(len(line)/8):    #字符串长度大于等于8才打印出来</div><div class="line">        print line[i*8 : (i+1)*8]   #使用索引加分片的方法切分字符串</div><div class="line"></div><div class="line">substr(a)</div><div class="line">substr(b)</div></pre></td></tr></table></figure>
 <p>（3）写法三</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"># -*- coding: utf-8 -*-</div><div class="line">import re</div><div class="line"> </div><div class="line">str1 = raw_input()</div><div class="line">str2 = raw_input()</div><div class="line">  </div><div class="line">def substr(string):</div><div class="line">    if(len(string) != 0):</div><div class="line">        string += &quot;0000000&quot;</div><div class="line">    mylist = re.findall(r&apos;.&#123;8&#125;&apos;,string)     #用正则表达式对字符串进行切分</div><div class="line">    for substr in mylist:   #打印切分好的以8个字符为间隔的字符串</div><div class="line">        print substr</div><div class="line"> </div><div class="line">substr(str1)</div><div class="line">substr(str2)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"># -*- coding: utf-8 -*-</div><div class="line">import re</div><div class="line"></div><div class="line">str1 = raw_input()</div><div class="line">str2 = raw_input()</div><div class="line"></div><div class="line">def substr(string):</div><div class="line">    if(len(string) != 0):</div><div class="line">        string += &quot;0000000&quot;</div><div class="line">    mylist = re.findall(r&apos;.&#123;8&#125;&apos;,string)     #用正则表达式对字符串进行切分</div><div class="line">    for substr in mylist:   #打印切分好的以8个字符为间隔的字符串</div><div class="line">        print substr</div><div class="line"></div><div class="line">substr(str1)</div><div class="line">substr(str2)</div></pre></td></tr></table></figure>
 <h4 id="进制转换"><a href="#进制转换" class="headerlink" title="进制转换"></a>进制转换</h4><h5 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h5><p>写出一个程序，接受一个十六进制的数值字符串，输出该数值的十进制字符串。（多组同时输入 ）</p>
 <p>输入描述:</p>
 <p>输入一个十六进制的数值字符串。</p>
@@ -659,7 +659,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
