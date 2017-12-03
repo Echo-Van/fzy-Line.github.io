@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="Contiki为用户提供了控制LED的接口，在各个平台下也给出了对应的函数，但是由于牵扯到多个文件，这对于初学者来说也是很麻烦的事情，这篇博客将一步步解析Contiki LED控制的实现机制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-02-23T13:39:02.000Z">
+<meta property="og:updated_time" content="2017-12-02T03:15:24.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Contiki LED驱动部分应用">
 <meta name="twitter:description" content="Contiki为用户提供了控制LED的接口，在各个平台下也给出了对应的函数，但是由于牵扯到多个文件，这对于初学者来说也是很麻烦的事情，这篇博客将一步步解析Contiki LED控制的实现机制。">
@@ -368,6 +368,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/Contiki/" itemprop="url" rel="index">
+                    <span itemprop="name">Contiki</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -425,7 +436,7 @@
 <p>即系统一启动就进行了初始化。</p>
 <p>下面，我们定义一个进程，该进程实现LED闪烁，间隔时间为1s。在这个任务中还涉及contiki任务的基本结构，etimer的使用。具体代码如下：</p>
 <p>在 /home/user/contiki/cc2538dk/leds_blink 目录下进行以下操作：</p>
-<h5 id="leds-blink-c"><a href="#leds-blink-c" class="headerlink" title="leds_blink.c"></a>leds_blink.c</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#include &quot;contiki.h&quot;  </div><div class="line">#include &quot;dev/leds.h&quot;  </div><div class="line">/*---------------------------------------------------------------------------*/  </div><div class="line">PROCESS(blink_process, &quot;Blink&quot;);  </div><div class="line">AUTOSTART_PROCESSES(&amp;blink_process);  </div><div class="line">/*---------------------------------------------------------------------------*/  </div><div class="line">PROCESS_THREAD(blink_process, ev, data)  </div><div class="line">&#123;  </div><div class="line">  static struct etimer et_led_blink;</div><div class="line">  </div><div class="line">  PROCESS_BEGIN();</div><div class="line">  </div><div class="line">  while(1) &#123;</div><div class="line">    etimer_set(&amp;et_led_blink, CLOCK_SECOND);     // etimer溢出周期为1s  </div><div class="line">    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et_led_blink));  </div><div class="line">    leds_on(1);                                 // 打开LED1  </div><div class="line">    etimer_set(&amp;et_led_blink, CLOCK_SECOND);  </div><div class="line">    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et_led_blink));  </div><div class="line">    leds_off(1);  </div><div class="line">  &#125;  </div><div class="line">  </div><div class="line">  PROCESS_END();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="leds-blink-c"><a href="#leds-blink-c" class="headerlink" title="leds_blink.c"></a>leds_blink.c</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">#include &quot;contiki.h&quot;  </div><div class="line">#include &quot;dev/leds.h&quot;  </div><div class="line">/*---------------------------------------------------------------------------*/  </div><div class="line">PROCESS(blink_process, &quot;Blink&quot;);  </div><div class="line">AUTOSTART_PROCESSES(&amp;blink_process);  </div><div class="line">/*---------------------------------------------------------------------------*/  </div><div class="line">PROCESS_THREAD(blink_process, ev, data)  </div><div class="line">&#123;  </div><div class="line">  static struct etimer et_led_blink;</div><div class="line"></div><div class="line">  PROCESS_BEGIN();</div><div class="line"></div><div class="line">  while(1) &#123;</div><div class="line">    etimer_set(&amp;et_led_blink, CLOCK_SECOND);     // etimer溢出周期为1s  </div><div class="line">    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et_led_blink));  </div><div class="line">    leds_on(1);                                 // 打开LED1  </div><div class="line">    etimer_set(&amp;et_led_blink, CLOCK_SECOND);  </div><div class="line">    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et_led_blink));  </div><div class="line">    leds_off(1);  </div><div class="line">  &#125;  </div><div class="line"></div><div class="line">  PROCESS_END();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="Makefile"><a href="#Makefile" class="headerlink" title="Makefile"></a>Makefile</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">CONTIKI_PROJECT = led_blink</div><div class="line"></div><div class="line">all: $(CONTIKI_PROJECT)</div><div class="line"></div><div class="line">CONTIKI = ../../..</div><div class="line">CONTIKI_WITH_RIME = 1</div><div class="line">include $(CONTIKI)/Makefile.include</div></pre></td></tr></table></figure>
 <h5 id="Makefile-target"><a href="#Makefile-target" class="headerlink" title="Makefile.target"></a>Makefile.target</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TARGET = cc2538dk</div></pre></td></tr></table></figure>
 <h5 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make TARGET=cc2538dk</div></pre></td></tr></table></figure>
@@ -604,7 +615,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">122</span>
+                <span class="site-state-item-count">124</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -615,7 +626,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -626,7 +637,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">98</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

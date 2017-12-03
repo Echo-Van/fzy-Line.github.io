@@ -103,7 +103,7 @@
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-3.png">
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-4.png">
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-5.png">
-<meta property="og:updated_time" content="2017-02-18T09:16:00.000Z">
+<meta property="og:updated_time" content="2017-12-02T03:15:11.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Contiki CC2538dk 串口下载程序">
 <meta name="twitter:description" content="本以为自己再也不会接触嵌入式开发这一方面的东西，没想到，毕业设计就开始重拾开发板，以后也要朝着物联网方向发展了。一块从没用过的开发板，一款之前完全不了解的物联网操作系统，一直不太熟悉的C语言，以至于下载程序就折腾了很久，在这里总结下，希望接下来能够顺利一些。">
@@ -374,6 +374,17 @@
 
                 
                 
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/Contiki/" itemprop="url" rel="index">
+                    <span itemprop="name">Contiki</span>
+                  </a>
+                </span>
+
+                
+                
               
             </span>
           
@@ -430,7 +441,7 @@
 <h5 id="下载程序"><a href="#下载程序" class="headerlink" title="下载程序"></a>下载程序</h5><p>我们以 /home/user/contiki/examples/cc2538dk/cc2538-demo.c 为例进行烧写程序。</p>
 <p>初次接触 contiki 的程序，demo 的代码复杂了点，为了便于理解以及方便查看效果，我们把程序修改成如下：</p>
 <p>使用etimer模块间隔5s读取系统运行时间，然后每次打印系统时间以及Hello, world方便观察。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#include &quot;contiki.h&quot;</div><div class="line"></div><div class="line">#include &lt;stdio.h&gt; /* For printf() */</div><div class="line"></div><div class="line">static struct etimer et;  //定义etimer变量</div><div class="line">unsigned long sec;  //用于记录系统运行时间的变量</div><div class="line"></div><div class="line">/*---------------------------------------------------------------------------*/</div><div class="line">PROCESS(hello_world_process, &quot;Hello world process&quot;);</div><div class="line">AUTOSTART_PROCESSES(&amp;hello_world_process);</div><div class="line">/*---------------------------------------------------------------------------*/</div><div class="line">PROCESS_THREAD(hello_world_process, ev, data)</div><div class="line">&#123;</div><div class="line">  PROCESS_BEGIN();</div><div class="line"></div><div class="line">  while(1)&#123;</div><div class="line">     etimer_set(&amp;et, 5 * CLOCK_SECOND);  // 设置为每隔5s etimer溢出一次</div><div class="line">     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et));   // 等待定时器溢出</div><div class="line">     sec = clock_seconds();  // 记录系统运行时间 单位s  </div><div class="line">     printf(&quot;%lu Seconds\n&quot;, sec);   </div><div class="line">     printf(&quot;Hello, world\n&quot;);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  PROCESS_END();</div><div class="line">&#125;</div><div class="line">/*---------------------------------------------------------------------------*/</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#include &quot;contiki.h&quot;</div><div class="line"></div><div class="line">#include &lt;stdio.h&gt; /* For printf() */</div><div class="line"></div><div class="line">static struct etimer et;  //定义etimer变量</div><div class="line">unsigned long sec;  //用于记录系统运行时间的变量</div><div class="line"></div><div class="line">/*---------------------------------------------------------------------------*/</div><div class="line">PROCESS(hello_world_process, &quot;Hello world process&quot;);</div><div class="line">AUTOSTART_PROCESSES(&amp;hello_world_process);</div><div class="line">/*---------------------------------------------------------------------------*/</div><div class="line">PROCESS_THREAD(hello_world_process, ev, data)</div><div class="line">&#123;</div><div class="line">  PROCESS_BEGIN();</div><div class="line"></div><div class="line">  while(1)&#123;</div><div class="line">     etimer_set(&amp;et, 5 * CLOCK_SECOND);  // 设置为每隔5s etimer溢出一次</div><div class="line">     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et));   // 等待定时器溢出</div><div class="line">     sec = clock_seconds();  // 记录系统运行时间 单位s  </div><div class="line">     printf(&quot;%lu Seconds\n&quot;, sec);   </div><div class="line">     printf(&quot;Hello, world\n&quot;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  PROCESS_END();</div><div class="line">&#125;</div><div class="line">/*---------------------------------------------------------------------------*/</div></pre></td></tr></table></figure>
 <p>先编译后下载：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ make TARGET=cc2538dk</div><div class="line">$ make cc2538-demo.upload</div></pre></td></tr></table></figure>
 <p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-1.png" alt="18-1"></p>
@@ -632,7 +643,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">122</span>
+                <span class="site-state-item-count">124</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -643,7 +654,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -654,7 +665,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">98</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
