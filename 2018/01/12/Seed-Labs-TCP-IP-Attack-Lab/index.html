@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/1/12-14.png">
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/1/12-15.png">
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/1/12-16.png">
-<meta property="og:updated_time" content="2018-01-12T11:56:37.051Z">
+<meta property="og:updated_time" content="2018-01-12T12:00:21.033Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Seed Labs: TCP&#x2F;IP Attack Lab">
 <meta name="twitter:description" content="网络与计算机安全课程实验（二），TCP/IP攻击。">
@@ -378,8 +378,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/network-security/" itemprop="url" rel="index">
-                    <span itemprop="name">network security</span>
+                  <a href="/categories/Network-security/" itemprop="url" rel="index">
+                    <span itemprop="name">Network security</span>
                   </a>
                 </span>
 
@@ -421,7 +421,7 @@
 <a id="more"></a>
 <h4 id="实验原理与目的"><a href="#实验原理与目的" class="headerlink" title="实验原理与目的"></a>实验原理与目的</h4><p>　　TCP/IP协议从开始设计时候并没有考虑到现在网络上如此多的威胁，由此导致了许多形形色色的攻击方法。本次实验涉及了TCP/IP攻击的三种基本类型，（1）SYN洪泛攻击，（2）TCP RST攻击，（3）TCP会话劫持攻击。希望通过本次实验了解TCP/IP攻击的原理，通过实际操作掌握基本的攻击方法，学会如何防范此类攻击。</p>
 <h4 id="实验配置"><a href="#实验配置" class="headerlink" title="实验配置"></a>实验配置</h4><p>　　基本配置与上一个实验：Local DNS Attack Lab基本一致。按照实验指导手册，配置3台虚拟机，1台作为DNS服务器，1台作为用户机，另1台作为攻击者，3台机器通过设置NAT网络来实现网络互访。</p>
-<p>　　实验资料下载地址：<a href="http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Networking/TCPIP/" target="_blank" rel="external">http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Networking/TCPIP/</a></p>
+<p>　　实验资料下载地址：<br>　　<a href="http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Networking/TCPIP/" target="_blank" rel="external">http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Networking/TCPIP/</a></p>
 <p><img src="http://ohe7ixo05.bkt.clouddn.com/2018/1/12-1.png" alt="12-1"></p>
 <h5 id="启用telnet服务器"><a href="#启用telnet服务器" class="headerlink" title="启用telnet服务器"></a>启用telnet服务器</h5><p>　　对于本实验，实验要求启用ftp和telnet服务器，但是其实在后续的实验中只用到了telnet。为了安全起见，Ubuntu系统中安装的这些服务通常是默认禁用的，所以需要以root用户身份运行以下命令来启用：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ sudo service vsftpd start</div><div class="line">$ sudo service openbsd-inetd start</div></pre></td></tr></table></figure>

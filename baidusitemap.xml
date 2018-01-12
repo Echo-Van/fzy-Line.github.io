@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2018/01/12/Seed-Labs-TCP-IP-Attack-Lab/</loc>
-    <lastmod>2018-01-12T11:56:37.051Z</lastmod>
+    <lastmod>2018-01-12T12:00:21.033Z</lastmod>
     <data>
         <display>
         <title>Seed Labs: TCP/IP Attack Lab</title>
@@ -18,7 +18,7 @@
          
            
              
-              <breadCrumb title="network security" url="https://fzy-line.github.io/categories/network-security/"/>
+              <breadCrumb title="Network security" url="https://fzy-line.github.io/categories/Network-security/"/>
           
         </display>
     </data>
@@ -27,7 +27,7 @@
     
   <url>
     <loc>https://fzy-line.github.io/2018/01/11/Seed-Labs-Local-DNS-Attack-Lab/</loc>
-    <lastmod>2018-01-12T11:47:59.855Z</lastmod>
+    <lastmod>2018-01-12T12:00:10.930Z</lastmod>
     <data>
         <display>
         <title>Seed Labs: Local DNS Attack Lab</title>
@@ -40,7 +40,7 @@
          
            
              
-              <breadCrumb title="network security" url="https://fzy-line.github.io/categories/network-security/"/>
+              <breadCrumb title="Network security" url="https://fzy-line.github.io/categories/Network-security/"/>
           
         </display>
     </data>
@@ -1176,9 +1176,9 @@
         
         <tag>Linux</tag>
          
-        <tag>FTP</tag>
-         
         <tag>Ubuntu</tag>
+         
+        <tag>FTP</tag>
          
          
            
