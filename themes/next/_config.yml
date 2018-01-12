@@ -309,7 +309,15 @@ han: false
 # Duoshuo ShortName
 #duoshuo_shortname:
 
-livere_uid: MTAyMC8zMDY5My83MjQ4
+gitment:
+  enable: true
+  lazy: false
+  owner: fzy-Line
+  repo: fzy-Line.github.io
+  client_id: 9f74a018210b61ac4709
+  client_secret: ced40aa2bbae5d0603c155b08bddb98e6f91c1be
+
+#livere_uid: MTAyMC8zMDY5My83MjQ4
 
 # Disqus
 #disqus:

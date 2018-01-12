@@ -2,7 +2,9 @@
 title: Contiki RPL-border-router Cooja仿真
 date: 2017-02-21 09:28:35
 tags: ［IoT,Contiki,Cooja］
-categories: IoT
+categories:
+- IoT
+- Contiki
 ---
 
 
@@ -60,7 +62,7 @@ $ make TARGET=sky
 ##### 启动Cooja
 
 ```
-$ cd /contiki/tools/cooja 
+$ cd /contiki/tools/cooja
 $ ant run
 ```
 
@@ -146,4 +148,3 @@ $ ping6 aaaa::212:7404:4:404
 ##### 浏览器访问测试
 
 ![20-11](http://ohe7ixo05.bkt.clouddn.com/2017/2/20-11.png)
-

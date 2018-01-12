@@ -2,7 +2,7 @@
 title: IPv6学习笔记(一)
 date: 2016-12-19 11:30:41
 tags: [网络,IPv6]
-categories: 网络学习
+categories: Network
 ---
 
 　　IPv6是Internet Protocol Version 6的缩写，IPv6是IETF（互联网工程任务组，Internet Engineering Task Force）设计的用于替代现行版本IP协议（IPv4）的下一代IP协议，号称可以为全世界的每一粒沙子编上一个网址。
@@ -74,15 +74,15 @@ Ipv6报头由40个字节的固定长度组成，相比Ipv4报头，删去了报�
 - 流标签(Flow Label)
 
     标记那些需要IPv6路由器特殊处理(如一种非默认服务质量或实时服务)的信息包顺序。
-    
+
 - 有效负载长度(Payload Length)
 
     定长40字节数据报首部后面的字节数量，包括扩展报头和负载数据，即数据报长度-40。
-    
+
 - 下一个首部(Next Header)
 
     当IPv6没有扩展报头时，该字段的作用和IPv4的上层协议字段一样。当含有扩展报头时，该字段的值即为第一个扩展报头的类型。
-    
+
 - 跳限制(Hop Limit)
 
     转发数据报的每台路由器对该字段的值减1，若减为0则丢弃该数据报。

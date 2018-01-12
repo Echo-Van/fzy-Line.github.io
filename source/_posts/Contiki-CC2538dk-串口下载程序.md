@@ -2,7 +2,9 @@
 title: Contiki CC2538dk 串口下载程序
 date: 2017-02-18 17:05:32
 tags: ［IoT,Contiki,CC2538dk］
-categories: IoT
+categories:
+- IoT
+- Contiki
 ---
 
 　　本以为自己再也不会接触嵌入式开发这一方面的东西，没想到，毕业设计就开始重拾开发板，以后也要朝着物联网方向发展了。一块从没用过的开发板，一款之前完全不了解的物联网操作系统，一直不太熟悉的C语言，以至于下载程序就折腾了很久，在这里总结下，希望接下来能够顺利一些。
@@ -102,7 +104,7 @@ PROCESS_THREAD(hello_world_process, ev, data)
      printf("%lu Seconds\n", sec);   
      printf("Hello, world\n");
   }
-  
+
   PROCESS_END();
 }
 /*---------------------------------------------------------------------------*/

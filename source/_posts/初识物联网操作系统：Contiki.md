@@ -2,7 +2,9 @@
 title: 初识物联网操作系统：Contiki
 date: 2017-02-13 23:34:59
 tags: ［IoT,Contiki］
-categories: IoT
+categories:
+- IoT
+- Contiki
 ---
 
 　　Contiki：面向物联网的开源操作系统。
@@ -105,7 +107,7 @@ PROCESS_THREAD(hello_world_process, ev, data)
   PROCESS_BEGIN();
 
   printf("Hello, world\n");
-  
+
   /* 所有的进程结束时都必须要有这条语句 */
   PROCESS_END();
 }

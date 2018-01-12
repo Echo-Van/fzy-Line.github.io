@@ -2,7 +2,9 @@
 title: Contiki LED驱动部分应用
 date: 2017-02-23 21:34:14
 tags: ［IoT,Contiki,LED］
-categories: IoT
+categories:
+- IoT
+- Contiki
 ---
 
 
@@ -319,9 +321,9 @@ AUTOSTART_PROCESSES(&blink_process);
 PROCESS_THREAD(blink_process, ev, data)  
 {  
   static struct etimer et_led_blink;
-  
+
   PROCESS_BEGIN();
-  
+
   while(1) {
     etimer_set(&et_led_blink, CLOCK_SECOND);     // etimer溢出周期为1s  
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et_led_blink));  
@@ -330,7 +332,7 @@ PROCESS_THREAD(blink_process, ev, data)
     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&et_led_blink));  
     leds_off(1);  
   }  
-  
+
   PROCESS_END();  
 }  
 ```

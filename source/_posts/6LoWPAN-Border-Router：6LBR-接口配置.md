@@ -2,7 +2,9 @@
 title: 6LoWPAN Border Router：6LBR 接口配置
 date: 2017-03-21 23:11:16
 tags: ［IoT,6LBR,6LoWPAN］
-categories: IoT
+categories:
+- IoT
+- 6LoWPAN
 ---
 
 　　6LBR 系列博文之（二） - 6LBR 接口配置。

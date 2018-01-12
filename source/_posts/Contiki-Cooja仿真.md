@@ -2,7 +2,9 @@
 title: Contiki Cooja仿真
 date: 2017-02-14 22:53:25
 tags: ［IoT,Contiki,Cooja］
-categories: IoT
+categories:
+- IoT
+- Contiki
 ---
 
 　　Cooja是Contiki操作系统中的网络模拟器，Contiki设备经常组成大型无线网络，Cooja提供一个仿真环境，使开发人员能够看到他们的应用程序运行在大型网络，使得开发和调试变得更简单。
@@ -82,9 +84,9 @@ Simulation name 仿真名字
 
 Radio medium 无线介质，下拉选项：
 
-- UDGM:Distance Loss 单位圆盘图：距离损失 
+- UDGM:Distance Loss 单位圆盘图：距离损失
 
-- UDGM:Constant Loss 单位圆盘图：常量损失 
+- UDGM:Constant Loss 单位圆盘图：常量损失
 
 - DGRM：有向图通信   
 

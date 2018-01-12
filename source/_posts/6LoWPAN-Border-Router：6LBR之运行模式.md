@@ -2,7 +2,9 @@
 title: 6LoWPAN Border Router：6LBR之运行模式
 date: 2017-03-16 23:22:10
 tags: ［IoT,6LBR,6LoWPAN］
-categories: IoT
+categories:
+- IoT
+- 6LoWPAN
 ---
 
 
@@ -21,19 +23,19 @@ categories: IoT
 - Router
 
     - Router
-    
+
     - NDP-Router
-    
+
     - 6LR
-    
+
     - RPL-Root
 
 - Transparent Bridge
 
     - RPL-Replay
-    
+
     - FullTransparentBridge
-    
+
 #### 网桥
 
 　　在网桥模式中，只是实现了 802.15.4 接口和以太网接口的桥接，即根据链路层的地址进行网络数据包的转发。在网桥模式中，6LBR 又可分为智能网桥模式和透明网桥模式。

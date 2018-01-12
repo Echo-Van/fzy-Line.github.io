@@ -2,7 +2,7 @@
 title: 推荐-效率搜索工具：Everything
 date: 2017-01-05 21:40:18
 tags: [软件,工具,Everything]
-categories: 推荐
+categories: Tools
 ---
 
 　　还在为找不到磁盘中的文件而困扰吗？还在为Windows自带文件检索工具速度太慢而苦恼吗？不用担心，Everything帮你来搞定。

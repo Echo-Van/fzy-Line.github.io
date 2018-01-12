@@ -3,7 +3,7 @@ title: Atom Latex编辑器配置
 date: 2017-09-16 20:15:06
 tags: [Latex, Atom]
 categories:
-- Atom
+- Tools
 ---
 
 
