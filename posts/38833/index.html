@@ -1,0 +1,1322 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="［IoT,Contiki,CC2538dk］," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="本以为自己再也不会接触嵌入式开发这一方面的东西，没想到，毕业设计就开始重拾开发板，以后也要朝着物联网方向发展了。一块从没用过的开发板，一款之前完全不了解的物联网操作系统，一直不太熟悉的C语言，以至于下载程序就折腾了很久，在这里总结下，希望接下来能够顺利一些。">
+<meta name="keywords" content="［IoT,Contiki,CC2538dk］">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Contiki CC2538dk 串口下载程序">
+<meta property="og:url" content="https://fzy-line.github.io/posts/38833/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="本以为自己再也不会接触嵌入式开发这一方面的东西，没想到，毕业设计就开始重拾开发板，以后也要朝着物联网方向发展了。一块从没用过的开发板，一款之前完全不了解的物联网操作系统，一直不太熟悉的C语言，以至于下载程序就折腾了很久，在这里总结下，希望接下来能够顺利一些。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-1.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-2.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-3.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-4.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-5.png">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.519Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Contiki CC2538dk 串口下载程序">
+<meta name="twitter:description" content="本以为自己再也不会接触嵌入式开发这一方面的东西，没想到，毕业设计就开始重拾开发板，以后也要朝着物联网方向发展了。一块从没用过的开发板，一款之前完全不了解的物联网操作系统，一直不太熟悉的C语言，以至于下载程序就折腾了很久，在这里总结下，希望接下来能够顺利一些。">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/38833/"/>
+
+
+
+
+
+  <title>Contiki CC2538dk 串口下载程序 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/38833/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Contiki CC2538dk 串口下载程序</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-18T17:05:32+08:00">
+                2017-02-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/" itemprop="url" rel="index">
+                    <span itemprop="name">IoT</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/Contiki/" itemprop="url" rel="index">
+                    <span itemprop="name">Contiki</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　本以为自己再也不会接触嵌入式开发这一方面的东西，没想到，毕业设计就开始重拾开发板，以后也要朝着物联网方向发展了。一块从没用过的开发板，一款之前完全不了解的物联网操作系统，一直不太熟悉的C语言，以至于下载程序就折腾了很久，在这里总结下，希望接下来能够顺利一些。</p>
+<a id="more"></a>
+<h4 id="硬件连接准备"><a href="#硬件连接准备" class="headerlink" title="硬件连接准备"></a>硬件连接准备</h4><h5 id="连接开发板和USB转TTL模块"><a href="#连接开发板和USB转TTL模块" class="headerlink" title="连接开发板和USB转TTL模块"></a>连接开发板和USB转TTL模块</h5><p>开发板:3.3V—-USB转TTL:3.3V</p>
+<p>开发板:TX‐‐‐‐USB转TTL:RX</p>
+<p>开发板:RX‐‐‐‐USB转TTL:TX</p>
+<p>开发板:GND‐‐‐‐USB转TTL:GND</p>
+<h5 id="安装驱动"><a href="#安装驱动" class="headerlink" title="安装驱动"></a>安装驱动</h5><p>根据USB转TTL模块的芯片安装对应的驱动，常见的有PL2303和CH340，在网上找到对应驱动下载安装即可。</p>
+<p>打开设备管理器查看端口，如果未安装成功则显示黄色感叹号。</p>
+<h4 id="Linux系统下烧写程序"><a href="#Linux系统下烧写程序" class="headerlink" title="Linux系统下烧写程序"></a>Linux系统下烧写程序</h4><p>注意：本文采用Contiki官网推荐的开发工具：Instant Contiki，即为Ubuntu 14.04操作系统</p>
+<h5 id="将USB模块连接到虚拟机"><a href="#将USB模块连接到虚拟机" class="headerlink" title="将USB模块连接到虚拟机"></a>将USB模块连接到虚拟机</h5><p>插上USB转TTL模块后，一般会默认将其挂载到windwos操作系统，这里需要点击虚拟机右下角的U盘图标再点连接将其与虚拟机连接起来。</p>
+<h5 id="查看-dev-ttyUSB0设备信息"><a href="#查看-dev-ttyUSB0设备信息" class="headerlink" title="查看/dev/ttyUSB0设备信息"></a>查看/dev/ttyUSB0设备信息</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd /dev</div><div class="line">$ ls ttyUSB* -l</div></pre></td></tr></table></figure>
+<h5 id="修改ttyUSB0设备使用权限"><a href="#修改ttyUSB0设备使用权限" class="headerlink" title="修改ttyUSB0设备使用权限"></a>修改ttyUSB0设备使用权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo chmod 777 ttyUSB0</div></pre></td></tr></table></figure>
+<p>也可以在其他位置编写shell脚本：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line">sudo chmod 777 /dev/ttyUSB0</div></pre></td></tr></table></figure>
+<p>此处较为麻烦，我使用的是虚拟机，每次拔出USB再次插入后ttyUSB0的权限就又还原了，所以每次都得修改权限。然后，不知道什么原因，下载一次之后就无法下载，得拔出再插入，所以比较麻烦，这也是我为什么后来改用 windows 下载的原因。</p>
+<h5 id="切换到bootloader模式"><a href="#切换到bootloader模式" class="headerlink" title="切换到bootloader模式"></a>切换到bootloader模式</h5><p>开发板需进入bootloader才能进行串口下载程序。</p>
+<p>开发板按键的作用：</p>
+<p>Reset：复位重启系统</p>
+<p>Down/Up/Select/Right/Left：配合例程作事件输入</p>
+<p>Reset+Select：配合进入 bootloader 模式</p>
+<p><strong>Bootloader模式：按住select按键同时，按下Reset按键，led没有任何动静，证明现在处于bootloader 模式。</strong></p>
+<h5 id="下载程序"><a href="#下载程序" class="headerlink" title="下载程序"></a>下载程序</h5><p>我们以 /home/user/contiki/examples/cc2538dk/cc2538-demo.c 为例进行烧写程序。</p>
+<p>初次接触 contiki 的程序，demo 的代码复杂了点，为了便于理解以及方便查看效果，我们把程序修改成如下：</p>
+<p>使用etimer模块间隔5s读取系统运行时间，然后每次打印系统时间以及Hello, world方便观察。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">#include &quot;contiki.h&quot;</div><div class="line"></div><div class="line">#include &lt;stdio.h&gt; /* For printf() */</div><div class="line"></div><div class="line">static struct etimer et;  //定义etimer变量</div><div class="line">unsigned long sec;  //用于记录系统运行时间的变量</div><div class="line"></div><div class="line">/*---------------------------------------------------------------------------*/</div><div class="line">PROCESS(hello_world_process, &quot;Hello world process&quot;);</div><div class="line">AUTOSTART_PROCESSES(&amp;hello_world_process);</div><div class="line">/*---------------------------------------------------------------------------*/</div><div class="line">PROCESS_THREAD(hello_world_process, ev, data)</div><div class="line">&#123;</div><div class="line">  PROCESS_BEGIN();</div><div class="line"></div><div class="line">  while(1)&#123;</div><div class="line">     etimer_set(&amp;et, 5 * CLOCK_SECOND);  // 设置为每隔5s etimer溢出一次</div><div class="line">     PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et));   // 等待定时器溢出</div><div class="line">     sec = clock_seconds();  // 记录系统运行时间 单位s  </div><div class="line">     printf(&quot;%lu Seconds\n&quot;, sec);   </div><div class="line">     printf(&quot;Hello, world\n&quot;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  PROCESS_END();</div><div class="line">&#125;</div><div class="line">/*---------------------------------------------------------------------------*/</div></pre></td></tr></table></figure>
+<p>先编译后下载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ make TARGET=cc2538dk</div><div class="line">$ make cc2538-demo.upload</div></pre></td></tr></table></figure>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-1.png" alt="18-1"></p>
+<p>下载出错的情况，遇到以下情况需要重新拔出USB再次插入，反正经常出现下面的情况，所以我最后还是转到Windows上进行下载了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERROR: Can&apos;t connect to target. Ensure boot loader is started. (no answer on synch sequence)</div><div class="line">make: *** [cc2538-demo.upload] Error 1</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ERROR: [Errno 5] Input/output error</div><div class="line">make: *** [cc2538-demo.upload] Error 1</div></pre></td></tr></table></figure>
+<h5 id="使用-minicom-查看输出信息"><a href="#使用-minicom-查看输出信息" class="headerlink" title="使用 minicom 查看输出信息"></a>使用 minicom 查看输出信息</h5><p>minicom 是一个串口通信工具，就像Windows下的超级终端。可用来与串口设备通信，如调试交换机和Modem等。</p>
+<p><strong>安装 minicom</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo apt-get install minicom</div></pre></td></tr></table></figure>
+<p><strong>配置 minicom</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo minicom -s</div></pre></td></tr></table></figure>
+<p>进入了minicom的配置界面，使用上下键选择Serial port setup，回车，然后输入A，回车，修改 Serial Device 为 /dev/ttyUSB0，然后保存退出。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-2.png" alt="18-2"></p>
+<p><strong>使用 minicom</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ sudo minicom</div></pre></td></tr></table></figure>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-3.png" alt="18-3"></p>
+<h4 id="Windows-系统下烧写程序"><a href="#Windows-系统下烧写程序" class="headerlink" title="Windows 系统下烧写程序"></a>Windows 系统下烧写程序</h4><h5 id="下载安装烧写工具"><a href="#下载安装烧写工具" class="headerlink" title="下载安装烧写工具"></a>下载安装烧写工具</h5><p>TI Flash Programmer2 工具主要用于CC25xx，CC26xx等系列芯片的程序烧录，大家可以从TI官网下载：<a href="http://www.ti.com.cn/tool/cn/flash-programmer?keyMatch=flash%20programmer&amp;tisearch=Search-CN-Everything" target="_blank" rel="external">http://www.ti.com.cn/tool/cn/flash-programmer?keyMatch=flash%20programmer&amp;tisearch=Search-CN-Everything</a></p>
+<p>由于访问可能出现问题，这里给出一个CSDN提供的下载地址：<a href="http://download.csdn.net/detail/zzfenglin/9626337" target="_blank" rel="external">http://download.csdn.net/detail/zzfenglin/9626337</a></p>
+<h5 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h5><p>这里编译程序还是在Instant contiki上进行，因为如果要在 Windows 下编译的话还得使用IAR等开发工具，然后进行 contiki 的移植，所以我们还是使用官网推荐的方式使用 Instant contiki 吧。如上：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd /home/user/contiki/examples/cc2538dk</div><div class="line">$ make TARGET=cc2538dk</div></pre></td></tr></table></figure>
+<p>将得到的bin文件或者hex文件复制到Windwos，从虚拟机中复制文件到 Windous 需要使用 VMware 的 VMware tools 工具，可以点击菜单栏虚拟机-&gt;安装 VMware Tools，安装好之后即可像在同一个系统中复制粘贴了。</p>
+<h5 id="烧写程序"><a href="#烧写程序" class="headerlink" title="烧写程序"></a>烧写程序</h5><p>将USB转TTL模块连接到电脑，然后打开TI Flash Programmer2。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-4.png" alt="18-4"></p>
+<p>点击左侧Refresh，找到USB设备，在左下方选择芯片型号：cc2538，中间Flash Images选择bin文件所在路径，下方 Action 勾选 Erase、Program、Verify。</p>
+<p>按住开发板的Reset + Select：配合进入 bootloader 模式</p>
+<p>点击TI Flash Programmer2下方播放按钮进行程序烧录，烧录成功会显示Success！</p>
+<h5 id="打开串口助手查看效果"><a href="#打开串口助手查看效果" class="headerlink" title="打开串口助手查看效果"></a>打开串口助手查看效果</h5><p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/2/18-5.png" alt="18-5"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/［IoT-Contiki-CC2538dk］/" rel="tag"># ［IoT,Contiki,CC2538dk］</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/38896/" rel="next" title="Contiki Cooja仿真">
+                <i class="fa fa-chevron-left"></i> Contiki Cooja仿真
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/60741/" rel="prev" title="Contiki RPL-border-router Cooja仿真">
+                Contiki RPL-border-router Cooja仿真 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#硬件连接准备"><span class="nav-number">1.</span> <span class="nav-text">硬件连接准备</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#连接开发板和USB转TTL模块"><span class="nav-number">1.1.</span> <span class="nav-text">连接开发板和USB转TTL模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装驱动"><span class="nav-number">1.2.</span> <span class="nav-text">安装驱动</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Linux系统下烧写程序"><span class="nav-number">2.</span> <span class="nav-text">Linux系统下烧写程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#将USB模块连接到虚拟机"><span class="nav-number">2.1.</span> <span class="nav-text">将USB模块连接到虚拟机</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查看-dev-ttyUSB0设备信息"><span class="nav-number">2.2.</span> <span class="nav-text">查看/dev/ttyUSB0设备信息</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#修改ttyUSB0设备使用权限"><span class="nav-number">2.3.</span> <span class="nav-text">修改ttyUSB0设备使用权限</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#切换到bootloader模式"><span class="nav-number">2.4.</span> <span class="nav-text">切换到bootloader模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#下载程序"><span class="nav-number">2.5.</span> <span class="nav-text">下载程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用-minicom-查看输出信息"><span class="nav-number">2.6.</span> <span class="nav-text">使用 minicom 查看输出信息</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-系统下烧写程序"><span class="nav-number">3.</span> <span class="nav-text">Windows 系统下烧写程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#下载安装烧写工具"><span class="nav-number">3.1.</span> <span class="nav-text">下载安装烧写工具</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#编译程序"><span class="nav-number">3.2.</span> <span class="nav-text">编译程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#烧写程序"><span class="nav-number">3.3.</span> <span class="nav-text">烧写程序</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#打开串口助手查看效果"><span class="nav-number">3.4.</span> <span class="nav-text">打开串口助手查看效果</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: 'Contiki CC2538dk 串口下载程序', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

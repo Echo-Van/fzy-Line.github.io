@@ -1,0 +1,1305 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构,栈," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="继续上一篇博客的话题，继续总结数据结构的相关知识，此篇博客主要总结栈的基本概念、存储结构、基本操作以及应用，栈是一种操作受限的线性表，只允许在表的一端进行插入和删除，也正因为它的这个特点，使得栈的应用十分广泛，比如数制转换、表达式求值等问题的解决都用到栈以及栈在递归中的重要作用。">
+<meta name="keywords" content="数据结构,栈">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构基础之栈">
+<meta property="og:url" content="https://fzy-line.github.io/posts/9941/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="继续上一篇博客的话题，继续总结数据结构的相关知识，此篇博客主要总结栈的基本概念、存储结构、基本操作以及应用，栈是一种操作受限的线性表，只允许在表的一端进行插入和删除，也正因为它的这个特点，使得栈的应用十分广泛，比如数制转换、表达式求值等问题的解决都用到栈以及栈在递归中的重要作用。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-1.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-2.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-3.jpg">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构基础之栈">
+<meta name="twitter:description" content="继续上一篇博客的话题，继续总结数据结构的相关知识，此篇博客主要总结栈的基本概念、存储结构、基本操作以及应用，栈是一种操作受限的线性表，只允许在表的一端进行插入和删除，也正因为它的这个特点，使得栈的应用十分广泛，比如数制转换、表达式求值等问题的解决都用到栈以及栈在递归中的重要作用。">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/9941/"/>
+
+
+
+
+
+  <title>数据结构基础之栈 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/9941/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构基础之栈</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-07T16:30:30+08:00">
+                2016-09-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data structure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　继续上一篇博客的话题，继续总结数据结构的相关知识，此篇博客主要总结栈的基本概念、存储结构、基本操作以及应用，栈是一种操作受限的线性表，只允许在表的一端进行插入和删除，也正因为它的这个特点，使得栈的应用十分广泛，比如数制转换、表达式求值等问题的解决都用到栈以及栈在递归中的重要作用。</p>
+<a id="more"></a>
+<h4 id="栈的基本概念"><a href="#栈的基本概念" class="headerlink" title="栈的基本概念"></a>栈的基本概念</h4><p>定义：只允许在表的一端进行插入和删除的操作的线性表。</p>
+<p>栈顶：允许插入和删除的一端。</p>
+<p>特点：后进先出（Last In First Out，LIFO）。</p>
+<h4 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h4><p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-1.jpg" alt="7-1"></p>
+<p>对栈顶指针进行初始化时，可以将其初始化为-1，也可以初始化为0，当初始化为-1时栈顶指针指向的元素即为栈顶元素，而初始化为0时，栈顶指针减1所指向的元素才是栈顶元素，具体区别如下：</p>
+<h5 id="初始化栈顶指针S-gt-top-1时"><a href="#初始化栈顶指针S-gt-top-1时" class="headerlink" title="初始化栈顶指针S-&gt;top = -1时"></a>初始化栈顶指针S-&gt;top = -1时</h5><p>栈顶元素为S-&gt;data[S-&gt;top]</p>
+<p>进栈操作：先将栈顶指针加1，再送值到栈顶元素，即S-&gt;data[++S-&gt;top] = x</p>
+<p>出栈操作：先取栈顶元素值，再将栈顶指针减1，即x = S-&gt;data[S-&gt;top–]</p>
+<p>栈空条件：S-&gt;top = -1</p>
+<p>栈满条件：S-&gt;top = MAXSIZE - 1</p>
+<p>栈长：S-top + 1</p>
+<h5 id="初始化栈顶指针S-gt-top-0时"><a href="#初始化栈顶指针S-gt-top-0时" class="headerlink" title="初始化栈顶指针S-&gt;top = 0时"></a>初始化栈顶指针S-&gt;top = 0时</h5><p>栈顶元素为S-&gt;data[S-&gt;top - 1]</p>
+<p>进栈操作：先送值到栈顶元素，栈顶指针再加1，即S-&gt;data[S-&gt;top++] = x</p>
+<p>出栈操作：先将栈顶指针减1，再取栈顶元素值，即x = S-&gt;data[–S-&gt;top]</p>
+<p>栈空条件：S-&gt;top = 0</p>
+<p>栈满条件：S-&gt;top = MAXSIZE</p>
+<p>栈长：S-top</p>
+<h5 id="基本操作实现"><a href="#基本操作实现" class="headerlink" title="基本操作实现"></a>基本操作实现</h5><p>下面以将栈顶指针初始化为0为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#define ElemType int</div><div class="line">#define MAXSIZE 100     //定义栈的最大容量</div><div class="line">#define true 1</div><div class="line">#define false 0</div><div class="line"></div><div class="line">typedef struct&#123;</div><div class="line">    ElemType data[MAXSIZE];     //存放栈中元素的数组</div><div class="line">    int top;    //栈顶指针</div><div class="line">&#125;SeqStack;</div><div class="line"></div><div class="line">/******构造一个空栈******/</div><div class="line">void InitStack(SeqStack *S)</div><div class="line">&#123;</div><div class="line">    S-&gt;top = 0;    //栈顶指针初始化为0</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*******判断栈空*******/</div><div class="line">int StackEmpty(SeqStack *S)&#123;</div><div class="line">    if(S-&gt;top == 0)</div><div class="line">        return true;</div><div class="line">    else</div><div class="line">        return false;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********出栈操作***********/</div><div class="line">int Pop(SeqStack *S,ElemType *e)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top == 0)    //若栈空出栈失败</div><div class="line">        return false;</div><div class="line">    *e = S-&gt;data[-- S-&gt;top];    //修改栈顶指针，并保存栈顶元素</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********进栈操作***********/</div><div class="line">int Push(SeqStack *S,ElemType e)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top == MAXSIZE)  //若栈满则进栈失败</div><div class="line">        return false;</div><div class="line">    S-&gt;data[S-&gt;top ++] = e; //将e插入栈顶，并修改栈顶指针</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********取栈顶元素***********/</div><div class="line">int GetTop(SeqStack *S,ElemType *e)&#123;</div><div class="line">    if(S-&gt;top == 0)     //若栈空取栈顶元素失败</div><div class="line">        return false;</div><div class="line">    *e = S-&gt;data[S-&gt;top-1];     //保存栈顶元素</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    SeqStack S;</div><div class="line">    InitStack(&amp;S);</div><div class="line"></div><div class="line">    ....</div><div class="line"></div><div class="line">    进行进栈、出栈、判断栈空等操作</div><div class="line">    ....</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="链栈"><a href="#链栈" class="headerlink" title="链栈"></a>链栈</h4><p>利用单链表结构来实现的栈，即栈中的每一个数据元素用一个结点来表示，同时设置一个指针top来指示栈顶元素的当前位置。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-2.jpg" alt="7-2"></p>
+<h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
+<li>便于多个栈共享存储空间</li>
+<li>不存在栈满溢出的情况</li>
+<li>操作与链表类似，便于结点的插入和删除</li>
+</ul>
+<h5 id="基本操作实现-1"><a href="#基本操作实现-1" class="headerlink" title="基本操作实现"></a>基本操作实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#define ElemType int</div><div class="line">#define false 0</div><div class="line">#define true 1</div><div class="line"></div><div class="line">typedef struct SNode&#123;</div><div class="line">    ElemType data;      //数据域</div><div class="line">    struct SNode *next;     //指针域</div><div class="line">&#125;SNode;</div><div class="line"></div><div class="line">typedef struct&#123;</div><div class="line">    SNode *top;     //栈顶指针</div><div class="line">&#125;LinkStack;</div><div class="line"></div><div class="line">/*******构造一个空栈*******/</div><div class="line">int InitStack(LinkStack *S)&#123;</div><div class="line">    S = (LinkStack *)malloc(sizeof(LinkStack));     //分配栈顶指针的内存空间</div><div class="line">    if(S == NULL)   //内存分配失败</div><div class="line">        return false;</div><div class="line">    S-&gt;top = NULL;  //栈顶指针置为空</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**********置栈空**********/</div><div class="line">void ClearStack(LinkStack *S)</div><div class="line">&#123;</div><div class="line">    S-&gt;top = NULL;  //将栈顶指针置为空</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********判断栈空********/</div><div class="line">int StackEmpty(LinkStack *S)</div><div class="line">&#123;</div><div class="line">    return S-&gt;top == NULL;  //判断栈顶指针是否为空</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********进栈操作***********/</div><div class="line">int Push(LinkStack *S,ElemType e)&#123;</div><div class="line">    SNode *temp;</div><div class="line">    temp = (SNode *)malloc(sizeof(SNode));  //生成新的结点</div><div class="line">    if(temp == NULL)    //内存分配失败</div><div class="line">        return false;</div><div class="line">    temp-&gt;data = e;     //赋值给结点数据域</div><div class="line">    temp-&gt;next = S-&gt;top;    //插入栈顶</div><div class="line">    S-&gt;top = temp;      //修改栈顶指针</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********出栈操作***********/</div><div class="line">int Pop(LinkStack *S,ElemType *e)&#123;</div><div class="line">    SNode *temp;</div><div class="line">    if(S-&gt;top == NULL)  //若栈为空则出栈失败</div><div class="line">        return false;</div><div class="line">    temp = S-&gt;top;</div><div class="line">    S-&gt;top = temp-&gt;next;    //修改栈顶指针</div><div class="line">    *e = temp-&gt;data;    //保存栈顶元素</div><div class="line">    free(temp);     //释放出栈结点</div><div class="line">    return  true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********取栈顶元素***********/</div><div class="line">int GetTop(LinkStack *S,ElemType *e)&#123;</div><div class="line">    if(S-&gt;top == NULL)  //若栈为空则无法获取栈顶元素</div><div class="line">        return false;</div><div class="line">    *e = S-&gt;top-&gt;data;  //取栈顶指针指向的元素</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    LinkStack S;</div><div class="line">    InitStack(&amp;S);</div><div class="line"></div><div class="line">    ....</div><div class="line"></div><div class="line">    进行进栈、出栈、判断栈空等操作</div><div class="line">    ....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="共享栈"><a href="#共享栈" class="headerlink" title="共享栈"></a>共享栈</h4><p>为了避免出现有的栈溢出有的栈空闲的情况，可以让多个栈共享一个足够大的数组空间，是存储空间得到充分利用。常见的是两栈共享空间，即让两个栈共享一个一维数组空间，使两个栈的栈底分别设置在共享空间的两端，两个栈顶向共享空间的中间延伸。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/7-3.jpg" alt="7-3"></p>
+<h5 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h5><p>同样，由于初始化的不同会出现两种情况，这里以初始化栈1的栈顶指针为0，栈2的栈顶指针为MAXSIZE-1为例进行说明：</p>
+<p>栈满条件：S-&gt;top1 = S-&gt;top2 + 1</p>
+<p>栈空条件：S-&gt;top1 = 0 或 S-&gt;top2 = MAXSIZE - 1</p>
+<p>进栈操作：栈1：先赋值栈顶指针再加1，栈2：先赋值栈顶指针再减1</p>
+<p>出栈操作：栈1：栈顶指针先减1再赋值，栈2：栈顶指针先加1再赋值</p>
+<p>栈顶元素：栈1：S-&gt;data[S-&gt;top1-1]，栈2：S-&gt;data[S-&gt;top2-1]</p>
+<p>如果初始化栈1的栈顶指针为-1，栈2的栈顶指针为MAXSIZE会有什么不同呢？还是自己想一想吧，这里就不给出啦。</p>
+<h5 id="基本操作实现-2"><a href="#基本操作实现-2" class="headerlink" title="基本操作实现"></a>基本操作实现</h5><p>下面是初始化为0和MAXSIZE-1的情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line">#define ElemType int</div><div class="line">#define MAXSIZE 100     //定义栈的最大容量</div><div class="line">#define true 1</div><div class="line">#define false 0</div><div class="line"></div><div class="line">typedef struct&#123;</div><div class="line">    ElemType data[MAXSIZE];     //两栈共享的数组空间</div><div class="line">    int top[2];     //两栈的栈顶指针</div><div class="line">&#125;DSeqStack;</div><div class="line"></div><div class="line">/*********构造一个空栈*********/</div><div class="line">void InitStack(DSeqStack *S)</div><div class="line">&#123;</div><div class="line">    S-&gt;top[0] = 0;  //初始化栈1的栈顶指针</div><div class="line">    S-&gt;top[1] = MAXSIZE-1;  //初始化栈2的栈顶指针</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********判断栈是否为空*********/</div><div class="line">int StackEmpty(DSeqStack *S,int i)&#123;</div><div class="line">    switch(i)&#123;</div><div class="line">        case 1:</div><div class="line">            return (S-&gt;top[0] == 0? true:false);    //判断栈1是否为空</div><div class="line">            break;</div><div class="line">        case 2:</div><div class="line">            return (S-&gt;top[1] == MAXSIZE-1? true:false);    //判断栈2是否为空</div><div class="line">            break;</div><div class="line">        default:</div><div class="line">            return false;   //参数错误</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**************进栈操作**************/</div><div class="line">int Push(DSeqStack *S,ElemType e,int i)</div><div class="line">&#123;</div><div class="line">    if(S-&gt;top[0] == S-&gt;top[1]+1)    //判断栈空间是否满</div><div class="line">        return false;</div><div class="line">    switch(i)&#123;</div><div class="line">        case 1:</div><div class="line">            S-&gt;data[S-&gt;top[0]] = e;     //将e压入第1个栈</div><div class="line">            S-&gt;top[0]++;</div><div class="line">            break;</div><div class="line">        case 2:</div><div class="line">            S-&gt;data[S-&gt;top[1]] = e;     //将e压入第2个栈</div><div class="line">            S-&gt;top[1]--;</div><div class="line">            break;</div><div class="line">        default:</div><div class="line">            return false;   //参数错误</div><div class="line">    &#125;</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**************出栈操作**************/</div><div class="line">int Pop(DSeqStack *S,ElemType *e,int i)</div><div class="line">&#123;</div><div class="line">    switch(i)&#123;</div><div class="line">        case 1:</div><div class="line">            if(S-&gt;top[0] == 0)      //判断栈1是否为空</div><div class="line">                return false;</div><div class="line">            S-&gt;top[0]--;    //修改栈1的栈顶指针</div><div class="line">            *e = S-&gt;data[S-&gt;top[0]];      //从第1个栈中弹出</div><div class="line">            break;</div><div class="line">        case 2:</div><div class="line">            if(S-&gt;top[1] == MAXSIZE-1)      //判断栈2是否为空</div><div class="line">                return false;</div><div class="line">            S-&gt;top[1]++;    //修改栈2的栈顶指针</div><div class="line">            *e = S-&gt;data[S-&gt;top[1]];      //从第2个栈中弹出</div><div class="line">            break;</div><div class="line">        default:</div><div class="line">            return false;   //参数错误</div><div class="line">    &#125;</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    DSeqStack S;</div><div class="line">    InitStack(&amp;S);</div><div class="line"></div><div class="line">    ....</div><div class="line"></div><div class="line">    进行进栈、出栈、判断栈空等操作</div><div class="line">    ....</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h4><h5 id="数制转换"><a href="#数制转换" class="headerlink" title="数制转换"></a>数制转换</h5><p>数制转换过程中我们得到的结果序列往往是我们所要结果的逆序，这时候就需要栈来帮忙了。比如，将十进制数12转换成二进制序列，过程如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">12/2 = 6...0</div><div class="line">6/2 = 3...0</div><div class="line">3/2 = 1...1</div><div class="line">1/2 = 0...1</div><div class="line"></div><div class="line">依次得到0011，但是12的二进制表示为1100，即为逆序。</div></pre></td></tr></table></figure>
+<p>所以我们需要将每次得到的余数压入栈中，一直到没有元素需要压入栈中时再将元素依次从栈中弹出，即得到正确的结果。</p>
+<p>以十进制转K进制为例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">void Conversion(int n,int k)&#123;</div><div class="line">    ElemType x;</div><div class="line">    SeqStack S;</div><div class="line">    InitStack(&amp;S);</div><div class="line">    while(n&gt;0)&#123;</div><div class="line">        x = n%k;</div><div class="line">        Push(&amp;S,x);     //将得到的余数依次压入栈中</div><div class="line">        n = n/k;</div><div class="line">    &#125;</div><div class="line">    while(!StackEmpty(&amp;S))&#123;</div><div class="line">        Pop(&amp;S,&amp;x);</div><div class="line">        printf(&quot;%d&quot;,x);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>栈的应用还有很多，比如括号匹配的检验、表达式求值，以及栈在递归中的重要作用。这里就不再一一描述了，以后在Leetcode上看到类似的题目再进行说明。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/栈/" rel="tag"># 栈</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/37916/" rel="next" title="数据结构基础之线性表">
+                <i class="fa fa-chevron-left"></i> 数据结构基础之线性表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/20377/" rel="prev" title="数据结构基础之队列">
+                数据结构基础之队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的基本概念"><span class="nav-number">1.</span> <span class="nav-text">栈的基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序栈"><span class="nav-number">2.</span> <span class="nav-text">顺序栈</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化栈顶指针S-gt-top-1时"><span class="nav-number">2.1.</span> <span class="nav-text">初始化栈顶指针S->top = -1时</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化栈顶指针S-gt-top-0时"><span class="nav-number">2.2.</span> <span class="nav-text">初始化栈顶指针S->top = 0时</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本操作实现"><span class="nav-number">2.3.</span> <span class="nav-text">基本操作实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链栈"><span class="nav-number">3.</span> <span class="nav-text">链栈</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本操作实现-1"><span class="nav-number">3.2.</span> <span class="nav-text">基本操作实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享栈"><span class="nav-number">4.</span> <span class="nav-text">共享栈</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点-1"><span class="nav-number">4.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本操作实现-2"><span class="nav-number">4.2.</span> <span class="nav-text">基本操作实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈的应用"><span class="nav-number">5.</span> <span class="nav-text">栈的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#数制转换"><span class="nav-number">5.1.</span> <span class="nav-text">数制转换</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: '数据结构基础之栈', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

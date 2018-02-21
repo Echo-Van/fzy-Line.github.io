@@ -1,0 +1,1313 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="数据结构,线性表," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="数据结构也是算法学习的一部分，最近比较忙，在对所学的知识查漏补缺，没有学习什么新的东西，于是干脆就对一直在复习数据结构来了个大总结，这篇博客主要是数据结构的线性表部分，争取尽快把其他部分总结完。接下来的一段时间可能不会经常去Leetcode刷题了，近期的算法学习这一系列的博客将以数据结构为主，因为近来有更重要的事情要做，毕竟精力有限，刷题这一块就先放一放咯。">
+<meta name="keywords" content="数据结构,线性表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构基础之线性表">
+<meta property="og:url" content="https://fzy-line.github.io/posts/37916/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="数据结构也是算法学习的一部分，最近比较忙，在对所学的知识查漏补缺，没有学习什么新的东西，于是干脆就对一直在复习数据结构来了个大总结，这篇博客主要是数据结构的线性表部分，争取尽快把其他部分总结完。接下来的一段时间可能不会经常去Leetcode刷题了，近期的算法学习这一系列的博客将以数据结构为主，因为近来有更重要的事情要做，毕竟精力有限，刷题这一块就先放一放咯。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-3.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-2.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-5.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-4.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-1.jpg">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构基础之线性表">
+<meta name="twitter:description" content="数据结构也是算法学习的一部分，最近比较忙，在对所学的知识查漏补缺，没有学习什么新的东西，于是干脆就对一直在复习数据结构来了个大总结，这篇博客主要是数据结构的线性表部分，争取尽快把其他部分总结完。接下来的一段时间可能不会经常去Leetcode刷题了，近期的算法学习这一系列的博客将以数据结构为主，因为近来有更重要的事情要做，毕竟精力有限，刷题这一块就先放一放咯。">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/37916/"/>
+
+
+
+
+
+  <title>数据结构基础之线性表 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/37916/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构基础之线性表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-09-06T22:15:05+08:00">
+                2016-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Data-structure/" itemprop="url" rel="index">
+                    <span itemprop="name">Data structure</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　数据结构也是算法学习的一部分，最近比较忙，在对所学的知识查漏补缺，没有学习什么新的东西，于是干脆就对一直在复习数据结构来了个大总结，这篇博客主要是数据结构的线性表部分，争取尽快把其他部分总结完。接下来的一段时间可能不会经常去Leetcode刷题了，近期的算法学习这一系列的博客将以数据结构为主，因为近来有更重要的事情要做，毕竟精力有限，刷题这一块就先放一放咯。
+　　
+　　</p>
+<a id="more"></a>
+<h4 id="线性表的基本概念"><a href="#线性表的基本概念" class="headerlink" title="线性表的基本概念"></a>线性表的基本概念</h4><p>定义：具有相同数据类型的n(n&gt;=0)个数据元素的有限序列</p>
+<p>线性表的特点：</p>
+<p>1、表中的元素个数有限。</p>
+<p>2、表中元素具有逻辑上的顺序性，在序列中各元素排列有其先后顺序。</p>
+<p>3、表中元素都是数据元素，每个元素都是单个元素。</p>
+<p>4、表中元素的数据类型都相同。</p>
+<p>5、表中元素具有抽象性。即仅讨论元素间的逻辑关系，不考虑元素究竟表示什么内容。</p>
+<h4 id="顺序存储"><a href="#顺序存储" class="headerlink" title="顺序存储"></a>顺序存储</h4><h5 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h5><p>线性表的顺序存储。用一组地址连续的存储单元，依次存储线性表中的数据元素，使得逻辑上相邻的两个元素在物理上也相邻。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-3.jpg" alt="6-3"></p>
+<p>注意：顺序表的位序是从1开始的，而数组中元素的下标是从0开始的。</p>
+<ul>
+<li>基本操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line"></div><div class="line">#define ElemType int</div><div class="line">#define OVERFLOW -2</div><div class="line">#define true 1</div><div class="line">#define false 0</div><div class="line"></div><div class="line">#define LIST_INIT_SIZE 10 //线性表存储空间的初始分配量</div><div class="line">#define LIST_INCREMENT 2 //线性表存储空间的分配增量</div><div class="line"></div><div class="line">typedef struct&#123;</div><div class="line">    ElemType *data; //存储空间基址</div><div class="line">    int length; //当前长度</div><div class="line">    int listsize; //当前分配的存储容量(以sizeof(ElemType)为单位)</div><div class="line">&#125;SeqList;</div><div class="line"></div><div class="line">/********初始化********/</div><div class="line">int InitList(SeqList *L)&#123;</div><div class="line">    L-&gt;data = (ElemType *)malloc(sizeof(ElemType)*LIST_INIT_SIZE);</div><div class="line">    if(!L-&gt;data)    </div><div class="line">        return OVERFLOW;</div><div class="line">    L-&gt;length = 0;</div><div class="line">    L-&gt;listsize = LIST_INIT_SIZE;</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/****************插入操作*****************/</div><div class="line">int ListInsert(SeqList *L,int i,ElemType e)&#123;</div><div class="line">    int j;</div><div class="line">    if(i&lt;1||i&gt;L-&gt;length+1)   //判断i的范围是否有效</div><div class="line">        return false;</div><div class="line">    if(L-&gt;length == L-&gt;listsize)     //存储空间已满时不能插入</div><div class="line">        return OVERFLOW;</div><div class="line">    for(j=L-&gt;length;j&gt;=i;j--)   //将第i个元素及之后的元素后移</div><div class="line">        L-&gt;data[j]=L-&gt;data[j-1];</div><div class="line">    L-&gt;data[i-1]=e;     //在位置i处放入e</div><div class="line">    L-&gt;length++;    //线性表长度加1</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********删除操作***********/</div><div class="line">int ListDelete(SeqList *L,int i)&#123;</div><div class="line">    int j;</div><div class="line">    if(i&lt;1||i&gt;L-&gt;length+1)   //判断i的范围是否有效</div><div class="line">        return false;</div><div class="line">    for(j=i;j&lt;L-&gt;length;j++)  //将第i个位置之后的元素前移</div><div class="line">        L-&gt;data[j-1] = L-&gt;data[j];</div><div class="line">    L-&gt;length--;    //线性表长度减1</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**********按位置查找************/</div><div class="line">ElemType GetElem(SeqList *L,int i)&#123;</div><div class="line">    if(i&lt;1||i&gt;L-&gt;length+1)   //判断i的范围是否有效</div><div class="line">        return false;</div><div class="line">    return L-&gt;data[i-1];</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************按值查找**************/</div><div class="line">int LocateElem(SeqList *L,ElemType e)&#123;</div><div class="line">    int i;</div><div class="line">    for(i=0;i&lt;L-&gt;length;i++)&#123;</div><div class="line">        if(L-&gt;data[i] == e)</div><div class="line">            return i+1;</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********求表长**********/</div><div class="line">int ListLength(SeqList *L)&#123;</div><div class="line">    return L-&gt;length;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/******判断是否是空表*****/</div><div class="line">void ListEmpty(SeqList *L)&#123;</div><div class="line">    if(L-&gt;length == 0)</div><div class="line">        return true;</div><div class="line">    else</div><div class="line">        return false;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********输出表*********/</div><div class="line">void printList(SeqList *L)&#123;</div><div class="line">    int i;</div><div class="line">    for(i=0;i&lt;L-&gt;length;i++)</div><div class="line">        printf(&quot;%d &quot;,L-&gt;data[i]);</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********清空表********/</div><div class="line">void ClearList(SeqList *L)&#123;</div><div class="line">    L-&gt;length = 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********销毁表********/</div><div class="line">void DstroyList(SeqList *L)&#123;</div><div class="line">    free(L-&gt;data);</div><div class="line">    L-&gt;data = NULL;</div><div class="line">    L-&gt;length = 0;</div><div class="line">    L-&gt;listsize = 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()&#123;</div><div class="line">    SeqList L;</div><div class="line">    InitList(&amp;L);</div><div class="line"></div><div class="line">    ....</div><div class="line"></div><div class="line">    进行插入、删除、查找结点等操作</div><div class="line">    ....</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>扩展操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">/********将顺序表的所有元素逆置******/</div><div class="line">void Reverse(SeqList *L)&#123;</div><div class="line">    int i;</div><div class="line">    ElemType temp;  //辅助变量</div><div class="line">    for(i=0;i&lt;((L-&gt;length)/2);i++)&#123;     //扫描顺序表L，进行元素交换</div><div class="line">        temp = L-&gt;data[i];</div><div class="line">        L-&gt;data[i] = L-&gt;data[L-&gt;length-1-i];</div><div class="line">        L-&gt;data[L-&gt;length-1-i] = temp;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/******删除有序顺序表中重复的元素******/</div><div class="line">void Del_same(SeqList *L)&#123;</div><div class="line">    int i,j;</div><div class="line">    for(i=0,j=1;j&lt;L-&gt;length;j++)&#123;   //i存储第一个不相同的元素，j工作指针</div><div class="line">        if(L-&gt;data[i] != L-&gt;data[j])&#123;   //查找下一个与上一个元素值不相同的元素</div><div class="line">            L-&gt;data[++i] = L-&gt;data[j];  //找到后，则将元素前移</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    L-&gt;length = i+1;    //删除相同元素后，线性表的长度</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*****将两个有序顺序表合并成一个新的有序顺序表*****/</div><div class="line">int Merge(SeqList *L1,SeqList *L2,SeqList *L)&#123;</div><div class="line">    if(L1-&gt;length + L2-&gt;length &gt; L-&gt;length)     //大于合并表的长度</div><div class="line">        return false;</div><div class="line">    while(i &lt; L1-&gt;length &amp;&amp; j &lt; L2-&gt;length)&#123;    //循环，两两比较，较小的存入结果表</div><div class="line">        if(L1-&gt;data[i] &lt;= L2-&gt;data[j])</div><div class="line">            L-&gt;data[k++] = L1-&gt;data[i];</div><div class="line">        else</div><div class="line">            L-&gt;data[k++] = L2-&gt;data[j];</div><div class="line">    &#125;</div><div class="line">    while(i &lt; L1-&gt;length)       //处理剩下没比完的顺序表</div><div class="line">        L-&gt;data[k++] = L1-&gt;data[i++];</div><div class="line">    while(j &lt; L2-&gt;length)</div><div class="line">        L-&gt;data[k++] = L2-&gt;data[i++];</div><div class="line">    return true;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h4><h5 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h5><p>单链表：通过一组任意的存储单元来存储线性表中的数据元素。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-2.jpg" alt="6-2"></p>
+<p>头结点head指向单链表的第一个结点。</p>
+<p>结点由两部分组成：数据域data，指针域next(存放直接后继元素的地址)。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div></pre></td><td class="code"><pre><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;stdlib.h&gt;</div><div class="line"></div><div class="line">#define ElemType int</div><div class="line">#define true 1</div><div class="line">#define false 0</div><div class="line"></div><div class="line">typedef struct LNode&#123;</div><div class="line">    ElemType data;</div><div class="line">    struct LNode *next;</div><div class="line">&#125;LNode,*LinkList;</div><div class="line"></div><div class="line">/************头插法建立链表*************/</div><div class="line">LinkList HeadInsert_CreatList(LinkList L)&#123;</div><div class="line">    int n;</div><div class="line">    LNode *s;</div><div class="line">    L = (LinkList)malloc(sizeof(LNode));    //创建头结点</div><div class="line">    L-&gt;next = NULL;</div><div class="line">    printf(&quot;采用头插法建立链表，请输入结点值，以9999结束：\n&quot;);</div><div class="line">    scanf(&quot;%d&quot;,&amp;n);</div><div class="line">    while(n!=9999)&#123;</div><div class="line">        s = (LinkList *)malloc(sizeof(LNode));  //创建新结点</div><div class="line">        s-&gt;data = n;</div><div class="line">        s-&gt;next = L-&gt;next;</div><div class="line">        L-&gt;next = s;    //将新结点插入表中</div><div class="line">        scanf(&quot;%d&quot;,&amp;n);</div><div class="line">    &#125;</div><div class="line">    return L;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/************尾插法建立链表*************/</div><div class="line">LinkList RearInsert_CreatList(LinkList L)&#123;</div><div class="line">    int n;</div><div class="line">    LNode *s,*r;</div><div class="line">    L = (LinkList)malloc(sizeof(LNode));    //创建头结点</div><div class="line">    r = L;</div><div class="line">    printf(&quot;采用尾插法建立链表，请输入结点值，以9999结束：\n&quot;);</div><div class="line">    scanf(&quot;%d&quot;,&amp;n);</div><div class="line">    while(n!=9999)&#123;</div><div class="line">        s = (LNode *)malloc(sizeof(LNode));     //创建新结点</div><div class="line">        s-&gt;data = n;</div><div class="line">        r-&gt;next = s;</div><div class="line">        r = s;      //r指向新的表尾结点</div><div class="line">        scanf(&quot;%d&quot;,&amp;n);</div><div class="line">    &#125;</div><div class="line">    r-&gt;next = NULL;     //表尾结点指针置空</div><div class="line">    return L;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*******按序号查找结点值*******/</div><div class="line">LNode* GetElem(LinkList L,int i)&#123;</div><div class="line">    int j = 1;</div><div class="line">    LNode *p = L-&gt;next;     //头结点指针赋给p</div><div class="line">    if(i==0)    //i=0返回头结点</div><div class="line">        return L;</div><div class="line">    if(i&lt;1)     //i无效则返回NULL</div><div class="line">        return NULL;</div><div class="line"></div><div class="line">    while(p&amp;&amp;j&lt;i)&#123;  //从第1个结点开始查找第i个结点</div><div class="line">        p = p-&gt;next;</div><div class="line">        j++;</div><div class="line">    &#125;</div><div class="line">    return p;   //返回第i个结点的指针</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************按值查找结点*************/</div><div class="line">LNode* LocateElem(LinkList L,ElemType e)&#123;</div><div class="line">    LNode *p = L-&gt;next;     //头结点指针赋给p</div><div class="line">    while(p!=NULL&amp;&amp;p-&gt;next!=e)  //从第1个结点开始查找值为e的结点</div><div class="line">        p = p-&gt;next;</div><div class="line">    return p;   //找到则返回值为e的结点，否则返回NULL</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">/****************插入结点****************/</div><div class="line">int ListInsert(LinkList L,int i,ElemType x)&#123;</div><div class="line">    LNode *s,*p;</div><div class="line">    p = GetElem(L,i-1);     //查找插入位置的前驱结点</div><div class="line">    s = (LNode *)malloc(sizeof(LNode));     //创建新结点</div><div class="line">    s-&gt;data = x;</div><div class="line">    s-&gt;next = p-&gt;next;</div><div class="line">    p-&gt;next = s;</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*********求表长*********/</div><div class="line">int ListLength(LinkList L)&#123;</div><div class="line">    int len = 0;</div><div class="line">    LNode *p = L-&gt;next;     //头结点指针赋给p</div><div class="line">    while(p)&#123;</div><div class="line">        len++;  //记录表中结点个数</div><div class="line">        p = p-&gt;next;</div><div class="line">    &#125;</div><div class="line">    return len;     //返回表长</div><div class="line">&#125;</div><div class="line"></div><div class="line">/***********删除结点***********/</div><div class="line">int ListDelete(LinkList L,int i)&#123;</div><div class="line">    LNode *p = GetElem(L,i-1);  //查找待删除结点的前驱结点</div><div class="line">    LNode *q = p-&gt;next;     //p指向需要删除的结点</div><div class="line">    p-&gt;next = q-&gt;next;      //修改指针</div><div class="line">    free(q);    //释放删除结点的存储空间</div><div class="line">    return true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*****打印链表结点值******/</div><div class="line">int ListPrint(LinkList L)&#123;</div><div class="line">    LNode *p = L-&gt;next;     //头结点指针赋给p</div><div class="line">    while(p)&#123;</div><div class="line">        printf(&quot;%d &quot;,p-&gt;data);  //按顺序依次输出结点值</div><div class="line">        p = p-&gt;next;</div><div class="line">    &#125;</div><div class="line">    printf(&quot;\n&quot;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">int main()</div><div class="line">&#123;</div><div class="line">    LinkList L1,L2;</div><div class="line"></div><div class="line">    L1 = HeadInsert_CreatList(L1);</div><div class="line">    printf(&quot;采用头插法建立的链表L1的结点值为：&quot;);</div><div class="line">    ListPrint(L1);</div><div class="line"></div><div class="line">    L2 = RearInsert_CreatList(L2);</div><div class="line">    printf(&quot;采用尾插法建立的链表L2的结点值为：&quot;);</div><div class="line">    ListPrint(L2);</div><div class="line"></div><div class="line">    ....</div><div class="line"></div><div class="line">    进行插入、删除、查找结点等操作</div><div class="line">    ....</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h5><p>每个结点设置两个指针prior和next，分别指向其前驱结点和后继结点。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-5.jpg" alt="6-5"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">typedef struct DNode&#123;</div><div class="line">    ElemType data;  //数据域</div><div class="line">    struct DNode *prior,*next;  //前驱和后继指针</div><div class="line">&#125;DNode,*DLinkList;</div></pre></td></tr></table></figure>
+<p>插入操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//将结点*s插入到结点*p之后</div><div class="line">s-&gt;next = p-&gt;next;</div><div class="line">p-&gt;next-&gt;prior = s;</div><div class="line">s-&gt;prior = p;</div><div class="line">p-&gt;next = s;</div></pre></td></tr></table></figure>
+<p>删除操作：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">//删除结点*p的后继结点*q</div><div class="line">p-&gt;next = q-&gt;next;</div><div class="line">q-&gt;next-&gt;proir = p;</div><div class="line">free(q);</div></pre></td></tr></table></figure></p>
+<h5 id="循环单链表"><a href="#循环单链表" class="headerlink" title="循环单链表"></a>循环单链表</h5><p>将单链表的最后一个指针由NULL改为指向头结点，使整个链表形成一个环。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-4.jpg" alt="6-4"></p>
+<p>判空条件为：头结点的指针是否等于头结点。</p>
+<p>插入删除与单链表相同。</p>
+<h5 id="静态链表"><a href="#静态链表" class="headerlink" title="静态链表"></a>静态链表</h5><p>借助数组来描述线性表的链式存储结构。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/9/6-1.jpg" alt="6-1"></p>
+<p>结点由两部分组成：数据域data，下一个元素的数组下标next。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">typedef struct&#123;</div><div class="line">    ElemType data;  //存储数据元素</div><div class="line">    int next;   //下一个元素的数组下标</div><div class="line">&#125;SLinkList[MAXSIZE];</div></pre></td></tr></table></figure>
+<p>以next=-1作为其结束的标志。</p>
+<h4 id="顺序表和链表的比较"><a href="#顺序表和链表的比较" class="headerlink" title="顺序表和链表的比较"></a>顺序表和链表的比较</h4><h5 id="存取方式"><a href="#存取方式" class="headerlink" title="存取方式"></a>存取方式</h5><p>顺序表：可以顺序存取也可以随机存取。</p>
+<p>链表：只能从表头顺序存取元素。</p>
+<h5 id="逻辑结构与物理结构"><a href="#逻辑结构与物理结构" class="headerlink" title="逻辑结构与物理结构"></a>逻辑结构与物理结构</h5><p>顺序表：逻辑上相邻的元素，其对应的物理存储位置也相邻。</p>
+<p>链表：逻辑上相邻的元素，其物理存储位置则不一定相邻。</p>
+<h5 id="查找、插入和删除操作"><a href="#查找、插入和删除操作" class="headerlink" title="查找、插入和删除操作"></a>查找、插入和删除操作</h5><p>查找：</p>
+<p>按值查找时，顺序表无序时，顺序表和链表的时间复杂度均为O(n)，但是当顺序表有序时，可采用折半查找，时间复杂度为O(log2n)。</p>
+<p>按序号查找时，顺序表的时间复杂度仅为O(1)，而链表的平均时间复杂度为O(n)。</p>
+<p>插入和删除：</p>
+<p>顺序表平均需要移动半个表长的元素，而链表只需要修改相关指针即可。</p>
+<h5 id="空间分配"><a href="#空间分配" class="headerlink" title="空间分配"></a>空间分配</h5><p>顺序存储在空间分配中存在诸多问题与隐患，比如内存溢出、内存闲置等，而链式存储的结点空间只在需要的时候申请分配，只要内存有空间就可以分配，操作灵活、高效。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/线性表/" rel="tag"># 线性表</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/12220/" rel="next" title="开学季-那些迷茫与美好">
+                <i class="fa fa-chevron-left"></i> 开学季-那些迷茫与美好
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/9941/" rel="prev" title="数据结构基础之栈">
+                数据结构基础之栈 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#线性表的基本概念"><span class="nav-number">1.</span> <span class="nav-text">线性表的基本概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序存储"><span class="nav-number">2.</span> <span class="nav-text">顺序存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#顺序表"><span class="nav-number">2.1.</span> <span class="nav-text">顺序表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链式存储"><span class="nav-number">3.</span> <span class="nav-text">链式存储</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#单链表"><span class="nav-number">3.1.</span> <span class="nav-text">单链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#双链表"><span class="nav-number">3.2.</span> <span class="nav-text">双链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#循环单链表"><span class="nav-number">3.3.</span> <span class="nav-text">循环单链表</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#静态链表"><span class="nav-number">3.4.</span> <span class="nav-text">静态链表</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#顺序表和链表的比较"><span class="nav-number">4.</span> <span class="nav-text">顺序表和链表的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#存取方式"><span class="nav-number">4.1.</span> <span class="nav-text">存取方式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#逻辑结构与物理结构"><span class="nav-number">4.2.</span> <span class="nav-text">逻辑结构与物理结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#查找、插入和删除操作"><span class="nav-number">4.3.</span> <span class="nav-text">查找、插入和删除操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#空间分配"><span class="nav-number">4.4.</span> <span class="nav-text">空间分配</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: '数据结构基础之线性表', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

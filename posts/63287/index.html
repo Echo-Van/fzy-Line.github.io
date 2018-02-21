@@ -1,0 +1,1385 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,算法学习,华为机试," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="这次的前5道题异常之简单，可以说基本上谈不上什么算法，最多只能算是熟悉Python的一些基本操作，所以额外加了3道题，当然，简单并不代表就没用，练手感也是很重要的，按照计划继续坚持练习，Keep Moving！">
+<meta name="keywords" content="Python,算法学习,华为机试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法学习-刷题(十一)">
+<meta property="og:url" content="https://fzy-line.github.io/posts/63287/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="这次的前5道题异常之简单，可以说基本上谈不上什么算法，最多只能算是熟悉Python的一些基本操作，所以额外加了3道题，当然，简单并不代表就没用，练手感也是很重要的，按照计划继续坚持练习，Keep Moving！">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.612Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="算法学习-刷题(十一)">
+<meta name="twitter:description" content="这次的前5道题异常之简单，可以说基本上谈不上什么算法，最多只能算是熟悉Python的一些基本操作，所以额外加了3道题，当然，简单并不代表就没用，练手感也是很重要的，按照计划继续坚持练习，Keep Moving！">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/63287/"/>
+
+
+
+
+
+  <title>算法学习-刷题(十一) | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/63287/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">算法学习-刷题(十一)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-14T17:00:05+08:00">
+                2016-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　这次的前5道题异常之简单，可以说基本上谈不上什么算法，最多只能算是熟悉Python的一些基本操作，所以额外加了3道题，当然，简单并不代表就没用，练手感也是很重要的，按照计划继续坚持练习，Keep Moving！</p>
+<a id="more"></a>
+<p>此篇博客的题目依然来自于牛客网（专业IT笔试面试备考平台）在线编程之：华为机试在线训练(11-15题，17题，20题，22题)。</p>
+<p>地址如下：<a href="https://www.nowcoder.com/ta/huawei" target="_blank" rel="external">https://www.nowcoder.com/ta/huawei</a></p>
+<h4 id="数字颠倒"><a href="#数字颠倒" class="headerlink" title="数字颠倒"></a>数字颠倒</h4><h5 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h5><p>输入一个整数，将这个整数以字符串的形式逆序输出<br>程序不考虑负数的情况，若数字含有0，则逆序形式也含有0，如输入为100，则输出为001</p>
+<p>输入描述:</p>
+<p>输入一个int整数</p>
+<p>输出描述:</p>
+<p>将这个整数以字符串的形式逆序输出</p>
+<p>输入例子:</p>
+<p>1516000</p>
+<p>输出例子:</p>
+<p>0006151</p>
+<h5 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h5><p>这个题目和下一题字符串反转其实是一样的，我们既可以采用reversed函数也可以使用切片来进行反转，因此这两道题贴出来的代码是使用的不同的写法，但是其实都是对字符串进行反转。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line"></div><div class="line">input_str = raw_input()</div><div class="line">print &apos;&apos;.join(reversed(input_str))  #使用reversed函数进行反转，再将列表转换成字符串格式输出</div></pre></td></tr></table></figure>
+<h4 id="字符串反转"><a href="#字符串反转" class="headerlink" title="字符串反转"></a>字符串反转</h4><h5 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h5><p>写出一个程序，接受一个字符串，然后输出该字符串反转后的字符串。</p>
+<p>输入描述:</p>
+<p>输入N个字符</p>
+<p>输出描述:</p>
+<p>输出该字符串反转后的字符串</p>
+<p>输入例子:</p>
+<p>abcd</p>
+<p>输出例子:</p>
+<p>dcba</p>
+<h5 id="Python实现-1"><a href="#Python实现-1" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># -*- coding: utf-8 -*-</div><div class="line"></div><div class="line">s = raw_input()</div><div class="line">print s[::-1]   #使用切片进行反转</div></pre></td></tr></table></figure>
+<h4 id="句子逆序"><a href="#句子逆序" class="headerlink" title="句子逆序"></a>句子逆序</h4><h5 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h5><p>将一个英文语句以单词为单位逆序排放。例如“I am a boy”，逆序排放后为“boy a am I”<br>所有单词之间用一个空格隔开，语句中除了英文字母外，不再包含其他字符</p>
+<p>接口说明<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line"> * 反转句子</div><div class="line"> *</div><div class="line"> * @param sentence 原句子</div><div class="line"> * @return 反转后的句子</div><div class="line"> */</div><div class="line">public String reverse(String sentence);</div></pre></td></tr></table></figure></p>
+<p>输入描述:</p>
+<p>将一个英文语句以单词为单位逆序排放。</p>
+<p>输出描述:</p>
+<p>得到逆序的句子</p>
+<p>输入例子:</p>
+<p>I am a boy</p>
+<p>输出例子:</p>
+<p>boy a am I</p>
+<h5 id="Python实现-2"><a href="#Python实现-2" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">string = raw_input()</div><div class="line">s = string.split()  #对字符串按空格进行切分，split函数默认不给参数时默认按空格进行切分</div><div class="line">s.reverse()     #列表进行反转</div><div class="line">print &apos; &apos;.join(s)   #列表转换成字符串进行输出</div></pre></td></tr></table></figure>
+<h4 id="字串的连接最长路径查找"><a href="#字串的连接最长路径查找" class="headerlink" title="字串的连接最长路径查找"></a>字串的连接最长路径查找</h4><h5 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h5><p>给定n个字符串，请对n个字符串按照字典序排列。</p>
+<p>输入描述:</p>
+<p>输入第一行为一个正整数n(1≤n≤1000),下面n行为n个字符串(字符串长度≤100),字符串中只含有大小写字母。</p>
+<p>输出描述:</p>
+<p>数据输出n行，输出结果为按照字典序排列的字符串。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">输入例子:</div><div class="line">9</div><div class="line">cap</div><div class="line">to</div><div class="line">cat</div><div class="line">card</div><div class="line">two</div><div class="line">too</div><div class="line">up</div><div class="line">boat</div><div class="line">boot</div><div class="line"></div><div class="line">输出例子:</div><div class="line">boat</div><div class="line">boot</div><div class="line">cap</div><div class="line">card</div><div class="line">cat</div><div class="line">to</div><div class="line">too</div><div class="line">two</div><div class="line">up</div></pre></td></tr></table></figure>
+<h5 id="Python实现-3"><a href="#Python实现-3" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line"></div><div class="line">lst = []</div><div class="line"></div><div class="line">n = int(raw_input())    #要输入多少行数据</div><div class="line"></div><div class="line">for i in range(n):</div><div class="line">    input_str = raw_input()</div><div class="line">    lst.append(input_str)   #将每一行数据添加到列表中</div><div class="line"></div><div class="line">lst.sort()  #列表排序，sort函数默认按字典序进行排序</div><div class="line"></div><div class="line">for i in lst:</div><div class="line">    print i     #打印排序结果</div></pre></td></tr></table></figure>
+<h4 id="求int型正整数在内存中存储时1的个数"><a href="#求int型正整数在内存中存储时1的个数" class="headerlink" title="求int型正整数在内存中存储时1的个数"></a>求int型正整数在内存中存储时1的个数</h4><h5 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h5><p>输入一个int型的正整数，计算出该int型数据在内存中存储时1的个数。</p>
+<p>输入描述:</p>
+<p>输入一个整数（int类型）</p>
+<p>输出描述:</p>
+<p>这个数转换成2进制后，输出1的个数</p>
+<p>输入例子:</p>
+<p>5</p>
+<p>输出例子:</p>
+<p>2</p>
+<h5 id="Python实现-4"><a href="#Python实现-4" class="headerlink" title="Python实现"></a>Python实现</h5><p>使用bin函数将十进制整数转换成0bxx的二进制形式，用切片截取0b后面的字符串，再将其转换成列表，最后使用count函数来统计1的个数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">n = int(raw_input())</div><div class="line">print list(bin(n)[2:]).count(&apos;1&apos;)</div></pre></td></tr></table></figure>
+<h4 id="坐标移动"><a href="#坐标移动" class="headerlink" title="坐标移动"></a>坐标移动</h4><h5 id="题目描述-5"><a href="#题目描述-5" class="headerlink" title="题目描述"></a>题目描述</h5><p>开发一个坐标计算工具， A表示向左移动，D表示向右移动，W表示向上移动，S表示向下移动。从（0,0）点开始移动，从输入字符串里面读取一些坐标，并将最终输入结果输出到输出文件里面。</p>
+<p>输入：</p>
+<p>合法坐标为A(或者D或者W或者S) + 数字（两位以内）</p>
+<p>坐标之间以;分隔。</p>
+<p>非法坐标点需要进行丢弃。如AA10;  A1A;  $%$;  YAD; 等。</p>
+<p>下面是一个简单的例子 如：</p>
+<p>A10;S20;W10;D30;X;A1A;B10A11;;A10;</p>
+<p>处理过程：</p>
+<p>起点（0,0）</p>
+<ul>
+<li><p>A10   =  （-10,0）</p>
+</li>
+<li><p>S20   =  (-10,-20)</p>
+</li>
+<li><p>W10  =  (-10,-10)</p>
+</li>
+<li><p>D30  =  (20,-10)</p>
+</li>
+<li><p>x    =  无效</p>
+</li>
+<li><p>A1A   =  无效</p>
+</li>
+<li><p>B10A11   =  无效</p>
+</li>
+<li><p>一个空 不影响</p>
+</li>
+<li><p>A10  =  (10,-10)</p>
+</li>
+</ul>
+<p>结果 （10， -10）</p>
+<p>输入描述:</p>
+<p>一行字符串</p>
+<p>输出描述:</p>
+<p>最终坐标，以,分隔</p>
+<p>输入例子:</p>
+<p>A10;S20;W10;D30;X;A1A;B10A11;;A10;</p>
+<p>输出例子:</p>
+<p>10,-10</p>
+<h5 id="Python实现-5"><a href="#Python实现-5" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">import sys</div><div class="line"></div><div class="line">tags = [&apos;A&apos;,&apos;D&apos;,&apos;W&apos;,&apos;S&apos;]</div><div class="line"></div><div class="line">for input_str in sys.stdin:     //处理多个测试数据</div><div class="line">    lst1 = input_str.split(&apos;;&apos;)     //根据;号将字符串切分成列表</div><div class="line">    lst2 = []   //存储正确坐标指令的列表</div><div class="line"></div><div class="line">    for i in lst1:</div><div class="line">        if i == &apos;&apos;:     //空的，不影响</div><div class="line">            continue</div><div class="line">        if i[0] in tags:    //去除错误的指令</div><div class="line">            if i[1:].isdigit():</div><div class="line">                lst2.append(i)</div><div class="line"></div><div class="line">    res = [0,0]     //结果列表</div><div class="line">    for i in lst2:  //根据规则进行相应的移动</div><div class="line">        if i[0] == tags[0]:</div><div class="line">            res[0] -= int(i[1:]);</div><div class="line">        elif i[0] == tags[1]:</div><div class="line">            res[0] += int(i[1:]);</div><div class="line">        elif i[0] == tags[2]:</div><div class="line">            res[1] += int(i[1:]);</div><div class="line">        else:</div><div class="line">            res[1] -= int(i[1:]);</div><div class="line"></div><div class="line">    for i in range(2):</div><div class="line">        res[i] = str(res[i])</div><div class="line"></div><div class="line">    print &apos;,&apos;.join(res)     //输出结果</div></pre></td></tr></table></figure>
+<h4 id="密码验证合格程序"><a href="#密码验证合格程序" class="headerlink" title="密码验证合格程序"></a>密码验证合格程序</h4><h5 id="题目描述-6"><a href="#题目描述-6" class="headerlink" title="题目描述"></a>题目描述</h5><p>密码要求:</p>
+<p>1.长度超过8位</p>
+<p>2.包括大小写字母.数字.其它符号,以上四种至少三种</p>
+<p>3.不能有相同长度超2的子串重复</p>
+<p>说明:长度超过2的子串</p>
+<p>输入描述:</p>
+<p>一组或多组长度超过2的子符串。每组占一行</p>
+<p>输出描述:</p>
+<p>如果符合要求输出：OK，否则输出NG</p>
+<p>输入例子:</p>
+<p>021Abc9000</p>
+<p>021Abc9Abc1</p>
+<p>021ABC9000</p>
+<p>021$bc9000</p>
+<p>输出例子:</p>
+<p>OK</p>
+<p>NG</p>
+<p>NG</p>
+<p>OK</p>
+<h5 id="Python实现-6"><a href="#Python实现-6" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">import sys</div><div class="line"></div><div class="line">def pwdCheck(password):     //验证函数</div><div class="line">    cnt = [0, 0, 0, 0]</div><div class="line">    length = len(password)</div><div class="line">    if length &lt;= 8:     //判断长度是否超过8位</div><div class="line">        return &apos;NG&apos;</div><div class="line">    for k in range(length - 3):     //判断是否有相同长度超2的子串重复</div><div class="line">        if(password[k:k+3] in password[:k] or password[k:k+3] in password[k+3:]):</div><div class="line">            return &apos;NG&apos;</div><div class="line">    for i in password:  //判断是否包括大小写字母.数字.其它符号,以上四种至少三种</div><div class="line">        if i.isalpha():     //字母</div><div class="line">            if i.isupper():     //大写字母</div><div class="line">                cnt[0] = 1</div><div class="line">            else:       //小写字母</div><div class="line">                cnt[1] = 1           </div><div class="line">        elif i.isdigit():   //数字</div><div class="line">            cnt[2] = 1</div><div class="line">        else:   //其他字符</div><div class="line">            cnt[3] = 1</div><div class="line">        count = sum(cnt)</div><div class="line">        if count &gt; 2:   //超过3种则OK</div><div class="line">            return &apos;OK&apos;</div><div class="line">    if count &lt; 3:   //小于3种则不合格</div><div class="line">        return &apos;NG&apos;</div><div class="line"></div><div class="line">    return &apos;OK&apos;</div><div class="line"></div><div class="line">for line in sys.stdin.readlines():  //实现多次测试</div><div class="line">    print pwdCheck(line.strip(&apos;\n&apos;))    //去除输入的回车符号</div></pre></td></tr></table></figure>
+<h4 id="汽水瓶"><a href="#汽水瓶" class="headerlink" title="汽水瓶"></a>汽水瓶</h4><h5 id="题目描述-7"><a href="#题目描述-7" class="headerlink" title="题目描述"></a>题目描述</h5><p>有这样一道智力题：“某商店规定：三个空汽水瓶可以换一瓶汽水。小张手上有十个空汽水瓶，她最多可以换多少瓶汽水喝？”答案是5瓶，方法如下：先用9个空瓶子换3瓶汽水，喝掉3瓶满的，喝完以后4个空瓶子，用3个再换一瓶，喝掉这瓶满的，这时候剩2个空瓶子。然后你让老板先借给你一瓶汽水，喝掉这瓶满的，喝完以后用3个空瓶子换一瓶满的还给老板。如果小张手上有n个空汽水瓶，最多可以换多少瓶汽水喝？</p>
+<p>输入描述:</p>
+<p>输入文件最多包含10组测试数据，每个数据占一行，仅包含一个正整数n（1&lt;=n&lt;=100），表示小张手上的空汽水瓶数。n=0表示输入结束，你的程序不应当处理这一行。</p>
+<p>输出描述:</p>
+<p>对于每组测试数据，输出一行，表示最多可以喝的汽水瓶数。如果一瓶也喝不到，输出0。</p>
+<p>输入例子:</p>
+<p>3</p>
+<p>10</p>
+<p>81</p>
+<p>0</p>
+<p>输出例子:</p>
+<p>1</p>
+<p>5</p>
+<p>40</p>
+<h5 id="Python实现-7"><a href="#Python实现-7" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">import sys</div><div class="line"></div><div class="line">def getCount(n):    //计数函数</div><div class="line">    cnt = 0</div><div class="line">    if n == 0:</div><div class="line">        return 0</div><div class="line">    while n != 1:   //直到只有一瓶汽水</div><div class="line">        cnt = cnt + n/3     //记录喝掉的汽水瓶数</div><div class="line">        n = n/3 + n%3   //剩下的汽水瓶数</div><div class="line">        if n == 2:  //剩下两个瓶盖的时候可以先喝一瓶再凑足3个还给老板</div><div class="line">            n = 3</div><div class="line">    return cnt</div><div class="line"></div><div class="line">num = sys.stdin.readlines()     //输入多行</div><div class="line"></div><div class="line">for i in num:</div><div class="line">    print getCount(int(i))</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/算法学习/" rel="tag"># 算法学习</a>
+          
+            <a href="/tags/华为机试/" rel="tag"># 华为机试</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/26550/" rel="next" title="android图片轮播框架：RollViewPager">
+                <i class="fa fa-chevron-left"></i> android图片轮播框架：RollViewPager
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/15387/" rel="prev" title="IPv6学习笔记(一)">
+                IPv6学习笔记(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#数字颠倒"><span class="nav-number">1.</span> <span class="nav-text">数字颠倒</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述"><span class="nav-number">1.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现"><span class="nav-number">1.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串反转"><span class="nav-number">2.</span> <span class="nav-text">字符串反转</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-1"><span class="nav-number">2.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-1"><span class="nav-number">2.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#句子逆序"><span class="nav-number">3.</span> <span class="nav-text">句子逆序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-2"><span class="nav-number">3.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-2"><span class="nav-number">3.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字串的连接最长路径查找"><span class="nav-number">4.</span> <span class="nav-text">字串的连接最长路径查找</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-3"><span class="nav-number">4.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-3"><span class="nav-number">4.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求int型正整数在内存中存储时1的个数"><span class="nav-number">5.</span> <span class="nav-text">求int型正整数在内存中存储时1的个数</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-4"><span class="nav-number">5.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-4"><span class="nav-number">5.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坐标移动"><span class="nav-number">6.</span> <span class="nav-text">坐标移动</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-5"><span class="nav-number">6.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-5"><span class="nav-number">6.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#密码验证合格程序"><span class="nav-number">7.</span> <span class="nav-text">密码验证合格程序</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-6"><span class="nav-number">7.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-6"><span class="nav-number">7.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#汽水瓶"><span class="nav-number">8.</span> <span class="nav-text">汽水瓶</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#题目描述-7"><span class="nav-number">8.1.</span> <span class="nav-text">题目描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Python实现-7"><span class="nav-number">8.2.</span> <span class="nav-text">Python实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: '算法学习-刷题(十一)', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

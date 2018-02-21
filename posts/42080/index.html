@@ -1,0 +1,1281 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="［Android,Http］," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Android网络编程（特别是Http请求）是Android学习中比较重要的内容，也是Android开发中比较常用的内。虽然已经有很多优秀的第三方开源框架供我们使用，也大大提升了我们的开发效率，但是也因此我们对基本Http请求的并不熟悉，我们应该重视基础，从底层去了解网络请求的实现机制。此篇博客总结了Android两种基本的网络请求方式，并通过一个简单的Demo进行实践。">
+<meta name="keywords" content="［Android,Http］">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Http网络请求">
+<meta property="og:url" content="https://fzy-line.github.io/posts/42080/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="Android网络编程（特别是Http请求）是Android学习中比较重要的内容，也是Android开发中比较常用的内。虽然已经有很多优秀的第三方开源框架供我们使用，也大大提升了我们的开发效率，但是也因此我们对基本Http请求的并不熟悉，我们应该重视基础，从底层去了解网络请求的实现机制。此篇博客总结了Android两种基本的网络请求方式，并通过一个简单的Demo进行实践。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.503Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Http网络请求">
+<meta name="twitter:description" content="Android网络编程（特别是Http请求）是Android学习中比较重要的内容，也是Android开发中比较常用的内。虽然已经有很多优秀的第三方开源框架供我们使用，也大大提升了我们的开发效率，但是也因此我们对基本Http请求的并不熟悉，我们应该重视基础，从底层去了解网络请求的实现机制。此篇博客总结了Android两种基本的网络请求方式，并通过一个简单的Demo进行实践。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/42080/"/>
+
+
+
+
+
+  <title>Android Http网络请求 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/42080/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Android Http网络请求</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-05T21:36:44+08:00">
+                2016-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　Android网络编程（特别是Http请求）是Android学习中比较重要的内容，也是Android开发中比较常用的内。虽然已经有很多优秀的第三方开源框架供我们使用，也大大提升了我们的开发效率，但是也因此我们对基本Http请求的并不熟悉，我们应该重视基础，从底层去了解网络请求的实现机制。此篇博客总结了Android两种基本的网络请求方式，并通过一个简单的Demo进行实践。</p>
+<a id="more"></a>
+<h4 id="Android网络编程注意事项"><a href="#Android网络编程注意事项" class="headerlink" title="Android网络编程注意事项"></a>Android网络编程注意事项</h4><ul>
+<li>安卓的耗时操作（如I/O流操作）的逻辑不能写在主线程，必须写在子线程。</li>
+<li>子线程在安卓2.3以后不能更新UI界面（更新就报错），子线程想要更新界面必须结合Handler或者AsyncTask等才可以。</li>
+<li>Android网络操作均需添加网络访问权限：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;</div></pre></td></tr></table></figure>
+<h4 id="说明事项"><a href="#说明事项" class="headerlink" title="说明事项"></a>说明事项</h4><p>以下代码中的GET请求都是对博主博客的一个404页面发送的请求，会返回该页面的html代码，POST请求都是对博主服务器上的一个用户注册API接口发送的请求，其中请求参数包括用户名和密码，如果服务器中的数据库已经存在此账号则会返回一个exist，如果注册成功则会返回一个success，否则返回一个error。</p>
+<h4 id="使用HttpURLConnection访问网络"><a href="#使用HttpURLConnection访问网络" class="headerlink" title="使用HttpURLConnection访问网络"></a>使用HttpURLConnection访问网络</h4><p>HttpURLConnection类位于java.net包中，用于发送HTTP请求和获取HTTP响应。该类是抽象类，不能直接实例化，要使用URL的openConnection()方法获得。</p>
+<h5 id="发送GET请求"><a href="#发送GET请求" class="headerlink" title="发送GET请求"></a>发送GET请求</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public void get() &#123;</div><div class="line">    try &#123;</div><div class="line">        URL url = new URL(&quot;http://blog.line-coding.tech/&quot;);</div><div class="line">        HttpURLConnection huc = (HttpURLConnection) url.openConnection();</div><div class="line">        // mUrlConnection.setRequestMethod(&quot;GET&quot;); //默认就是GET方式，此声明可不要</div><div class="line">        //获取字节流，并将字节流转换成字符流</div><div class="line">        InputStreamReader isr = new InputStreamReader(huc.getInputStream());         //缓冲字符流，以便读取</div><div class="line">        BufferedReader br = new BufferedReader(isr);    </div><div class="line">        String inputLine = null;</div><div class="line">        //按行读取数据</div><div class="line">        while ((inputLine = br.readLine()) != null) &#123;</div><div class="line">            result += inputLine + &quot;\n&quot;;</div><div class="line">        &#125;</div><div class="line">        isr.close();    //关闭输入流</div><div class="line">        huc.disconnect();   //关闭连接</div><div class="line">    &#125; catch (IOException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>GET方法在传递中文参数时，会产生乱码，要进行Base64编码来解决乱码问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">public String base64Encode(String params) &#123;</div><div class="line">    try &#123;</div><div class="line">        params = Base64.encodeToString(params.getBytes(&quot;utf-8&quot;), Base64.DEFAULT);</div><div class="line">        params = URLEncoder.encode(params,&quot;utf-8&quot;);</div><div class="line">    &#125; catch (UnsupportedEncodingException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">    return params;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="发送POST请求"><a href="#发送POST请求" class="headerlink" title="发送POST请求"></a>发送POST请求</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">public void post() &#123;</div><div class="line">    try &#123;</div><div class="line">        URL url = new URL(&quot;http://data.line-coding.tech/register.php&quot;);</div><div class="line">        HttpURLConnection huc = (HttpURLConnection) url.openConnection();</div><div class="line">        huc.setRequestMethod(&quot;POST&quot;);</div><div class="line">        huc.setDoInput(true); // 向连接中写入数据</div><div class="line">        huc.setDoOutput(true); // 向连接中读取数据</div><div class="line">        huc.setUseCaches(false); // 禁止缓存</div><div class="line">        huc.setInstanceFollowRedirects(true); // 自动执行Http重定向</div><div class="line">        huc.setRequestProperty(&quot;Content-Type&quot;,&quot;application/x-www-form-urlencoded&quot;);  //设置内容类型</div><div class="line">        DataOutputStream dos = new DataOutputStream(huc.getOutputStream()); //获取输出流</div><div class="line">        String params = &quot;username=13674852343&quot; + &quot;&amp;password=123456&quot;;    //添加请求参数</div><div class="line">        dos.writeBytes(params);     //将数据写入到输出流</div><div class="line">        dos.flush();    //输出缓存</div><div class="line">        dos.close();    //关闭输出流</div><div class="line">        if (huc.getResponseCode() == HttpURLConnection.HTTP_OK) &#123;</div><div class="line">            InputStreamReader isr = new InputStreamReader(</div><div class="line">            huc.getInputStream());</div><div class="line">            BufferedReader br = new BufferedReader(isr);</div><div class="line">            String inputLine = null;</div><div class="line">            while ((inputLine = br.readLine()) != null) &#123;</div><div class="line">                result += inputLine + &quot;\n&quot;;</div><div class="line">            &#125;</div><div class="line">            isr.close();</div><div class="line">        &#125;</div><div class="line">        huc.disconnect();   //关闭连接</div><div class="line">    &#125; catch (IOException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="使用HttpClient访问网络"><a href="#使用HttpClient访问网络" class="headerlink" title="使用HttpClient访问网络"></a>使用HttpClient访问网络</h4><p>对于比较复杂的联网操作，使用HttpUrlConnection就不一定能够满足要求，此时，可以使用Apache组织提供的HttpClient项目来实现。HttpClient中将HttpUrlConnection类中的输入/输出流操作统一封装成HttpGet、HttpPost和HttpResponse类。其中HttpGet类代表发送GET请求、HttpPost代表发送POST请求、HttpResponse类代表处理响应的对象。</p>
+<h5 id="发送GET请求-1"><a href="#发送GET请求-1" class="headerlink" title="发送GET请求"></a>发送GET请求</h5><h6 id="使用流程"><a href="#使用流程" class="headerlink" title="使用流程"></a>使用流程</h6><p>（1）创建HttpClient对象</p>
+<p>（2）创建HttpGet对象</p>
+<p>（3）如需添加参数，可以在url中添加参数，也可调用HttpGet的setParams()方法来添加请求参数。</p>
+<p>（4）调用HttpClient对象的execute()方法发送请求。</p>
+<p>（5）调用HttpResponse的getEntity()方法获得包含服务器响应内容的HttpEntity对象。</p>
+<h6 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">public void getMethod() &#123;</div><div class="line">        </div><div class="line">    String url = &quot;http://blog.line-coding.tech/&quot;;</div><div class="line">    try &#123;</div><div class="line">        HttpClient client = new DefaultHttpClient();    //创建HttpClient对象</div><div class="line">        HttpGet get = new HttpGet(url);     //创建HttpGet对象</div><div class="line">        HttpResponse response = client.execute(get);    //执行HttpClient请求</div><div class="line">        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) &#123;</div><div class="line">            result = EntityUtils.toString(response.getEntity());    //获取返回结果</div><div class="line">        &#125; else &#123;</div><div class="line">            result = &quot;请求失败&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125; catch (ClientProtocolException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125; catch (IOException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="发送POST请求-1"><a href="#发送POST请求-1" class="headerlink" title="发送POST请求"></a>发送POST请求</h5><h6 id="使用流程-1"><a href="#使用流程-1" class="headerlink" title="使用流程"></a>使用流程</h6><p>（1）创建HttpClient对象</p>
+<p>（2）创建HttpGet对象</p>
+<p>（3）调用HttpPost的setParams()方法来添加请求参数，也可调用setEntity()方法来设置请求参数。</p>
+<p>（4）调用HttpClient对象的execute()方法发送请求。</p>
+<p>（5）调用HttpResponse的getEntity()方法获得包含服务器响应内容的HttpEntity对象。</p>
+<h6 id="使用示例："><a href="#使用示例：" class="headerlink" title="使用示例："></a>使用示例：</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">public void postMethod() &#123;</div><div class="line">    </div><div class="line">    String url = &quot;http://data.line-coding.tech/register.php&quot;;</div><div class="line">    HttpClient client = new DefaultHttpClient();    //创建HttpClient对象</div><div class="line">    HttpPost post = new HttpPost(url);      //创建HttpGet对象</div><div class="line">    List&lt;NameValuePair&gt; params = new ArrayList&lt;NameValuePair&gt;();</div><div class="line">    params.add(new BasicNameValuePair(&quot;username&quot;, &quot;13674852343&quot;));</div><div class="line">    params.add(new BasicNameValuePair(&quot;password&quot;, &quot;123456&quot;));   </div><div class="line">    try &#123;</div><div class="line">        post.setEntity(new UrlEncodedFormEntity(params,&quot;utf-8&quot;));   //添加参数</div><div class="line">        HttpResponse response = client.execute(post);   //执行HttpClient请求</div><div class="line">        if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) &#123; //判断请求是否成功</div><div class="line">            result = EntityUtils.toString(response.getEntity());    //获取返回结果</div><div class="line">        &#125; else &#123;</div><div class="line">            result = &quot;请求失败&quot;;</div><div class="line">        &#125;</div><div class="line">    &#125; catch (UnsupportedEncodingException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125; catch (ClientProtocolException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125; catch (IOException e) &#123;</div><div class="line">        // TODO Auto-generated catch block</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;;  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="简单的Demo"><a href="#简单的Demo" class="headerlink" title="简单的Demo"></a>简单的Demo</h4><p>通过在MainActivity中使用子线程分别调用以上四个方法来发送Http请求，并通过Handler在子线程和主线程之间传递消息，通知主线程更新UI，以此来测试所写的方法是否可行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">private TextView mTextView;</div><div class="line">private String result = &quot;&quot;;</div><div class="line"></div><div class="line">private Handler mHandler = new Handler() &#123;</div><div class="line">    public void handleMessage(Message msg) &#123;</div><div class="line">        if (result != null) &#123;</div><div class="line">            mTextView.setText(result);  //收到通知，则将Http请求的结果显示在界面上</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">@Override</div><div class="line">protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">    super.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_main);</div><div class="line">    </div><div class="line">    mTextView = (TextView) findViewById(R.id.tv_result);</div><div class="line"></div><div class="line">    new Thread(new Runnable() &#123;     //开启子线程来执行网络请求</div><div class="line"></div><div class="line">        @Override</div><div class="line">        public void run() &#123;</div><div class="line">            // TODO Auto-generated method stub</div><div class="line">            get();  //使用HttpURLConnection的GET方法</div><div class="line">            //post();     //使用HttpURLConnection的POST方法</div><div class="line">            //getMethod();  //使用HttpClient的GET方法</div><div class="line">            //postMethod(); //使用HttpClient的POST方法</div><div class="line">            Message msg = mHandler.obtainMessage(); //获取一个Message对象</div><div class="line">            mHandler.sendMessage(msg);  //通知UI进行更新</div><div class="line">        &#125;</div><div class="line">    &#125;).start();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/［Android-Http］/" rel="tag"># ［Android,Http］</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/61284/" rel="next" title="Python文件操作">
+                <i class="fa fa-chevron-left"></i> Python文件操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/51425/" rel="prev" title="Python Http网络请求">
+                Python Http网络请求 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Android网络编程注意事项"><span class="nav-number">1.</span> <span class="nav-text">Android网络编程注意事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#说明事项"><span class="nav-number">2.</span> <span class="nav-text">说明事项</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用HttpURLConnection访问网络"><span class="nav-number">3.</span> <span class="nav-text">使用HttpURLConnection访问网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#发送GET请求"><span class="nav-number">3.1.</span> <span class="nav-text">发送GET请求</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发送POST请求"><span class="nav-number">3.2.</span> <span class="nav-text">发送POST请求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用HttpClient访问网络"><span class="nav-number">4.</span> <span class="nav-text">使用HttpClient访问网络</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#发送GET请求-1"><span class="nav-number">4.1.</span> <span class="nav-text">发送GET请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用流程"><span class="nav-number">4.1.1.</span> <span class="nav-text">使用流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用示例"><span class="nav-number">4.1.2.</span> <span class="nav-text">使用示例</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#发送POST请求-1"><span class="nav-number">4.2.</span> <span class="nav-text">发送POST请求</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#使用流程-1"><span class="nav-number">4.2.1.</span> <span class="nav-text">使用流程</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#使用示例："><span class="nav-number">4.2.2.</span> <span class="nav-text">使用示例：</span></a></li></ol></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#简单的Demo"><span class="nav-number">5.</span> <span class="nav-text">简单的Demo</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: 'Android Http网络请求', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

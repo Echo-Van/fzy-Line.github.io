@@ -1,0 +1,1342 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IoT,NDN,Cache," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是">
+<meta name="keywords" content="IoT,NDN,Cache">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译]Caching in Named Data Networking for the Wireless Internet of Things">
+<meta property="og:url" content="https://fzy-line.github.io/posts/7036/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.628Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译]Caching in Named Data Networking for the Wireless Internet of Things">
+<meta name="twitter:description" content="NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/7036/"/>
+
+
+
+
+
+  <title>[译]Caching in Named Data Networking for the Wireless Internet of Things | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/7036/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[译]Caching in Named Data Networking for the Wireless Internet of Things</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-18T23:26:07+08:00">
+                2017-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文研读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文研读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　NDN的缓存策略在有线网络中表现了较高的性能，相对于目前的TCO/IP体系结构具有较大的优势，但是，一方面，IoT系统是一个资源受限设备的环境，NDN在有线网络的缓存策略并不适合IoT环境，另一方面，与有线网络不同的是IoT中Consumer的数量往往小于Producer的数量，因此需要设计额外的缓存策略。本论文提出了一种新的缓存策略，并进行了模拟实验进行验证，对于NDN-IoT中的缓存策略是一个很好的促进，论文的思路也是值得借鉴的。</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Caching in Named Data Networking for the Wireless Internet of Things</div><div class="line"></div><div class="line">将命名数据网络中的缓存运用于无线物联网</div><div class="line"></div><div class="line">Mohamed Ahmed Hail  *,  Marica Amadeo  t ,  Antonella Molinaro  t ,  Stefan Fischer*</div><div class="line"></div><div class="line">*Telematics Institute University of LUbeck, Germany, E-mail: &#123;hail.fischer&#125;@itm.uni-luebeck.de</div><div class="line"></div><div class="line">t University Mediterranea of Reggio Calabria, Italy, E-mail: name.surname@unirc.it</div></pre></td></tr></table></figure>
+<p><strong>摘要：</strong></p>
+<p>　　命名数据网络是一个有前景的信息中心未来网络体系结构。除了它作为内容获取方案在有线领域被认为是有潜力的之外，NDN最近被认为是一种可以用于物联网的技术，由于其创新特征，比如基于名字的路由和网络内缓存。特别地，在中间节点缓存可能特别有用，以减少获取延迟，限制网络流量和减轻数据生产者的负载。然而，不像传统的因特网内容，物联网数据是不断变化的，并被生产者周期性地更新。同时，不像因特网路由器，物联网设备可能是资源限制的，在能源，存储和处理能力方面的受限。因此，为非瞬变的因特网流量和因特网路由器设计的缓存算法不能很好地适应IoT领域。</p>
+<p>　　在本文中，我们考虑无线NDN-IoT网络，并提出了一种新的分布式概率性缓存策略，依赖于数据的新鲜度和设备的潜在受限能力（能量层次和存储能力）。提出的方案通过在ndnSIM上的模拟实验评估，结果显示在数据获取和网络能源效率方面，它比传统的NDN缓存机制做的更好。</p>
+<p><strong>关键词：</strong></p>
+<p>　　命名数据网络；信息中心网络；物联网；网络内存储；新鲜度</p>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>　　在物联网愿景中，异构的无线设备，范围从小的、受限的传感器和执行器到更强大的智能手机和车联网，将与物理周围环境交互，并且通过因特网来支持大范围的环境感知服务。相较于传统的因特网主机，比如路由器，PC和笔记本电脑，绝大多数IoT设备在能源、内存和计算能力方面受到限制，并且他们具有移动性。此外，不像以大的、时不变文件为特征的因特网内容不同，IoT数据通常是小且临时的。新信息可能不断生成，例如，传感器定期更新环境数据，并且应用程序对最新的数据包感兴趣。</p>
+<p>　　由于IoT系统这样明显的特色，研究社区正在设计新的网络协议使其有效支持IoT通信。除了基于IP的解决方案和基于云的方法，信息中心网络模式最近也已经考虑用于IoT。事实上，这种革命性的体系结构的潜力是多方面的，正如IRTF的ICNRG所观察的和最近的文献展示的那样。在ICN中，每个内容包使用一个唯一的，持续的，位置独立的名字来命名，并且由网络节点视为一个自我识别、自我认证的数据单元。该内容是由消费者直接使用内容的名称来获取，而不需要生产者的IP地址。这个模式从基于IP的主机中心模型转变到信息中心模型，意味着几个好处，包括更简单的数据获取和分享，本地移动性支持，网络内部缓存和基于内容的安全，这些在IoT中特别有用。特别地，网络内部缓存可以加速数据获取并且减少网络内的流量，因为数据请求可以通过临近消费者的中间节点被满足。这也意味着网络内缓存限制了对生产者的大量数据访问，并且通过放松连续连接的需要将后者和接收者解耦。</p>
+<p>　　尽管网络内部缓存已经在ICN有线网络中被广泛地研究，因为信息新鲜度和资源受限设备存在严格要求，为因特网设计的传统缓存算法不太适合于loT。只有一些初步工作[6]-[8]考虑了IoT系统中的缓存，但是没有为无线环境提出一个特定的缓存策略。</p>
+<p>　　为了弥补这一不足，在本文中，我们专注于设计一个新的专门针对无线多跳信息中心IoT系统的缓存策略。在几个ICN实例中，我们参考命名数据网络体系结构（NDN），它利用简单但是健壮的兴趣包和数据包分别用于请求和传送命名内容单元。NDN对于不同的缓存算法实现是开放的，例如，节点能够基于用户定义的策略/算法缓存进来的数据包。</p>
+<p>　　在这样的背景下，我们定义pCASTING（a probabilistic CAching STrategy for the INternet of thinGs），一个物联网的概率缓存策略，它考虑数据新鲜度和两个设备特征，即能量层级和存储能力，来动态调整每个节点的缓存概率。这个提出的策略是完全分布式的，不需要任何额外的信号传输。通过ndnSIM进行模拟实验的结果表明，相较于在NDN中广泛使用的参考缓存方案，pCASTING通过保证更低的数据获取延迟增加了网络的能量效率，这些参考缓存方案包括通用缓存方案和随机缓存方案。</p>
+<p>　　本文的其余部分组织如下。第2部分介绍了NDN体系结构和NDN-IoT系统中的缓存的相关工作。第3部分提出了pCASTING提议，第4部分讨论了性能评估。最后，第5部分总结全文。</p>
+<h4 id="背景和动机"><a href="#背景和动机" class="headerlink" title="背景和动机"></a>背景和动机</h4><h5 id="命名数据网络"><a href="#命名数据网络" class="headerlink" title="命名数据网络"></a>命名数据网络</h5><p>　　NDN作为一个未来互联网的内容传播体系结构被提出，它采用分层的类似URI的内容名称，在兴趣包和数据包中被携带。每个NDN节点维持三张表：（i）内容存储（CS），用来缓存进来的数据包；（ii）待定兴趣表（PIT），用来记录已经转发的但还未被满足的兴趣包；（iii）转发信息表（FIB），用作基于内容名字的路由。当节点收到一个兴趣包，它首先在CS中查找，如果找到匹配，则节点将返回数据包。否则，如果在PIT表中有匹配条目，兴趣包被丢弃，因为一个相同的请求已经被转发。否则，创建一个新的PIT条目并且进一步转发到存储在FIB表的接口。数据包遵循PIT表条目的链条返回到消费者，并且它可以被缓存在中间节点。</p>
+<p>　　节点的缓存系统包含（i）缓存决策策略，指定是否缓存一个输入的数据包；（ii）替代策略，指定当一个新的输入数据包需要被缓存并且CS满了的时候哪个元素必须被删除。NDN中默认的缓存策略也叫做在任何地点缓存任何东西方案（$ CE^2 $），节点缓存每个进来的数据，而替换是按照标准策略执行，例如最近最少使用策略（LRU）。然而，许多的论文已经指出通用缓存策略的低效率，例如，在文献[11]中，由于高度的内容冗余和可用缓存资源的低效利用。这是在这篇论文中经常使用其他解决方案的原因，包括概率缓存。概率性缓存背后的关键想法是一个NDN节点随机的缓存进来的数据包通过一个确定的概论p，其中0&lt;p&lt;1。$ CE^2 $策略是概率性方案的特殊情况，其中，p=1。减小p降低了网络内部缓存的可能性并且最大化网络内数据缓存的多样化。</p>
+<p>　　正如文献[6]中讨论的，NDN可能在IoT中很有效并且它可以工作在链路层之上而不需要一个在IP堆栈上的覆盖网络，这意味着额外的内存开销。最近的工作已经开始将NDN作为一个从零开始的方法应用在不同的IoT场景，包括建筑管理系统和智能运输系统，聚焦于命名，安全和转发方面。</p>
+<h5 id="NDN-IoT系统的缓存"><a href="#NDN-IoT系统的缓存" class="headerlink" title="NDN-IoT系统的缓存"></a>NDN-IoT系统的缓存</h5><p>　　到目前为止，已经提出了大量的NDN网络缓存策略，但他们没有专门讨论针对IoT系统和其特征的策略。这些策略通常被设计用于预先录制的多媒体文件，如Youtube视频，和类似的互联网用户频繁请求的大内容；并且他们通常考虑固定和有线路由器连接的内容。值得注意，这种方案更高的性能通常以大开销和复杂度为代价[ 12 ]，这使他们不适合在资源存在约束（移动）设备。</p>
+<p>　　当我们特别关注IoT，NDN网络内缓存问题还基本未被探索。</p>
+<p>　　文献[6]的工作在与实物大小相同的IoT部署中实现了NDN的第一个实验研究。作者通过比较不同消费者在标准NDN内网缓存和禁用缓存时的内容获取性能来评估缓存的影响。结果表明，得益于缓存，无线传输的数量大大减少。实际上，虽然资源约束节点的缓存大小最多是1KB数量级，并且信息是短暂的，缓存仍然是有效的：它增加了内容的可用性，并减少了朝向生产者的有损多跳无线路径的数量。此外，在一方面，IoT设备的缓存小，另一方面，IoT内容的通常也是小的，因此一个单一的缓存可以存储多个IoT包。</p>
+<p>　　在[7]中分析了IoT信息新鲜度对NDN缓存的影响。除了数据包中包含新鲜度参数之外，这确定了多少秒的内容在CS中可以被视为有效的，作者提出了一个消费者驱动的新鲜度方法。该机制允许消费者依据兴趣包中的新鲜度指定其特殊要求，因此CS可以决定它是否有可用信息。结果，作者证明消费者接收到的数据的准确性得到提高。</p>
+<p>　　第一个研究在Internet内容路由器中缓存IoT内容是文献[8]。它提出了一种分布式概率缓存算法，路由器通过考虑他们到源和消费者的跳距离，数据新鲜度，传入请求的速率和新鲜度要求来动态地更新他们的缓存概率。两个关键的概念是提议的理由。第一，当缓存位置远离生产者时，IoT数据变得不那么新鲜，也就是，缓存位置越接近源，获取的数据包就越新鲜。第二，获取数据的位置更接近源而不是消费者会在网络上导致更高的多跳流量负载。因此，该算法定义了一个实用的函数来解决在（i）消费者和生产者的多跳传递（ii）交付数据的数据新鲜度的预期损失之间的权衡。</p>
+<p>　　不像文献[8]，它针对有线互联网和电力的静态设备。我们考虑了由（移动）资源约束节点组成的IoT多跳无线网络和部署轻量级缓存决策算法，像在下一节中讨论的那样。</p>
+<h4 id="缓存决策策略"><a href="#缓存决策策略" class="headerlink" title="缓存决策策略"></a>缓存决策策略</h4><h5 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h5><p>　　在我们的方案中，N个具有有限电池能量的资源受限节点连接在在一个多跳无线网络中。节点可以固定。监测传感器部署在街道，桥梁，建筑物，或移动设备，例如人们携带的智能手机。我们假设一组节点$C  =  {I,..,Nc},Nc&lt;N$，作为消费者，生产者P产生大量具有特定新鲜度的IoT内容。其余的节点可以充当转发者，缓存传入的数据包。</p>
+<p>　　正如文献[7]中讨论的，消费者通过广播指定了新鲜度要求的兴趣包包来请求数据包包，这是存在IoT瞬时内容的基础。接收到请求并且在其CS没有合适数据的任何节点（与P不同）可以根据已经实现的路由协议重新广播包。</p>
+<p>　　当节点接收到一个与PIT条目匹配的数据包，它利用pCASTING缓存策略执行缓存决策。</p>
+<p>　　作为提出的解决方案的基本要求，我们的目标是简单和无额外开销。pCASTING可以在资源受限的设备中实现是足够简单的，并且它不需要在Interest/Data包中捎带额外的信令或更多的信息。此外，pCASTING完全独立于选定的路由协议：它可以在基于洪泛，生产者感知或路径感知方法的存在下工作。</p>
+<p>　　缓存决策是完全分布式的，包括由每个转发节点本地计算的两个主要步骤：</p>
+<p>　　（1）缓存概率的计算，考虑到与设备和内容相关的动态IoT属性。选定的属性进行适当的规范化，使异构的值能够互相比较。</p>
+<p>　　（2）实际概率决策，其基于所计算的概率指定是否缓存数据。</p>
+<h5 id="属性描述"><a href="#属性描述" class="headerlink" title="属性描述"></a>属性描述</h5><p>　　作为设备属性，我们考虑两个主要参数：能量级别和缓存占有率，值可以很容易地通过IoT设备监控。</p>
+<p>　　能耗是IoT设备的主要限制因素之一。如果剩余的电池寿命低于预先确定的水平，设备的活动应大力限制。这就意味着缓存（和随之而来的传输）操作应该被尽可能抑制。因此，我们假定缓存概率与剩余电池的能量水平成正比，可以动态地表示为归一化参数$EN,0\le EN \leq1$，值为0和1分别表示着电池完全放电或充满电的。</p>
+<p>　　关于缓存占有率，这是合理的假设，具有高存储容量的节点更倾向于缓存传入的数据，而存储空间有限的节点的缓存决策应具有强烈的选择性。直观的，一个节点的缓存概率应该与缓存占用水平成反比，这可以被描绘成标准化参数$OC,0\le OC\le1$，值0和1分别意味着缓存是空的或者满的。</p>
+<p>　　内容属性，我们考虑的数据剩余的新鲜度。根据NDN，任何生产者可能在数据包中包括一个以秒为单位的新鲜度的值，和一个标识信息产生时刻的时间戳 ts 。</p>
+<p>　　尽管节点自动丢弃CS中的每个过期的数据包，相同数据包的更新鲜的和不新鲜的版本可以在网络中共存，并且消费者应用程序有兴趣获取不同新鲜度需求的相同数据包。例如，消费者C1可以以最多30分钟的新鲜度获得一个路段污染的值，同时，另一个消费者C2可以获取同样的数据包，但是以最多10分钟的新鲜度。接收两个兴趣包的节点可以提供具有数据的缓存副本给第一请求，但是转发第二请求，因为所拥有的数据对于C2来说不够新鲜。这也意味着，在一定时期内，两个版本的具有不同的新鲜度值的相同数据将在网络中可用。</p>
+<p>　　更新鲜的数据包在缓存决策中应该有更高的优先级，因为他们更可能适应消费者的新鲜度要求。因此，我们定义数据包的未归一化剩余新鲜度FR为：</p>
+<p>$$ FR = 1 - \frac{currentTime-t_s}{f} $$</p>
+<p>　　根据公式（1），如果时间戳ts与当前时间相等，那么FR=1，数据包被认为是最近生成的，然而，当当前时间增加，剩余的新鲜度降低。当然，有负FR值得包是过期的并且根本不会被缓存。</p>
+<h5 id="缓存概率"><a href="#缓存概率" class="headerlink" title="缓存概率"></a>缓存概率</h5><p>　　为了正确定义数据包的缓存概率，我们考虑一个缓存效用函数Fu，它同时考虑到上述归一化参数，EN，OC，FR，该函数可以写作如下：</p>
+<p>$$F_u = \sum_{i=1}^{N_p} w(i)g(x_i)=0$$</p>
+<p>　　其中，$ N_p = 3^1 $，权重 $ w_i $是这样一个值，$0\le w_i\le1$，并且$ \sum_{i=1}^{N} w_i = 1$。因此，权重表达了标准化参数xi在计算效用值时的重要性。</p>
+<p>　　Fu 必须在[0：1]之间取值，并且作为节点缓存概率的函数：如果Fu 趋向于1则包缓存的概率高，反之亦然，如果Fu 趋近于0则包缓存的概率低。</p>
+<p>　　函数$ g(x_i) $的模型通过考虑它应该满足的需求来设计。第一，它应该提供一个介于0和1之间的值，并且，当Xi值随着整个缓存的效用成正比例（反比例）时，必须增加（减少）单调。第二，它也应该满足参数XI越接近极限值，对效用将产生更高影响的条件。通过这样来做，缓存决策偏爱更新鲜的内容，它更可能存储在具有较高能量和主要缓存能力的节点。</p>
+<p>　　满足这种性质的数学函数是幂函数,$ g(x_i)  =  x_i^n, n \ge  1 $，依据第二需求的相关性进行选择。因此，效用函数通过幂函数的加权和来表达。</p>
+<p>$$ F_u = w_1 * EN^n + w_2 * (1 - OC)^n + w_3 * FR^n $$</p>
+<p>　　在数据包的接收时，任何节点计算赋的值，以获得该数据的缓存概率。
+　　</p>
+<h4 id="实验"><a href="#实验" class="headerlink" title="实验"></a>实验</h4><h5 id="模拟设置"><a href="#模拟设置" class="headerlink" title="模拟设置"></a>模拟设置</h5><p>　　为了评估提出的 pCASTING 解决方案的性能，我们考虑了一个智慧城市的场景，如图1，代表一个大小为600平米的城市区域。</p>
+<p>　　一组传感器被部署在这个城市来周期性地产生环境数据和其他位置相关信息。采集点获取这些内容，并且通过它们来为用户创造情境感知服务，例如，实时公共交通更新，空气污染更新。接入点（AP）被放置在方形拓扑右上角，为感兴趣的消费者提供这样的情境感知服务。我们假定60个节点在场景中以行人速度移动，根据 Truncated Levy-Walk 移动模型生成现实的人类移动轨迹。这样的移动节点模仿想要访问AP服务的用户所携带的智能手机。每个节点需要配备 IEEE 802.11g 无线接口，其中的介质访问控制和物理参数（例如，传输能力和接收机灵敏度）按目前市场上的设备数据表来配置。传播服从瑞利衰落分布，由于各种障碍，建筑物和树木，需要考虑多径效应。</p>
+<p>　　拓扑中的一个节点子集被选择订阅由 AP 提供的情境感知服务。每个服务作为一组 Nd 数据包被建模，也就是说，每个消费者必须传播不同的利益来获取整体信息。然而，因为信息是瞬变的，每个消费者必须周期性地发送新的兴趣包来获得最新的信息。在我们的场景中，更新周期是1分钟（例如，用户在T =0s，T = 60s，t＝120s等请求内容），并且每次兴趣包携带新鲜度要求，该新鲜度在[1：10]秒随机生成。以多跳方式执行与AP的通信。不失一般性，我们参考的转发协议是可控的洪泛，正如文献[15]定义的，文献[6]特别指无线网络。它包括一个基于计数器的广播方案，为了限制在无线共享介质上的碰撞概率和冗余而推迟分组转发。可控的洪泛在IoT中可能是一个好的选择因为它的固有的简单性：它不依赖额外的控制流量和在节点只需要最少的状态。此外，在一个中等或者小型的拓扑（正如本文考虑的拓扑）潜在的开销由于冗余传输将会降低。</p>
+<p>　　为了研究在高存储限制条件下缓存策略的行为，我们假定每个节点的CS的存储能力被限制到只有10个分组。</p>
+<p>　　我们描述的场景和 pCASTING 解决方案在 ndnSIM 工具中实现，它是NDN研究社区的参考模拟平台被部署在 ns-3 上。仿真的设置在表1中汇总。在下面，我们考虑了两个不同的实验，目的是评估建议的解决方案的能源效率和数据获取性能。</p>
+<h5 id="网络生存周期分析"><a href="#网络生存周期分析" class="headerlink" title="网络生存周期分析"></a>网络生存周期分析</h5><p>　　我们评估的第一个目标是理解是否 pCASITNG 是一个高能效的解决方案，在电池供电的情况下保证在检索延迟和收集的数据的数量上好的表现。因此，能源模型在 ns-3 中被用来计算在仿真场景中无线设备的能源消耗。这个模型允许指定每个设备的初始能源并且在仿真期间它基于节点的活动降低了这个值。</p>
+<p>　　在实验中，八个节点被选择作为消费者并提供一个高水平的初始能源，然而，转发节点被提供一个非常低水平的初始能源，并且他们意味着能源很快被耗尽。事实上，我们主要关注的是通过考虑转发节点的能源消耗来估计整个网络的生存时间，它允许消费者和 AP 之间的通信。后者提供了四个不同的上下文感知服务：每个消费者随机选择一个服务并开始以选择的时间间隔请求数据，在[0：5]秒范围内。然后，在每一分钟，每个消费者再次发送兴趣包。当所有的转发节点耗尽他们的能源仿真结束。</p>
+<p>　　我们将 pCASTING 与三个参考方案进行比较：（1）在任何地点缓存任何东西的策略，CE2 ，它缓存每个进来的数据包；（ii）概率方案，P(0.5)，它以固定概率p=0.5缓存进来的数据包；（iii）无缓存方案，节点不使用CS，仅转发进来的数据包。每个缓存方案的替换策略都是LRU。</p>
+<p>　　能源性能度量我们考虑转发节点的放电时间的累积分布函数，它从网络的角度给出了缓存策略的能量效率的信息。作为传播绩效性能，我们考虑在网络生成周期内的缓存命中率，消费者接收到的数据包的平均数目和平均数据获取延迟，计算兴趣包被发送和通信数据包被接收到的时间间隔。延迟考虑兴趣包重发的可能。</p>
+<p>　　结果在10个独立运行的进程上计算。</p>
+<p>　　图2显示了转发节点放电时间的累积分布函数（CDF），表2显示所考虑的数据分发性能的度量值。我们可以观察到，最短的网络生存周期通过$ CE^2 $方案获得：在t = 320s 的时刻，CDF的值达到了1，这意味着所有的转发节点耗尽了所有的能量。这是因为$ CE^2 $策略在节点中产生大量的缓存/转发操作，并且同时它不能最大限度地提高内容的多样性。实际上，在无线领域，许多邻居节点应该同时接收相同的数据包，由于，$ CE^2 $方案的结果，他们都缓存相同的信息。对于小的CS，情况更加严重，这导致高驱逐率，并创建一个随着时间推移的高度均匀的内容分布。这种同质缓存内容的存在有双重副作用。一方面，请求不同的内容将不能通过任何中间节点被满足，兴趣包必须被转发到原始生产者（看表2中的$ CE^2 $的缓存命中率）。另一方面，由于CS匹配的存在，许多节点可以回答相同的请求，但是被白白浪费能源和网络资源。值得注意的是，数据包通常是较长的，然后利益，因此，信道错误或碰撞的数据丢失的概率是较高的利息损失。</p>
+<p>　　没有缓存的方案能够提供一个略高于$ CE^2 $的网络生存周期，但是相应地它有更高的端到端延迟，因为缓存的好处不能以任何方式被利用。</p>
+<p>　　使用P(0.5)方案可以获得更好的表现，通过引入概率缓存决策增加网络内容多样性和促进中间节点的缓存命中。然而，由于他的能源感知行为，pCASTING 保证了最高的网络生存期周期，进而获得最多的数据包。此外，由于固有的概率决策，pCASTING 最大化网络中的内容多样化因此增加了缓存的命中率，因此，减小了数据获取的延迟。</p>
+<p>C. 获取性能分析<br>　　第二个实验研究完全充电节点的数据分发性能。Ns-3 能量模型仍然被用来显示仿真期间的能量消耗，持续10分钟。在这段时期，可变数量的消费者从1到6周期地请求上下文感知服务。模拟结果平均运行在10个独立的进程上，拥有95%的置信区间。</p>
+<p>　　我们将 pCASTING 与无缓存和P(0.5)方案进行对比。从网络的角度评价缓存策略的效率，我们考虑在仿真期间网络上传输的兴趣包的数量和数据包的数量。反之，为了从消费者的角度评价缓存策略的效率，我们计算消费者的能源成本，它是消费者和正确接收的比特所消耗的能量之间的比率，对所有的消费者来说都是平均值。</p>
+<p>　　图3(a)和3(b)中分别表示兴趣包和数据包的数量，这表明相对于其他的方案 pCASTING 极大地减少了流量，因此节约了网络资源。而且由于它减少了能量消耗。，如图3(c)所示，消费者也能从中获得好处。这是由于获知节点状态（根据能量和缓存大小）和数据包的剩余新鲜度的事实。pCASTING执行智能缓存决策在网络内高效地分发内容。进而，pCASTING 的缓存命中率比不可知的概率方案P(0.5)更高，维持在55%-62%的数量级，P(0.5)方案的缓存命中率通常在50%以下。</p>
+<h4 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h4><p>　　在本文中，我们研究了命名数据无线IoT网络的网络内部缓存并且提出了一种分布式叫做pCASTING的缓存方案，它考虑三个主要参数调整缓存概率：电池的能量水平和节点的缓存占用率，以及数据包的剩余新鲜度。模拟结果证明了所提出的解决方案的有效性和效率，这能够减少节点的能量消耗，同时，保证低的内容获取延迟。</p>
+<p>　　我们在pCASTING中计算缓存概率的方法非常多功能的：缓存实用功能Fu可以工作在不同的路由协议并且它可以很简单的通过添加其它参数修改。实际上，作为未来的工作，我们计划（i）包括缓存决定中包括其他属性，（ii）评估缓存和不同路由协议之间可能的相互作用。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IoT/" rel="tag"># IoT</a>
+          
+            <a href="/tags/NDN/" rel="tag"># NDN</a>
+          
+            <a href="/tags/Cache/" rel="tag"># Cache</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/12975/" rel="next" title="6LoWPAN Border Router：6LBR之运行模式">
+                <i class="fa fa-chevron-left"></i> 6LoWPAN Border Router：6LBR之运行模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/23552/" rel="prev" title="6LoWPAN Border Router：6LBR 接口配置">
+                6LoWPAN Border Router：6LBR 接口配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景和动机"><span class="nav-number">2.</span> <span class="nav-text">背景和动机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命名数据网络"><span class="nav-number">2.1.</span> <span class="nav-text">命名数据网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#NDN-IoT系统的缓存"><span class="nav-number">2.2.</span> <span class="nav-text">NDN-IoT系统的缓存</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存决策策略"><span class="nav-number">3.</span> <span class="nav-text">缓存决策策略</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#假设"><span class="nav-number">3.1.</span> <span class="nav-text">假设</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#属性描述"><span class="nav-number">3.2.</span> <span class="nav-text">属性描述</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓存概率"><span class="nav-number">3.3.</span> <span class="nav-text">缓存概率</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验"><span class="nav-number">4.</span> <span class="nav-text">实验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模拟设置"><span class="nav-number">4.1.</span> <span class="nav-text">模拟设置</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#网络生存周期分析"><span class="nav-number">4.2.</span> <span class="nav-text">网络生存周期分析</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: '[译]Caching in Named Data Networking for the Wireless Internet of Things', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

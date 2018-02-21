@@ -1,0 +1,1304 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IoT,RIOT-OS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="The Design and Implementation of the NDN Protocol Stack for RIOT-OS（全文翻译） 　　RIOT-OS的NDN协议栈的设计与实现">
+<meta name="keywords" content="IoT,RIOT-OS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS">
+<meta property="og:url" content="https://fzy-line.github.io/posts/65406/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="The Design and Implementation of the NDN Protocol Stack for RIOT-OS（全文翻译） 　　RIOT-OS的NDN协议栈的设计与实现">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS">
+<meta name="twitter:description" content="The Design and Implementation of the NDN Protocol Stack for RIOT-OS（全文翻译） 　　RIOT-OS的NDN协议栈的设计与实现">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/65406/"/>
+
+
+
+
+
+  <title>[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/65406/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T12:37:24+08:00">
+                2017-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文研读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文研读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　The Design and Implementation of the NDN Protocol Stack for RIOT-OS（全文翻译）</p>
+<p>　　RIOT-OS的NDN协议栈的设计与实现</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Wentao Shang, Alex Afanasyev, and Lixia Zhang</div><div class="line">Computer Science Department, UCLA</div><div class="line">Email: &#123;wentao,aa,lixia&#125;@cs.ucla.edu</div></pre></td></tr></table></figure>
+<p>　　摘要：命名数据网络（NDN）架构已经作为一个支持物联网环境中的通信的有前途的解决方案被提出。IoT平台的一个重要类别是受限制的设备，其计算资源有限，并且通过受限得网络连接在一起。本文介绍了RIOT-OS的NDN协议栈的设计和实现，RIOT-OS是一个受限制IoT平台的流行的操作系统。我们成功地将核心NDN数据包转发逻辑与数据安全支持的高级应用接口一起集成到RIOT-OS内核中。我们的研究结果证明了使用NDN协议栈来支持只有10s的RAM和闪存的受限设备上的应用的可行性。</p>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>　　近年来，物联网技术得到了迅猛的发展，业界和学术界对这一领域的兴趣都在持续增长。IoT系统可以互连大量传感器和执行器，并允许用户远程访问各种类型的数据和控制功能。</p>
+<p>　　命名数据网络已作为一种有前景的解决方案被提出来在联网层面支持IoT语义，简化异构网络的运行，使得大量的传感器数据可以更便捷的被应用程序得到，并实现数据为中心的安全检测数据和启动命令。</p>
+<p>　　IoT设备的一个重要类别是受限制的设备，具有有限的内存，低处理能力和低功耗网络接口。这些功能使得IoT技术成本低廉并且可以使用电池供电工作多年，但是同时也提出了NDN协议栈如何适应这种受限环境的问题。有一种观点认为，NDN的转发逻辑太复杂，无法在受限设备上实现，或者以数据为中心的安全机制对于受约束的IoT应用来说太昂贵了。</p>
+<p>　　本文通过介绍RIOT-OS上的NDN协议栈的设计和实现来解决上述问题，RIOT-OS是一种为受约束的IoT平台而设计的流行的操作系统。RIOT-OS通过开发人员友好的编程接口提供了跨多个受限平台的硬件细节的统一抽象。它已经支持许多受欢迎的IoT开发板，内置驱动器，用于许多外围IoT传感器，包括湿度和温度传感器，光传感器，气表，加速度计等。可以用来实现大量的现实应用。</p>
+<p>　　我们把我们的实现称之为NDN-RIOT，它将核心的NDN转发逻辑集成到RIOT内核并且支持直接在IEEE 802.15.4低速率无线网络接口上进行NDN通信，该接口在支持RIOT-OS的设备上广泛使用，像传统以太网一样。尽管受到限制环境的限制，NDN-RIOT仍然通过有限的签名类型（HMAC和ECDSA）提供了以物联网数据为中心的数据认证安全特性的基础。我们的演示应用程序可以在32KB的内存中运行，只需要大约40KB的闪存来存储整个程序（包括应用程序代码和OS内核）。我们在GitHub上免费提供NDN-RIOT源代码，我们非常欢迎广大社区的意见，功能要求和帮助。</p>
+<p>　　本文的其余部分组织如下：第二部分简要回顾了NDN架构和RIOT-OS系统;第三节介绍NDN-RIOT的软件设计;第四节介绍了关注系统内存使用和性能的评估结果;第五节回顾了有关受限设备的网络堆栈实现的相关工作;最后，第六部分总结了论文并阐述了未来的工作。</p>
+<h4 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h4><h5 id="命名数据网络"><a href="#命名数据网络" class="headerlink" title="命名数据网络"></a>命名数据网络</h5><p>　　命名数据网络（NDN），是以网络通信模式从主机为中心（以TCP/IP）向数据为中心的信息中心网络（ICN）模式的实现。在NDN中，每条数据都有一个独特的，分层结构的名称，由应用程序用来检索数据。数据消费者通过发送携带数据名称（或其前缀）的兴趣数据包来请求所需数据。网络根据兴趣包名称转发兴趣数据包，并使用 Interest Forwarding Strategy（兴趣包转发策略）。转发策略从转发信息库（FIB）获取关于数据潜在位置的输入，并利用数据平面性能测量来调整转发决策[8]。随着兴趣包的转移，沿途的每个路由器在其待定兴趣表（PIT）记录兴趣来自的接口。</p>
+<p>　　一旦兴趣在原始生成者或转发器的缓存（称为内容存储或CS）中找到所请求的数据，则通过使用路由器中剩余的跟踪来反向兴趣包转发路径，将数据包返回给用户。每个数据包都带有安全地绑定名称和内容的加密签名，允许消费者对数据进行身份验证，而不管从哪里检索。因此，NDN网络可以利用各种类型的数据存储（诸如网络内缓存和专用回收）来提高通信的效率。</p>
+<h5 id="RIOT-OS"><a href="#RIOT-OS" class="headerlink" title="RIOT-OS"></a>RIOT-OS</h5><p>　　RIOT是一个跨平台的操作系统，为具有10kb RAM和闪存的受限的物联网设计的设备而设计。它为应用开发人员提供了各种IoT硬件和C（C99兼容）编程环境的细节的清晰统一的抽象，并全面支持C标准库。对C++和STL库也有有限的支持。RIOT-OS微内核提供核心功能，如多线程，基于优先级的调度，中断处理和进程间通信（IPC）接口。它目前包括用于以太网和IEEE 802.15.4网络接口的驱动程序，以及各种外设IoT传感器和执行器。它还具有对与IoT相关的网络协议（如IPv6，UDP，6LoWPAN，RPL，CoAP等）的内置支持。自2013年初步发布以来，RIOT-OS已经移植到具有不同CPU架构的多个IoT平台上，包括ARMv7，ARM Cortex-M0 +，MSP430，并在IoT社区中迅速普及。</p>
+<h4 id="NDN-RIOT设计"><a href="#NDN-RIOT设计" class="headerlink" title="NDN-RIOT设计"></a>NDN-RIOT设计</h4><h5 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h5><p>　　NDN-RIOT实现的主要目的是支持核心NDN转发操作和和与当前协议规范的兼容性，目标设备具有10KB RAM（用于存储运行时数据）、100KB的闪存（适用于存储二进制可执行代码），低功耗CPU以小于100MHz的频率运行。这要求NDN-RIOT实现底层数据结构（PIT，FIB，CS）的简化版本，以适应约束参数，支持转发机制的大部分核心要求。第二个但不是同样重要的目标是通过为数据为中心的安全原语提供固有支持的高级API来促进基于NDN的安全应用程序的开发。</p>
+<h5 id="软件体系结构"><a href="#软件体系结构" class="headerlink" title="软件体系结构"></a>软件体系结构</h5><p>　　RIOT-OS使用微内核架构，网络协议模块（例如，IPv6和UDP）被实现为内核线程，并且跨层的数据包通过不同模块之间的IPC实现。NDN-RIOT堆栈以相同的方式实现，如图1所示。当应用程序想要发送NDN数据包时，它会在IPC调用中将数据包传递给NDN线程;NDN线程处理数据包，然后将其传递给网络设备驱动程序线程进行传输。当网络设备驱动程序接收到包含NDN数据包的二层帧时，它将数据包传递给NDN线程，NDN线程通知应用程序和/或进一步传播数据包。</p>
+<h5 id="分组编码和解码"><a href="#分组编码和解码" class="headerlink" title="分组编码和解码"></a>分组编码和解码</h5><p>　　为了支持受限制的存储器资源有限的设备，我们仔细设计了分组编码和解码程序，以最小化内存中数据包的份数。我们做出的一个重要的设计决策是在系统的整个生命周期中以有线格式形式存储NDN数据包，并根据需要访问底层元素，例如访问名称字段来决定在哪里转发兴趣或访问签名字段数据包认证。这样，我们通过不使用反序列化数据包来节省内存和CPU周期，每次访问数据包时支付额外的CPU处理价格。幸运的是，正如我们在第四部分中演示的，解析TLV格式的NDN数据包通常是非常有效的</p>
+<p>　　为了简化内存管理和所有者跟踪，我们实现了一个轻量级的共享内存块结构（由C++11中的共享指针机制启发），用于存储TLV编码的NDN名称，兴趣和数据。它允许我们最大程度地跨系统模块共享公共数据，而不用担心潜在的内存泄漏。</p>
+<h5 id="安全支持"><a href="#安全支持" class="headerlink" title="安全支持"></a>安全支持</h5><p>　　数据安全是物联网应用的关键要求之一。然而，由于CPU和内存资源有限，受限制的IoT设备对它们可以支持哪些加密操作有限制。尽管如此，在RIOT-OS提供的哈希API和第三方micro-ecc库[10]的帮助下，我们能够实现两种实际的数据签名方法：HMAC和ECDSA，都使用SHA-256哈希功能。我们的实现使用标准secp256r1曲线[11]为ECDSA签名长度为64字节。不支持RSA签名算法，因为它的计算成本过高。</p>
+<p>　　实施ECDSA支持时我们遇到的一个特别的挑战是，许多受约束的IoT设备缺少硬件熵源，这对于在ECDSA签名过程中使用的密码安全随机数来说是必需的。使用没有强大熵源的伪随机数发生器（PRNG）显着损害了ECDSA签名的强度。作为当前的解决方案，我们采用了确定性的ECDSA签名[12]，在生成签名时不使用真正的随机数。然而，创建ECDSA密钥对仍然需要密码较强的随机数。实现此目的的一个方法是让RIOT-OS上的生产者应用程序使用在其他平台上创建的ECDSA密钥并传输到IoT设备。导出和配置ECDSA密钥的详细机制正在开发中，将在NDN-RIOT文档中进行描述。</p>
+<h5 id="分组转发"><a href="#分组转发" class="headerlink" title="分组转发"></a>分组转发</h5><p>　　为了支持NDN分组转发逻辑，NDN-RIOT包括PIT，FIB和CS数据结构的简化版本。为了最小化内存开销，所有三个数据结构都被实现为简单的链表，因为我们预期约束设备上的条目数量少（低于100）。当前数据包处理不支持兴趣包选择器，并且只使用兴趣和数据名称执行所有查找。该实现也不支持使用包含隐式摘要组件的全名检索数据，因为IoT应用程序主要用于检索与全名数据检索不兼容的数据样本和处理命令。</p>
+<p>　　PIT使用兴趣名称的完全匹配和数据名称的任何前缀匹配（即，数据包将匹配名称与数据名称更短或相同的任何PIT条目）。简化的PIT条目仅记录兴趣的传入面。在转发期间，使用PIT状态来防止潜在的循环，而不使用随机机制。</p>
+<p>　　FIB表使用兴趣名实现最长前缀匹配，并存储未分配的faces数组，可以通过静态配置或在运行时使用简单的基于IPC的机制进行配置。后者目前仅适用于本地应用程序前缀注册。路由信息（主动或点播）传播到远程节点，特别是通过无线网状网络，可供我们今后的工作使用。动态FIB配置的其他基于IPC的机制也是我们未来计划的一部分。</p>
+<p>　　CS使用预配置的最大大小（当前编译时可调整默认值为24KB），并实现简单的FIFO缓存驱逐策略。</p>
+<h5 id="二层通信"><a href="#二层通信" class="headerlink" title="二层通信"></a>二层通信</h5><p>　　RIOT-OS目前支持两种类型的二层协议：以太网（由仿真器使用）和IEEE 802.15.4（在实际设备上）。通过以太网发送NDN报文时，网络设备驱动程序将目标MAC地址设置为广播地址（FF:FF:FF:FF:FF:FF）。以太网报头还携带NDN的IEEE 802协议号，使报文接收者可以检测报文的类型，并将报文发送到NDN线程。当通过IEEE 802.15.4链路进行操作时，设备调谐到所选择的无线信道（由信道ID号码（例如26）和个人区域网络（PAN）标识）（由PAN ID（例如，0x23标识））并使用广播目的地址（FF:FF）。</p>
+<p>　　大多数受限制的网络具有非常有限的MTU，通常小于100字节。虽然针对受限环境优化的IoT应用程序应尽量避免使用大数据包，但是要求所有应用程序始终发送适合网络MTU的NDN数据包过于限制。因此，我们还为NDN-RIOT设计了一个轻量级的逐跳L2分段和重组机制。图2显示了如果需要L2分段，则前缀到NDN数据包的每个片段的3字节分片头的格式。标题格式通过将所有信息打包成24位来对受限环境进行优化。标题的第一位设置为1表示数据包被分段。未分片的数据包将以兴趣（5）或数据（6）数据包的类型代码开始，最高位位始终为0。更多分段（MF）位指示当前数据包是否是最后一个片段。序列号（SEQ）和识别字段提供片段的排序，由接收器使用它们来重新组合原始的NDN包。</p>
+<h5 id="应用程序接口"><a href="#应用程序接口" class="headerlink" title="应用程序接口"></a>应用程序接口</h5><p>　　我们实现了一套高级应用程序接口，可以抽象出应用程序线程和NDN堆栈之间的内部通信机制。这些API提供了现有NDN客户端库中广泛采用的异步通信模型，如NDN.JS[13]和ndn-cxx[14]。在这种模式下，应用程序运行一个事件循环，在单个线程上调度I/O事件（例如，数据包接收，定时器到期等），并调用相应的回调来处理这些事件。应用程序还可以在不同的线程中创建多个运行循环来安排不同的任务。表I显示了NDN应用程序中经常使用的核心API。</p>
+<p>　　我们在Listings 1和2中说明了API的用法，它们分别显示了基本的消费者和生产者应用程序的代码。由于空间限制，我们省略了所有错误检查代码和启动应用程序的主要功能。完整的源代码可以在[7]找到。</p>
+<h4 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h4><p>　　在本节中，我们介绍我们从真实的IoT设备收集的评估结果。我们专注于两个主要方面，内存使用和执行速度，对于在受限设备上运行的软件系统至关重要。我们的基准代码是使用基于GCC版本4.9.3的Ubuntu 16.04上的GCC ARM Embedded工具链编译的。我们遵循RIOT-OS代码库的默认GCC设置，它使用了2级优化（-O2）。</p>
+<p>　　我们对两个不同的物联网平台进行评估：</p>
+<ul>
+<li><p><strong>SAMR21-XPRO：</strong>由Atmel生产的IoT评估板，它具有32位ARM Cortex-M0 + 48 MHz微控制器（MCU），32KB嵌入式RAM和256KB嵌入式闪存以及2.4 GHz IEEE 802.15.4兼容无线射频接口。</p>
+</li>
+<li><p><strong>IoTLab-M3：</strong>为FIT IoTLab设计的IoT板[17]，它具有32位ARM Cortex-M3 72 MHz MCU，64KB嵌入式RAM和512KB嵌入式闪存，以及与SAMR21-XPRO类似的无线接口。</p>
+</li>
+</ul>
+<h5 id="内存使用"><a href="#内存使用" class="headerlink" title="内存使用"></a>内存使用</h5><p>　　我们通过检查为两个平台编译的二进制对象代码来测量RIOT-OS的NDN应用程序的内存使用情况。我们使用GNU readelf工具来获取每个API函数的代码大小，以及GNU大小的工具，从第三部分G中所示的基本的消费者和生产者实例的可执行文件中获取总代码大小和静态内存使用情况。</p>
+<p>　　表II列出了NDN-RIOT中核心API的目标代码大小。第二列显示了基于ARMv6-M指令集架构（ISA）的针对ARM Cortex-M0 + MCU编译的API的大小。第三列显示了基于ARMv7-M ISA的ARM Cortex-M3 MCU编译的API的大小。这两种架构都支持Thumb指令集，其中16位/32位编码，导致与目标代码相似的大小。</p>
+<p>　　表III显示了Listings 1和2中绘制的基本的消费者和生产者示例的GNU size命令的输出。两个示例的源代码具有大致相同的结构，因此在编译后导致类似的代码大小。表中最后两列显示驻留在Flash和RAM中的静态内存总量。在具有32KB RAM的设备上，静态数据占用大约11KB的嵌入式RAM，留下21KB进行动态分配，用于创建PIT，FIB和CS条目，为NDN数据包创建共享内存块，并存储运行时生成的动态用户数据。</p>
+<h5 id="表现"><a href="#表现" class="headerlink" title="表现"></a>表现</h5><p>　　为了衡量系统的运行时性能，我们首先通过一组基准来分析各个API的执行速度，然后将应用级RTT显示为综合NDN-IoT系统性能的指标。我们没有测量最大的网络吞吐量，因为在受限设备上运行的大多数IoT应用程序不需要高吞吐量数据传输。</p>
+<p>　　（1）API执行速度：我们通过重复调用函数来测量NDN API的执行时间，并将总运行时间除以迭代次数。结果在表IV中以实时和MCU周期的形式呈现在MCU之间进行比较。由于基准套件作为接管整个MCU的单线程应用程序运行，测量结果在不同运行中相当稳定。</p>
+<p>　　总结，在具有48 MHz MCU的SAMR21-XPRO上，NDN-RIOT能够在一秒钟内创建5434个NDN名称（来自URI字符串），40000个兴趣或553个HMAC签名数据。最昂贵的操作是创建和验证ECDSA签名的数据包。 SAMR21-XPRO可以创建和验证每秒2个具有ECDSA签名的数据包。在IoTLab-M3（72 MHz MCU）上，性能提高到每秒3.5-3.7个数据包，尽管它比使用HMAC还要低150倍。</p>
+<p>　　（2）应用程序级别的往返时间：我们的最终评估测量两台RIOT-OS设备之间的兴趣-数据交换的RTT。实验在巴黎的FIT IoTLab测试台[17]进行，两个IoTLab-M3节点通过IEEE 802.15.4无线电通信。测试台网络的MTU为102字节，固定数据速率为250Kbps。测量在两个场景下执行，数据包大小为100字节和196字节。在每种情况下，我们测量获取生产者根据请求生成的新数据包的RTT，从远程缓存获取数据包，和从本地缓存获取数据包。每个实验执行100次Interest-Data交换而不进行流水线计算，RTT计算为总运行时间除以100。所有数据包都由ECDSA签名。</p>
+<p>　　表V显示了RTT测量结果。当获取新创建的数据时，RTT由ECDSA签名操作（大约需要270ms）来支配。当获取196个字节的数据包时，该数据包在生产者处被分成两部分，并在消费者节点重新组合，并且由于分段和重新组装操作，RTT显示≈6ms的附加延迟。从本地缓存中获取数据时，在任何一种情况下都不需要分片，平均响应时间小于1ms。</p>
+<p>　　测试台环境中两台RIOT-OS设备之间的IP数据包的平均RTT范围为5到9 ms，由RIOT-OS内核中的ping实用程序测量。因此，我们的初始实现的兴趣数据RTT尚未被微调，与IP相比没有数据签名延迟。然而，我们注意到前者可以表达高级语义并直接将数据送到应用程序，而IP数据包必须经过附加层协议处理才能到达应用程序，如[18]所述。</p>
+<h4 id="相关的工作"><a href="#相关的工作" class="headerlink" title="相关的工作"></a>相关的工作</h4><p>　　嵌入式系统的传统轻量级网络堆栈实现基于TCP/IP架构。最流行的实现之一是lwIP[19]软件包，在具有数十KB RAM和闪存的器件上提供全功能标准兼容的TCP/IP功能。lwIP可以在不同的平台上运行，包括基于RIOT-OS的IoT系统。RIOT-OS还具有自己的基于IPv6的网络堆栈，通过结合与IoT相关的协议和框架（如CoAP，RPL和6LoWPAN）来支持IoT应用程序。NDN-RIOT遵循RIOT-OS中IP堆栈的相同软件架构，以实现与RIOT-OS内核的良好集成。</p>
+<p>　　CCN-lite[20]是CCN的通用轻量级实现[1]，已被移植到RIOT-OS作为第三方包[21]。CCN-Lite被设计为可以在不同平台上运行并支持多种ICN协议格式的通用CCN堆栈。我们的NDN-RIOT实现是用于IoT应用程序和RIOT-OS平台的NDN堆栈的优化版本。因此，我们的实现可以充分利用RIOT-OS内部API并删除冗余功能。更重要的是，我们的NDN API提供了数据安全支持，这对于IoT应用程序至关重要，但目前在CCN-lite实现中缺少。</p>
+<h4 id="总结与展望"><a href="#总结与展望" class="headerlink" title="总结与展望"></a>总结与展望</h4><p>　　我们实现NDN-RIOT，一个用于RIOT-OS的轻量级NDN协议栈，它展示了将NDN以数据为中心的通信和安全模型引入受约束的IoT平台的可行性，为开发比TCP/IP更为全面的IoT应用提供了坚实的基础。然而，它只是朝向支持NDN的IoT应用程序的第一步，还有几个重要领域尚待探索。</p>
+<p>　　首先，我们需要对RIOT-OS上的NDN协议操作相关的能耗进行全面的调查。另外，我们需要向NDN-RIOT添加一个与转发策略进行交互的接口，然后由IoT应用来实现能量感知分组转发策略和其他功能。第三，我们还计划对目前已经确定的实现进行多项改进，包括扩展兴趣包流水线操作和自动重传等传输层功能API和通过微型基准扩展性能优化。此外，我们计划在NDN-RIOT之上设计高级框架，如自动配置和发现，以促进物联网应用。我们邀请更广泛的社区加入我们，探索这个令人兴奋的物联网研究领域。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IoT/" rel="tag"># IoT</a>
+          
+            <a href="/tags/RIOT-OS/" rel="tag"># RIOT-OS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/9510/" rel="next" title="Python Numpy学习笔记（一）">
+                <i class="fa fa-chevron-left"></i> Python Numpy学习笔记（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/46428/" rel="prev" title="Python Numpy学习笔记（二）">
+                Python Numpy学习笔记（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#命名数据网络"><span class="nav-number">2.1.</span> <span class="nav-text">命名数据网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RIOT-OS"><span class="nav-number">2.2.</span> <span class="nav-text">RIOT-OS</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NDN-RIOT设计"><span class="nav-number">3.</span> <span class="nav-text">NDN-RIOT设计</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#目标"><span class="nav-number">3.1.</span> <span class="nav-text">目标</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#软件体系结构"><span class="nav-number">3.2.</span> <span class="nav-text">软件体系结构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分组编码和解码"><span class="nav-number">3.3.</span> <span class="nav-text">分组编码和解码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安全支持"><span class="nav-number">3.4.</span> <span class="nav-text">安全支持</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分组转发"><span class="nav-number">3.5.</span> <span class="nav-text">分组转发</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#二层通信"><span class="nav-number">3.6.</span> <span class="nav-text">二层通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#应用程序接口"><span class="nav-number">3.7.</span> <span class="nav-text">应用程序接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估"><span class="nav-number">4.</span> <span class="nav-text">评估</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#内存使用"><span class="nav-number">4.1.</span> <span class="nav-text">内存使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#表现"><span class="nav-number">4.2.</span> <span class="nav-text">表现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#相关的工作"><span class="nav-number">5.</span> <span class="nav-text">相关的工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结与展望"><span class="nav-number">6.</span> <span class="nav-text">总结与展望</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: '[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

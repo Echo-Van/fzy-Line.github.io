@@ -1,0 +1,1313 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="IoT,6LoWPAN," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="The analysis of 6LowPAN technology（全文翻译） 　　6LoWPAN技术分析">
+<meta name="keywords" content="IoT,6LoWPAN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[译]The analysis of 6LowPAN technology">
+<meta property="og:url" content="https://fzy-line.github.io/posts/18888/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="The analysis of 6LowPAN technology（全文翻译） 　　6LoWPAN技术分析">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-1.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-2.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-3.png">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-4.png">
+<meta property="og:updated_time" content="2018-02-21T19:34:49.644Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[译]The analysis of 6LowPAN technology">
+<meta name="twitter:description" content="The analysis of 6LowPAN technology（全文翻译） 　　6LoWPAN技术分析">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/posts/18888/"/>
+
+
+
+
+
+  <title>[译]The analysis of 6LowPAN technology | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/posts/18888/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[译]The analysis of 6LowPAN technology</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-09T13:42:00+08:00">
+                2017-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/论文研读/" itemprop="url" rel="index">
+                    <span itemprop="name">论文研读</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　The analysis of 6LowPAN technology（全文翻译）</p>
+<p>　　6LoWPAN技术分析</p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">The analysis of 6LowPAN technology</div><div class="line">Xin Ma, Wei Luo</div><div class="line">The Key Laboratory of Network Control Technology and Intelligent Instrument</div><div class="line">Chongqing University of Posts and Telecommunications</div><div class="line">Chongqing 400065, China</div><div class="line">thincucumber@126.com, weiweiopiu@163.com</div></pre></td></tr></table></figure>
+<p>　　摘要：IPv6 over IEEE802.15.4（又称6LoWPAN）已经成为低速无线个域网标准（LR-WPAN）。IPv6作为IEEE 802.15.4设备在网络层的互连方案，6LoWPAN技术受到广泛关注。本文介绍了IEEE802.15.4标准和6LoWPAN技术，讨论了6lowpan的优点，分析了其关键技术，并探讨了6LoWPAN的应用。</p>
+<h4 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h4><p>　　近来，低速无线个域网已经成为一个热点问题，并且如何整合IPv6与LR-WPAN也成为一个重要的问题。LR-WPAN是一个通信网络，用于有限的功率和松散的吞吐量要求。它包含符合IEE 802.15.4标准的设备，并具有短距离、低比特率、低功耗和低成本的特征。这些设备协同工作，将物理环境连接到现实世界的应用，例如无线传感器网络和工业无线。</p>
+<p>　　但是，IEEE 802.15.4只规定了物理层和数据链路层的标准，没有涉及网络层以上的标准。为了实现网络设备和不同设备的协同工作，有必要在网络层建立统一的标准。由于地址空间和大尺度的开放性，由IETF正式建立6LoWPAN(IPv6 over Low-rate WPAN)工作组来建立基于IPv6的LR-WPAN标准，工作组的目标是将IPv6引入采用IEEE 802.15.4作为基础底层标准的LR-WPAN。2007年9月发布的WirelessHART通信标准包含6LoWPAN技术，并且ISA100.11a网络层也是基于6LoWPAN标准为每个无线现场设备提供IPv6连接。6LoWPAN通过压缩IPv6数据包，有助于通过802.15.4兼容吞吐量和电池限制设备进行IPv6连接。</p>
+<h4 id="IEEE-802-15-4标准"><a href="#IEEE-802-15-4标准" class="headerlink" title="IEEE 802.15.4标准"></a>IEEE 802.15.4标准</h4><p>　　IEEE 802.15.4工作组成立于2000年12月，它致力于为固定/移动设备定义一种低成本、便携式无线网络接入技术。这个工作组公布了IEEE 802.15.4标准，它规定了WPAN的物理层和MAC层，只需要802.11 1%的能量，更容易嵌入，容易使用。如图1所示的体系结构。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-1.png" alt="7-1"></p>
+<p>　　IEEE 802.15.4标准的主要特点包括：</p>
+<p>（1）低速率：868/915MHz的物理支持超过20kb/s,40kb/s的空气数据速率，任选100kb/s和250KB/。2450 MHz PHY支持250kb/s的数据速率。物理层选择取决于当地法规和用户的喜好。</p>
+<p>（2）低功耗：使用小电池可以工作数月甚至数年。</p>
+<p>（3）低成本：通常采用低端、硬件资源有限的嵌入式设备。</p>
+<p>（4）短距离：信号覆盖范围从10m到100m</p>
+<p>（5）多种类型：设备一般包括全功能设备（FFD）和精简功能设备（RFD）。FFD包含包括协调器和路由器，协调器可以形成网络和路由数据包，路由器路由数据包，但可以有额外的功能。RFD是功能有限的终端设备，大部分时间都是睡眠的。</p>
+<p>（6）多种模式：MAC层定义两种传输模式，一种是启用信标的模式，另一种是不启用信标的模式。不启用信标模式的PAN使用CSMA-CA机制进行冲突避免。然而，启用信标的PAN通过超帧结构实现同步，使用基于CSMA-CA机制的时隙可以使空闲设备进入低功率睡眠状态以节省功耗。</p>
+<p>　　IEEE 802.15.4定义了4种类型的帧：信标帧，MAC命令帧和数据帧、确认帧。IPv6数据包必须携带数据帧。数据帧可以可选地要求它们被确认。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-2.png" alt="7-2"></p>
+<p>　　IEEE 802.15.4载有关于无线电收发器的信息与Wi-Fi大致相同的频带，但使用大约1％的功率。由于这一点限制传输范围，设备的集合必须一起工作，在更长的距离和周围的障碍物上逐跳路由信息。</p>
+<h4 id="6LoWPAN技术"><a href="#6LoWPAN技术" class="headerlink" title="6LoWPAN技术"></a>6LoWPAN技术</h4><h5 id="6LoWPAN简介"><a href="#6LoWPAN简介" class="headerlink" title="6LoWPAN简介"></a>6LoWPAN简介</h5><p>　　6LoWPAN工作组工作在基于IEEE 802.15.4标准的IPv6协议栈的研究，并构建了自组织的6LoWPAN网络路由协议。它的出现推动了LR-WPAN的发展。</p>
+<p>　　6LoWPAN技术底层采用PHY和MAC的IEEE 802.15.4标准，并且6LoWPAN选择IPv6作为网络层技术，其目标市场主要是无线传感器网络。</p>
+<p>　　鉴于无线传感器网络的地址和安全性要求以及IPv6的进一步发展，将IPv6协议引入嵌入式设备已成为必然趋势。</p>
+<p>　　但是，IPv6中的MAC支持的有效载荷长度远远大于6LowPAN底层提供的有效载荷长度，为了实现MAC层和网络层的无缝连接，6LoWPAN工作组建议在MAC层和网络层之间增加一个适配层来实现头部压缩，分片，重组和mesh路由转发。6LoWPAN协议栈的参考模型如图3所示。</p>
+<h5 id="6LoWPAN技术优势"><a href="#6LoWPAN技术优势" class="headerlink" title="6LoWPAN技术优势"></a>6LoWPAN技术优势</h5><p>　　6LoWPAN标准协议定义描述如何在低功耗、低数据速率、低成本的个人区域网络上利用IPv6。</p>
+<p>（1）普及</p>
+<p>IP网络的应用十分广泛。IPv6作为下一代互联网核心技术，也加速了它的普及速度，利用IPv6在LR WPAN会更易于接受。</p>
+<p>（2）适用性</p>
+<p>IP网络协议栈的结构被广泛认可，LR WPAN可以基于该结构有效地开发。</p>
+<p>（3）更多的地址空间</p>
+<p>IPv6在LR-WPAN应用的最大亮点是巨大的地址空间（这意味着在我们的星球每平方米大约有6.67×10^27 IPv6地址），这完全符合处理大规模、高密度的LR-WPAN设备的需要。</p>
+<p>（4）支持无状态地址自动配置</p>
+<p>在IPv6中，当节点开始工作时，它可以自动读取MAC地址，并根据相关规则部署IPv6地址。</p>
+<p>（5）易于访问</p>
+<p>LR-WPAN采用IPv6技术，这将是更容易获取其它基于IP技术的网络，充分利用IP技术的发展。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-3.png" alt="7-3"></p>
+<p>　　得出结论，IPv6技术在LR-WPAN中的应用具有广阔的空间，使得LR-WPAN接入Internet将大大扩展其应用，并且可以实现大规模的传感器控制网络。</p>
+<h5 id="6LoWPAN的核心技术"><a href="#6LoWPAN的核心技术" class="headerlink" title="6LoWPAN的核心技术"></a>6LoWPAN的核心技术</h5><p>　　6LowPAN工作组的章程是定义如何通过IEEE 802.15.4链路进行基于IP的通信，同时符合开放标准，并确保与其他IP设备的互操作性。 6LowPAN的一些关键技术如下：</p>
+<p>（1）IPv6和IEEE 802.15.4的协调</p>
+<p>IEEE802.15.4定义的最大帧大小为127字节，MAC头的最大长度为25字节，剩余MAC负载的最大长度为102字节。然而，在IPv6中，MAC负载的最大长度为1280字节，IEEE 802.15.4帧不能打包整个IPv6数据包。因此，有必要在IP层下面引入适配层，以实现分片和重组的功能。</p>
+<p>（2）地址分配和地址管理</p>
+<p>6LowPAN的一个显着特征是动态分配16位短地址的能力。通过利用这个短地址，可以采用分层路由。另外，IPv6支持无状态地址自动配置，相对于状态地址自动配置，配置费用较小，适用于LR-WPAN设备的特性。同时，LR-WPAN设备可能在人们难以到达的地方可能会大量密集地分配，所以更重要的是实现无状态地址自动配置。</p>
+<p>（3）网络管理</p>
+<p>网络管理技术对LR-WPAN至关重要。由于网络规模庞大，分布不均衡，LR-WPAN应具备自愈能力，要求LR-WPAN管理技术能够以极低的成本管理高密度的部署设备。6LowPAN易于在LR-WPAN中使用SNMPv3（简单网络管理协议）来进行网络管理。但是，SNMP的最初意图是管理基于IP的互联网，为了将SNMP应用于具有限制硬件资源的LR-WPAN，需要进一步的研究和改进，例如：限制数据类型，简化基本的代码规则等。</p>
+<p>（4）安全问题</p>
+<p>因为使用安全机制需要额外的处理和带宽资源，这不适用于LR-WPAN设备。 IEEE802.15.4在链路层提供的AES安全机制较为宽松，需要进一步加强。因此，为LR-WPAN找到合适的安全机制成为6LowPAN研究的关键问题之一。</p>
+<p>　　作为信息领域的新研究热点，需要发现和研究6LowPAN的许多关键技术。例如：服务发现技术，设备发现技术，应用编程接口技术，数据融合技术等。</p>
+<h4 id="6LoWPAN的应用"><a href="#6LoWPAN的应用" class="headerlink" title="6LoWPAN的应用"></a>6LoWPAN的应用</h4><p>　　随着LR-WPAN的快速发展和下一代互联网的广泛普及，6LoWPAN将在包括智能家居、工业无线等领域得到广泛的应用。</p>
+<p>　　例如，在智能房屋中，6LoWPAN节点可以嵌入到家具或电器设备中，通过无线网络与Internet连接实现智能房屋管理。如果每个房屋安装家庭网关，几个6LowPAN节点，并将网关和每个节点上的一个无线网络传输模块（Transmitter＆Receiver，符合6LowPAN标准）连接起来。然后通过这些传输模块，可以在网关和节点之间传输各种数据，因此该智能系统可以收集电表，水煤气表的数据，自动防盗/火，自动报警，与住宅区管理中心通信等。</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2017/4/7-4.png" alt="7-4"></p>
+<p>　　WirelessHART和ISA100.11a系统通过为包含：非关键监控，监控，开/闭环控制应用的无线设备提供可靠和安全的操作解决无线工业应用。</p>
+<p>　　总而言之，6LowPAN的目标是以非常有限形式的设备需要具有较低数据速率的无线互联网连接的应用。6LowPAN在家庭，办公和工厂环境中的自动化和娱乐应用越来越广泛。</p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>　　6LoWPAN是旨在允许将IPv6数据包发送到LR-WPAN并从LR-WPAN接收的耦合，更具体地说是基于IEEE 802.15.4的网络。IPv6是有线网络-互联网的数据传输工作。同样，IEEE802.15.4设备在无线域中提供感测通信能力。</p>
+<p>　　6LowPAN由于其便宜性和实用性，显示出巨大的市场前景。任何需要低价格，低功率，低功耗和密集部署等特点的设备，都可以通过6LowPAN技术实现，特别是在工业无线领域，WirelessHART和ISA100.11a标准均采用6LowPAN实现分片和重组。因此，当6LowPAN技术完全可实现和高度普及时，必将给人们的工作和生活带来极大的便利。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/IoT/" rel="tag"># IoT</a>
+          
+            <a href="/tags/6LoWPAN/" rel="tag"># 6LoWPAN</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/posts/37315/" rel="next" title="Contiki 定时器部分详解">
+                <i class="fa fa-chevron-left"></i> Contiki 定时器部分详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/posts/9510/" rel="prev" title="Python Numpy学习笔记（一）">
+                Python Numpy学习笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fzyLine@163.com</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">129</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IEEE-802-15-4标准"><span class="nav-number">2.</span> <span class="nav-text">IEEE 802.15.4标准</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6LoWPAN技术"><span class="nav-number">3.</span> <span class="nav-text">6LoWPAN技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#6LoWPAN简介"><span class="nav-number">3.1.</span> <span class="nav-text">6LoWPAN简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6LoWPAN技术优势"><span class="nav-number">3.2.</span> <span class="nav-text">6LoWPAN技术优势</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6LoWPAN的核心技术"><span class="nav-number">3.3.</span> <span class="nav-text">6LoWPAN的核心技术</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6LoWPAN的应用"><span class="nav-number">4.</span> <span class="nav-text">6LoWPAN的应用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: '[译]The analysis of 6LowPAN technology', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
