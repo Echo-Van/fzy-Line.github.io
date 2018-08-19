@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2018/08/19/%E5%BC%80%E5%A7%8B%E6%87%82%E4%BA%86/</loc>
+    <lastmod>2018-08-19T02:03:49.470Z</lastmod>
+    <data>
+        <display>
+        <title>开始懂了</title>
+        <pubTime>2018-08-19T01:57:08.000Z</pubTime>
+        
+        <tag>Life</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2018/08/08/%E5%8C%97%E4%BA%AC%EF%BC%8C%E5%86%8D%E4%BC%9A/</loc>
     <lastmod>2018-08-08T09:51:43.639Z</lastmod>
     <data>
@@ -112,14 +132,14 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/09/Android-Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://fzy-line.github.io/2016/08/13/Android-AlertDialog%E8%AF%A6%E8%A7%A3/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Android Activity生命周期与启动模式</title>
-        <pubTime>2016-08-09T01:04:23.000Z</pubTime>
+        <title>Android AlertDialog详解</title>
+        <pubTime>2016-08-13T01:26:41.000Z</pubTime>
         
-        <tag>［Android,Activity］</tag>
+        <tag>［Android,AlertDialog］</tag>
          
          
            
@@ -152,26 +172,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/13/Android-AlertDialog%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android AlertDialog详解</title>
-        <pubTime>2016-08-13T01:26:41.000Z</pubTime>
-        
-        <tag>［Android,AlertDialog］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2016/05/17/Android-ImageView%E5%AE%9E%E7%8E%B0%E5%9C%86%E5%BD%A2%E5%A4%B4%E5%83%8F/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -180,66 +180,6 @@
         <pubTime>2016-05-17T13:28:02.000Z</pubTime>
         
         <tag>［Android,ImageView］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/08/26/Android-WebView%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android WebView详解</title>
-        <pubTime>2016-08-26T01:55:11.000Z</pubTime>
-        
-        <tag>［Android,Webview］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/07/12/Android-ip%E5%9C%B0%E5%9D%80%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android ip地址信息查询</title>
-        <pubTime>2016-07-12T15:02:48.000Z</pubTime>
-        
-        <tag>［Android,ip］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/07/01/Android-Spinner%E6%8E%A7%E4%BB%B6%E4%B9%8B%E7%9C%81%E5%B8%82%E5%8C%BA%EF%BC%88%E5%8E%BF%EF%BC%89%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android Spinner控件之省市区（县）三级联动</title>
-        <pubTime>2016-07-01T14:11:05.000Z</pubTime>
-        
-        <tag>［Android,Spinner］</tag>
          
          
            
@@ -272,14 +212,34 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/06/18/Android%E5%BC%80%E5%8F%91%E4%B9%8Beclipse%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/</loc>
+    <loc>https://fzy-line.github.io/2016/07/01/Android-Spinner%E6%8E%A7%E4%BB%B6%E4%B9%8B%E7%9C%81%E5%B8%82%E5%8C%BA%EF%BC%88%E5%8E%BF%EF%BC%89%E4%B8%89%E7%BA%A7%E8%81%94%E5%8A%A8/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Android开发之eclipse快捷操作</title>
-        <pubTime>2016-06-18T03:38:27.000Z</pubTime>
+        <title>Android Spinner控件之省市区（县）三级联动</title>
+        <pubTime>2016-07-01T14:11:05.000Z</pubTime>
         
-        <tag>［Android,eclipse］</tag>
+        <tag>［Android,Spinner］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/07/12/Android-ip%E5%9C%B0%E5%9D%80%E4%BF%A1%E6%81%AF%E6%9F%A5%E8%AF%A2/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android ip地址信息查询</title>
+        <pubTime>2016-07-12T15:02:48.000Z</pubTime>
+        
+        <tag>［Android,ip］</tag>
          
          
            
@@ -312,46 +272,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/07/29/Android%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B9%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android数据存储之文件存储</title>
-        <pubTime>2016-07-29T14:12:16.000Z</pubTime>
-        
-        <tag>［Android,文件］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/07/21/Android%E7%9C%9F%E6%9C%BA%E6%8A%93%E5%B1%8F-Android-Screen-Monitor/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android真机抓屏- Android Screen Monitor</title>
-        <pubTime>2016-07-21T00:59:11.000Z</pubTime>
-        
-        <tag>［Android,Screen Monitor］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2016/07/21/Android%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B9%8BSharedPreferences/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -360,6 +280,66 @@
         <pubTime>2016-07-21T14:11:35.000Z</pubTime>
         
         <tag>［Android,SharedPreferences］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/08/26/Android-WebView%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android WebView详解</title>
+        <pubTime>2016-08-26T01:55:11.000Z</pubTime>
+        
+        <tag>［Android,Webview］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/06/18/Android%E5%BC%80%E5%8F%91%E4%B9%8Beclipse%E5%BF%AB%E6%8D%B7%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android开发之eclipse快捷操作</title>
+        <pubTime>2016-06-18T03:38:27.000Z</pubTime>
+        
+        <tag>［Android,eclipse］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/07/29/Android%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8%E4%B9%8B%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android数据存储之文件存储</title>
+        <pubTime>2016-07-29T14:12:16.000Z</pubTime>
+        
+        <tag>［Android,文件］</tag>
          
          
            
@@ -392,14 +372,14 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/14/Android%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6Android-async-http/</loc>
+    <loc>https://fzy-line.github.io/2016/07/21/Android%E7%9C%9F%E6%9C%BA%E6%8A%93%E5%B1%8F-Android-Screen-Monitor/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Android网络请求框架Android-async-http</title>
-        <pubTime>2016-08-14T01:42:01.000Z</pubTime>
+        <title>Android真机抓屏- Android Screen Monitor</title>
+        <pubTime>2016-07-21T00:59:11.000Z</pubTime>
         
-        <tag>［Android,网络］</tag>
+        <tag>［Android,Screen Monitor］</tag>
          
          
            
@@ -432,14 +412,14 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/07/10/Android%E8%8E%B7%E5%8F%96%E5%A4%96%E7%BD%91ip%E5%9C%B0%E5%9D%80%E8%AF%A6%E8%A7%A3/</loc>
+    <loc>https://fzy-line.github.io/2016/08/08/Android%E8%87%AA%E5%B8%A6TTS%E4%B8%8E%E7%A7%91%E5%A4%A7%E8%AE%AF%E9%A3%9E%E8%AF%AD%E9%9F%B3SDK/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Android获取外网ip地址详解</title>
-        <pubTime>2016-07-10T15:10:58.000Z</pubTime>
+        <title>Android自带TTS与科大讯飞语音SDK</title>
+        <pubTime>2016-08-08T01:04:04.000Z</pubTime>
         
-        <tag>［Android,ip］</tag>
+        <tag>［Android,TTS］</tag>
          
          
            
@@ -460,6 +440,68 @@
         <pubTime>2016-06-29T13:05:54.000Z</pubTime>
         
         <tag>［Android,yeelink］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/08/14/Android%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E6%A1%86%E6%9E%B6Android-async-http/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android网络请求框架Android-async-http</title>
+        <pubTime>2016-08-14T01:42:01.000Z</pubTime>
+        
+        <tag>［Android,网络］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/09/16/Atom-Latex%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Atom Latex编辑器配置</title>
+        <pubTime>2017-09-16T12:15:06.000Z</pubTime>
+        
+        <tag>Latex</tag>
+         
+        <tag>Atom</tag>
+         
+         
+           
+             
+              <breadCrumb title="Tools" url="https://fzy-line.github.io/categories/Tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/07/10/Android%E8%8E%B7%E5%8F%96%E5%A4%96%E7%BD%91ip%E5%9C%B0%E5%9D%80%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android获取外网ip地址详解</title>
+        <pubTime>2016-07-10T15:10:58.000Z</pubTime>
+        
+        <tag>［Android,ip］</tag>
          
          
            
@@ -495,6 +537,29 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2017/02/18/Contiki-CC2538dk-%E4%B8%B2%E5%8F%A3%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Contiki CC2538dk 串口下载程序</title>
+        <pubTime>2017-02-18T09:05:32.000Z</pubTime>
+        
+        <tag>［IoT,Contiki,CC2538dk］</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="Contiki" url="https://fzy-line.github.io/categories/IoT/Contiki/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2016/10/03/Android%E9%80%86%E5%90%91%E5%88%86%E6%9E%90%E4%B9%8B%E5%8F%8D%E7%BC%96%E8%AF%91/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -515,36 +580,14 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/09/16/Atom-Latex%E7%BC%96%E8%BE%91%E5%99%A8%E9%85%8D%E7%BD%AE/</loc>
+    <loc>https://fzy-line.github.io/2017/02/21/Contiki-RPL-border-router-Cooja%E4%BB%BF%E7%9C%9F/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Atom Latex编辑器配置</title>
-        <pubTime>2017-09-16T12:15:06.000Z</pubTime>
+        <title>Contiki RPL-border-router Cooja仿真</title>
+        <pubTime>2017-02-21T01:28:35.000Z</pubTime>
         
-        <tag>Latex</tag>
-         
-        <tag>Atom</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tools" url="https://fzy-line.github.io/categories/Tools/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/02/18/Contiki-CC2538dk-%E4%B8%B2%E5%8F%A3%E4%B8%8B%E8%BD%BD%E7%A8%8B%E5%BA%8F/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Contiki CC2538dk 串口下载程序</title>
-        <pubTime>2017-02-18T09:05:32.000Z</pubTime>
-        
-        <tag>［IoT,Contiki,CC2538dk］</tag>
+        <tag>［IoT,Contiki,Cooja］</tag>
          
          
            
@@ -583,29 +626,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/04/06/Contiki-%E5%AE%9A%E6%97%B6%E5%99%A8%E9%83%A8%E5%88%86%E8%AF%A6%E8%A7%A3/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Contiki 定时器部分详解</title>
-        <pubTime>2017-04-06T09:24:47.000Z</pubTime>
-        
-        <tag>［IoT,Contiki,timer］</tag>
-         
-         
-           
-             
-              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
-          
-             
-              <breadCrumb title="Contiki" url="https://fzy-line.github.io/categories/IoT/Contiki/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2017/02/23/Contiki-LED%E9%A9%B1%E5%8A%A8%E9%83%A8%E5%88%86%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -622,26 +642,6 @@
           
              
               <breadCrumb title="Contiki" url="https://fzy-line.github.io/categories/IoT/Contiki/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/08/08/Android%E8%87%AA%E5%B8%A6TTS%E4%B8%8E%E7%A7%91%E5%A4%A7%E8%AE%AF%E9%A3%9E%E8%AF%AD%E9%9F%B3SDK/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Android自带TTS与科大讯飞语音SDK</title>
-        <pubTime>2016-08-08T01:04:04.000Z</pubTime>
-        
-        <tag>［Android,TTS］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
           
         </display>
     </data>
@@ -676,14 +676,41 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/02/21/Contiki-RPL-border-router-Cooja%E4%BB%BF%E7%9C%9F/</loc>
+    <loc>https://fzy-line.github.io/2017/06/30/Contiki%E4%B8%ADMQTT%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Contiki RPL-border-router Cooja仿真</title>
-        <pubTime>2017-02-21T01:28:35.000Z</pubTime>
+        <title>Contiki中MQTT协议实现（上）</title>
+        <pubTime>2017-06-30T07:06:02.000Z</pubTime>
         
-        <tag>［IoT,Contiki,Cooja］</tag>
+        <tag>6LoWPAN</tag>
+         
+        <tag>Contiki</tag>
+         
+        <tag>MQTT</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="MQTT" url="https://fzy-line.github.io/categories/IoT/MQTT/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/04/06/Contiki-%E5%AE%9A%E6%97%B6%E5%99%A8%E9%83%A8%E5%88%86%E8%AF%A6%E8%A7%A3/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Contiki 定时器部分详解</title>
+        <pubTime>2017-04-06T09:24:47.000Z</pubTime>
+        
+        <tag>［IoT,Contiki,timer］</tag>
          
          
            
@@ -699,12 +726,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/08/10/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E5%9B%9B%EF%BC%89/</loc>
+    <loc>https://fzy-line.github.io/2016/11/30/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Github Pages + Hexo搭建博客（四）</title>
-        <pubTime>2017-08-10T04:54:27.000Z</pubTime>
+        <title>Github Pages + Hexo搭建博客（一）</title>
+        <pubTime>2016-11-30T09:12:10.000Z</pubTime>
         
         <tag>Hexo</tag>
          
@@ -743,26 +770,21 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/06/30/Contiki%E4%B8%ADMQTT%E5%8D%8F%E8%AE%AE%E5%AE%9E%E7%8E%B0%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
+    <loc>https://fzy-line.github.io/2017/02/06/Hexo-next%E5%AD%A6%E4%B9%A0%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%B8%8A%E7%BA%BF%E5%95%A6/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Contiki中MQTT协议实现（上）</title>
-        <pubTime>2017-06-30T07:06:02.000Z</pubTime>
+        <title>Hexo-next学习交流群上线啦</title>
+        <pubTime>2017-02-06T13:46:45.000Z</pubTime>
         
-        <tag>6LoWPAN</tag>
+        <tag>Hexo</tag>
          
-        <tag>Contiki</tag>
-         
-        <tag>MQTT</tag>
+        <tag>Github</tag>
          
          
            
              
-              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
-          
-             
-              <breadCrumb title="MQTT" url="https://fzy-line.github.io/categories/IoT/MQTT/"/>
+              <breadCrumb title="Hexo" url="https://fzy-line.github.io/categories/Hexo/"/>
           
         </display>
     </data>
@@ -776,6 +798,28 @@
         <display>
         <title>Github Pages + Hexo搭建博客（二）</title>
         <pubTime>2016-12-03T01:16:35.000Z</pubTime>
+        
+        <tag>Hexo</tag>
+         
+        <tag>Github</tag>
+         
+         
+           
+             
+              <breadCrumb title="Hexo" url="https://fzy-line.github.io/categories/Hexo/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/08/10/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E5%9B%9B%EF%BC%89/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Github Pages + Hexo搭建博客（四）</title>
+        <pubTime>2017-08-10T04:54:27.000Z</pubTime>
         
         <tag>Hexo</tag>
          
@@ -814,82 +858,16 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/11/30/Github-Pages-Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <loc>https://fzy-line.github.io/2016/12/19/IPv6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Github Pages + Hexo搭建博客（一）</title>
-        <pubTime>2016-11-30T09:12:10.000Z</pubTime>
-        
-        <tag>Hexo</tag>
-         
-        <tag>Github</tag>
-         
-         
-           
-             
-              <breadCrumb title="Hexo" url="https://fzy-line.github.io/categories/Hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/10/05/Linux-NFS%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Linux NFS服务配置</title>
-        <pubTime>2016-10-05T08:02:23.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>NFS</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/02/06/Hexo-next%E5%AD%A6%E4%B9%A0%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%B8%8A%E7%BA%BF%E5%95%A6/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Hexo-next学习交流群上线啦</title>
-        <pubTime>2017-02-06T13:46:45.000Z</pubTime>
-        
-        <tag>Hexo</tag>
-         
-        <tag>Github</tag>
-         
-         
-           
-             
-              <breadCrumb title="Hexo" url="https://fzy-line.github.io/categories/Hexo/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/11/25/IEEE-802-15-4%E6%A0%87%E5%87%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>IEEE 802.15.4标准学习笔记（一）</title>
-        <pubTime>2017-11-25T04:00:04.000Z</pubTime>
+        <title>IPv6学习笔记(一)</title>
+        <pubTime>2016-12-19T03:30:41.000Z</pubTime>
         
         <tag>网络</tag>
          
-        <tag>802.15.4</tag>
+        <tag>IPv6</tag>
          
          
            
@@ -922,43 +900,21 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/12/19/IPv6%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/</loc>
+    <loc>https://fzy-line.github.io/2017/11/25/IEEE-802-15-4%E6%A0%87%E5%87%86%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>IPv6学习笔记(一)</title>
-        <pubTime>2016-12-19T03:30:41.000Z</pubTime>
+        <title>IEEE 802.15.4标准学习笔记（一）</title>
+        <pubTime>2017-11-25T04:00:04.000Z</pubTime>
         
         <tag>网络</tag>
          
-        <tag>IPv6</tag>
+        <tag>802.15.4</tag>
          
          
            
              
               <breadCrumb title="Network" url="https://fzy-line.github.io/categories/Network/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/10/26/Linux%E8%BF%9B%E7%A8%8B%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%EF%BC%9Apidstat/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Linux进程实时监控：pidstat</title>
-        <pubTime>2017-10-26T01:54:23.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>pidstat</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
           
         </display>
     </data>
@@ -989,6 +945,50 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2016/10/05/Linux-NFS%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux NFS服务配置</title>
+        <pubTime>2016-10-05T08:02:23.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>NFS</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/10/26/Linux%E8%BF%9B%E7%A8%8B%E5%AE%9E%E6%97%B6%E7%9B%91%E6%8E%A7%EF%BC%9Apidstat/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Linux进程实时监控：pidstat</title>
+        <pubTime>2017-10-26T01:54:23.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>pidstat</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2017/11/11/Linux-Wireless-Tools%EF%BC%9A-iwconfig/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -1011,16 +1011,18 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/04/14/Python-Numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <loc>https://fzy-line.github.io/2016/10/08/Python-Web%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6Flask/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Python Numpy学习笔记（一）</title>
-        <pubTime>2017-04-14T06:09:05.000Z</pubTime>
+        <title>Python Web开发框架Flask</title>
+        <pubTime>2016-10-08T12:45:13.000Z</pubTime>
         
         <tag>Python</tag>
          
-        <tag>Numpy</tag>
+        <tag>Flask</tag>
+         
+        <tag>Web</tag>
          
          
            
@@ -1055,16 +1057,16 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/04/28/Python-Numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    <loc>https://fzy-line.github.io/2016/08/07/Python-Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Python Numpy学习笔记（二）</title>
-        <pubTime>2017-04-28T04:53:08.000Z</pubTime>
+        <title>Python Http网络请求</title>
+        <pubTime>2016-08-07T12:39:24.000Z</pubTime>
         
         <tag>Python</tag>
          
-        <tag>Numpy</tag>
+        <tag>Http</tag>
          
          
            
@@ -1077,16 +1079,16 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/07/Python-Http%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82/</loc>
+    <loc>https://fzy-line.github.io/2017/04/28/Python-Numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Python Http网络请求</title>
-        <pubTime>2016-08-07T12:39:24.000Z</pubTime>
+        <title>Python Numpy学习笔记（二）</title>
+        <pubTime>2017-04-28T04:53:08.000Z</pubTime>
         
         <tag>Python</tag>
          
-        <tag>Http</tag>
+        <tag>Numpy</tag>
          
          
            
@@ -1121,6 +1123,28 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2017/04/14/Python-Numpy%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python Numpy学习笔记（一）</title>
+        <pubTime>2017-04-14T06:09:05.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Numpy</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2017/06/18/Python-matplotlib%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -1143,18 +1167,60 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/10/08/Python-Web%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6Flask/</loc>
+    <loc>https://fzy-line.github.io/2016/08/03/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Python Web开发框架Flask</title>
-        <pubTime>2016-10-08T12:45:13.000Z</pubTime>
+        <title>Python文件操作</title>
+        <pubTime>2016-08-03T02:26:21.000Z</pubTime>
         
         <tag>Python</tag>
          
-        <tag>Flask</tag>
+        <tag>文件</tag>
          
-        <tag>Web</tag>
+         
+           
+             
+              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/12/01/Python%E5%BA%8F%E5%88%97%E8%AF%A6%E8%A7%A3-%E5%88%97%E8%A1%A8/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python序列详解-列表</title>
+        <pubTime>2016-12-01T13:45:45.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>列表</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/01/20/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python正则表达式基础</title>
+        <pubTime>2017-01-20T09:36:25.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>正则表达式</tag>
          
          
            
@@ -1211,72 +1277,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/01/20/Python%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python正则表达式基础</title>
-        <pubTime>2017-01-20T09:36:25.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>正则表达式</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/12/01/Python%E5%BA%8F%E5%88%97%E8%AF%A6%E8%A7%A3-%E5%88%97%E8%A1%A8/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python序列详解-列表</title>
-        <pubTime>2016-12-01T13:45:45.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>列表</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/08/03/Python%E6%96%87%E4%BB%B6%E6%93%8D%E4%BD%9C/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python文件操作</title>
-        <pubTime>2016-08-03T02:26:21.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>文件</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2016/07/17/Python%E7%88%AC%E8%99%AB%E5%88%A9%E5%99%A8-BeautifulSoup/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -1289,6 +1289,32 @@
         <tag>爬虫</tag>
          
         <tag>BeautifulSoup</tag>
+         
+         
+           
+             
+              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/07/03/Python%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8EHttp%E8%AF%B7%E6%B1%82/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Python爬虫基础-正则表达式与Http请求</title>
+        <pubTime>2016-07-03T12:14:28.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>Http</tag>
+         
+        <tag>正则表达式</tag>
+         
+        <tag>爬虫</tag>
          
          
            
@@ -1370,32 +1396,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/07/03/Python%E7%88%AC%E8%99%AB%E5%9F%BA%E7%A1%80-%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E4%B8%8EHttp%E8%AF%B7%E6%B1%82/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Python爬虫基础-正则表达式与Http请求</title>
-        <pubTime>2016-07-03T12:14:28.000Z</pubTime>
-        
-        <tag>Python</tag>
-         
-        <tag>Http</tag>
-         
-        <tag>正则表达式</tag>
-         
-        <tag>爬虫</tag>
-         
-         
-           
-             
-              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Python/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2017/10/18/Raspberry-pi-3%E5%88%B7OpenWrt%E6%89%93%E9%80%A0%E6%97%A0%E7%BA%BF%E8%B7%AF%E7%94%B1%E5%99%A8/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -1426,6 +1426,28 @@
         <tag>Seed Labs</tag>
          
         <tag>DNS</tag>
+         
+         
+           
+             
+              <breadCrumb title="Network security" url="https://fzy-line.github.io/categories/Network-security/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/01/12/Seed-Labs-TCP-IP-Attack-Lab/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Seed Labs: TCP/IP Attack Lab</title>
+        <pubTime>2018-01-12T10:34:41.000Z</pubTime>
+        
+        <tag>Seed Labs</tag>
+         
+        <tag>TCP/IP</tag>
          
          
            
@@ -1478,6 +1500,96 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2017/09/14/Ubuntu%E4%B8%ADftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Ubuntu中ftp服务器安装与配置</title>
+        <pubTime>2017-09-14T12:15:06.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>Ubuntu</tag>
+         
+        <tag>FTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/03/16/6LoWPAN-Border-Router%EF%BC%9A6LBR%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>6LoWPAN Border Router：6LBR之运行模式</title>
+        <pubTime>2017-03-16T15:22:10.000Z</pubTime>
+        
+        <tag>［IoT,6LBR,6LoWPAN］</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="6LoWPAN" url="https://fzy-line.github.io/categories/IoT/6LoWPAN/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/02/13/%E5%88%9D%E8%AF%86%E7%89%A9%E8%81%94%E7%BD%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9AContiki/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>初识物联网操作系统：Contiki</title>
+        <pubTime>2017-02-13T15:34:59.000Z</pubTime>
+        
+        <tag>［IoT,Contiki］</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="Contiki" url="https://fzy-line.github.io/categories/IoT/Contiki/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/07/01/%E5%85%AD%E6%9C%88%EF%BC%8C%E6%AF%95%E4%B8%9A%E5%AD%A3-%E6%84%9F%E6%81%A9%E6%9C%89%E4%BD%A0/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>六月，毕业季---感恩有你</title>
+        <pubTime>2016-06-30T16:00:00.000Z</pubTime>
+        
+        <tag>Life</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2016/12/11/android%E5%9B%BE%E7%89%87%E8%BD%AE%E6%92%AD%E6%A1%86%E6%9E%B6%EF%BC%9ARollViewPager/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -1498,21 +1610,59 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2018/01/12/Seed-Labs-TCP-IP-Attack-Lab/</loc>
+    <loc>https://fzy-line.github.io/2016/06/29/%E5%8D%95%E7%89%87%E6%9C%BA-ESP8266%E4%B8%8A%E4%BC%A0%E6%95%B0%E6%8D%AE%E5%88%B0yeelink/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>Seed Labs: TCP/IP Attack Lab</title>
-        <pubTime>2018-01-12T10:34:41.000Z</pubTime>
+        <title>单片机+ESP8266上传数据到yeelink</title>
+        <pubTime>2016-06-29T12:56:50.000Z</pubTime>
         
-        <tag>Seed Labs</tag>
-         
-        <tag>TCP/IP</tag>
+        <tag>［单片机,yeelink］</tag>
          
          
            
              
-              <breadCrumb title="Network security" url="https://fzy-line.github.io/categories/Network-security/"/>
+              <breadCrumb title="单片机" url="https://fzy-line.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/06/06/%E4%BB%8E%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%9C%8B%E5%A6%82%E4%BB%8A%E7%9A%84%E5%A4%A7%E5%AD%A6/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>从毕业设计看如今的大学</title>
+        <pubTime>2017-06-06T05:51:12.000Z</pubTime>
+        
+        <tag>Life</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/06/03/%E5%8D%95%E7%89%87%E6%9C%BA%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91%EF%BC%9A%E5%89%8D%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>单片机设计与开发：前后台系统</title>
+        <pubTime>2016-06-03T12:53:31.000Z</pubTime>
+        
+        <tag>单片机</tag>
+         
+         
+           
+             
+              <breadCrumb title="单片机" url="https://fzy-line.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
           
         </display>
     </data>
@@ -1543,103 +1693,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/06/06/%E4%BB%8E%E6%AF%95%E4%B8%9A%E8%AE%BE%E8%AE%A1%E7%9C%8B%E5%A6%82%E4%BB%8A%E7%9A%84%E5%A4%A7%E5%AD%A6/</loc>
+    <loc>https://fzy-line.github.io/2017/01/12/%E5%AD%A6%E4%B9%A0%E6%85%95%E8%AF%BE%E8%BF%99%E4%B8%A4%E5%B9%B4/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>从毕业设计看如今的大学</title>
-        <pubTime>2017-06-06T05:51:12.000Z</pubTime>
-        
-        <tag>Life</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/09/14/Ubuntu%E4%B8%ADftp%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>Ubuntu中ftp服务器安装与配置</title>
-        <pubTime>2017-09-14T12:15:06.000Z</pubTime>
-        
-        <tag>Linux</tag>
-         
-        <tag>Ubuntu</tag>
-         
-        <tag>FTP</tag>
-         
-         
-           
-             
-              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/03/12/6LoWPAN-Border-Router%EF%BC%9ACETIC-6LBR%E4%BB%8B%E7%BB%8D/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>6LoWPAN Border Router：CETIC-6LBR介绍</title>
-        <pubTime>2017-03-12T12:14:52.000Z</pubTime>
-        
-        <tag>IoT</tag>
-         
-        <tag>6LBR</tag>
-         
-        <tag>6LoWPAN</tag>
-         
-         
-           
-             
-              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
-          
-             
-              <breadCrumb title="6LoWPAN" url="https://fzy-line.github.io/categories/IoT/6LoWPAN/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/06/03/%E5%8D%95%E7%89%87%E6%9C%BA%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%BC%80%E5%8F%91%EF%BC%9A%E5%89%8D%E5%90%8E%E5%8F%B0%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>单片机设计与开发：前后台系统</title>
-        <pubTime>2016-06-03T12:53:31.000Z</pubTime>
-        
-        <tag>单片机</tag>
-         
-         
-           
-             
-              <breadCrumb title="单片机" url="https://fzy-line.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/07/01/%E5%85%AD%E6%9C%88%EF%BC%8C%E6%AF%95%E4%B8%9A%E5%AD%A3-%E6%84%9F%E6%81%A9%E6%9C%89%E4%BD%A0/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>六月，毕业季---感恩有你</title>
-        <pubTime>2016-06-30T16:00:00.000Z</pubTime>
+        <title>学习慕课这两年</title>
+        <pubTime>2017-01-12T06:57:58.000Z</pubTime>
         
         <tag>Life</tag>
          
@@ -1676,95 +1735,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/06/29/%E5%8D%95%E7%89%87%E6%9C%BA-ESP8266%E4%B8%8A%E4%BC%A0%E6%95%B0%E6%8D%AE%E5%88%B0yeelink/</loc>
+    <loc>https://fzy-line.github.io/2017/03/27/%E5%BF%83%E4%B9%8B%E6%89%80%E5%90%91%EF%BC%8C%E7%B4%A0%E5%B1%A5%E4%BB%A5%E5%BE%80/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>单片机+ESP8266上传数据到yeelink</title>
-        <pubTime>2016-06-29T12:56:50.000Z</pubTime>
-        
-        <tag>［单片机,yeelink］</tag>
-         
-         
-           
-             
-              <breadCrumb title="单片机" url="https://fzy-line.github.io/categories/%E5%8D%95%E7%89%87%E6%9C%BA/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/02/13/%E5%88%9D%E8%AF%86%E7%89%A9%E8%81%94%E7%BD%91%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%EF%BC%9AContiki/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>初识物联网操作系统：Contiki</title>
-        <pubTime>2017-02-13T15:34:59.000Z</pubTime>
-        
-        <tag>［IoT,Contiki］</tag>
-         
-         
-           
-             
-              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
-          
-             
-              <breadCrumb title="Contiki" url="https://fzy-line.github.io/categories/IoT/Contiki/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/01/12/%E5%AD%A6%E4%B9%A0%E6%85%95%E8%AF%BE%E8%BF%99%E4%B8%A4%E5%B9%B4/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>学习慕课这两年</title>
-        <pubTime>2017-01-12T06:57:58.000Z</pubTime>
-        
-        <tag>Life</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/06/16/%E6%84%BF%E4%BD%A0%E4%BB%A5%E5%90%8E%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%83%8F%E6%88%91%E4%B8%80%E6%A0%B7%E7%88%B1%E4%BD%A0/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>愿你以后的朋友像我一样爱你</title>
-        <pubTime>2017-06-16T15:29:25.000Z</pubTime>
-        
-        <tag>Life</tag>
-         
-         
-           
-             
-              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/08/31/%E5%BC%80%E5%AD%A6%E5%AD%A3-%E9%82%A3%E4%BA%9B%E8%BF%B7%E8%8C%AB%E4%B8%8E%E7%BE%8E%E5%A5%BD/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>开学季-那些迷茫与美好</title>
-        <pubTime>2016-08-31T14:45:37.000Z</pubTime>
+        <title>心之所向，素履以往</title>
+        <pubTime>2017-03-26T16:17:46.000Z</pubTime>
         
         <tag>Life</tag>
          
@@ -1804,22 +1780,19 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/03/16/6LoWPAN-Border-Router%EF%BC%9A6LBR%E4%B9%8B%E8%BF%90%E8%A1%8C%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://fzy-line.github.io/2016/08/31/%E5%BC%80%E5%AD%A6%E5%AD%A3-%E9%82%A3%E4%BA%9B%E8%BF%B7%E8%8C%AB%E4%B8%8E%E7%BE%8E%E5%A5%BD/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>6LoWPAN Border Router：6LBR之运行模式</title>
-        <pubTime>2017-03-16T15:22:10.000Z</pubTime>
+        <title>开学季-那些迷茫与美好</title>
+        <pubTime>2016-08-31T14:45:37.000Z</pubTime>
         
-        <tag>［IoT,6LBR,6LoWPAN］</tag>
+        <tag>Life</tag>
          
          
            
              
-              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
-          
-             
-              <breadCrumb title="6LoWPAN" url="https://fzy-line.github.io/categories/IoT/6LoWPAN/"/>
+              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
           
         </display>
     </data>
@@ -1827,36 +1800,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/06/14/%E6%90%9C%E6%AD%8C%EF%BC%8C%E5%90%AC%E6%AD%8C%EF%BC%8C%E5%B0%B1%E7%94%A8-Listen-1/</loc>
+    <loc>https://fzy-line.github.io/2017/06/16/%E6%84%BF%E4%BD%A0%E4%BB%A5%E5%90%8E%E7%9A%84%E6%9C%8B%E5%8F%8B%E5%83%8F%E6%88%91%E4%B8%80%E6%A0%B7%E7%88%B1%E4%BD%A0/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>搜歌，听歌，就用 Listen 1</title>
-        <pubTime>2017-06-14T12:48:23.000Z</pubTime>
-        
-        <tag>软件</tag>
-         
-        <tag>工具</tag>
-         
-        <tag>Listen 1</tag>
-         
-         
-           
-             
-              <breadCrumb title="Tools" url="https://fzy-line.github.io/categories/Tools/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/03/27/%E5%BF%83%E4%B9%8B%E6%89%80%E5%90%91%EF%BC%8C%E7%B4%A0%E5%B1%A5%E4%BB%A5%E5%BE%80/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>心之所向，素履以往</title>
-        <pubTime>2017-03-26T16:17:46.000Z</pubTime>
+        <title>愿你以后的朋友像我一样爱你</title>
+        <pubTime>2017-06-16T15:29:25.000Z</pubTime>
         
         <tag>Life</tag>
          
@@ -1895,21 +1844,50 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/09/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%BA%BF%E6%80%A7%E8%A1%A8/</loc>
+    <loc>https://fzy-line.github.io/2017/06/14/%E6%90%9C%E6%AD%8C%EF%BC%8C%E5%90%AC%E6%AD%8C%EF%BC%8C%E5%B0%B1%E7%94%A8-Listen-1/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>数据结构基础之线性表</title>
-        <pubTime>2016-09-06T14:15:05.000Z</pubTime>
+        <title>搜歌，听歌，就用 Listen 1</title>
+        <pubTime>2017-06-14T12:48:23.000Z</pubTime>
         
-        <tag>数据结构</tag>
+        <tag>软件</tag>
          
-        <tag>线性表</tag>
+        <tag>工具</tag>
+         
+        <tag>Listen 1</tag>
          
          
            
              
-              <breadCrumb title="Data structure" url="https://fzy-line.github.io/categories/Data-structure/"/>
+              <breadCrumb title="Tools" url="https://fzy-line.github.io/categories/Tools/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/03/12/6LoWPAN-Border-Router%EF%BC%9ACETIC-6LBR%E4%BB%8B%E7%BB%8D/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>6LoWPAN Border Router：CETIC-6LBR介绍</title>
+        <pubTime>2017-03-12T12:14:52.000Z</pubTime>
+        
+        <tag>IoT</tag>
+         
+        <tag>6LBR</tag>
+         
+        <tag>6LoWPAN</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="6LoWPAN" url="https://fzy-line.github.io/categories/IoT/6LoWPAN/"/>
           
         </display>
     </data>
@@ -1939,39 +1917,21 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/06/02/%E6%A0%91%E8%8E%93%E6%B4%BE-DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8-yeelink%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91/</loc>
+    <loc>https://fzy-line.github.io/2016/09/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%BA%BF%E6%80%A7%E8%A1%A8/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>树莓派+DHT11温湿度传感器+yeelink物联网云</title>
-        <pubTime>2016-06-02T03:04:13.000Z</pubTime>
+        <title>数据结构基础之线性表</title>
+        <pubTime>2016-09-06T14:15:05.000Z</pubTime>
         
-        <tag>［树莓派,DHT11,yeelink］</tag>
+        <tag>数据结构</tag>
+         
+        <tag>线性表</tag>
          
          
            
              
-              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/05/18/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派安装Linux操作系统</title>
-        <pubTime>2016-05-18T02:32:49.000Z</pubTime>
-        
-        <tag>［树莓派,Linux］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
+              <breadCrumb title="Data structure" url="https://fzy-line.github.io/categories/Data-structure/"/>
           
         </display>
     </data>
@@ -2001,46 +1961,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/06/14/%E6%A0%91%E8%8E%93%E6%B4%BE-motion%E5%AE%9E%E7%8E%B0%E5%B1%80%E5%9F%9F%E7%BD%91%E7%AE%80%E5%8D%95%E7%9B%91%E6%8E%A7/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派+motion实现局域网简单监控</title>
-        <pubTime>2016-06-14T03:28:26.000Z</pubTime>
-        
-        <tag>［树莓派,监控,motion］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/05/23/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BD%91%E7%BA%BF%E7%9B%B4%E8%BF%9E%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>树莓派网线直连笔记本电脑</title>
-        <pubTime>2016-05-23T02:43:55.000Z</pubTime>
-        
-        <tag>［树莓派,网络］</tag>
-         
-         
-           
-             
-              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2016/06/10/%E6%A0%91%E8%8E%93%E6%B4%BE-USB%E6%91%84%E5%83%8F%E5%A4%B4-yeelink%E5%AE%9E%E7%8E%B0%E4%BA%91%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -2061,14 +1981,14 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/05/30/%E6%A0%91%E8%8E%93%E6%B4%BE-DS18B20%E6%B8%A9%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8-yeelink%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91/</loc>
+    <loc>https://fzy-line.github.io/2016/06/14/%E6%A0%91%E8%8E%93%E6%B4%BE-motion%E5%AE%9E%E7%8E%B0%E5%B1%80%E5%9F%9F%E7%BD%91%E7%AE%80%E5%8D%95%E7%9B%91%E6%8E%A7/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>树莓派+DS18B20温度传感器+yeelink物联网云</title>
-        <pubTime>2016-05-30T02:59:55.000Z</pubTime>
+        <title>树莓派+motion实现局域网简单监控</title>
+        <pubTime>2016-06-14T03:28:26.000Z</pubTime>
         
-        <tag>［树莓派,DS18B20,yeelink］</tag>
+        <tag>［树莓派,监控,motion］</tag>
          
          
            
@@ -2081,14 +2001,34 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/05/22/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1/</loc>
+    <loc>https://fzy-line.github.io/2016/06/02/%E6%A0%91%E8%8E%93%E6%B4%BE-DHT11%E6%B8%A9%E6%B9%BF%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8-yeelink%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>树莓派配置无线网卡</title>
-        <pubTime>2016-05-22T02:40:42.000Z</pubTime>
+        <title>树莓派+DHT11温湿度传感器+yeelink物联网云</title>
+        <pubTime>2016-06-02T03:04:13.000Z</pubTime>
         
-        <tag>［树莓派,无线］</tag>
+        <tag>［树莓派,DHT11,yeelink］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/05/30/%E6%A0%91%E8%8E%93%E6%B4%BE-DS18B20%E6%B8%A9%E5%BA%A6%E4%BC%A0%E6%84%9F%E5%99%A8-yeelink%E7%89%A9%E8%81%94%E7%BD%91%E4%BA%91/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派+DS18B20温度传感器+yeelink物联网云</title>
+        <pubTime>2016-05-30T02:59:55.000Z</pubTime>
+        
+        <tag>［树莓派,DS18B20,yeelink］</tag>
          
          
            
@@ -2141,6 +2081,46 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2016/05/18/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派安装Linux操作系统</title>
+        <pubTime>2016-05-18T02:32:49.000Z</pubTime>
+        
+        <tag>［树莓派,Linux］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/05/23/%E6%A0%91%E8%8E%93%E6%B4%BE%E7%BD%91%E7%BA%BF%E7%9B%B4%E8%BF%9E%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%94%B5%E8%84%91/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>树莓派网线直连笔记本电脑</title>
+        <pubTime>2016-05-23T02:43:55.000Z</pubTime>
+        
+        <tag>［树莓派,网络］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2017/11/11/%E7%94%B5%E5%8D%8F%E4%B8%89%E5%91%A8%E5%B9%B4%E5%88%86%E4%BA%AB/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -2161,19 +2141,21 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/10/23/%E7%AC%AC%E4%B8%89%E5%B1%8A%E7%94%B5%E5%AD%90%E5%8D%8F%E4%BC%9A%E6%88%90%E7%AB%8B%E5%A4%A7%E4%BC%9A%E5%8F%91%E8%A8%80/</loc>
+    <loc>https://fzy-line.github.io/2016/08/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E4%B8%89/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>第三届电子协会成立大会发言</title>
-        <pubTime>2016-10-23T04:36:21.000Z</pubTime>
+        <title>算法学习-刷题(三)</title>
+        <pubTime>2016-08-14T09:32:21.000Z</pubTime>
         
-        <tag>Life</tag>
+        <tag>算法学习</tag>
+         
+        <tag>LeetCode</tag>
          
          
            
              
-              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
+              <breadCrumb title="Algorithm" url="https://fzy-line.github.io/categories/Algorithm/"/>
           
         </display>
     </data>
@@ -2181,12 +2163,32 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/14/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E4%B8%89/</loc>
+    <loc>https://fzy-line.github.io/2016/05/22/%E6%A0%91%E8%8E%93%E6%B4%BE%E9%85%8D%E7%BD%AE%E6%97%A0%E7%BA%BF%E7%BD%91%E5%8D%A1/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>算法学习-刷题(三)</title>
-        <pubTime>2016-08-14T09:32:21.000Z</pubTime>
+        <title>树莓派配置无线网卡</title>
+        <pubTime>2016-05-22T02:40:42.000Z</pubTime>
+        
+        <tag>［树莓派,无线］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/Raspberry-Pi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/08/10/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E4%B8%80/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>算法学习-刷题(一)</title>
+        <pubTime>2016-08-10T09:24:37.000Z</pubTime>
         
         <tag>算法学习</tag>
          
@@ -2225,21 +2227,19 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/10/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E4%B8%80/</loc>
+    <loc>https://fzy-line.github.io/2016/10/23/%E7%AC%AC%E4%B8%89%E5%B1%8A%E7%94%B5%E5%AD%90%E5%8D%8F%E4%BC%9A%E6%88%90%E7%AB%8B%E5%A4%A7%E4%BC%9A%E5%8F%91%E8%A8%80/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>算法学习-刷题(一)</title>
-        <pubTime>2016-08-10T09:24:37.000Z</pubTime>
+        <title>第三届电子协会成立大会发言</title>
+        <pubTime>2016-10-23T04:36:21.000Z</pubTime>
         
-        <tag>算法学习</tag>
-         
-        <tag>LeetCode</tag>
+        <tag>Life</tag>
          
          
            
              
-              <breadCrumb title="Algorithm" url="https://fzy-line.github.io/categories/Algorithm/"/>
+              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
           
         </display>
     </data>
@@ -2259,28 +2259,6 @@
         <tag>算法学习</tag>
          
         <tag>华为机试</tag>
-         
-         
-           
-             
-              <breadCrumb title="Algorithm" url="https://fzy-line.github.io/categories/Algorithm/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2016/08/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E4%BA%8C/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>算法学习-刷题(二)</title>
-        <pubTime>2016-08-12T09:24:37.000Z</pubTime>
-        
-        <tag>算法学习</tag>
-         
-        <tag>LeetCode</tag>
          
          
            
@@ -2315,12 +2293,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/08/21/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E5%85%AD/</loc>
+    <loc>https://fzy-line.github.io/2016/08/12/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E4%BA%8C/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>算法学习-刷题(六)</title>
-        <pubTime>2016-08-21T09:44:29.000Z</pubTime>
+        <title>算法学习-刷题(二)</title>
+        <pubTime>2016-08-12T09:24:37.000Z</pubTime>
         
         <tag>算法学习</tag>
          
@@ -2359,18 +2337,16 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2016/12/04/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E5%8D%81/</loc>
+    <loc>https://fzy-line.github.io/2016/08/21/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E5%85%AD/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>算法学习-刷题(十)</title>
-        <pubTime>2016-12-04T14:32:12.000Z</pubTime>
+        <title>算法学习-刷题(六)</title>
+        <pubTime>2016-08-21T09:44:29.000Z</pubTime>
         
-        <tag>Python</tag>
-         
         <tag>算法学习</tag>
          
-        <tag>华为机试</tag>
+        <tag>LeetCode</tag>
          
          
            
@@ -2449,24 +2425,67 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/08/23/%E8%AF%91-MQTT%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/</loc>
+    <loc>https://fzy-line.github.io/2016/12/04/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0-%E5%88%B7%E9%A2%98-%E5%8D%81/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>[译]MQTT安全基础知识介绍</title>
-        <pubTime>2017-08-23T01:33:26.000Z</pubTime>
+        <title>算法学习-刷题(十)</title>
+        <pubTime>2016-12-04T14:32:12.000Z</pubTime>
         
-        <tag>MQTT</tag>
+        <tag>Python</tag>
          
-        <tag>安全</tag>
+        <tag>算法学习</tag>
+         
+        <tag>华为机试</tag>
          
          
            
              
-              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+              <breadCrumb title="Algorithm" url="https://fzy-line.github.io/categories/Algorithm/"/>
           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/03/08/%E8%AF%91-Challenge-in-IoT-Networking-via-TCP-IP-Architecture/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]Challenge in IoT Networking via TCP-IP Architecture</title>
+        <pubTime>2017-03-08T15:12:59.000Z</pubTime>
+        
+        <tag>IoT</tag>
+         
+        <tag>TCP/IP</tag>
+         
+         
+           
              
-              <breadCrumb title="MQTT" url="https://fzy-line.github.io/categories/IoT/MQTT/"/>
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/08/20/%E8%AF%91-CoAP-for-Content-Centric-Networks/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]CoAP for Content-Centric Networks</title>
+        <pubTime>2017-08-20T14:02:52.000Z</pubTime>
+        
+        <tag>CoAP</tag>
+         
+        <tag>CCN</tag>
+         
+         
+           
+             
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
           
         </display>
     </data>
@@ -2499,52 +2518,6 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/03/08/%E8%AF%91-Challenge-in-IoT-Networking-via-TCP-IP-Architecture/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]Challenge in IoT Networking via TCP-IP Architecture</title>
-        <pubTime>2017-03-08T15:12:59.000Z</pubTime>
-        
-        <tag>IoT</tag>
-         
-        <tag>TCP/IP</tag>
-         
-         
-           
-             
-              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/03/18/%E8%AF%91-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]Caching in Named Data Networking for the Wireless Internet of Things</title>
-        <pubTime>2017-03-18T15:26:07.000Z</pubTime>
-        
-        <tag>IoT</tag>
-         
-        <tag>NDN</tag>
-         
-        <tag>Cache</tag>
-         
-         
-           
-             
-              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://fzy-line.github.io/2017/09/28/%E8%AF%91-MQTT%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%EF%BC%9A%E6%8E%88%E6%9D%83/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -2570,34 +2543,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/08/20/%E8%AF%91-CoAP-for-Content-Centric-Networks/</loc>
+    <loc>https://fzy-line.github.io/2017/08/23/%E8%AF%91-MQTT%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>[译]CoAP for Content-Centric Networks</title>
-        <pubTime>2017-08-20T14:02:52.000Z</pubTime>
-        
-        <tag>CoAP</tag>
-         
-        <tag>CCN</tag>
-         
-         
-           
-             
-              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/08/25/%E8%AF%91-MQTT%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]MQTT的安全机制总结</title>
-        <pubTime>2017-08-25T01:28:05.000Z</pubTime>
+        <title>[译]MQTT安全基础知识介绍</title>
+        <pubTime>2017-08-23T01:33:26.000Z</pubTime>
         
         <tag>MQTT</tag>
          
@@ -2617,38 +2568,18 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2017/05/05/%E8%AF%91-Named-Data-Networking-Based-Smart-Home-Lighting/</loc>
+    <loc>https://fzy-line.github.io/2017/03/18/%E8%AF%91-Caching-in-Named-Data-Networking-for-the-Wireless-Internet-of-Things/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
         <display>
-        <title>[译]Named Data Networking Based Smart Home Lighting</title>
-        <pubTime>2017-05-05T13:31:25.000Z</pubTime>
+        <title>[译]Caching in Named Data Networking for the Wireless Internet of Things</title>
+        <pubTime>2017-03-18T15:26:07.000Z</pubTime>
         
         <tag>IoT</tag>
          
         <tag>NDN</tag>
          
-         
-           
-             
-              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/06/15/%E8%AF%91-RIOT-OS%EF%BC%9ATowards-an-OS-for-the-Internet-of-Things/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]RIOT OS：Towards an OS for the Internet of Things</title>
-        <pubTime>2017-06-15T12:52:10.000Z</pubTime>
-        
-        <tag>IoT</tag>
-         
-        <tag>NDN</tag>
+        <tag>Cache</tag>
          
          
            
@@ -2711,6 +2642,53 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2017/05/05/%E8%AF%91-Named-Data-Networking-Based-Smart-Home-Lighting/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]Named Data Networking Based Smart Home Lighting</title>
+        <pubTime>2017-05-05T13:31:25.000Z</pubTime>
+        
+        <tag>IoT</tag>
+         
+        <tag>NDN</tag>
+         
+         
+           
+             
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/08/25/%E8%AF%91-MQTT%E7%9A%84%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6%E6%80%BB%E7%BB%93/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]MQTT的安全机制总结</title>
+        <pubTime>2017-08-25T01:28:05.000Z</pubTime>
+        
+        <tag>MQTT</tag>
+         
+        <tag>安全</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="MQTT" url="https://fzy-line.github.io/categories/IoT/MQTT/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2017/07/02/%E8%AF%91-Performance-evaluation-of-MQTT-and-CoAP-via-a-common-middleware/</loc>
     <lastmod>2018-02-21T19:34:50.000Z</lastmod>
     <data>
@@ -2723,6 +2701,76 @@
         <tag>CoAP</tag>
          
         <tag>MQTT</tag>
+         
+         
+           
+             
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/03/26/%E8%AF%91-Route-over-vs-Mesh-under-Routing-in-6LoWPAN/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]Route-over vs Mesh-under Routing in 6LoWPAN</title>
+        <pubTime>2017-03-26T15:02:53.000Z</pubTime>
+        
+        <tag>IoT</tag>
+         
+        <tag>6LoWPAN</tag>
+         
+        <tag>Route</tag>
+         
+         
+           
+             
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/06/15/%E8%AF%91-RIOT-OS%EF%BC%9ATowards-an-OS-for-the-Internet-of-Things/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]RIOT OS：Towards an OS for the Internet of Things</title>
+        <pubTime>2017-06-15T12:52:10.000Z</pubTime>
+        
+        <tag>IoT</tag>
+         
+        <tag>NDN</tag>
+         
+         
+           
+             
+              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2017/01/23/%E8%AF%91-Smart%20Home%20System%20Based%20on%20IPV6%20and%20ZIGBEE%20Technology/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>[译]Smart Home System Based on IPV6 and ZIGBEE Technology</title>
+        <pubTime>2017-01-23T14:51:09.000Z</pubTime>
+        
+        <tag>IPv6</tag>
+         
+        <tag>ZigBee</tag>
+         
+        <tag>智能家居</tag>
          
          
            
@@ -2767,54 +2815,6 @@
         <tag>IoT</tag>
          
         <tag>6LoWPAN</tag>
-         
-         
-           
-             
-              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/01/23/%E8%AF%91-Smart%20Home%20System%20Based%20on%20IPV6%20and%20ZIGBEE%20Technology/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]Smart Home System Based on IPV6 and ZIGBEE Technology</title>
-        <pubTime>2017-01-23T14:51:09.000Z</pubTime>
-        
-        <tag>IPv6</tag>
-         
-        <tag>ZigBee</tag>
-         
-        <tag>智能家居</tag>
-         
-         
-           
-             
-              <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2017/03/26/%E8%AF%91-Route-over-vs-Mesh-under-Routing-in-6LoWPAN/</loc>
-    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
-    <data>
-        <display>
-        <title>[译]Route-over vs Mesh-under Routing in 6LoWPAN</title>
-        <pubTime>2017-03-26T15:02:53.000Z</pubTime>
-        
-        <tag>IoT</tag>
-         
-        <tag>6LoWPAN</tag>
-         
-        <tag>Route</tag>
          
          
            
@@ -2886,6 +2886,26 @@
            
              
               <breadCrumb title="论文研读" url="https://fzy-line.github.io/categories/%E8%AE%BA%E6%96%87%E7%A0%94%E8%AF%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2016/08/09/Android-Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%8E%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-02-21T19:34:50.000Z</lastmod>
+    <data>
+        <display>
+        <title>Android Activity生命周期与启动模式</title>
+        <pubTime>2016-08-09T01:04:23.000Z</pubTime>
+        
+        <tag>［Android,Activity］</tag>
+         
+         
+           
+             
+              <breadCrumb title="Android" url="https://fzy-line.github.io/categories/Android/"/>
           
         </display>
     </data>
