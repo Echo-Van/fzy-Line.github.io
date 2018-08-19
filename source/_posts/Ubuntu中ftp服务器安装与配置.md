@@ -1,9 +1,13 @@
 ---
 title: Ubuntu中ftp服务器安装与配置
-date: 2017-09-14 20:15:06
-tags: [FTP, Ubuntu, Linux]
+tags:
+  - FTP
+  - Ubuntu
+  - Linux
 categories:
-- Linux
+  - Linux
+abbrlink: 14389
+date: 2017-09-14 20:15:06
 ---
 
 

@@ -1,8 +1,9 @@
 ---
 title: Android数据存储之SharedPreferences
-date: 2016-07-21 22:11:35
-tags: ［Android,SharedPreferences］
+tags: '［Android,SharedPreferences］'
 categories: Android
+abbrlink: 2470
+date: 2016-07-21 22:11:35
 ---
 
 　　SharedPreferences是一种轻型的数据存储方式，它的本质是基于xml文件存储的key-value键值对数据，它的使用非常简单,能够轻松的存放数据和读取数据。App都有相应的配置文件，但是由于App的配置信息并不多，如果采用数据库来存放并不划算，因为数据库连接跟操作等耗时大大影响了程序的效率，因此通常使用SharedPreferences来存储一些简单的配置信息。

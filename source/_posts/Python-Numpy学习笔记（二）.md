@@ -1,8 +1,11 @@
 ---
 title: Python Numpy学习笔记（二）
-date: 2017-04-28 12:53:08
-tags: [Python,Numpy]
+tags:
+  - Python
+  - Numpy
 categories: Python
+abbrlink: 46428
+date: 2017-04-28 12:53:08
 ---
 
 　　Python Numpy学习笔记第二篇。目前，正在学习北京理工大学嵩天老师在中国大学MOOC的课程：Python数据分析与展示。

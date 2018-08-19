@@ -1,10 +1,13 @@
 ---
 title: '[译]MQTT的安全机制总结'
-date: 2017-08-25 09:28:05
-tags: [MQTT,安全]
+tags:
+  - MQTT
+  - 安全
 categories:
-- IoT
-- MQTT
+  - IoT
+  - MQTT
+abbrlink: 53117
+date: 2017-08-25 09:28:05
 ---
 
 　　HiveMQ团队对MQTT安全方面的系列总结文章写得很不错，所以想要将其翻译整理一下。

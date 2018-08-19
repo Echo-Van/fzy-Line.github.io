@@ -1,8 +1,12 @@
 ---
 title: Python爬虫框架：Scrapy
-date: 2016-12-26 08:18:51
-tags: [Python,爬虫,Scrapy]
+tags:
+  - Python
+  - 爬虫
+  - Scrapy
 categories: Python
+abbrlink: 26234
+date: 2016-12-26 08:18:51
 ---
 
 　　Scrapy是一个为了爬取网站数据，提取结构性数据而编写的应用框架。它使用 Twisted这个异步网络库来处理网络通讯，架构清晰，并且包含了各种中间件接口，可以灵活的完成各种需求。学习Python爬虫有一段时间了，但是也是最近才接触到如此强大的Scrapy，它比BeautifulSoup更加完善，BeautifulSoup可以说是轮子，而Scrapy则是车子，不需要你关注太多的细节。

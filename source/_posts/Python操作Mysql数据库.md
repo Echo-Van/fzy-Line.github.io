@@ -1,8 +1,11 @@
 ---
 title: Python操作Mysql数据库
-date: 2016-07-24 20:31:38
-tags: [Python,Mysql]
+tags:
+  - Python
+  - Mysql
 categories: Python
+abbrlink: 15195
+date: 2016-07-24 20:31:38
 ---
 
 　　在正式开始Python网络爬虫实战之前，我们需要先来了解一下Python的一些基础知识，包括网络请求、数据存储以及异常处理等，这篇博客主要讲解Python的Mysql数据库操作，我们使用爬虫爬取下来的数据需要存储，而数据库就是常用的存储方式之一，所以熟练地掌握数据库操作对于网络爬虫的学习是很有必要的。

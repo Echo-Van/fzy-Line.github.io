@@ -1,8 +1,9 @@
 ---
 title: Android WebView详解
-date: 2016-08-26 09:55:11
-tags: ［Android,Webview］
+tags: '［Android,Webview］'
 categories: Android
+abbrlink: 27349
+date: 2016-08-26 09:55:11
 ---
 
 　　Android提供了内置的浏览器，该浏览器使用了开源的WebKit引擎，要使用内置的浏览器就需要通过WebView来实现。Android WebView在Android平台上是一个特殊的View， 它能用来显示网页，这个类可以被用来在你的app中仅仅显示一张在线的网页，还可以用来开发浏览器。本文详细介绍了WebView的相关方法以及配置操作，最后通过一个简易的浏览器对WebView进行应用演示。

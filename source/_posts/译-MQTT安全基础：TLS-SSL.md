@@ -1,10 +1,13 @@
 ---
 title: '[译]MQTT安全基础：TLS/SSL'
-date: 2017-10-10 18:21:59
-tags: [MQTT,安全]
+tags:
+  - MQTT
+  - 安全
 categories:
-- IoT
-- MQTT
+  - IoT
+  - MQTT
+abbrlink: 11121
+date: 2017-10-10 18:21:59
 ---
 
 　　欢迎来到MQTT安全基础系列的第五部分。在最近几周的文章中关注了应用层的身份验证和授权后，本周的主题是使用TLS的传输加密。

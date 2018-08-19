@@ -1,8 +1,12 @@
 ---
 title: '[译]Smart Home System Based on IPV6 and ZIGBEE Technology'
-date: 2017-01-23 22:51:09
-tags: [IPv6,ZigBee,智能家居]
+tags:
+  - IPv6
+  - ZigBee
+  - 智能家居
 categories: 论文研读
+abbrlink: 38924
+date: 2017-01-23 22:51:09
 ---
 
 　　开始学习如何阅读英文文献，刚开始只是做了简单的翻译工作，选择的论文也是与自己毕业设计的主题有关，一方面是为了探索英文文献的阅读方法，另一方面为自己的毕业设计做一些准备。目前来看，读起来比较困难，但是相信会慢慢进步的。

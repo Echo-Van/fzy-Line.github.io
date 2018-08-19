@@ -1,10 +1,12 @@
 ---
 title: MQTT协议学习笔记（一）
+tags:
+  - MQTT
+categories:
+  - IoT
+  - MQTT
+abbrlink: 36042
 date: 2017-03-04 20:15:06
-tags: [MQTT]
-categories: 
-- IoT
-- MQTT
 ---
 
 

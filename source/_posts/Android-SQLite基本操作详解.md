@@ -1,8 +1,9 @@
 ---
 title: Android SQLite基本操作详解
-date: 2016-07-26 22:11:59
-tags: ［Android,SQLite］
+tags: '［Android,SQLite］'
 categories: Android
+abbrlink: 55873
+date: 2016-07-26 22:11:59
 ---
 
 　　SQLite 是一个开源的嵌入式关系数据库，实现自包容、零配置、支持事务的SQL数据库引擎。 其特点是高度便携、使用方便、结构紧凑、高效、可靠。之前写过一个简单的Android记事本程序，使用过SQLite数据库，但是并没有真正理解并消化。前段时间认真学习了Mysql数据库的相关知识，对数据库有了更深入的认识，于是，也准备把Android这一块的SQLite数据库好好整理一下。

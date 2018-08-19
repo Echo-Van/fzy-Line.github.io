@@ -1,9 +1,13 @@
 ---
 title: '[译]Route-over vs Mesh-under Routing in 6LoWPAN'
-date: 2017-03-26 23:02:53
-tags: [IoT,6LoWPAN,Route]
+tags:
+  - IoT
+  - 6LoWPAN
+  - Route
 categories: 论文研读
 mathjax: true
+abbrlink: 26629
+date: 2017-03-26 23:02:53
 ---
 
 　　6LoWPAN中的路由协议划分为两类：mesh-under和route-over。对于mesh-under方案的路由决策是在适适配层，而路由router-over方案的决策发生在网络层。分析了route-over和mesh-under路由方案的概率模型，并从不同的角度对这两种方案进行了评估。

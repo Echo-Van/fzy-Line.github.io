@@ -1,8 +1,9 @@
 ---
 title: Android ip地址信息查询
-date: 2016-07-12 23:02:48
-tags: ［Android,ip］
+tags: '［Android,ip］'
 categories: Android
+abbrlink: 2137
+date: 2016-07-12 23:02:48
 ---
 
 　　上一篇博客中我们讲解了如何获取外网的ip地址，获取到的ip地址总是会有用的，我们现在就来使用它，通过查询ip地址的相关信息我们可以获取当前所在城市信息，即ip地址定位。其实，实现起来也比较简单，主要还是使用的第三方API接口，通过http请求来获取信息。

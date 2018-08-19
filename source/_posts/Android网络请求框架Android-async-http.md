@@ -1,8 +1,9 @@
 ---
 title: Android网络请求框架Android-async-http
-date: 2016-08-14 09:42:01
-tags: ［Android,网络］
+tags: '［Android,网络］'
 categories: Android
+abbrlink: 35561
+date: 2016-08-14 09:42:01
 ---
 
 　　Http网络数据交互是Android中极其重要并且使用很频繁的模块。前段时间写了一篇博客总结了Android Http网络请求，但是其中还有很多没有考虑到的问题。众所周知，网络请求方式的效率和性能直接影响到APP的整体用户体验流畅性，在我们自己编写网络请求方法中往往不会考虑这么周全。但是，还好有技术大牛为我们提供了开源的第三方网络请求框架：Android-async-http。

@@ -1,8 +1,9 @@
 ---
 title: Android真机抓屏- Android Screen Monitor
-date: 2016-07-21 08:59:11
-tags: ［Android,Screen Monitor］
+tags: '［Android,Screen Monitor］'
 categories: Android
+abbrlink: 49670
+date: 2016-07-21 08:59:11
 ---
 
 

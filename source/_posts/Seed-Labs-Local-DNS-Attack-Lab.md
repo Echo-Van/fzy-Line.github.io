@@ -1,9 +1,11 @@
 ---
 title: 'Seed Labs: Local DNS Attack Lab'
-date: 2018-01-11 12:26:34
-tags: [Seed Labs, DNS]
+tags:
+  - Seed Labs
+  - DNS
 categories: Network security
-
+abbrlink: 35920
+date: 2018-01-11 12:26:34
 ---
 
 　　网络与计算机安全课程的实验，使用的是美国雪城大学的开放实验平台：Seed Project。

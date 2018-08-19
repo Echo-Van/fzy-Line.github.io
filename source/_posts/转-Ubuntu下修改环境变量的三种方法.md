@@ -1,8 +1,10 @@
 ---
 title: '[转]Ubuntu下修改环境变量的三种方法'
-date: 2017-06-22 15:03:37
-tags: [Ubuntu]
+tags:
+  - Ubuntu
 categories: 转载
+abbrlink: 23766
+date: 2017-06-22 15:03:37
 ---
 
 Ubuntu下设置环境变量有三种方法，一种用于当前终端，一种用于当前用户，一种用于所有用户。

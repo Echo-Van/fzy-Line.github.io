@@ -1,8 +1,9 @@
 ---
 title: Android Activity生命周期与启动模式
-date: 2016-08-09 09:04:23
-tags: ［Android,Activity］
+tags: '［Android,Activity］'
 categories: Android
+abbrlink: 7233
+date: 2016-08-09 09:04:23
 ---
 
 　　Android 程序的生命周期是由系统控制而非程序自身直接控制，因此了解和管理Activity的生命周期对于Android应用程序开发来说都是十分重要的。本文通过实例演示了Activity的生命周期，并对Android的任务栈设计以及Activity的启动模式进行了介绍。

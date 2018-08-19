@@ -1,12 +1,13 @@
 ---
 title: '[译]The Design and Implementation of the NDN Protocol Stack for RIOT-OS'
-date: 2017-04-20 12:37:24
 author: fzy-Line
 tags:
   - IoT
   - RIOT-OS
 categories:
   - 论文研读
+abbrlink: 65406
+date: 2017-04-20 12:37:24
 ---
 
 　　The Design and Implementation of the NDN Protocol Stack for RIOT-OS（全文翻译）

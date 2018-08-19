@@ -1,8 +1,9 @@
 ---
 title: Android自带TTS与科大讯飞语音SDK
-date: 2016-08-08 09:04:04
-tags: ［Android,TTS］
+tags: '［Android,TTS］'
 categories: Android
+abbrlink: 4984
+date: 2016-08-08 09:04:04
 ---
 
 　　Text-To-Speach简称TTS，指能够将指定的文本转换成不同的语言音频输出的技术。通过TTS技术我们可以为我们的应用添加语音提醒功能，也可以做具备朗读功能的电子词典或者电子书阅读器等，总之，语音合成、语音识别等技术的应用范围还是很广的。本博客主要介绍Android自带的TTS库以及科大讯飞语音SDK的使用。

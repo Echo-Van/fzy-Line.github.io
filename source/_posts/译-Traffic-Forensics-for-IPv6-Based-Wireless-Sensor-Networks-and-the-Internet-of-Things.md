@@ -1,8 +1,14 @@
 ---
-title: '[译]Traffic Forensics for IPv6-Based Wireless Sensor Networks and the Internet of Things'
-date: 2017-08-28 17:38:51
-tags: [RPL,6LoWPAN Forensics,WSN]
+title: >-
+  [译]Traffic Forensics for IPv6-Based Wireless Sensor Networks and the Internet
+  of Things
+tags:
+  - RPL
+  - 6LoWPAN Forensics
+  - WSN
 categories: 论文研读
+abbrlink: 51567
+date: 2017-08-28 17:38:51
 ---
 
 

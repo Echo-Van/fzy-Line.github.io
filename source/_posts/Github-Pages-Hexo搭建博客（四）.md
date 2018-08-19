@@ -1,8 +1,11 @@
 ---
 title: Github Pages + Hexo搭建博客（四）
-date: 2017-08-10 12:54:27
-tags: [Hexo,Github]
+tags:
+  - Hexo
+  - Github
 categories: Hexo
+abbrlink: 62906
+date: 2017-08-10 12:54:27
 ---
 
 　　Hexo的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用Hexo期间遇到的一些问题以及解决问题的工具。

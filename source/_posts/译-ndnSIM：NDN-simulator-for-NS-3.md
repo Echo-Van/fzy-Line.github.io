@@ -1,8 +1,11 @@
 ---
 title: '[译]ndnSIM：NDN simulator for NS-3'
-date: 2017-07-22 19:47:48
-tags: [NDN,ndnSIM]
+tags:
+  - NDN
+  - ndnSIM
 categories: 论文研读
+abbrlink: 64150
+date: 2017-07-22 19:47:48
 ---
 
 　　ndnSIM：NDN simulator for NS-3（全文翻译）

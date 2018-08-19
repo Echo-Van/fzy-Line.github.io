@@ -1,8 +1,11 @@
 ---
 title: Python序列详解-列表
-date: 2016-12-01 21:45:45
-tags: [Python,列表]
+tags:
+  - Python
+  - 列表
 categories: Python
+abbrlink: 38284
+date: 2016-12-01 21:45:45
 ---
 
 #### 基本介绍

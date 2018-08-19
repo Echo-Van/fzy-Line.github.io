@@ -1,10 +1,13 @@
 ---
 title: '[译]MQTT安全基础知识介绍'
+tags:
+  - MQTT
+  - 安全
+categories:
+  - IoT
+  - MQTT
+abbrlink: 13618
 date: 2017-08-23 09:33:26
-tags: [MQTT,安全]
-categories: 
-- IoT
-- MQTT
 ---
 
 　　最近我们做了一个问卷调查，询问你认为我们应该在下面讨论的最重要的MQTT主题。如上周的文章中已经提到的，赢家是保护MQTT。所以今天我们将启动一个名为MQTT Security Fundamentals的新系列。我们希望您能像我们每周一样发现MQTT Security的新一部分一样兴奋。这个第一篇文章将作为即将到来的第一篇文章将更加普遍和介绍，这将进一步深入了解MQTT中不同安全领域的不足之处。好的，让我们开始吧。

@@ -1,10 +1,14 @@
 ---
 title: Contiki中CoAP协议实现（上）
+tags:
+  - CoAP
+  - Contiki
+  - 6LoWPAN
+categories:
+  - IoT
+  - CoAP
+abbrlink: 53377
 date: 2017-07-16 21:04:42
-tags: [CoAP, Contiki, 6LoWPAN]
-categories: 
-- IoT
-- CoAP
 ---
 
 

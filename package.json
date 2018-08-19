@@ -8,6 +8,7 @@
   "dependencies": {
     "gitment": "0.0.3",
     "hexo": "^3.2.0",
+    "hexo-abbrlink": "^2.0.5",
     "hexo-deployer-git": "^0.3.0",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-baidu-sitemap": "^0.1.2",

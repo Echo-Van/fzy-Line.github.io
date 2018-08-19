@@ -1,8 +1,11 @@
 ---
 title: Python Numpy学习笔记（一）
-date: 2017-04-14 14:09:05
-tags: [Python,Numpy]
+tags:
+  - Python
+  - Numpy
 categories: Python
+abbrlink: 9510
+date: 2017-04-14 14:09:05
 ---
 
 

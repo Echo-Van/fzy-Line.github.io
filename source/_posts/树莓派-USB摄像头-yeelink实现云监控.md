@@ -1,8 +1,9 @@
 ---
 title: 树莓派+USB摄像头+yeelink实现云监控
-date: 2016-06-10 11:20:43
-tags: ［树莓派,监控,yeelink］
+tags: '［树莓派,监控,yeelink］'
 categories: Raspberry Pi
+abbrlink: 22224
+date: 2016-06-10 11:20:43
 ---
 
 #### 配置USB摄像头

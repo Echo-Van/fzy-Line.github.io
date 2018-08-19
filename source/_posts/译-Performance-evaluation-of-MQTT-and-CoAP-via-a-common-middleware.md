@@ -1,8 +1,12 @@
 ---
 title: '[译]Performance evaluation of MQTT and CoAP via a common middleware'
-date: 2017-07-02 20:26:59
-tags: [IoT,MQTT,CoAP]
+tags:
+  - IoT
+  - MQTT
+  - CoAP
 categories: 论文研读
+abbrlink: 33018
+date: 2017-07-02 20:26:59
 ---
 
 

@@ -1,9 +1,11 @@
 ---
 title: 'Seed Labs: TCP/IP Attack Lab'
-date: 2018-01-12 18:34:41
-tags: [Seed Labs, TCP/IP]
+tags:
+  - Seed Labs
+  - TCP/IP
 categories: Network security
-
+abbrlink: 47949
+date: 2018-01-12 18:34:41
 ---
 
 　　网络与计算机安全课程实验（二），TCP/IP攻击。

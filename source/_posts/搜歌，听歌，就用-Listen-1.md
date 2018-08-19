@@ -1,8 +1,12 @@
 ---
 title: 搜歌，听歌，就用 Listen 1
-date: 2017-06-14 20:48:23
-tags: [软件,工具,Listen 1]
+tags:
+  - 软件
+  - 工具
+  - Listen 1
 categories: Tools
+abbrlink: 31831
+date: 2017-06-14 20:48:23
 ---
 
 

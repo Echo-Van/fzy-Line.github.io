@@ -1,8 +1,11 @@
 ---
 title: '[译]CoAP for Content-Centric Networks'
-date: 2017-08-20 22:02:52
-tags: [CoAP,CCN]
+tags:
+  - CoAP
+  - CCN
 categories: 论文研读
+abbrlink: 30296
+date: 2017-08-20 22:02:52
 ---
 
 　　CoAP for Content-Centric Networks（全文翻译）

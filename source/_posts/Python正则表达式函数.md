@@ -1,8 +1,11 @@
 ---
 title: Python正则表达式函数
-date: 2017-01-21 10:56:33
-tags: [Python,正则表达式]
+tags:
+  - Python
+  - 正则表达式
 categories: Python
+abbrlink: 53852
+date: 2017-01-21 10:56:33
 ---
 
 　　Python 的 re 模块（Regular Expression 正则表达式）提供各种正则表达式的匹配操作，在文本解析、复杂字符串分析和信息提取时是一个非常有用的工具。本博客介绍了 re 模块的一些常用函数。

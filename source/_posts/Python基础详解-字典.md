@@ -1,8 +1,11 @@
 ---
 title: Python基础详解-字典
-date: 2017-01-13 22:31:26
-tags: [Python,字典]
+tags:
+  - Python
+  - 字典
 categories: Python
+abbrlink: 27689
+date: 2017-01-13 22:31:26
 ---
 
 

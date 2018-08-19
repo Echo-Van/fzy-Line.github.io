@@ -1,10 +1,11 @@
 ---
 title: Contiki 定时器部分详解
-date: 2017-04-06 17:24:47
-tags: ［IoT,Contiki,timer］
+tags: '［IoT,Contiki,timer］'
 categories:
-- IoT
-- Contiki
+  - IoT
+  - Contiki
+abbrlink: 37315
+date: 2017-04-06 17:24:47
 ---
 
 

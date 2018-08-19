@@ -1,8 +1,9 @@
 ---
 title: Android Http网络请求
-date: 2016-08-05 21:36:44
-tags: ［Android,Http］
+tags: '［Android,Http］'
 categories: Android
+abbrlink: 42080
+date: 2016-08-05 21:36:44
 ---
 
 　　Android网络编程（特别是Http请求）是Android学习中比较重要的内容，也是Android开发中比较常用的内。虽然已经有很多优秀的第三方开源框架供我们使用，也大大提升了我们的开发效率，但是也因此我们对基本Http请求的并不熟悉，我们应该重视基础，从底层去了解网络请求的实现机制。此篇博客总结了Android两种基本的网络请求方式，并通过一个简单的Demo进行实践。

@@ -1,8 +1,12 @@
 ---
 title: Python Web开发框架Flask
-date: 2016-10-08 20:45:13
-tags: [Python,Flask,Web]
+tags:
+  - Python
+  - Flask
+  - Web
 categories: Python
+abbrlink: 13048
+date: 2016-10-08 20:45:13
 ---
 
 

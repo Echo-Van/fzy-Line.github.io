@@ -1,8 +1,11 @@
 ---
 title: IPv6学习笔记(一)
-date: 2016-12-19 11:30:41
-tags: [网络,IPv6]
+tags:
+  - 网络
+  - IPv6
 categories: Network
+abbrlink: 15387
+date: 2016-12-19 11:30:41
 ---
 
 　　IPv6是Internet Protocol Version 6的缩写，IPv6是IETF（互联网工程任务组，Internet Engineering Task Force）设计的用于替代现行版本IP协议（IPv4）的下一代IP协议，号称可以为全世界的每一粒沙子编上一个网址。

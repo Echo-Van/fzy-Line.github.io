@@ -1,8 +1,9 @@
 ---
 title: android图片轮播框架：RollViewPager
-date: 2016-12-11 10:59:04
-tags: ［Android,RollViewPager,图片轮播］
+tags: '［Android,RollViewPager,图片轮播］'
 categories: Android
+abbrlink: 26550
+date: 2016-12-11 10:59:04
 ---
 
 　　经常上网逛一逛还是能有不少的收获，以前自己用ViewFlipper控件来实现android的图片轮播效果，做得实在是不怎么样，很多小细节不知道怎么处理，现在好了，在Github上找到一个开源的图片轮播框架，只需要大概30行代码就可以很好地实现图片轮播功能，推荐给大家！

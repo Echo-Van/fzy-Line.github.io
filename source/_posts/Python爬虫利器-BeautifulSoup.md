@@ -1,8 +1,12 @@
 ---
 title: Python爬虫利器---BeautifulSoup
-date: 2016-07-17 20:27:40
-tags: [Python,爬虫,BeautifulSoup]
+tags:
+  - Python
+  - 爬虫
+  - BeautifulSoup
 categories: Python
+abbrlink: 24032
+date: 2016-07-17 20:27:40
 ---
 
 　　Beautiful Soup提供一些简单的、python式的函数用来处理导航、搜索、修改分析树等功能。它是一个工具箱，通过解析文档为用户提供需要抓取的数据，因为简单，所以不需要多少代码就可以写出一个完整的应用程序。

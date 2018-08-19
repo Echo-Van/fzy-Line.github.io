@@ -1,8 +1,9 @@
 ---
 title: Android ImageView实现圆形头像
-date: 2016-05-17 21:28:02
-tags: ［Android,ImageView］
+tags: '［Android,ImageView］'
 categories: Android
+abbrlink: 65349
+date: 2016-05-17 21:28:02
 ---
 
 #### 原理解析

@@ -1,8 +1,12 @@
 ---
 title: Ubuntu16.04 LTS中安装wireshark
-date: 2017-12-02 21:54:41
-tags: [Linux, Ubuntu, wireshark]
+tags:
+  - Linux
+  - Ubuntu
+  - wireshark
 categories: Linux
+abbrlink: 20533
+date: 2017-12-02 21:54:41
 ---
 
 　　经常分析不同的网络协议和研究数据包的人一定经常使用 Wireshark。

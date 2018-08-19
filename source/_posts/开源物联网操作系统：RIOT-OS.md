@@ -1,10 +1,13 @@
 ---
 title: 开源物联网操作系统：RIOT-OS
-date: 2017-11-18 11:24:40
-tags: [RIOT,操作系统]
+tags:
+  - RIOT
+  - 操作系统
 categories:
-- IoT
-- RIOT
+  - IoT
+  - RIOT
+abbrlink: 7468
+date: 2017-11-18 11:24:40
 ---
 
 　　RIOT是一个开源的物联网操作系统，它针对物联网场景的低功耗、资源受限等特殊要求而设计，前景很不错。

@@ -1,10 +1,11 @@
 ---
 title: Contiki LED驱动部分应用
-date: 2017-02-23 21:34:14
-tags: ［IoT,Contiki,LED］
+tags: '［IoT,Contiki,LED］'
 categories:
-- IoT
-- Contiki
+  - IoT
+  - Contiki
+abbrlink: 23863
+date: 2017-02-23 21:34:14
 ---
 
 

@@ -1,9 +1,12 @@
 ---
 title: Atom Latex编辑器配置
-date: 2017-09-16 20:15:06
-tags: [Latex, Atom]
+tags:
+  - Latex
+  - Atom
 categories:
-- Tools
+  - Tools
+abbrlink: 13369
+date: 2017-09-16 20:15:06
 ---
 
 

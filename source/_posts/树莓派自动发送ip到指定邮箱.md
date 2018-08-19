@@ -1,8 +1,9 @@
 ---
 title: 树莓派自动发送ip到指定邮箱
-date: 2016-05-26 10:51:23
-tags: ［树莓派,ip］
+tags: '［树莓派,ip］'
 categories: Raspberry Pi
+abbrlink: 35517
+date: 2016-05-26 10:51:23
 ---
 
 　　知道树莓派的ip地址才能通过SSH或者VNC在你的电脑上操作树莓派，树莓派开机自动发送ip地址到指定邮箱会让你使用树莓派更加方便！

@@ -1,8 +1,9 @@
 ---
 title: Android开发之eclipse快捷操作
-date: 2016-06-18 11:38:27
-tags: ［Android,eclipse］
+tags: '［Android,eclipse］'
 categories: Android
+abbrlink: 58180
+date: 2016-06-18 11:38:27
 ---
 
 

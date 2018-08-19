@@ -1,8 +1,9 @@
 ---
 title: Android网络编程：HTTP协议
-date: 2016-08-22 09:53:53
-tags: ［Android,网络,Http］
+tags: '［Android,网络,Http］'
 categories: Android
+abbrlink: 14549
+date: 2016-08-22 09:53:53
 ---
 
 　　HTTP协议是一个基于请求与响应模式的、无状态的、应用层的协议，常基于TCP的连接方式，HTTP1.1版本中给出一种持续连接的机制，绝大多数的Web开发，都是构建在HTTP协议之上的Web应用。在之前的博客中多次使用HTTP网络请求，了解HTTP协议的详细工作过程以及报文格式，对于深入理解Android网络编程具有重要的意义。此篇博文通过搜集网络上优秀的博客文章，对HTTP协议的内容进行了较为详细的总结。

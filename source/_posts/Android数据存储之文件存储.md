@@ -1,8 +1,9 @@
 ---
 title: Android数据存储之文件存储
-date: 2016-07-29 22:12:16
-tags: ［Android,文件］
+tags: '［Android,文件］'
 categories: Android
+abbrlink: 52791
+date: 2016-07-29 22:12:16
 ---
 
 　　前面两篇博客分别介绍了Android的SharedPreferences数据存储和SQLite数据库存储，此篇博客介绍Android数据存储的第三种方式：文件存储，这也是我们平时最为常用的，他的很多操作与Java文件操作基本一致，只是因为Android是基于Linux操作系统，所以需要对于文件目录结构需要有更深入的理解。

@@ -1,8 +1,11 @@
 ---
 title: 基于CentOS7的SVN服务器配置
-date: 2016-08-30 15:03:53
-tags: [Linux,SVN]
+tags:
+  - Linux
+  - SVN
 categories: Linux
+abbrlink: 64672
+date: 2016-08-30 15:03:53
 ---
 
 　　SVN是Subversion的简称，它是一个受欢迎的开放源代码的版本控制系统。简单一点说，SVN就是用于多个人共同开发同一个项目，共用资源的目的。作为软件开发人员，很有必要了解和学习SVN的使用。学习版本控制从SVN安装与配置开始，此篇博客主要讲解基于阿里云服务器的SVN服务器配置。

@@ -1,8 +1,9 @@
 ---
 title: 树莓派+motion实现局域网简单监控
-date: 2016-06-14 11:28:26
-tags: ［树莓派,监控,motion］
+tags: '［树莓派,监控,motion］'
 categories: Raspberry Pi
+abbrlink: 55376
+date: 2016-06-14 11:28:26
 ---
 
 #### 检查USB摄像头

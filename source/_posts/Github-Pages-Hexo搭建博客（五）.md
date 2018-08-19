@@ -1,8 +1,11 @@
 ---
 title: Github Pages + Hexo搭建博客（五）
-date: 2017-12-03 21:48:17
-tags: [Hexo,Github]
+tags:
+  - Hexo
+  - Github
 categories: Hexo
+abbrlink: 14084
+date: 2017-12-03 21:48:17
 ---
 
 　　Gitment是一款基于GitHub Issues的评论系统。这篇博客介绍Hexo如何集成Gitment评论系统。

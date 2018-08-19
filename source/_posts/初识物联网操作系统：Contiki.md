@@ -1,10 +1,11 @@
 ---
 title: 初识物联网操作系统：Contiki
-date: 2017-02-13 23:34:59
-tags: ［IoT,Contiki］
+tags: '［IoT,Contiki］'
 categories:
-- IoT
-- Contiki
+  - IoT
+  - Contiki
+abbrlink: 41588
+date: 2017-02-13 23:34:59
 ---
 
 　　Contiki：面向物联网的开源操作系统。

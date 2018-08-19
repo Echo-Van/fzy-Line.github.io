@@ -1,10 +1,11 @@
 ---
 title: Contiki RPL-border-router Cooja仿真
-date: 2017-02-21 09:28:35
-tags: ［IoT,Contiki,Cooja］
+tags: '［IoT,Contiki,Cooja］'
 categories:
-- IoT
-- Contiki
+  - IoT
+  - Contiki
+abbrlink: 60741
+date: 2017-02-21 09:28:35
 ---
 
 

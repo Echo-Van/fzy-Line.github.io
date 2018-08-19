@@ -1,10 +1,13 @@
 ---
 title: RIOT-OS开发环境搭建与样例解析
-date: 2017-11-24 21:22:32
-tags: [RIOT,操作系统]
+tags:
+  - RIOT
+  - 操作系统
 categories:
-- IoT
-- RIOT
+  - IoT
+  - RIOT
+abbrlink: 44236
+date: 2017-11-24 21:22:32
 ---
 
 　　正式开始折腾友好的RIOT操作系统。

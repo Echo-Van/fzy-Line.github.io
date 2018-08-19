@@ -1,8 +1,9 @@
 ---
 title: 树莓派+DHT11温湿度传感器+yeelink物联网云
-date: 2016-06-02 11:04:13
-tags: ［树莓派,DHT11,yeelink］
+tags: '［树莓派,DHT11,yeelink］'
 categories: Raspberry Pi
+abbrlink: 8959
+date: 2016-06-02 11:04:13
 ---
 
 #### 配置准备

@@ -1,8 +1,11 @@
 ---
 title: Python matplotlib学习笔记（一）
-date: 2017-06-18 15:44:52
-tags: [Python,Matplotlib]
+tags:
+  - Python
+  - Matplotlib
 categories: Python
+abbrlink: 58871
+date: 2017-06-18 15:44:52
 ---
 
 　　Python数据分析与展示课程之Matplotlib绘图库学习。

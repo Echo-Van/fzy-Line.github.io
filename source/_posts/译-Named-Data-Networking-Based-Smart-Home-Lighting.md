@@ -1,8 +1,11 @@
 ---
 title: '[译]Named Data Networking Based Smart Home Lighting'
-date: 2017-05-05 21:31:25
-tags: [IoT,NDN]
+tags:
+  - IoT
+  - NDN
 categories: 论文研读
+abbrlink: 10907
+date: 2017-05-05 21:31:25
 ---
 
 　　Named Data Networking Based Smart Home Lighting（全文翻译）

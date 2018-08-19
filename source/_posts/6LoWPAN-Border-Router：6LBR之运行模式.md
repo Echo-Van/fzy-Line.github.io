@@ -1,10 +1,11 @@
 ---
 title: 6LoWPAN Border Router：6LBR之运行模式
-date: 2017-03-16 23:22:10
-tags: ［IoT,6LBR,6LoWPAN］
+tags: '［IoT,6LBR,6LoWPAN］'
 categories:
-- IoT
-- 6LoWPAN
+  - IoT
+  - 6LoWPAN
+abbrlink: 12975
+date: 2017-03-16 23:22:10
 ---
 
 

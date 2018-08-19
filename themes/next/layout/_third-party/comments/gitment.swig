@@ -11,7 +11,7 @@
                 document.getElementById("gitment-display-button").style.display = "none";
                 document.getElementById("gitment-container").style.display = "block";
                 var gitment = new Gitment({
-                        id: window.location.pathname, 
+                        id: '{{ page.title }}', 
                         owner: '{{owner}}',
                         repo: '{{repo}}',
                         oauth: {
@@ -24,7 +24,7 @@
     {% else %}
         <script type="text/javascript">
             var gitment = new Gitment({
-                    id: window.location.pathname, 
+                    id: '{{ page.title }}', 
                     owner: '{{owner}}',
                     repo: '{{repo}}',
                     oauth: {

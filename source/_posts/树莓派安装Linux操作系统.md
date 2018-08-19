@@ -1,8 +1,9 @@
 ---
 title: 树莓派安装Linux操作系统
-date: 2016-05-18 10:32:49
-tags: ［树莓派,Linux］
+tags: '［树莓派,Linux］'
 categories: Raspberry Pi
+abbrlink: 7544
+date: 2016-05-18 10:32:49
 ---
 
 #### 树莓派上可安装的操作系统

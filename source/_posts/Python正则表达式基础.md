@@ -1,8 +1,11 @@
 ---
 title: Python正则表达式基础
-date: 2017-01-20 17:36:25
-tags: [Python,正则表达式]
+tags:
+  - Python
+  - 正则表达式
 categories: Python
+abbrlink: 45114
+date: 2017-01-20 17:36:25
 ---
 
 　　正则表达式是一种小型的、高度专业化的编程语言，在Python中通过re模块实现。

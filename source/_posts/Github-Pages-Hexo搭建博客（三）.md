@@ -1,8 +1,11 @@
 ---
 title: Github Pages + Hexo搭建博客（三）
-date: 2016-12-06 16:59:42
-tags: [Hexo,Github]
+tags:
+  - Hexo
+  - Github
 categories: Hexo
+abbrlink: 39803
+date: 2016-12-06 16:59:42
 ---
 
 

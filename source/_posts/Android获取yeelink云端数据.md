@@ -1,8 +1,9 @@
 ---
 title: Android获取yeelink云端数据
-date: 2016-06-29 21:05:54
-tags: ［Android,yeelink］
+tags: '［Android,yeelink］'
 categories: Android
+abbrlink: 53150
+date: 2016-06-29 21:05:54
 ---
 
 　　虽然前段时间的项目我参与了硬件部分的调试，但是我主要还是负责Android客户端的开发。yeelink是一个物联网云平台，我们可以采用单片机采集数据，然后将数据上传到yeelink，再通过Android客户端去云端获取数据，以便实现远程监测。这篇博客主要讲解如何从yeelink云端获取单片机上传到yeelink云端的数据。

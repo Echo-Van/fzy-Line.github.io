@@ -1,9 +1,13 @@
 ---
 title: '[译]Caching in Named Data Networking for the Wireless Internet of Things'
-date: 2017-03-18 23:26:07
-tags: [IoT,NDN,Cache]
+tags:
+  - IoT
+  - NDN
+  - Cache
 categories: 论文研读
 mathjax: true
+abbrlink: 7036
+date: 2017-03-18 23:26:07
 ---
 
 

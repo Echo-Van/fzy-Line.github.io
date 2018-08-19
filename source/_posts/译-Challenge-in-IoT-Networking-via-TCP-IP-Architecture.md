@@ -1,8 +1,12 @@
 ---
 title: '[译]Challenge in IoT Networking via TCP-IP Architecture'
-date: 2017-03-08 23:12:59
-tags: [IoT,TCP/IP,IoT]
+tags:
+  - IoT
+  - TCP/IP
+  - IoT
 categories: 论文研读
+abbrlink: 27934
+date: 2017-03-08 23:12:59
 ---
 
 　　TCP/IP体系结构下物联网络存在的挑战。

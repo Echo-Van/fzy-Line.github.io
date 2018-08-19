@@ -1,8 +1,9 @@
 ---
 title: Just Twenty Two
-date: 2017-06-17 13:59:27
 tags: Life
 categories: Life
+abbrlink: 1261
+date: 2017-06-17 13:59:27
 ---
 
 　　纪念22岁生日。（拖延症真是太可怕了，本来上个月应该完成的博客还是被我拖到了现在）。

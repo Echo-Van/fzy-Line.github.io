@@ -1,8 +1,11 @@
 ---
 title: Linux Wireless Tools：iwconfig
-date: 2017-11-11 10:58:28
-tags: [Linux,iwconfig]
+tags:
+  - Linux
+  - iwconfig
 categories: Linux
+abbrlink: 22784
+date: 2017-11-11 10:58:28
 ---
 
 

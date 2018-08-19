@@ -1,10 +1,13 @@
 ---
 title: '[译]MQTT安全基础：使用用户名和密码进行身份验证'
+tags:
+  - MQTT
+  - 安全
+categories:
+  - IoT
+  - MQTT
+abbrlink: 49678
 date: 2017-08-24 09:36:07
-tags: [MQTT,安全]
-categories: 
-- IoT
-- MQTT
 ---
 
 　　在上一篇文章中，我们介绍了MQTT中非常基本的安全。今天的文章将从MQTT中的认证开始，进一步详细介绍。

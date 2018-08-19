@@ -1,8 +1,9 @@
 ---
 title: 树莓派+DS18B20温度传感器+yeelink物联网云
-date: 2016-05-30 10:59:55
-tags: ［树莓派,DS18B20,yeelink］
+tags: '［树莓派,DS18B20,yeelink］'
 categories: Raspberry Pi
+abbrlink: 62926
+date: 2016-05-30 10:59:55
 ---
 
 　　本博文参考了网络上多篇树莓派操作DS18B20的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动DS18B20获取温度数据，并通过python读取温度值，上传到yeelink物联网云平台。

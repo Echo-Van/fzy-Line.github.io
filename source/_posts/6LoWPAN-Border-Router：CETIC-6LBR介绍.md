@@ -1,10 +1,14 @@
 ---
 title: 6LoWPAN Border Router：CETIC-6LBR介绍
-date: 2017-03-12 20:14:52
-tags:  [IoT,6LBR,6LoWPAN]
+tags:
+  - IoT
+  - 6LBR
+  - 6LoWPAN
 categories:
-- IoT
-- 6LoWPAN
+  - IoT
+  - 6LoWPAN
+abbrlink: 48880
+date: 2017-03-12 20:14:52
 ---
 
 　　CETIC-6LBR 是目前国际上较为优秀的基于 Contiki 系统的 6LoWPAN 边界路由器解决方案。和现有的其他边界路由器方案相比，6LBR 是唯一一个不需要 Linux 主机的独立边界路由器，并且能够提供IPv6/NDP 和 RPL 之间的智能互联。

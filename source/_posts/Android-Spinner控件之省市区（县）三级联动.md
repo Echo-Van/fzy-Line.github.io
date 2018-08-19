@@ -1,8 +1,9 @@
 ---
 title: Android Spinner控件之省市区（县）三级联动
-date: 2016-07-01 22:11:05
-tags: ［Android,Spinner］
+tags: '［Android,Spinner］'
 categories: Android
+abbrlink: 2561
+date: 2016-07-01 22:11:05
 ---
 
 　　使用Spinner控件实现省市区三级联动在很多地方都需要用到，比如用户个人信息填写、快递地址填写等场景，这是一个比较基本的功能，但是实现起来却有点麻烦，因为要加载很多的资源数组。掌握基本的省市区三级联动很有必要，当然，再加上一些酷炫的UI设计就能更nice。

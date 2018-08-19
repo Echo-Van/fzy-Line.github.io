@@ -1,8 +1,9 @@
 ---
 title: Raspberry pi 3刷OpenWrt打造无线路由器
-date: 2017-10-18 21:13:56
-tags: ［树莓派,OpenWrt］
+tags: '［树莓派,OpenWrt］'
 categories: Raspberry Pi
+abbrlink: 20985
+date: 2017-10-18 21:13:56
 ---
 
 　　OpenWrt在Raspberry pi 3上的安装与初步配置记录。

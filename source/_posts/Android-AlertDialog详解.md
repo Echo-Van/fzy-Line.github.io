@@ -1,8 +1,9 @@
 ---
 title: Android AlertDialog详解
-date: 2016-08-13 09:26:41
-tags: ［Android,AlertDialog］
+tags: '［Android,AlertDialog］'
 categories: Android
+abbrlink: 34501
+date: 2016-08-13 09:26:41
 ---
 
 　　AlertDialog就是Android中的弹出式对话框，很多应用中都有对AlertDialog的应用。前段时间，一位学长问我自定义AlertDialog的问题，因为自己也只是之前用过，并不是很熟悉，所以我也只能很抱歉地回绝了，这一次通过写这篇博客对AlertDialog的操作进行了详细的总结，介绍了AlertDialog类和AlertDialog.Builder类，以及给AlertDialog设置不同的内容，最后还实现了自定义的AlertDialog。

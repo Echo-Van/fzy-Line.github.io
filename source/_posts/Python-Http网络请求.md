@@ -1,8 +1,11 @@
 ---
 title: Python Http网络请求
-date: 2016-08-07 20:39:24
-tags: [Python,Http]
+tags:
+  - Python
+  - Http
 categories: Python
+abbrlink: 51425
+date: 2016-08-07 20:39:24
 ---
 
 

@@ -1,8 +1,11 @@
 ---
 title: Linux进程实时监控：pidstat
-date: 2017-10-26 09:54:23
-tags: [Linux,pidstat]
+tags:
+  - Linux
+  - pidstat
 categories: Linux
+abbrlink: 48302
+date: 2017-10-26 09:54:23
 ---
 
 　　pidstat主要用于监控全部或指定进程占用系统资源的情况，如CPU，内存、设备IO、任务切换、线程等。
