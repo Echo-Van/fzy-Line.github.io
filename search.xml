@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Golang笔记-基本结构]]></title>
+    <url>%2F2018%2F08%2F21%2FGolang%E7%AC%94%E8%AE%B0-%E5%9F%BA%E6%9C%AC%E7%BB%93%E6%9E%84%2F</url>
+    <content type="text"><![CDATA[Golang 程序的基本结构。 程序一般由关键字、常量、变量、运算符、类型和函数组成。程序中可能会使用到这些分隔符：括号 ()，中括号 [] 和大括号 {}。程序中可能会使用到这些标点符号：.、,、;、: 和 …。程序的代码通过语句来实现结构化。每个语句不需要像 C 家族中的其它语言一样以分号 ; 结尾，因为这些工作都将由 Go 编译器自动完成。 标识符 有效的标识符必须以字符（可以使用任何 UTF-8 编码的字符或 _）开头，然后紧跟着 0 个或多个字符或 Unicode 数字。 _ 是一个特殊的标识符，被称为空白标识符。它可以像其他标识符那样用于变量的声明或赋值（任何类型都可以赋值给它），但任何赋给这个标识符的值都将被抛弃，因此这些值不能在后续的代码中使用，也不可以使用这个标识符作为变量对其它变量进行赋值或运算。 关键字Go 语言中定义的25个关键字： break default func interface select case defer go map struct chan else goto package switch const fallthrough if range type continue for import return var 分类整理： 基本结构 变量、常量：var const 包管理：package import 基本组件 函数：func return 自定义类型：interface struct type 引用类型：map range 流程控制 并发：go select chan 单分支流程：if else 多分支流程：switch case default fallthrough 循环流程：for break continue goto defer 基本结构Go 语言版 hello world ： 1234567package mainimport "fmt"func main() &#123; fmt.Println("hello, world")&#125; 包 包是结构化代码的一种方式：每个程序都由包的概念组成，可以使用自身的包或者从其它包中导入内容。如同其它一些编程语言中的类库或命名空间的概念，每个 Go 文件都属于且仅属于一个包。一个包可以由许多以 .go 为扩展名的源文件组成，因此文件名和包名一般来说都是不相同的。 如上，在源文件中非注释的第一行指明这个文件属于哪个包，如：package main。package main表示一个可独立执行的程序，每个 Go 应用程序都包含一个名为 main 的包。 一个应用程序可以包含不同的包，而且即使你只使用 main 包也不必把所有的代码都写在一个巨大的文件里：你可以用一些较小的文件，并且在每个文件非注释的第一行都使用 package main 来指明这些文件都属于 main 包。另外要注意的是，所有的包名都应该使用小写字母。 一个 Go 程序是通过 import 关键字将一组包链接在一起。import &quot;fmt&quot; 告诉 Go 编译器这个程序需要使用 fmt 包（的函数，或其他元素），fmt 包实现了格式化 IO（输入/输出）的函数。包名被封闭在半角双引号 &quot;&quot; 中。如果你打算从已编译的包中导入并加载公开声明的方法，不需要插入已编译包的源代码。 如果需要多个包，它们可以被分别导入： 12import "fmt"import "os" 或（该方式被称为因式分解关键字，同样适用于 const、var 和 type 的声明或定义）： 1234import ( "fmt" "os") 如果你导入了一个包却没有使用它，则会在构建程序时引发错误，如 imported and not used: os，这正是遵循了 Go 的格言：“没有不必要的代码！“。 包也可以作为命名空间使用，帮助避免命名冲突（名称冲突）：两个包中的同名变量的区别在于他们的包名，例如 pack1.Thing 和 pack2.Thing。另外，可以通过使用包的别名来解决包名之间的名称冲突，或者说根据你的个人喜好对包名进行重新设置，如：import fm &quot;fmt&quot;。 函数 main 函数是每一个可执行程序所必须包含的，一般来说都是在启动后第一个执行的函数（如果有 init() 函数则会先执行该函数）。如果你的 main 包的源代码没有包含 main 函数，则会引发构建错误 undefined: main.main。main 函数既没有参数，也没有返回类型。 函数里的代码（函数体）使用大括号 {} 括起来。左大括号 { 必须与方法的声明放在同一行，这是编译器的强制规定。对于大括号 {} 的使用规则在任何时候都是相同的（如：if 语句等）。 只有当某个函数需要被外部包调用的时候才使用大写字母开头，并遵循 Pascal 命名法；否则就遵循骆驼命名法，即第一个单词的首字母小写，其余单词的首字母大写。 如上，fmt.Println(&quot;hello, world&quot;) 调用了 fmt 包中的 Println 函数，可以将字符串输出到控制台，并在最后自动增加换行字符 \n 。 Go 程序基本思路 在完成包的 import 之后，开始对常量、变量和类型的定义或声明。 如果存在 init 函数的话，则对该函数进行定义（这是一个特殊的函数，每个含有该函数的包都会首先执行这个函数）。 如果当前包是 main 包，则定义 main 函数。 然后定义其余的函数，首先是类型的方法，接着是按照 main 函数中先后调用的顺序来定义相关函数，如果有很多函数，则可以按照字母顺序来进行排序。 Go 程序执行顺序 按顺序导入所有被 main 包引用的其它包，然后在每个包中执行如下流程： 如果该包又导入了其它的包，则从第一步开始递归执行，但是每个包只会被导入一次。 然后以相反的顺序在每个包中初始化常量和变量，如果该包含有 init 函数的话，则调用该函数。 在完成这一切之后，main 也执行同样的过程，最后调用 main 函数开始执行程序。 命名规范与可见性规则 Go 语言中对象的命名也应该是简洁且有意义的。名称不需要指出自己所属的包，因为在调用的时候会使用包名作为限定符。返回某个对象的函数或方法的名称一般都是使用名词，没有 Get... 之类的字符，如果是用于修改某个对象，则使用 SetName。有必须要的话可以使用大小写混合的方式，如 MixedCaps 或 mixedCaps，而不是使用下划线来分割多个名称。 当标识符（包括常量、变量、类型、函数名、结构字段等等）以一个大写字母开头，那么使用这种形式的标识符的对象就可以被外部包的代码所使用（客户端程序需要先导入这个包），这被称为导出（像面向对象语言中的 public ）；标识符如果以小写字母开头，则对包外是不可见的，但是他们在整个包的内部是可见并且可用的（像面向对象语言中的 private ）。]]></content>
+      <categories>
+        <category>Programming language</category>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Golang笔记-开发工具]]></title>
     <url>%2F2018%2F08%2F20%2FGolang%E7%AC%94%E8%AE%B0-%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%2F</url>
     <content type="text"><![CDATA[Golang 开发工具介绍。 编辑器与IDE Sublime Text 是一个革命性的跨平台（Linux、Mac OS X、Windows）文本编辑器，它支持编写非常多的编程语言代码。对于 Go 而言，它有一个插件叫做 GoSublime 来支持代码补全和代码模版。 LiteIDE 这是一款专门针对 Go 开发的集成开发环境，在编辑、编译和运行 Go 程序和项目方面都有非常好的支持。同时还包括了对源代码的抽象语法树视图和一些内置工具（由国人 vfc 大叔开发）。 GoClipse 是一款 Eclipse IDE 的插件，拥有非常多的特性以及通过 GoCode 来实现代码补全功能。 Goland 是 Jetbrains 开发的 Go IDE，号称 A Clever IDE to Go ，提供代码辅助、代码编辑器、插件生态系统以及各种集成工具，功能十分完善（推荐！！！）。 常用工具go get 工具 go get 命令主要是用来动态获取远程代码包的，目前支持的有BitBucket、GitHub、Google Code和Launchpad。这个命令在内部实际上分成了两步操作：第一步是下载源码包，第二步是执行go install。 go get 命令本质上可以理解为：首先通过源码工具clone代码到src目录，然后执行go install。 go build 工具 go build 命令主要是用于测试编译。在包的编译过程中，若有必要，会同时编译与之相关联的包。 如果是普通包，当你执行 go build 命令后，不会产生任何文件。 如果是 main 包，当只执行 go build 命令后，会在当前目录下生成一个可执行文件。 go install 工具 go install 是安装 Go 包的工具，主要用于安装非标准库的包文件，将源代码编译成对象文件。 这个命令在内部实际上分成了两步操作：第一步是生成结果文件(可执行文件或者.a包)，第二步会把编译好的结果移到$GOPATH/pkg或者$GOPATH/bin。 与 go build 命令对比： go install go build 生成的可执行文件路径 工作目录下的 bin 目录下 当前目录下 可执行文件的名字 与源码所在目录同名 默认与源程序同名，可以使用 -o 选项指定 依赖 将依赖的包放到工作目录下的 pkg 文件夹下 —— go fmt 工具 Go 开发团队不想要 Go 语言像许多其它语言那样总是在为代码风格而引发无休止的争论，浪费大量宝贵的开发时间，因此他们制作了一个工具：go fmt（gofmt）。 go fmt 工具可以将你的源代码格式化成符合官方统一标准的风格，属于语法风格层面上的小型重构。遵循统一的代码风格是 Go 开发中无可撼动的铁律，因此你必须在编译或提交版本管理系统之前使用 gofmt 来格式化你的代码。LiteIDE 和 Goland中都已经集成该工具，保存文件时会自动进行格式化。 另外，在 Go 语言中注释代码的方式有： // ：单行注释 / /：多行注释 go doc 工具 go doc 工具会从 Go 程序和包文件中提取顶级声明的首行注释以及每个对象的相关注释，并生成相关文档。这个工具只能获取在 Go 安装目录下 ../go/src 中的注释内容。 123go doc package 获取包的文档注释go doc package/subpackage 获取子包的文档注释go doc package function 获取某个函数在某个包中的文档注释 此外，go doc 还可以作为一个本地在线文档浏览 web 服务器。在命令行输入 godoc -http=:8080，然后使用浏览器打开 http://localhost:8080 后，你就可以看到本地文档浏览服务器提供的页面。 其它工具 go run：直接运行程序。 go test：是一个轻量级的单元测试框架。 go clean：用来移除当前源码包和关联源码包里面编译生成的文件。 go fix：用于将你的 Go 代码从旧的发行版迁移到最新的发行版，它主要负责简单的、重复的、枯燥无味的修改工作，如果像 API 等复杂的函数修改，工具则会给出文件名和代码行数的提示以便让开发人员快速定位并升级代码。Go 开发团队一般也使用这个工具升级 Go 内置工具以及 谷歌内部项目的代码。]]></content>
@@ -451,8 +463,8 @@
       </categories>
       <tags>
         <tag>6LoWPAN</tag>
-        <tag>Contiki</tag>
         <tag>MQTT</tag>
+        <tag>Contiki</tag>
       </tags>
   </entry>
   <entry>
@@ -1437,8 +1449,8 @@
       <tags>
         <tag>Python</tag>
         <tag>Http</tag>
-        <tag>正则表达式</tag>
         <tag>爬虫</tag>
+        <tag>正则表达式</tag>
       </tags>
   </entry>
   <entry>
