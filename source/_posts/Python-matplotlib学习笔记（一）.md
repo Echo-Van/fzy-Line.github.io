@@ -3,7 +3,9 @@ title: Python matplotlib学习笔记（一）
 tags:
   - Python
   - Matplotlib
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 58871
 date: 2017-06-18 15:44:52
 ---

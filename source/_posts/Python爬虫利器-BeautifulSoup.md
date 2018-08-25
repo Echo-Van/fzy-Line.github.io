@@ -4,7 +4,9 @@ tags:
   - Python
   - 爬虫
   - BeautifulSoup
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 24032
 date: 2016-07-17 20:27:40
 ---

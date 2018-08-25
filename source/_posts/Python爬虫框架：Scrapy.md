@@ -4,7 +4,9 @@ tags:
   - Python
   - 爬虫
   - Scrapy
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 26234
 date: 2016-12-26 08:18:51
 ---

@@ -3,7 +3,9 @@ title: Python操作Mysql数据库
 tags:
   - Python
   - Mysql
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 15195
 date: 2016-07-24 20:31:38
 ---

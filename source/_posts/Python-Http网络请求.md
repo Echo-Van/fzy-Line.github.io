@@ -3,7 +3,9 @@ title: Python Http网络请求
 tags:
   - Python
   - Http
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 51425
 date: 2016-08-07 20:39:24
 ---

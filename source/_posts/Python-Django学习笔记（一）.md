@@ -3,7 +3,9 @@ title: Python Django学习笔记（一）
 tags:
   - Python
   - Django
-categories: Python
+categories: 
+  - Programming language
+  - Python
 abbrlink: 8346
 date: 2018-01-13 13:45:41
 ---
@@ -26,9 +28,9 @@ date: 2018-01-13 13:45:41
 
 1. 创建工程：\>django-admin startproject mysite
 2. 修改工程：
-  2.1 创建一个具体应用（app）
-  2.2 修改应用的views.py：对URL的具体响应功能
-  2.3 修改URL路由：指定URL与响应之间的关系
+    2.1 创建一个具体应用（app）
+    2.2 修改应用的views.py：对URL的具体响应功能
+    2.3 修改URL路由：指定URL与响应之间的关系
 3. 运行测试工程：\>python manage.py runserver
 
 #### Django工程

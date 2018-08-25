@@ -3,7 +3,9 @@ title: 'Seed Labs: TCP/IP Attack Lab'
 tags:
   - Seed Labs
   - TCP/IP
-categories: Network security
+categories:  
+  - Network
+  - Network security
 abbrlink: 47949
 date: 2018-01-12 18:34:41
 ---
@@ -59,7 +61,7 @@ $ sudo netwox 76 --dst-ip 192.168.0.10 --dst-port 23
 ```
 
 　　然后，用户机再次通过telnet连接到服务器，此时发现依然可以连接，按照实验指导手册所说，我们需要检查机器是否已经开启SYN cookie机制，SYN cookie是抵御SYN洪泛攻击的防御机制。我们可以使用sysctl命令查看、打开和关闭SYN cookie机制，使用如下命令查看SYN cookie机制的设置情况：
-  
+
 ```
 $ sysctl -a | grep cookie
 ```
@@ -106,7 +108,7 @@ netwox 78 –i 1921.68.0.10
 
 　　实验原理与任务2相同。TCP RST攻击终会止两个受害者之间建立的TCP连接。在用户机上使用浏览器访问优酷的视频，攻击者向用户发起RST攻击，再刷新浏览器页面时即显示，为了在这次攻击中取得成功，攻击者需要正确构造TCP RST数据包。
 　　Netwox编号为78的工具提供了RST攻击的基本功能攻击命令，通过netwox 78号工具伪造RST包发送给服务器，命令如下：
-  
+
 ```
 netwox 78 –i 1921.68.0.100
 ```
@@ -124,7 +126,7 @@ netwox 78 –i 1921.68.0.100
 ![12-11](http://ohe7ixo05.bkt.clouddn.com/2018/1/12-11.png)
 
 　　Netwox编号为40的工具提供了SYN 洪泛攻击的基本功能，输入“netwox 40 --help”可以获取如下帮助信息。
-  
+
 ![12-12](http://ohe7ixo05.bkt.clouddn.com/2018/1/12-12.png)
 
 　　使用netwox的40号工具，根据抓包数据的TCP源端口目的端口填写tcp-src和tcp-dst，根据IP包的源地址目的地址填写ip4-src和ip4-dst，根据用户机发送给服务器的最后一个数据包的Next sequence nuber字段填写tcp-seqnum，根据服务器发送给用户机的最后一个数据包的Acknowledgement number字段填写tcp-acknum，根据IP包的TTL字段填写ip4-ttl，根据IP包的协议字段填写ip4-protocol ，然后根据需要填写tcp-data字段。加入我们发送ls命令到服务器来查看该目录下有什么文件，将ls转换成16进制并加上\r的16进制数，生成我们的命令如下：

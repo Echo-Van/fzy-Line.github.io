@@ -3,7 +3,9 @@ title: 'Seed Labs: Local DNS Attack Lab'
 tags:
   - Seed Labs
   - DNS
-categories: Network security
+categories: 
+  - Network
+  - Network security
 abbrlink: 35920
 date: 2018-01-11 12:26:34
 ---
@@ -13,11 +15,11 @@ date: 2018-01-11 12:26:34
 <!--more-->
 
 #### 实验原理与目的
-　　
+
 　　DNS（域名系统）是因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便地访问互联网，而不用去记住能够被机器直接读取的IP数串。本次实验涉及三种DNS攻击类型，分别是（1）修改用户机器中的hosts文件，从而实现DNS攻击（2）DNS欺骗，攻击者冒充域名服务器向发送DNS查询的机器发送欺骗DNS响应。（3）缓存污染，利用控制DNS缓存服务器，把原本准备访问某网站的用户在不知不觉中带到黑客指向的其他网站上。实验目的是了解上述3种DNS攻击的原理，以及DNS攻击是如何实现的，然后学会防范这样的攻击。
 
 #### 实验配置
-　　
+
 　　按照实验指导手册，从SeedProject的网站上下载Ubuntu12.04的镜像，它已经帮我们装好了实验必须的环境以及一些需要用到的软件。该系统默认的用户名是seed，密码是dees。
 
 　　实验资料下载地址：
@@ -30,7 +32,7 @@ date: 2018-01-11 12:26:34
 ##### Vmware配置
 
 　　SeedProject提供的是VirtualBox，但是在这里不建议使用，开源的还是会遇到一些莫名其妙的问题，浪费很多时间在虚拟机环境的配置上不划算。我们应该聚焦实验，所以选择更方便更简单的VMware。
-  
+
 　　点击菜单栏-》编辑-》编辑虚拟网络，将下面的子网IP修改成192.168.0.0，子网掩码设置成255.255.255.0，找到VMnet8 NAT，编辑它，将网关修改成192.168.0.2，保存即可。
 
 　　为方便操作经常需要在虚拟机和主机之间复制内容，所以需要安装Wmvare Tools。点击顶部菜单栏的虚拟机，选择重新安装VMware Tools，将打开的VMware文件复制到桌面上并解压，然后打开终端，使用命令进行安装：
@@ -142,7 +144,7 @@ sudo netwox 105 --hostname "www.example.com" --hostnameip 192.168.0.200 --authns
 ![11-3](http://ohe7ixo05.bkt.clouddn.com/2018/1/11-3.png)
 
 　　同时，在客户机也可以看到查到的地址已经变成了攻击者的IP地址，证明攻击成功。如下图：
-  
+
 ![11-4](http://ohe7ixo05.bkt.clouddn.com/2018/1/11-4.png)
 
 　　查看wireshark的抓包信息，可以看到我们通过生成的欺骗DNS响应的内容如下，完全符合要求，所以会被DNS请求者接收，从而实现DNS欺骗。
@@ -182,7 +184,7 @@ $ nslookup www.fanzhenyu.me
 ![11-8](http://ohe7ixo05.bkt.clouddn.com/2018/1/11-8.png)
 
 　　同时，可以使用如下命令转储和查看DNS服务器的缓存，
-  
+
 ```
 $ sudo rndc dumpdb -cache 
 $ sudo cat /var/cache/bind/dump.db

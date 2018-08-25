@@ -3,7 +3,9 @@ title: Python正则表达式函数
 tags:
   - Python
   - 正则表达式
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 53852
 date: 2017-01-21 10:56:33
 ---

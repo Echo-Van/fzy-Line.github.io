@@ -4,7 +4,9 @@ tags:
   - Python
   - Flask
   - Web
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 13048
 date: 2016-10-08 20:45:13
 ---
@@ -151,7 +153,7 @@ app.run(debug=True)
 ##### 路由配置
 
 route() 装饰器把一个函数绑定到对应的 URL 上。
- 
+
  ```
 @app.route('/')
 def index():
@@ -162,10 +164,10 @@ def index():
 def hello():
     return 'Hello World'
 #通过http://127.0.0.1:5000/hello访问
-```
+ ```
 
 可以给 URL 添加变量部分，你可以把这些特殊的字段标记为 <variable_name> ， 这个部分将会作为命名参数传递到你的函数。规则可以用 <converter:variable_name> 指定一个可选的转换器。
- 
+
 ```
 @app.route('/user/<username>')
 def show_user_profile(username):
@@ -194,4 +196,3 @@ def login():
 关于HTTP协议的相关方法请参考博主博客：[Android网络编程：HTTP协议](http://www.line-coding.tech/index.php/2016/08/22/android-http-2/)
 
 通过以上的学习对于Flask框架应该有了一个基本的认识，后续的博文中还将继续深入学习，敬请关注。
-

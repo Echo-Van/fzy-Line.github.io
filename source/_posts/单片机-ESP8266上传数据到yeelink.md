@@ -1,7 +1,9 @@
 ---
 title: 单片机+ESP8266上传数据到yeelink
 tags: '［单片机,yeelink］'
-categories: 单片机
+categories: 
+  - IoT
+  - Embedded system
 abbrlink: 1148
 date: 2016-06-29 20:56:50
 ---

@@ -3,7 +3,9 @@ title: Python Numpy学习笔记（二）
 tags:
   - Python
   - Numpy
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 46428
 date: 2017-04-28 12:53:08
 ---

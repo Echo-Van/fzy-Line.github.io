@@ -3,7 +3,9 @@ title: Python文件操作
 tags:
   - Python
   - 文件
-categories: Python
+categories: 
+  - Programming language
+  - Python
 abbrlink: 61284
 date: 2016-08-03 10:26:21
 ---
@@ -68,7 +70,7 @@ f.close()
 ```
 
     成功写入之后，txt文件内容为以下两行：
-
+    
     Beautiful is better than ugly.
     Explicit is better than implicit.
 
@@ -85,12 +87,12 @@ f.flush()
 f.close()
 ```
     成功写入之后，txt文件内容为以下四行：
-
+    
     Beautiful is better than ugly.
     Explicit is better than implicit.
     Simple is better than complex.
     Complex is better than complicated.
-    
+
 ##### 读取数据
 
 （1）以字符串形式读取
@@ -101,7 +103,7 @@ print f.read()  #读取整个文件
 f.close()
 ```
     运行结果如下：
-
+    
     Beauti
     ful is better than ugly.
     Explicit is better than implicit.
@@ -128,7 +130,7 @@ f.close()
 
     readlines()函数，读取一个文件的所有行，并将其作为列表返回，运行结果如下：
     ['Beautiful is better than ugly.\n', 'Explicit is better than implicit.\n', 'Simple is better than complex.\n', 'Complex is better than complicated.\n']
-    
+
 #### 对文件内容进行迭代
 
 ##### 按字节处理
@@ -170,7 +172,7 @@ for line in fileinput.input(filename):
     print line.strip()  #打印读取到的行，并去除空行
 ```
     程序运行结果同2
-    
+
 ##### 文件迭代器
 
 ```
@@ -181,7 +183,7 @@ for line in f:
 f.close()
 ```
     程序运行结果同2
-    
+
 #### 关闭文件
 
 写入过的文件总应该关闭，因为Python可能会缓存写入的数据，如果程序奔溃了，那么数据就不会被写入到文件，为了安全起见，在使用完文件后要进行关闭操作。
@@ -229,4 +231,4 @@ finally:
     ['20160002', 'lyj', '21']
     ['20160003', 'ljj', '20']
     ['20160004', 'cyx', '24']
-    
+

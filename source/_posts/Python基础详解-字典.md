@@ -3,7 +3,9 @@ title: Python基础详解-字典
 tags:
   - Python
   - 字典
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 27689
 date: 2017-01-13 22:31:26
 ---

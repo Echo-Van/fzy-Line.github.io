@@ -5,7 +5,9 @@ tags:
   - 爬虫
   - 正则表达式
   - Http
-categories: Python
+categories:
+  - Programming language
+  - Python
 abbrlink: 12835
 date: 2016-07-03 20:14:28
 ---
