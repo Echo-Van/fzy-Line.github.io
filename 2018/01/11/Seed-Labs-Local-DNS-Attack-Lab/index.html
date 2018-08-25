@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/1/11-7.png">
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/1/11-8.png">
 <meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/1/11-9.png">
-<meta property="og:updated_time" content="2018-02-21T19:34:50.000Z">
+<meta property="og:updated_time" content="2018-08-25T07:24:57.296Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Seed Labs: Local DNS Attack Lab">
 <meta name="twitter:description" content="网络与计算机安全课程的实验，使用的是美国雪城大学的开放实验平台：Seed Project。">
@@ -372,7 +372,18 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Network-security/" itemprop="url" rel="index">
+                  <a href="/categories/Network/" itemprop="url" rel="index">
+                    <span itemprop="name">Network</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Network/Network-security/" itemprop="url" rel="index">
                     <span itemprop="name">Network security</span>
                   </a>
                 </span>
@@ -413,8 +424,8 @@
       
         <p>　　网络与计算机安全课程的实验，使用的是美国雪城大学的开放实验平台：Seed Project。</p>
 <a id="more"></a>
-<h4 id="实验原理与目的"><a href="#实验原理与目的" class="headerlink" title="实验原理与目的"></a>实验原理与目的</h4><p>　　<br>　　DNS（域名系统）是因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便地访问互联网，而不用去记住能够被机器直接读取的IP数串。本次实验涉及三种DNS攻击类型，分别是（1）修改用户机器中的hosts文件，从而实现DNS攻击（2）DNS欺骗，攻击者冒充域名服务器向发送DNS查询的机器发送欺骗DNS响应。（3）缓存污染，利用控制DNS缓存服务器，把原本准备访问某网站的用户在不知不觉中带到黑客指向的其他网站上。实验目的是了解上述3种DNS攻击的原理，以及DNS攻击是如何实现的，然后学会防范这样的攻击。</p>
-<h4 id="实验配置"><a href="#实验配置" class="headerlink" title="实验配置"></a>实验配置</h4><p>　　<br>　　按照实验指导手册，从SeedProject的网站上下载Ubuntu12.04的镜像，它已经帮我们装好了实验必须的环境以及一些需要用到的软件。该系统默认的用户名是seed，密码是dees。</p>
+<h4 id="实验原理与目的"><a href="#实验原理与目的" class="headerlink" title="实验原理与目的"></a>实验原理与目的</h4><p>　　DNS（域名系统）是因特网上作为域名和IP地址相互映射的一个分布式数据库，能够使用户更方便地访问互联网，而不用去记住能够被机器直接读取的IP数串。本次实验涉及三种DNS攻击类型，分别是（1）修改用户机器中的hosts文件，从而实现DNS攻击（2）DNS欺骗，攻击者冒充域名服务器向发送DNS查询的机器发送欺骗DNS响应。（3）缓存污染，利用控制DNS缓存服务器，把原本准备访问某网站的用户在不知不觉中带到黑客指向的其他网站上。实验目的是了解上述3种DNS攻击的原理，以及DNS攻击是如何实现的，然后学会防范这样的攻击。</p>
+<h4 id="实验配置"><a href="#实验配置" class="headerlink" title="实验配置"></a>实验配置</h4><p>　　按照实验指导手册，从SeedProject的网站上下载Ubuntu12.04的镜像，它已经帮我们装好了实验必须的环境以及一些需要用到的软件。该系统默认的用户名是seed，密码是dees。</p>
 <p>　　实验资料下载地址：<br>　　<a href="http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Networking/DNS_Local/" target="_blank" rel="external">http://www.cis.syr.edu/~wedu/seed/Labs_12.04/Networking/DNS_Local/</a></p>
 <p>　　然后，配置3台虚拟机，1台作为DNS服务器，1台作为用户机，另1台作为攻击者，3台机器通过设置NAT网络来实现网络互访。一般情况下，可直接复制虚拟机镜像生成三台虚拟机，不过有可能会出错。另外，3台虚拟机同时打开需要较大的内存，主机内存4G的会很卡，8G的完全没问题。实验示意图如下：</p>
 <p><img src="http://ohe7ixo05.bkt.clouddn.com/2018/1/11-0.png" alt="11-0"></p>
@@ -675,7 +686,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">141</span>
+                <span class="site-state-item-count">131</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -686,7 +697,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -697,7 +708,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">103</span>
+                <span class="site-state-item-count">92</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
