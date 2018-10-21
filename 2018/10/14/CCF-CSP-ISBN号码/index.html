@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="CCF-CSP 201312-2 ISBN号码 题解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-14T08:45:43.784Z">
+<meta property="og:updated_time" content="2018-10-21T08:44:54.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CCF-CSP ISBN号码">
 <meta name="twitter:description" content="CCF-CSP 201312-2 ISBN号码 题解">
@@ -490,7 +490,7 @@
 <p>　　参数说明：<code>sequence</code> – 要连接的元素序列。<code>sequence</code> 中的元素必须是字符或字符串，否则会报错。</p>
 <p>　　返回值：返回通过指定字符连接序列中元素后生成的新字符串。</p>
 <p>　　使用示例：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">"-"</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]	<span class="comment">#连接的序列是列表</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'a-b-c-d'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = (<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>)	<span class="comment">#连接的序列是元组</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'e-f-g-h'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="string">"ijkl"</span>	<span class="comment">#连接的序列是字符串</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'i-j-k-l'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = &#123;<span class="string">"m"</span>:<span class="number">1</span>, <span class="string">"n"</span>:<span class="number">2</span>, <span class="string">"o"</span>:<span class="number">3</span>, <span class="string">"p"</span>:<span class="number">4</span>&#125;	<span class="comment">#连接的序列是字典，会将所有key连接起来</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'m-n-o-p'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">"---"</span>	<span class="comment">#使用多字符连接序列</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="string">"abcd"</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'a---b---c---d'</span></div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">"-"</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>]	<span class="comment">#连接的序列是列表</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'a-b-c-d'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = (<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>)	<span class="comment">#连接的序列是元组</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'a-b-c-d'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="string">"ijkl"</span>	<span class="comment">#连接的序列是字符串</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'i-j-k-l'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = &#123;<span class="string">"m"</span>:<span class="number">1</span>, <span class="string">"n"</span>:<span class="number">2</span>, <span class="string">"o"</span>:<span class="number">3</span>, <span class="string">"p"</span>:<span class="number">4</span>&#125;	<span class="comment">#连接的序列是字典，会将所有key连接起来</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'m-n-o-p'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1 = <span class="string">"---"</span>	<span class="comment">#使用多字符连接序列</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>seq = <span class="string">"abcd"</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>s1.join(seq)</div><div class="line"><span class="string">'a---b---c---d'</span></div></pre></td></tr></table></figure>
 <ul>
 <li><strong>format() 方法</strong></li>
 </ul>
@@ -561,8 +561,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/28/CCF-CSP-题解博客汇总/" rel="next" title="CCF-CSP 题解博客汇总">
-                <i class="fa fa-chevron-left"></i> CCF-CSP 题解博客汇总
+              <a href="/2018/09/27/CCF-CSP-最小差值与跳一跳/" rel="next" title="CCF-CSP 最小差值与跳一跳">
+                <i class="fa fa-chevron-left"></i> CCF-CSP 最小差值与跳一跳
               </a>
             
           </div>
@@ -570,6 +570,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/20/CCF-CSP-题解博客汇总/" rel="prev" title="CCF-CSP 题解博客汇总">
+                CCF-CSP 题解博客汇总 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -668,7 +672,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">156</span>
+                <span class="site-state-item-count">157</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
