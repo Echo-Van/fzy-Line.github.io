@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="［树莓派,DS18B20,yeelink］," />
+  <meta name="keywords" content="Raspberry Pi,DS18B20,yeelink," />
 
 
 
@@ -90,23 +90,23 @@
 
 
 
-<meta name="description" content="本博文参考了网络上多篇树莓派操作DS18B20的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动DS18B20获取温度数据，并通过python读取温度值，上传到yeelink物联网云平台。">
-<meta name="keywords" content="［树莓派,DS18B20,yeelink］">
+<meta name="description" content="本博文参考了网络上多篇树莓派操作 DS18B20 的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动 DS18B20 获取温度数据，并通过 python 读取温度值，上传到 yeelink 物联网云平台。">
+<meta name="keywords" content="Raspberry Pi,DS18B20,yeelink">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树莓派+DS18B20温度传感器+yeelink物联网云">
 <meta property="og:url" content="https://fzy-line.github.io/2016/05/30/树莓派-DS18B20温度传感器-yeelink物联网云/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="本博文参考了网络上多篇树莓派操作DS18B20的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动DS18B20获取温度数据，并通过python读取温度值，上传到yeelink物联网云平台。">
+<meta property="og:description" content="本博文参考了网络上多篇树莓派操作 DS18B20 的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动 DS18B20 获取温度数据，并通过 python 读取温度值，上传到 yeelink 物联网云平台。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-1.jpg">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-2.jpg">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-3.jpg">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-4.jpg">
-<meta property="og:updated_time" content="2018-02-21T19:34:50.000Z">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-1.jpg">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-2.jpg">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-3.jpg">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-4.jpg">
+<meta property="og:updated_time" content="2018-11-21T13:18:44.597Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派+DS18B20温度传感器+yeelink物联网云">
-<meta name="twitter:description" content="本博文参考了网络上多篇树莓派操作DS18B20的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动DS18B20获取温度数据，并通过python读取温度值，上传到yeelink物联网云平台。">
-<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-1.jpg">
+<meta name="twitter:description" content="本博文参考了网络上多篇树莓派操作 DS18B20 的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动 DS18B20 获取温度数据，并通过 python 读取温度值，上传到 yeelink 物联网云平台。">
+<meta name="twitter:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-1.jpg">
 
 
 
@@ -405,44 +405,43 @@
       
 
       
-        <p>　　本博文参考了网络上多篇树莓派操作DS18B20的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动DS18B20获取温度数据，并通过python读取温度值，上传到yeelink物联网云平台。</p>
+        <p>　　本博文参考了网络上多篇树莓派操作 DS18B20 的博文，经过博主亲自实践，列出了详细的步骤，通过树莓派的单总线驱动来驱动 DS18B20 获取温度数据，并通过 python 读取温度值，上传到 yeelink 物联网云平台。</p>
 <a id="more"></a>
-<h4 id="配置准备"><a href="#配置准备" class="headerlink" title="配置准备"></a>配置准备</h4><h5 id="电路连接"><a href="#电路连接" class="headerlink" title="电路连接"></a>电路连接</h5><p>DS18B20有三个引脚：VCC，DQ，GND</p>
-<p>其中VCC和DQ之间需接一个4K7的电阻，VCC接树莓派的3V3（pin1），DQ接GPIO4（pin7）,GND接GND（pin6）</p>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-1.jpg" alt="30-1"></p>
-<h5 id="升级内核"><a href="#升级内核" class="headerlink" title="升级内核"></a>升级内核</h5><p>首先升级内核(如果系统版本较新，可跳过这一步)<br>（升级内核可能需要很长的时间）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div><div class="line">sudo apt-get upgrade</div></pre></td></tr></table></figure></p>
-<h5 id="加载单总线驱动"><a href="#加载单总线驱动" class="headerlink" title="加载单总线驱动"></a>加载单总线驱动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo modprobe w1-gpio</div><div class="line">sudo modprobe w1-therm</div></pre></td></tr></table></figure>
-<p><strong>注意：</strong></p>
-<p>系统升级后，有可能gpio读不了w1</p>
+<h4 id="配置准备"><a href="#配置准备" class="headerlink" title="配置准备"></a>配置准备</h4><h5 id="电路连接"><a href="#电路连接" class="headerlink" title="电路连接"></a>电路连接</h5><p>　　DS18B20 有三个引脚：VCC，DQ，GND。其中 VCC 和 DQ 之间需接一个4K7的电阻，VCC 接树莓派的3V3（pin1），DQ 接 GPIO4（pin7）,GND 接 GND（pin6）</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-1.jpg" alt="30-1"></p>
+<h5 id="升级内核"><a href="#升级内核" class="headerlink" title="升级内核"></a>升级内核</h5><p>　　首先升级内核（如果系统版本较新，可跳过这一步。升级内核可能需要很长的时间）。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get update</div><div class="line"><span class="meta">$</span> sudo apt-get upgrade</div></pre></td></tr></table></figure></p>
+<h5 id="加载单总线驱动"><a href="#加载单总线驱动" class="headerlink" title="加载单总线驱动"></a>加载单总线驱动</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo modprobe w1-gpio</div><div class="line"><span class="meta">$</span> sudo modprobe w1-therm</div></pre></td></tr></table></figure>
+<p>　　<strong>注意：系统升级后，有可能gpio读不了w1</strong></p>
 <p><strong>解决办法：</strong></p>
-<p>打开/boot/config.txt 在最后一行手动添加这一行：<br>dtoverlay=w1-gpio-pullup,gpiopin=4</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /boot</div><div class="line">sudo nano config.txt</div></pre></td></tr></table></figure>
-<p>然后保存退出，重启树莓派，再把DS18B20接上，再次加载驱动即可</p>
-<h5 id="查看设备是否工作"><a href="#查看设备是否工作" class="headerlink" title="查看设备是否工作"></a>查看设备是否工作</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd /sys/bus/w1/devices/</div><div class="line">ls</div></pre></td></tr></table></figure>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-2.jpg" alt="30-2"></p>
-<p>28-0000075a0d1c即为我使用的DS18B20的设备号</p>
-<h5 id="查看当前温度值"><a href="#查看当前温度值" class="headerlink" title="查看当前温度值"></a>查看当前温度值</h5><p>进入到我的DSI8B20，使用命令查看数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd 28-0000075a0d1c</div><div class="line">cat w1_slave</div></pre></td></tr></table></figure>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-3.jpg" alt="30-3"></p>
-<p>第二行的t=18437就是当前的温度值，要换算成摄氏度，除以1000，即当前温度为18437/1000=18.437摄氏度。</p>
-<h4 id="python读取温度值"><a href="#python读取温度值" class="headerlink" title="python读取温度值"></a>python读取温度值</h4><h5 id="新建文件"><a href="#新建文件" class="headerlink" title="新建文件"></a>新建文件</h5><p>在/home/pi/目录下新建文件夹mytest，并在mytest下新建temp.py</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir mytest</div><div class="line">cd mytest</div><div class="line">touch temp.py</div></pre></td></tr></table></figure>
-<h5 id="编辑temp-py"><a href="#编辑temp-py" class="headerlink" title="编辑temp.py"></a>编辑temp.py</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nano temp.py</div></pre></td></tr></table></figure>
-<h5 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">#-*-coding:utf8-*-</div><div class="line">#打开你的DS18B20的数据文件</div><div class="line">tfile = open(&quot;/sys/bus/w1/devices/28-0000075a0d1c/w1_slave&quot;)</div><div class="line"></div><div class="line">#读取文件所有内容</div><div class="line">text = tfile.read()</div><div class="line"></div><div class="line">#关闭文件</div><div class="line">tfile.close()</div><div class="line"></div><div class="line">#用换行符分割字符串成数组，并取第二行</div><div class="line">secondline = text.split(&quot;\n&quot;)[1]</div><div class="line"></div><div class="line">#用空格分割字符串成数组，并取最后一个，即t=18437</div><div class="line">temperaturedata = secondline.split(&quot; &quot;)[9]</div><div class="line"></div><div class="line">#取t=后面的数值，并转换为浮点型</div><div class="line">temperature = float(temperaturedata[2:])</div><div class="line"></div><div class="line">#转换单位为摄氏度</div><div class="line">temperature = temperature / 1000</div><div class="line"></div><div class="line">#打印值</div><div class="line">print temperature</div></pre></td></tr></table></figure>
-<h5 id="执行python脚本读取温度"><a href="#执行python脚本读取温度" class="headerlink" title="执行python脚本读取温度"></a>执行python脚本读取温度</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">python temp.py</div></pre></td></tr></table></figure>
-<h4 id="上传数据到yeelink云端"><a href="#上传数据到yeelink云端" class="headerlink" title="上传数据到yeelink云端"></a>上传数据到yeelink云端</h4><p>yeelink是一个开源的硬件数据平台，我喜欢把它定义为一个物联网云平台，因为它给我们提供了API接口，我们可以把数据发送到云平台保存起来，也可以随时查看，真的很棒。具体的操作可以查看博主的博客：《 树莓派+USB摄像头+yeelink实现云监控》。</p>
-<h5 id="修改python代码"><a href="#修改python代码" class="headerlink" title="修改python代码"></a>修改python代码</h5><p>将温度值用JSON格式保存到一个文本文件（/home/pi/mytest/temper_data.txt），在转换单位为摄氏度后添加如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#数据转换成JSON格式</div><div class="line">res = &apos;&#123;&quot;value&quot;:%f&#125;&apos; %temperature</div><div class="line"></div><div class="line">#打开文件</div><div class="line">output = open(&apos;/home/pi/mytest/temper_data.txt&apos;, &apos;w&apos;)</div><div class="line"></div><div class="line">#写数据到文本文件中</div><div class="line">output.write(res)</div><div class="line"></div><div class="line">#关闭文件</div><div class="line">output.close</div></pre></td></tr></table></figure>
-<h5 id="新增yeelink-sh脚本"><a href="#新增yeelink-sh脚本" class="headerlink" title="新增yeelink.sh脚本"></a>新增yeelink.sh脚本</h5><p>在/home/pi/mytest/目录下新建yeelink.sh</p>
-<p>写入如下内容：</p>
+<p>　　打开 /boot/config.txt ：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd /boot</div><div class="line"><span class="meta">$</span> sudo nano config.txt</div></pre></td></tr></table></figure>
+<p>　　在最后一行手动添加这一行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dtoverlay=w1-gpio-pullup,gpiopin=4</div></pre></td></tr></table></figure>
+<p>　　然后保存退出，重启树莓派，再把 DS18B20 接上，再次加载驱动即可。</p>
+<h5 id="查看设备是否工作"><a href="#查看设备是否工作" class="headerlink" title="查看设备是否工作"></a>查看设备是否工作</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd /sys/bus/w1/devices/</div><div class="line"><span class="meta">$</span> ls</div></pre></td></tr></table></figure>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-2.jpg" alt="30-2"></p>
+<p>　　28-0000075a0d1c 即为我使用的 DS18B20 的设备号</p>
+<h5 id="查看当前温度值"><a href="#查看当前温度值" class="headerlink" title="查看当前温度值"></a>查看当前温度值</h5><p>　　进入到我的 DSI8B20，使用命令查看数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd 28-0000075a0d1c</div><div class="line"><span class="meta">$</span> cat w1_slave</div></pre></td></tr></table></figure>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-3.jpg" alt="30-3"></p>
+<p>　　第二行的 t=18437 就是当前的温度值，要换算成摄氏度，除以1000，即当前温度为 18437/1000=18.437 摄氏度。</p>
+<h4 id="python读取温度值"><a href="#python读取温度值" class="headerlink" title="python读取温度值"></a>python读取温度值</h4><h5 id="新建文件"><a href="#新建文件" class="headerlink" title="新建文件"></a>新建文件</h5><p>　　在 /home/pi/ 目录下新建文件夹 mytest，并在 mytest 下新建 temp.py</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> mkdir mytest</div><div class="line"><span class="meta">$</span> cd mytest</div><div class="line"><span class="meta">$</span> touch temp.py</div></pre></td></tr></table></figure>
+<h5 id="编辑temp-py"><a href="#编辑temp-py" class="headerlink" title="编辑temp.py"></a>编辑temp.py</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> nano temp.py</div></pre></td></tr></table></figure>
+<h5 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*-coding:utf8-*-</span></div><div class="line"><span class="comment">#打开你的DS18B20的数据文件</span></div><div class="line">tfile = open(<span class="string">"/sys/bus/w1/devices/28-0000075a0d1c/w1_slave"</span>)</div><div class="line"></div><div class="line"><span class="comment">#读取文件所有内容</span></div><div class="line">text = tfile.read()</div><div class="line"></div><div class="line"><span class="comment">#关闭文件</span></div><div class="line">tfile.close()</div><div class="line"></div><div class="line"><span class="comment">#用换行符分割字符串成数组，并取第二行</span></div><div class="line">secondline = text.split(<span class="string">"\n"</span>)[<span class="number">1</span>]</div><div class="line"></div><div class="line"><span class="comment">#用空格分割字符串成数组，并取最后一个，即t=18437</span></div><div class="line">temperaturedata = secondline.split(<span class="string">" "</span>)[<span class="number">9</span>]</div><div class="line"></div><div class="line"><span class="comment">#取t=后面的数值，并转换为浮点型</span></div><div class="line">temperature = float(temperaturedata[<span class="number">2</span>:])</div><div class="line"></div><div class="line"><span class="comment">#转换单位为摄氏度</span></div><div class="line">temperature = temperature / <span class="number">1000</span></div><div class="line"></div><div class="line"><span class="comment">#打印值</span></div><div class="line"><span class="keyword">print</span> temperature</div></pre></td></tr></table></figure>
+<h5 id="执行python脚本读取温度"><a href="#执行python脚本读取温度" class="headerlink" title="执行python脚本读取温度"></a>执行python脚本读取温度</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> python temp.py</div></pre></td></tr></table></figure>
+<h4 id="上传数据到yeelink云端"><a href="#上传数据到yeelink云端" class="headerlink" title="上传数据到yeelink云端"></a>上传数据到yeelink云端</h4><p>　　yeelink 是一个开源的硬件数据平台，我喜欢把它定义为一个物联网云平台，因为它给我们提供了 API 接口，我们可以把数据发送到云平台保存起来，也可以随时查看，真的很棒。具体的操作可以查看博主的博客：<a href="http://fanzhenyu.me/2016/06/10/%E6%A0%91%E8%8E%93%E6%B4%BE-USB%E6%91%84%E5%83%8F%E5%A4%B4-yeelink%E5%AE%9E%E7%8E%B0%E4%BA%91%E7%9B%91%E6%8E%A7/" target="_blank" rel="external">树莓派+USB摄像头+yeelink实现云监控</a>。</p>
+<h5 id="修改python代码"><a href="#修改python代码" class="headerlink" title="修改python代码"></a>修改python代码</h5><p>　　将温度值用 JSON 格式保存到一个文本文件（/home/pi/mytest/temper_data.txt），在转换单位为摄氏度后添加如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#数据转换成JSON格式</span></div><div class="line">res = <span class="string">'&#123;"value":%f&#125;'</span> %temperature</div><div class="line"></div><div class="line"><span class="comment">#打开文件</span></div><div class="line">output = open(<span class="string">'/home/pi/mytest/temper_data.txt'</span>, <span class="string">'w'</span>)</div><div class="line"></div><div class="line"><span class="comment">#写数据到文本文件中</span></div><div class="line">output.write(res)</div><div class="line"></div><div class="line"><span class="comment">#关闭文件</span></div><div class="line">output.close</div></pre></td></tr></table></figure>
+<h5 id="新增yeelink-sh脚本"><a href="#新增yeelink-sh脚本" class="headerlink" title="新增yeelink.sh脚本"></a>新增yeelink.sh脚本</h5><p>　　在 /home/pi/mytest/ 目录下新建 yeelink.sh，写入如下内容：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">sudo python /home/pi/mytest/temp.py</div><div class="line">curl --request POST --data-binary @&quot;/home/pi/mytest/temper_data.txt&quot; --header &quot;U-ApiKey:XXXXXXXXXXXXXXXX&quot; http://api.yeelink.net/v1.0/device/设备号/sensor/传感器号/datapoints</div></pre></td></tr></table></figure>
-<p>将XXXXXXXXXXXXXXXX替换为自已账户的API Key，后面的URL也需要替换为自己申请的传感器URL。</p>
-<h5 id="为脚本增加可执行权限"><a href="#为脚本增加可执行权限" class="headerlink" title="为脚本增加可执行权限"></a>为脚本增加可执行权限</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod +x yeelink.sh</div></pre></td></tr></table></figure>
-<h5 id="将脚本加入cronjob定时任务"><a href="#将脚本加入cronjob定时任务" class="headerlink" title="将脚本加入cronjob定时任务"></a>将脚本加入cronjob定时任务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo crontab -e</div></pre></td></tr></table></figure>
-<h5 id="让脚本自动运行"><a href="#让脚本自动运行" class="headerlink" title="让脚本自动运行"></a>让脚本自动运行</h5><p>加入下面一行, 让脚本每1分钟运行一次，即每1分钟上传一次温度数据，然后保存退出</p>
+<p>　　将 XXXXXXXXXXXXXXXX 替换为自已账户的 API Key，后面的 URL 也需要替换为自己申请的传感器 URL。</p>
+<h5 id="为脚本增加可执行权限"><a href="#为脚本增加可执行权限" class="headerlink" title="为脚本增加可执行权限"></a>为脚本增加可执行权限</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">＄ sudo chmod +x yeelink.sh</div></pre></td></tr></table></figure>
+<h5 id="将脚本加入cronjob定时任务"><a href="#将脚本加入cronjob定时任务" class="headerlink" title="将脚本加入cronjob定时任务"></a>将脚本加入cronjob定时任务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">＄ sudo crontab -e</div></pre></td></tr></table></figure>
+<h5 id="让脚本自动运行"><a href="#让脚本自动运行" class="headerlink" title="让脚本自动运行"></a>让脚本自动运行</h5><p>　　加入下面一行, 让脚本每1分钟运行一次，即每1分钟上传一次温度数据，然后保存退出</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">*/1 * * * * /home/pi/mytest/yeelink.sh</div></pre></td></tr></table></figure>
-<p>实验效果：</p>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/5/30-4.jpg" alt="30-4"></p>
+<p>　　实验效果：</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/5/30-4.jpg" alt="30-4"></p>
 
       
     </div>
@@ -493,7 +492,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/［树莓派-DS18B20-yeelink］/" rel="tag"># ［树莓派,DS18B20,yeelink］</a>
+            <a href="/tags/Raspberry-Pi/" rel="tag"># Raspberry Pi</a>
+          
+            <a href="/tags/DS18B20/" rel="tag"># DS18B20</a>
+          
+            <a href="/tags/yeelink/" rel="tag"># yeelink</a>
           
         </div>
       
@@ -617,7 +620,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">161</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -628,7 +631,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -639,7 +642,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

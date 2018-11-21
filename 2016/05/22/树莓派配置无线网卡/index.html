@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="［树莓派,无线］," />
+  <meta name="keywords" content="Raspberry Pi,无线网卡," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="查看无线网卡状态把无线网卡插到树莓派上，输入命令ifconfig 查看是否有wlan0的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到wlan0的信息，则需要根据无线网卡型号安装驱动。">
-<meta name="keywords" content="［树莓派,无线］">
+<meta name="description" content="查看无线网卡状态　　把无线网卡插到树莓派上，输入命令 ifconfig 查看是否有 wlan0 的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到 wlan0 的信息，则需要根据无线网卡型号安装驱动。">
+<meta name="keywords" content="Raspberry Pi,无线网卡">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树莓派配置无线网卡">
 <meta property="og:url" content="https://fzy-line.github.io/2016/05/22/树莓派配置无线网卡/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="查看无线网卡状态把无线网卡插到树莓派上，输入命令ifconfig 查看是否有wlan0的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到wlan0的信息，则需要根据无线网卡型号安装驱动。">
+<meta property="og:description" content="查看无线网卡状态　　把无线网卡插到树莓派上，输入命令 ifconfig 查看是否有 wlan0 的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到 wlan0 的信息，则需要根据无线网卡型号安装驱动。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-21T19:34:50.000Z">
+<meta property="og:updated_time" content="2018-11-21T13:20:57.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派配置无线网卡">
-<meta name="twitter:description" content="查看无线网卡状态把无线网卡插到树莓派上，输入命令ifconfig 查看是否有wlan0的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到wlan0的信息，则需要根据无线网卡型号安装驱动。">
+<meta name="twitter:description" content="查看无线网卡状态　　把无线网卡插到树莓派上，输入命令 ifconfig 查看是否有 wlan0 的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到 wlan0 的信息，则需要根据无线网卡型号安装驱动。">
 
 
 
@@ -400,15 +400,16 @@
       
 
       
-        <h4 id="查看无线网卡状态"><a href="#查看无线网卡状态" class="headerlink" title="查看无线网卡状态"></a>查看无线网卡状态</h4><p>把无线网卡插到树莓派上，输入命令ifconfig 查看是否有wlan0的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到wlan0的信息，则需要根据无线网卡型号安装驱动。</p>
+        <h4 id="查看无线网卡状态"><a href="#查看无线网卡状态" class="headerlink" title="查看无线网卡状态"></a>查看无线网卡状态</h4><p>　　把无线网卡插到树莓派上，输入命令 ifconfig 查看是否有 wlan0 的信息，如果有说明网卡状态正常，可以直接进行第二步，直接配置无线网络。如果看不到 wlan0 的信息，则需要根据无线网卡型号安装驱动。</p>
 <a id="more"></a>
-<h4 id="修改interfaces文件"><a href="#修改interfaces文件" class="headerlink" title="修改interfaces文件"></a>修改interfaces文件</h4><p>（1）用编辑器nano打开interfaces文件<br>输入命令：sudo nano /etc/network/interfaces</p>
+<h4 id="修改interfaces文件"><a href="#修改interfaces文件" class="headerlink" title="修改interfaces文件"></a>修改interfaces文件</h4><p>（1）用编辑器 nano 打开 interfaces 文件。输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo nano /etc/network/interfaces</div></pre></td></tr></table></figure>
 <p>（2）把该文件内容修改成如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">auto lo       </div><div class="line">iface lo inet loopback</div><div class="line">iface eth0 inet dhcp    #采用dhcp方式获取IP</div><div class="line"></div><div class="line">auto wlan0      #如果有wlan，无线网卡，则默认启动无线网卡连接</div><div class="line">allow-hotplug wlan0        #表示wlan设备可以热插拨</div><div class="line">iface wlan0 inet dhcp      #无线网卡连接也采用DHCP方式获取IP地址</div><div class="line">wpa-ssid &quot;你的wifi名字&quot;     #ssid名</div><div class="line">wpa-psk &quot;wifi密码&quot;         #wifi使用wpa-psk认证方式，认证密码</div><div class="line">iface default inet dhcp</div></pre></td></tr></table></figure>
 <p>（3）保存，退出</p>
-<h4 id="启用无线网"><a href="#启用无线网" class="headerlink" title="启用无线网"></a>启用无线网</h4><p>（1）用 ifconfig 命令可以看到 wlan0 设备，且有了IP地址(即表示已连接)。</p>
-<p>（2）如果没有IP地址，则依次输入命令：sudo ifdown wlan0和sudo ifup wlan0来启用wlan0</p>
-<p>（3）如果还不行，执行命令sudo reboot重启即可连上无线网络</p>
+<h4 id="启用无线网"><a href="#启用无线网" class="headerlink" title="启用无线网"></a>启用无线网</h4><p>（1）用 <code>ifconfig</code> 命令可以看到 wlan0 设备，且有了IP地址(即表示已连接)。</p>
+<p>（2）如果没有 IP 地址，则依次输入命令：<code>sudo ifdown wlan0</code> 和 <code>sudo ifup wlan0</code> 来启用 wlan0</p>
+<p>（3）如果还不行，执行命令 <code>sudo reboot</code> 重启即可连上无线网络</p>
 
       
     </div>
@@ -459,7 +460,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/［树莓派-无线］/" rel="tag"># ［树莓派,无线］</a>
+            <a href="/tags/Raspberry-Pi/" rel="tag"># Raspberry Pi</a>
+          
+            <a href="/tags/无线网卡/" rel="tag"># 无线网卡</a>
           
         </div>
       
@@ -583,7 +586,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">161</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -594,7 +597,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -605,7 +608,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

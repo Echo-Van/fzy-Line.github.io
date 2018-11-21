@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo,Github," />
+  <meta name="keywords" content="Hexo,Github Pages," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="Hexo的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用Hexo期间遇到的一些问题以及解决问题的工具。">
-<meta name="keywords" content="Hexo,Github">
+<meta name="description" content="Hexo 的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用 Hexo 期间遇到的一些问题以及解决问题的工具。">
+<meta name="keywords" content="Hexo,Github Pages">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Github Pages + Hexo搭建博客（四）">
 <meta property="og:url" content="https://fzy-line.github.io/2017/08/10/Github-Pages-Hexo搭建博客（四）/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="Hexo的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用Hexo期间遇到的一些问题以及解决问题的工具。">
+<meta property="og:description" content="Hexo 的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用 Hexo 期间遇到的一些问题以及解决问题的工具。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-21T19:34:50.000Z">
+<meta property="og:updated_time" content="2018-11-21T13:24:44.119Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages + Hexo搭建博客（四）">
-<meta name="twitter:description" content="Hexo的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用Hexo期间遇到的一些问题以及解决问题的工具。">
+<meta name="twitter:description" content="Hexo 的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用 Hexo 期间遇到的一些问题以及解决问题的工具。">
 
 
 
@@ -400,50 +400,50 @@
       
 
       
-        <p>　　Hexo的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用Hexo期间遇到的一些问题以及解决问题的工具。</p>
+        <p>　　Hexo 的前三篇博客已经能够完整地搭建博客，此篇博客主要介绍了自己在使用 Hexo 期间遇到的一些问题以及解决问题的工具。</p>
 <a id="more"></a>
 <h4 id="博客备份工具"><a href="#博客备份工具" class="headerlink" title="博客备份工具"></a>博客备份工具</h4><p>　　一直想着怎么把博客备份一下，以便丢失时或者是换电脑时能够接着写博客，终于找到一个靠谱的插件，直接将文件备份在博客的仓库中的不同分支，十分方便。</p>
 <p>　　项目地址：<a href="https://github.com/coneycode/hexo-git-backup" target="_blank" rel="external">https://github.com/coneycode/hexo-git-backup</a></p>
-<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>　　如果hexo的版本是2.x.x则执行如下命令:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-git-backup@0.0.91 --save</div></pre></td></tr></table></figure>
-<p>　　如果hexo的版本是3.x.x, 则执行:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-git-backup --save</div></pre></td></tr></table></figure>
-<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><p>　　在站点配置文件_config.yml中添加如下信息：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">backup:</div><div class="line">  type: git     # 指定提交类型</div><div class="line">  message: update xxx   # 添加git commit信息</div><div class="line">  repository:   # 指定仓库类型和地址</div><div class="line">    github: git@github.com:xxx/xxx.git,分支名字</div></pre></td></tr></table></figure>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>　　如果 hexo 的版本是 2.x.x 则执行如下命令:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-git-backup@0.0.91 --save</div></pre></td></tr></table></figure>
+<p>　　如果 hexo 的版本是 3.x.x， 则执行:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-git-backup --save</div></pre></td></tr></table></figure>
+<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><p>　　在站点配置文件 _config.yml 中添加如下信息：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">backup:</span></div><div class="line"><span class="attr">  type:</span> <span class="string">git</span>     <span class="comment"># 指定提交类型</span></div><div class="line"><span class="attr">  message:</span> <span class="string">update</span> <span class="string">xxx</span>   <span class="comment"># 添加git commit信息</span></div><div class="line"><span class="attr">  repository:</span>   <span class="comment"># 指定仓库类型和地址</span></div><div class="line"><span class="attr">    github:</span> <span class="string">git@github.com:xxx/xxx.git,分支名字</span></div></pre></td></tr></table></figure>
 <h5 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h5><p>　　使用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo backup</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo backup</div></pre></td></tr></table></figure>
 <p>　　或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo b</div></pre></td></tr></table></figure>
-<p>　　备份成功后，可以在Github上查看我们新建的备份分支。</p>
-<h4 id="使用Latex数学公式"><a href="#使用Latex数学公式" class="headerlink" title="使用Latex数学公式"></a>使用Latex数学公式</h4><p>　　Hexo默认使用”hexo-renderer-marked”引擎渲染网页，该引擎会把一些特殊的markdown符号转换为相应的html标签，比如在markdown语法中，下划线’_’代表斜体，会被渲染引擎处理为<em>标签。</em></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo b</div></pre></td></tr></table></figure>
+<p>　　备份成功后，可以在 Github 上查看我们新建的备份分支。</p>
+<h4 id="使用Latex数学公式"><a href="#使用Latex数学公式" class="headerlink" title="使用Latex数学公式"></a>使用Latex数学公式</h4><p>　　Hexo 默认使用 “hexo-renderer-marked” 引擎渲染网页，该引擎会把一些特殊的 markdown 符号转换为相应的 html 标签，比如在 markdown 语法中，下划线 ‘_’ 代表斜体，会被渲染引擎处理为 <em> 标签。</em></p>
 <p>　　因为类Latex格式书写的数学公式下划线 ‘_’ 表示下标，有特殊的含义，如果被强制转换为<em>标签，那么MathJax引擎在渲染数学公式的时候就会出错。例如，$x_i$在开始被渲染的时候，处理为$x<em>i</em>$，这样MathJax引擎就认为该公式有语法错误，因为不会渲染。</em></p>
 <p>　　类似的语义冲突的符号还包括’*’, ‘{‘, ‘}’, ‘\’等。</p>
 <p>　　进入到主题目录，找到_config.yml配置问题，把mathjax默认的false修改为true，具体如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># MathJax Support</div><div class="line">mathjax:</div><div class="line">  enable: true</div><div class="line">  per_page: true</div></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># MathJax Support</span></div><div class="line"><span class="attr">mathjax:</span></div><div class="line"><span class="attr">  enable:</span> <span class="literal">true</span></div><div class="line"><span class="attr">  per_page:</span> <span class="literal">true</span></div></pre></td></tr></table></figure>
 <p>　　此外，还需要在文章的Front-matter里打开mathjax开关，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: index.html</div><div class="line">date: 2017-03-28 21:01:30</div><div class="line">tags:</div><div class="line">mathjax: true</div><div class="line">--</div></pre></td></tr></table></figure>
-<h4 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h4><p>　　前面说过使用七牛云进行图片存储，其实也可以直接使用我们的Hexo github仓库进行图片存储。</p>
-<p>　　方法一：在hexo/source目录下新建一个img文件夹，将图片放入该文件夹下，插入图片时链接即为/img/图片名称</p>
-<p>　　方法二：直接将图片放在public目录下对应的博客文章的目录下。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![你想输入的替代文字](xxxx/图片名.jpg)</div></pre></td></tr></table></figure>
-<p>　　但是，这样做也存在一定的缺点，因为Github仓库的的大小也是受限的，所以图片太多就比较麻烦了，所以还是建议用图床等其他云存储方式。</p>
-<h4 id="插入音乐"><a href="#插入音乐" class="headerlink" title="插入音乐"></a>插入音乐</h4><p>　　网音乐云音乐，虾米音乐都可以生成内嵌音乐的html代码，在其网页端找到喜欢的歌曲，点击分享按钮，把里面的代码复制下来，直接粘贴到博文中即可:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=330 height=86   </div><div class="line">    src=&quot;http://music.163.com/outchain/player?type=2&amp;id=450853439&amp;auto=1&amp;height=66&quot;&gt;  </div><div class="line">&lt;/iframe&gt;</div></pre></td></tr></table></figure>
-<h4 id="插入视频"><a href="#插入视频" class="headerlink" title="插入视频"></a>插入视频</h4><p>　　将优酷等视频平台提供的视频外链或者自己制作的视频外链替换掉如下src的值即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;iframe   </div><div class="line">    height=498 width=510   </div><div class="line">    src=&quot;http://player.youku.com/embed/XNjcyMDU4Njg0&quot;   </div><div class="line">    frameborder=0 allowfullscreen&gt;  </div><div class="line">&lt;/iframe&gt;</div></pre></td></tr></table></figure>
-<h4 id="百度-google收录你的站点"><a href="#百度-google收录你的站点" class="headerlink" title="百度/google收录你的站点"></a>百度/google收录你的站点</h4><h5 id="安装sitemap插件"><a href="#安装sitemap插件" class="headerlink" title="安装sitemap插件"></a>安装sitemap插件</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install hexo-generator-sitemap --save  # google</div><div class="line">npm install hexo-generator-baidu-sitemap --save  # 百度</div></pre></td></tr></table></figure>
-<p>　　在站点配置文件_config.yml中添加如下代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># 自动生成sitemap</div><div class="line">sitemap:</div><div class="line">  path: sitemap.xml</div><div class="line">baidusitemap:</div><div class="line">  path: baidusitemap.xml</div></pre></td></tr></table></figure>
-<p>　　执行hexo -g后会在public目录下生成baidusitmap.xml 和 sitemap.xml两个文件。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">---</div><div class="line">title: index.html</div><div class="line">date: 2017-03-28 21:01:30</div><div class="line">tags:</div><div class="line"><span class="section">mathjax: true</span></div><div class="line">--</div></pre></td></tr></table></figure>
+<h4 id="插入图片"><a href="#插入图片" class="headerlink" title="插入图片"></a>插入图片</h4><p>　　前面说过使用七牛云进行图片存储，其实也可以直接使用我们的 Hexo github 仓库进行图片存储。</p>
+<p>　　方法一：在 <code>hexo/source</code> 目录下新建一个 <code>img</code> 文件夹，将图片放入该文件夹下，插入图片时链接即为 <code>/img/图片名称</code></p>
+<p>　　方法二：直接将图片放在 public 目录下对应的博客文章的目录下。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">![<span class="string">你想输入的替代文字</span>](<span class="link">xxxx/图片名.jpg</span>)</div></pre></td></tr></table></figure>
+<p>　　但是，这样做也存在一定的缺点，因为 Github 仓库的的大小也是受限的，所以图片太多就比较麻烦了，所以还是建议用图床等其他云存储方式。</p>
+<h4 id="插入音乐"><a href="#插入音乐" class="headerlink" title="插入音乐"></a>插入音乐</h4><p>　　网音乐云音乐，虾米音乐都可以生成内嵌音乐的 html 代码，在其网页端找到喜欢的歌曲，点击分享按钮，把里面的代码复制下来，直接粘贴到博文中即可:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">iframe</span> <span class="attr">frameborder</span>=<span class="string">"no"</span> <span class="attr">border</span>=<span class="string">"0"</span> <span class="attr">marginwidth</span>=<span class="string">"0"</span> <span class="attr">marginheight</span>=<span class="string">"0"</span> <span class="attr">width</span>=<span class="string">330</span> <span class="attr">height</span>=<span class="string">86</span>   </span></div><div class="line">    <span class="attr">src</span>=<span class="string">"http://music.163.com/outchain/player?type=2&amp;id=450853439&amp;auto=1&amp;height=66"</span>&gt;  </div><div class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="插入视频"><a href="#插入视频" class="headerlink" title="插入视频"></a>插入视频</h4><p>　　将优酷等视频平台提供的视频外链或者自己制作的视频外链替换掉如下 src 的值即可。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">iframe</span>   </span></div><div class="line">    <span class="attr">height</span>=<span class="string">498</span> <span class="attr">width</span>=<span class="string">510</span>   </div><div class="line">    <span class="attr">src</span>=<span class="string">"http://player.youku.com/embed/XNjcyMDU4Njg0"</span>   </div><div class="line">    <span class="attr">frameborder</span>=<span class="string">0</span> <span class="attr">allowfullscreen</span>&gt;  </div><div class="line"><span class="tag">&lt;/<span class="name">iframe</span>&gt;</span></div></pre></td></tr></table></figure>
+<h4 id="百度-google收录你的站点"><a href="#百度-google收录你的站点" class="headerlink" title="百度/google收录你的站点"></a>百度/google收录你的站点</h4><h5 id="安装sitemap插件"><a href="#安装sitemap插件" class="headerlink" title="安装sitemap插件"></a>安装sitemap插件</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-generator-sitemap --save  # google</div><div class="line"><span class="meta">$</span> npm install hexo-generator-baidu-sitemap --save  # 百度</div></pre></td></tr></table></figure>
+<p>　　在站点配置文件 <code>_config.yml</code> 中添加如下代码：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 自动生成sitemap</span></div><div class="line"><span class="attr">sitemap:</span></div><div class="line"><span class="attr">  path:</span> <span class="string">sitemap.xml</span></div><div class="line"><span class="attr">baidusitemap:</span></div><div class="line"><span class="attr">  path:</span> <span class="string">baidusitemap.xml</span></div></pre></td></tr></table></figure>
+<p>　　执行 <code>hexo -g</code> 后会在 public 目录下生成 baidusitmap.xml 和 sitemap.xml 两个文件。</p>
 <h4 id="Hexo-3-xx版本的问题"><a href="#Hexo-3-xx版本的问题" class="headerlink" title="Hexo 3.xx版本的问题"></a>Hexo 3.xx版本的问题</h4><p>　　Hexo 3.0 把服务器独立成了个别模块，您必须先安装 hexo-server 才能使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install hexo-server --save</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> npm install hexo-server --save</div></pre></td></tr></table></figure>
 <p>　　安装完成后，输入以下命令以启动服务器，您的网站会在 <a href="http://localhost:4000" target="_blank" rel="external">http://localhost:4000</a> 下启动。在服务器启动期间，Hexo 会监视文件变动并自动更新，您无须重启服务器。</p>
 <p>　　然后，通过如下命令可开启本地预览：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo server</div></pre></td></tr></table></figure>
 <p>　　或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">hexo s</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo s</div></pre></td></tr></table></figure>
 <p>　　如果您想要更改端口，或是在执行时遇到了 EADDRINUSE 错误，可以在执行时使用 -p 选项指定其他端口，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server -p 5000</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> hexo server -p 5000</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -496,7 +496,7 @@
           
             <a href="/tags/Hexo/" rel="tag"># Hexo</a>
           
-            <a href="/tags/Github/" rel="tag"># Github</a>
+            <a href="/tags/Github-Pages/" rel="tag"># Github Pages</a>
           
         </div>
       
@@ -519,8 +519,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/08/23/译-MQTT安全基础知识介绍/" rel="prev" title="[译]MQTT安全基础知识介绍">
-                [译]MQTT安全基础知识介绍 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/14/Ubuntu中ftp服务器安装与配置/" rel="prev" title="Ubuntu中ftp服务器安装与配置">
+                Ubuntu中ftp服务器安装与配置 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -620,7 +620,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">161</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -631,7 +631,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -642,7 +642,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

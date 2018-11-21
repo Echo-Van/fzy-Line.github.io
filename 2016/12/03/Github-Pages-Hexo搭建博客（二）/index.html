@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo,Github," />
+  <meta name="keywords" content="Hexo,Github Pages," />
 
 
 
@@ -91,22 +91,22 @@
 
 
 <meta name="description" content="此篇博客主要讲解Hexo的站点配置、主题配置和使用以及博客文章的发布。">
-<meta name="keywords" content="Hexo,Github">
+<meta name="keywords" content="Hexo,Github Pages">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Github Pages + Hexo搭建博客（二）">
 <meta property="og:url" content="https://fzy-line.github.io/2016/12/03/Github-Pages-Hexo搭建博客（二）/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="此篇博客主要讲解Hexo的站点配置、主题配置和使用以及博客文章的发布。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-1.png">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-2.png">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-3.png">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-4.png">
-<meta property="og:updated_time" content="2018-02-21T19:34:50.000Z">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-1.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-2.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-3.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-4.png">
+<meta property="og:updated_time" content="2018-11-21T13:24:50.722Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages + Hexo搭建博客（二）">
 <meta name="twitter:description" content="此篇博客主要讲解Hexo的站点配置、主题配置和使用以及博客文章的发布。">
-<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-1.png">
+<meta name="twitter:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-1.png">
 
 
 
@@ -419,7 +419,7 @@
 <p>这里推荐一款很火的主题：next，下面的配置也是以这个主题为例。如果你使用的是其他的主题，那么请你自己根据说明文档进行配置。</p>
 <p>next主题的官网，有很详细的配置文档：<a href="http://theme-next.iissnan.com/" target="_blank" rel="external">http://theme-next.iissnan.com/</a></p>
 <h5 id="下载主题"><a href="#下载主题" class="headerlink" title="下载主题"></a>下载主题</h5><p>next下载地址：<a href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="external">https://github.com/iissnan/hexo-theme-next</a></p>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-1.png" alt="2-1"></p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-1.png" alt="2-1"></p>
 <p>到Gtihub下载此主题后解压，打开可以看到里面很多主题相关的文件，我们将此文件夹改名为next，然后将它复制到站点目录的/themes/目录下。</p>
 <h5 id="启用主题"><a href="#启用主题" class="headerlink" title="启用主题"></a>启用主题</h5><p>hexo默认是使用的landscape主题，我们可以在站点目录下的/themes/目录下看到landscape文件夹。</p>
 <p>我们的themes文件夹里可以放很多主题的文件夹，但是实际上我们的网站采用哪一个主题，这是需要我们进行配置的，打开编辑全局配置文件，找到下面的内容：</p>
@@ -433,7 +433,7 @@
 <p>Muse - 默认 Scheme，这是 NexT 最初的版本，黑白主调，大量留白</p>
 <p>Mist - Muse 的紧凑版本，整洁有序的单栏外观</p>
 <p>Pisces - 双栏 Scheme，小家碧玉似的清新</p>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-2.png" alt="2-2"></p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-2.png" alt="2-2"></p>
 <p>找到主题配置文件的如下三行，其中#号表示注释，要启用哪一种样式就把#号去掉即可。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># Schemes</div><div class="line">#scheme: Muse</div><div class="line">#scheme: Mist</div><div class="line">scheme: Pisces</div></pre></td></tr></table></figure>
 <p><strong>（3）设置菜单</strong></p>
@@ -443,7 +443,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">menu_icons:</div><div class="line">  enable: true</div><div class="line">  #KeyMapsToMenuItemKey: NameOfTheIconFromFontAwesome</div><div class="line">  home: home</div><div class="line">  about: user</div><div class="line">  categories: th</div><div class="line">  schedule: calendar</div><div class="line">  tags: tags</div><div class="line">  archives: archive</div><div class="line">  sitemap: sitemap</div><div class="line">  commonweal: heartbeat</div></pre></td></tr></table></figure>
 <h5 id="测试配置效果"><a href="#测试配置效果" class="headerlink" title="测试配置效果"></a>测试配置效果</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ hexo clean #用于清除缓存</div><div class="line">$ hexo generate #生成静态网页</div><div class="line">$ hexo server #开启本地预览</div></pre></td></tr></table></figure>
 <p>访问：<a href="http://localhost:4000/" target="_blank" rel="external">http://localhost:4000/</a> 查看效果，如下图：</p>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-3.png" alt="2-3"></p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-3.png" alt="2-3"></p>
 <h5 id="解决遇到的问题"><a href="#解决遇到的问题" class="headerlink" title="解决遇到的问题"></a>解决遇到的问题</h5><p>到这里会发现点击左侧菜单的分类、标签和关于会提示找不到页面。</p>
 <p>这是因为我们只是创建了菜单，还没有创建相应的页面。</p>
 <p>新建页面的hexo命令是：</p>
@@ -476,7 +476,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tags: [Linux,Http,网络]</div></pre></td></tr></table></figure>
 <p>我们可以添加上categories字段，对博客进行分类管理，然后点击主页左侧菜单的分类就可看到具体的分类。例如：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">categories: Linux</div></pre></td></tr></table></figure>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/12/2-4.png" alt="2-4"></p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/2-4.png" alt="2-4"></p>
 <p><strong>如何实现上图的阅读全文功能？</strong></p>
 <p>在自己喜欢的位置添加一个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;!--more--&gt;</div></pre></td></tr></table></figure></p>
 <p>即可，主题会自动识别这个标签，生成对应的阅读全文按钮。</p>
@@ -542,7 +542,7 @@
           
             <a href="/tags/Hexo/" rel="tag"># Hexo</a>
           
-            <a href="/tags/Github/" rel="tag"># Github</a>
+            <a href="/tags/Github-Pages/" rel="tag"># Github Pages</a>
           
         </div>
       
@@ -666,7 +666,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">161</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -677,7 +677,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -688,7 +688,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

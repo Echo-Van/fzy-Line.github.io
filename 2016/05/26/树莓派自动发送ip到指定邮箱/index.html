@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="［树莓派,ip］," />
+  <meta name="keywords" content="Raspberry Pi,ip," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="知道树莓派的ip地址才能通过SSH或者VNC在你的电脑上操作树莓派，树莓派开机自动发送ip地址到指定邮箱会让你使用树莓派更加方便！">
-<meta name="keywords" content="［树莓派,ip］">
+<meta name="description" content="知道树莓派的 ip 地址才能通过 SSH 或者 VNC 在你的电脑上操作树莓派，树莓派开机自动发送 ip 地址到指定邮箱会让你使用树莓派更加方便！">
+<meta name="keywords" content="Raspberry Pi,ip">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树莓派自动发送ip到指定邮箱">
 <meta property="og:url" content="https://fzy-line.github.io/2016/05/26/树莓派自动发送ip到指定邮箱/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="知道树莓派的ip地址才能通过SSH或者VNC在你的电脑上操作树莓派，树莓派开机自动发送ip地址到指定邮箱会让你使用树莓派更加方便！">
+<meta property="og:description" content="知道树莓派的 ip 地址才能通过 SSH 或者 VNC 在你的电脑上操作树莓派，树莓派开机自动发送 ip 地址到指定邮箱会让你使用树莓派更加方便！">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-21T19:34:50.000Z">
+<meta property="og:updated_time" content="2018-11-21T13:20:28.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树莓派自动发送ip到指定邮箱">
-<meta name="twitter:description" content="知道树莓派的ip地址才能通过SSH或者VNC在你的电脑上操作树莓派，树莓派开机自动发送ip地址到指定邮箱会让你使用树莓派更加方便！">
+<meta name="twitter:description" content="知道树莓派的 ip 地址才能通过 SSH 或者 VNC 在你的电脑上操作树莓派，树莓派开机自动发送 ip 地址到指定邮箱会让你使用树莓派更加方便！">
 
 
 
@@ -400,23 +400,22 @@
       
 
       
-        <p>　　知道树莓派的ip地址才能通过SSH或者VNC在你的电脑上操作树莓派，树莓派开机自动发送ip地址到指定邮箱会让你使用树莓派更加方便！</p>
+        <p>　　知道树莓派的 ip 地址才能通过 SSH 或者 VNC 在你的电脑上操作树莓派，树莓派开机自动发送 ip 地址到指定邮箱会让你使用树莓派更加方便！</p>
 <a id="more"></a>
-<h4 id="新建一个python脚本文件"><a href="#新建一个python脚本文件" class="headerlink" title="新建一个python脚本文件"></a>新建一个python脚本文件</h4><p>输入命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch send_ip.py</div></pre></td></tr></table></figure>
+<h4 id="新建一个python脚本文件"><a href="#新建一个python脚本文件" class="headerlink" title="新建一个python脚本文件"></a>新建一个python脚本文件</h4><p>　　输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> touch send_ip.py</div></pre></td></tr></table></figure>
 <h4 id="编写python脚本"><a href="#编写python脚本" class="headerlink" title="编写python脚本"></a>编写python脚本</h4><p>（1）输入命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim send_ip.py</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo vim send_ip.py</div></pre></td></tr></table></figure>
 <p>（2）写入以下代码</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">#!\usr\bin\env python</div><div class="line">#-*-coding: utf-8-*-</div><div class="line">import socket</div><div class="line">import time</div><div class="line">import smtplib</div><div class="line">import urllib</div><div class="line">from email.mime.multipart import MIMEMultipart</div><div class="line">from email.mime.text import MIMEText</div><div class="line">from email.mime.image import MIMEImage</div><div class="line"></div><div class="line">#发送邮件的基本函数，参数依次如下</div><div class="line"># smtp服务器地址、邮箱用户名，邮箱秘密，发件人地址，手贱儿女地址（列表的方式），邮件主题，邮件html内容</div><div class="line">def sendEmail(smtpserver,username,password,sender,receiver,subject,msghtml):</div><div class="line">        msgRoot =MIMEMultipart(&apos;reklated&apos;)</div><div class="line">        msgRoot[&apos;To&apos;]=&apos;,&apos;.join(receiver)</div><div class="line">        msgRoot[&apos;Subject&apos;]= subject</div><div class="line">        msgText = MIMEText(msghtml,&apos;html&apos;,&apos;utf-8&apos;)</div><div class="line">        msgRoot.attach(msgText)</div><div class="line">        smtp = smtplib.SMTP()</div><div class="line">        smtp.connect(smtpserver,&quot;25&quot;)</div><div class="line">        smtp.login(username,password)</div><div class="line">        print &quot;YES&quot;</div><div class="line">        smtp.quit()</div><div class="line">#检查网络连通性</div><div class="line">def check_network():</div><div class="line">        while True:</div><div class="line">            try:</div><div class="line">                result=urllib.urlopen(&apos;http://baidu.com&apos;).read()</div><div class="line">                print result</div><div class="line">                print &quot;Network is Ready!&quot;</div><div class="line">                break</div><div class="line">          except Exception , e:</div><div class="line">                print e</div><div class="line">                print &quot;Network is not ready,Sleep 5s...&quot;</div><div class="line">                time.sleep(5)</div><div class="line">        return True</div><div class="line"></div><div class="line">#获取本级制定接口的ip地址</div><div class="line">def get_ip_address():</div><div class="line">        s =socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</div><div class="line">        s.connect((&quot;1.1.1.1&quot;,80))</div><div class="line">        ipaddr=s.getsockname()[0]</div><div class="line">        s.close()</div><div class="line">        return ipaddr</div><div class="line"></div><div class="line">if  __name__ == &apos;__main__&apos; :</div><div class="line">        check_network()</div><div class="line">        ipaddr= get_ip_address()</div><div class="line">        sendEmail(&quot;smtp.sohu.com&quot;,&apos;你的邮箱帐号&apos;,&apos;你的邮箱密码&apos;,&apos;发件人地址&apos;,[&apos;收件人地址&apos;],&apos;IP Address of Raspberry PI&apos;,ipaddr)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!\usr\bin\env python</span></div><div class="line"><span class="comment">#-*-coding: utf-8-*-</span></div><div class="line"><span class="keyword">import</span> socket</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> smtplib</div><div class="line"><span class="keyword">import</span> urllib</div><div class="line"><span class="keyword">from</span> email.mime.multipart <span class="keyword">import</span> MIMEMultipart</div><div class="line"><span class="keyword">from</span> email.mime.text <span class="keyword">import</span> MIMEText</div><div class="line"><span class="keyword">from</span> email.mime.image <span class="keyword">import</span> MIMEImage</div><div class="line"></div><div class="line"><span class="comment">#发送邮件的基本函数，参数依次如下</span></div><div class="line"><span class="comment"># smtp服务器地址、邮箱用户名，邮箱秘密，发件人地址，手贱儿女地址（列表的方式），邮件主题，邮件html内容</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">sendEmail</span><span class="params">(smtpserver,username,password,sender,receiver,subject,msghtml)</span>:</span></div><div class="line">        msgRoot =MIMEMultipart(<span class="string">'reklated'</span>)</div><div class="line">        msgRoot[<span class="string">'To'</span>]=<span class="string">','</span>.join(receiver)</div><div class="line">        msgRoot[<span class="string">'Subject'</span>]= subject</div><div class="line">        msgText = MIMEText(msghtml,<span class="string">'html'</span>,<span class="string">'utf-8'</span>)</div><div class="line">        msgRoot.attach(msgText)</div><div class="line">        smtp = smtplib.SMTP()</div><div class="line">        smtp.connect(smtpserver,<span class="string">"25"</span>)</div><div class="line">        smtp.login(username,password)</div><div class="line">        <span class="keyword">print</span> <span class="string">"YES"</span></div><div class="line">        smtp.quit()</div><div class="line"><span class="comment">#检查网络连通性</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_network</span><span class="params">()</span>:</span></div><div class="line">        <span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">            <span class="keyword">try</span>:</div><div class="line">                result=urllib.urlopen(<span class="string">'http://baidu.com'</span>).read()</div><div class="line">                <span class="keyword">print</span> result</div><div class="line">                <span class="keyword">print</span> <span class="string">"Network is Ready!"</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">          <span class="keyword">except</span> Exception , e:</div><div class="line">                <span class="keyword">print</span> e</div><div class="line">                <span class="keyword">print</span> <span class="string">"Network is not ready,Sleep 5s..."</span></div><div class="line">                time.sleep(<span class="number">5</span>)</div><div class="line">        <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line"></div><div class="line"><span class="comment">#获取本级制定接口的ip地址</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_ip_address</span><span class="params">()</span>:</span></div><div class="line">        s =socket.socket(socket.AF_INET,socket.SOCK_DGRAM)</div><div class="line">        s.connect((<span class="string">"1.1.1.1"</span>,<span class="number">80</span>))</div><div class="line">        ipaddr=s.getsockname()[<span class="number">0</span>]</div><div class="line">        s.close()</div><div class="line">        <span class="keyword">return</span> ipaddr</div><div class="line"></div><div class="line"><span class="keyword">if</span>  __name__ == <span class="string">'__main__'</span> :</div><div class="line">        check_network()</div><div class="line">        ipaddr= get_ip_address()</div><div class="line">        sendEmail(<span class="string">"smtp.sohu.com"</span>,<span class="string">'你的邮箱帐号'</span>,<span class="string">'你的邮箱密码'</span>,<span class="string">'发件人地址'</span>,[<span class="string">'收件人地址'</span>],<span class="string">'IP Address of Raspberry PI'</span>,ipaddr)</div></pre></td></tr></table></figure>
 <p>（3）保存退出</p>
-<p>vim编辑器下保存退出步骤为：</p>
-<p>按esc然后输入：，然后看到冒号显示出来再输入wq，回车即可</p>
-<h4 id="设置开机自动执行该脚本"><a href="#设置开机自动执行该脚本" class="headerlink" title="设置开机自动执行该脚本"></a>设置开机自动执行该脚本</h4><p>在/etc/rc.local文件里加入下面这一行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/python/home/pi/send_ip.py</div></pre></td></tr></table></figure>
-<p>输入命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo vim /etc/rc.local</div></pre></td></tr></table></figure>
-<p>在文件中添加/usr/bin/python/home/pi/send_ip.py然后保存退出</p>
-<p>特别提示：收到的邮件有可能在垃圾箱里，不要以为是脚本的问题，其实是邮箱的问题，请注意查看！另外，有的邮箱不支持smtp，所以无法使用。搜狐和网易的邮箱亲测可用。</p>
+<p>　　vim 编辑器下保存退出步骤为：按 esc 然后输入 <code>：</code>，然后看到冒号显示出来再输入 <code>wq</code>，回车即可。</p>
+<h4 id="设置开机自动执行该脚本"><a href="#设置开机自动执行该脚本" class="headerlink" title="设置开机自动执行该脚本"></a>设置开机自动执行该脚本</h4><p>　　在 /etc/rc.local 文件里加入下面这一行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> /usr/bin/python/home/pi/send_ip.py</div></pre></td></tr></table></figure>
+<p>　　输入命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo vim /etc/rc.local</div></pre></td></tr></table></figure>
+<p>　　在文件中添加 <code>/usr/bin/python/home/pi/send_ip.py</code> 然后保存退出</p>
+<p>　　特别提示：收到的邮件有可能在垃圾箱里，不要以为是脚本的问题，其实是邮箱的问题，请注意查看！另外，有的邮箱不支持 smtp，所以无法使用。搜狐和网易的邮箱亲测可用。</p>
 
       
     </div>
@@ -467,7 +466,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/［树莓派-ip］/" rel="tag"># ［树莓派,ip］</a>
+            <a href="/tags/Raspberry-Pi/" rel="tag"># Raspberry Pi</a>
+          
+            <a href="/tags/ip/" rel="tag"># ip</a>
           
         </div>
       
@@ -591,7 +592,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">161</span>
+                <span class="site-state-item-count">155</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -602,7 +603,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -613,7 +614,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">95</span>
+                <span class="site-state-item-count">97</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
