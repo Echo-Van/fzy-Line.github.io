@@ -1,0 +1,1328 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Python,Http,爬虫,正则表达式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="网络爬虫又称为网络机器人，它可以按照程序设定的规则自动抓取网页上的信息。网络是信息的海洋，但是网络中的数据是零散的、无序的且存在着冗余，如何从复杂的网页代码中提取有用的信息便是爬虫需要解决的问题。 Python 语法简洁，代码风骚，数据的处理能力强，比如函数参数的打包解包，列表解析，矩阵处理，非常方便，所以 Python 非常适合做网络爬虫。我将在这里很大家分享我的一些网络爬虫小程序，让我们一">
+<meta name="keywords" content="Python,Http,爬虫,正则表达式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python 爬虫基础 - 正则表达式与 Http 请求">
+<meta property="og:url" content="https://fzy-line.github.io/2016/07/03/Python 爬虫基础 - 正则表达式与 Http 请求/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="网络爬虫又称为网络机器人，它可以按照程序设定的规则自动抓取网页上的信息。网络是信息的海洋，但是网络中的数据是零散的、无序的且存在着冗余，如何从复杂的网页代码中提取有用的信息便是爬虫需要解决的问题。 Python 语法简洁，代码风骚，数据的处理能力强，比如函数参数的打包解包，列表解析，矩阵处理，非常方便，所以 Python 非常适合做网络爬虫。我将在这里很大家分享我的一些网络爬虫小程序，让我们一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-1.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-2.jpg">
+<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-3.jpg">
+<meta property="og:updated_time" content="2018-11-22T13:20:02.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python 爬虫基础 - 正则表达式与 Http 请求">
+<meta name="twitter:description" content="网络爬虫又称为网络机器人，它可以按照程序设定的规则自动抓取网页上的信息。网络是信息的海洋，但是网络中的数据是零散的、无序的且存在着冗余，如何从复杂的网页代码中提取有用的信息便是爬虫需要解决的问题。 Python 语法简洁，代码风骚，数据的处理能力强，比如函数参数的打包解包，列表解析，矩阵处理，非常方便，所以 Python 非常适合做网络爬虫。我将在这里很大家分享我的一些网络爬虫小程序，让我们一">
+<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2016/07/03/Python 爬虫基础 - 正则表达式与 Http 请求/"/>
+
+
+
+
+
+  <title>Python 爬虫基础 - 正则表达式与 Http 请求 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2016/07/03/Python 爬虫基础 - 正则表达式与 Http 请求/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python 爬虫基础 - 正则表达式与 Http 请求</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-03T20:14:28+08:00">
+                2016-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/" itemprop="url" rel="index">
+                    <span itemprop="name">Coding</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Coding/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　网络爬虫又称为网络机器人，它可以按照程序设定的规则自动抓取网页上的信息。网络是信息的海洋，但是网络中的数据是零散的、无序的且存在着冗余，如何从复杂的网页代码中提取有用的信息便是爬虫需要解决的问题。 Python 语法简洁，代码风骚，数据的处理能力强，比如函数参数的打包解包，列表解析，矩阵处理，非常方便，所以 Python 非常适合做网络爬虫。我将在这里很大家分享我的一些网络爬虫小程序，让我们一起体验爬虫带来的乐趣吧！</p>
+<a id="more"></a>
+<h4 id="基本正则表达式"><a href="#基本正则表达式" class="headerlink" title="基本正则表达式"></a>基本正则表达式</h4><h5 id="导入re模块"><a href="#导入re模块" class="headerlink" title="导入re模块"></a>导入re模块</h5><p>　　导入 Python 正则表达式模块：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re</div></pre></td></tr></table></figure>
+<p>　　Python 通过 re 模块提供对正则表达式的支持。</p>
+<h5 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h5><ul>
+<li><p>findall： 匹配所有符合规律的内容，返回包含结果的列表</p>
+</li>
+<li><p>Search：匹配并提取第一个符合规律的内容，返回一个正则表达式对象（object)</p>
+</li>
+<li><p>Sub：替换符合规律的内容，返回替换后的值</p>
+</li>
+</ul>
+<h5 id="常用符号"><a href="#常用符号" class="headerlink" title="常用符号"></a>常用符号</h5><ul>
+<li><p>，，问号与括号</p>
+</li>
+<li><p>点号.  :  匹配任意字符，换行符 \n 除外</p>
+</li>
+<li><p>星号* ：匹配前一个字符 0 次或无限次</p>
+</li>
+<li><p>问号? ：匹配前一个字符 0 次或 1 次</p>
+</li>
+<li><p>贪心算法：.*</p>
+</li>
+<li><p>非贪心算法：.*?</p>
+</li>
+<li><p>括号（）：括号内的数据作为结果返回</p>
+</li>
+</ul>
+<h5 id="常用情况"><a href="#常用情况" class="headerlink" title="常用情况"></a>常用情况</h5><ul>
+<li><p>使用 findall 与 search 从大量文本中匹配感兴趣的内容</p>
+</li>
+<li><p>使用 sub 实现换页功能</p>
+</li>
+</ul>
+<h4 id="Http网络请求"><a href="#Http网络请求" class="headerlink" title="Http网络请求"></a>Http网络请求</h4><p><strong>requests模块</strong></p>
+<p>　　Requests 是用Python语言编写，基于 urllib，采用 Apache2 Licensed 开源协议的 HTTP 库。它比 urllib 更加方便，可以节约我们大量的工作，完全满足 HTTP 测试需求。</p>
+<h5 id="导入requests模块"><a href="#导入requests模块" class="headerlink" title="导入requests模块"></a>导入requests模块</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> requests</div></pre></td></tr></table></figure>
+<h5 id="基本Get请求"><a href="#基本Get请求" class="headerlink" title="基本Get请求"></a>基本Get请求</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding:utf-8 -*-   //定义编码为utf-8，避免显示乱码</span></div><div class="line"><span class="keyword">import</span> requests</div><div class="line">url = <span class="string">'http://www.baidu.com'</span>   </div><div class="line">r = requests.get(url)   //使用requests模块的get方法获取百度首页的源代码</div><div class="line"><span class="keyword">print</span> r.text</div></pre></td></tr></table></figure>
+<p>　　这里只举例了我们要使用的基本的 get 请求，如果需要了解更多的 requests 模块的方法请自行百度。</p>
+<h4 id="实例代码"><a href="#实例代码" class="headerlink" title="实例代码"></a>实例代码</h4><p>　　目的：爬取湖南农业大学官网中心位置的三张图片，并且下载下来。</p>
+<h5 id="获取图片的源代码"><a href="#获取图片的源代码" class="headerlink" title="获取图片的源代码"></a>获取图片的源代码</h5><p>　　使用 Chrome 打开农大官网，右键审查元素，然后点击左上角的放大镜，点击图片就会定位到图片的源代码位置，如图所示：</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-1.jpg" alt="3-1"></p>
+<h5 id="分析源代码，写出正则表达式"><a href="#分析源代码，写出正则表达式" class="headerlink" title="分析源代码，写出正则表达式"></a>分析源代码，写出正则表达式</h5><p>　　分析上图可知，我们需要的部分为 <code>src=&quot;&quot;</code> 中引号里面的 url，而三张图片都是相同的格式，所以我们使用 re 模块的 findall 方法，将 src 的中间部分获取到即可：<code>re.findall(&#39;img src=&quot;(.*?)&quot; width=&quot;990&quot;&#39;,html.text,re.S)</code><br>（1）<code>findall</code> 即匹配所有符合正则表达式规则的内容<br>（2）<code>(.*?)</code> 用作获取 <code>src=&quot;&quot;</code> 的双引号中间的 url 并返回<br>（3）<code>re.S</code> 的作用是使 <code>.</code> 的作用范围包括换行符，即可以换行匹配</p>
+<h5 id="根据获取到的url下载图片"><a href="#根据获取到的url下载图片" class="headerlink" title="根据获取到的url下载图片"></a>根据获取到的url下载图片</h5><p>　　因为我们获取到的 url 并不是完整的网址，所以右键上图的链接选择 Open link in new tab 来查看完整的网址，如下图，因此我们在下载图片时需要在 url 前加上 <a href="http://www.hunau.edu.cn/。" target="_blank" rel="external">http://www.hunau.edu.cn/。</a></p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-2.jpg" alt="3-2"></p>
+<p>　　代码如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> re   //导入正则表达式的库</div><div class="line"><span class="keyword">import</span> requests   //导入第三方http库</div><div class="line">html = requests.get(<span class="string">"http://www.hunau.edu.cn/"</span>)  //通过get方法获取农大官网的网页源代码</div><div class="line">html.encoding = <span class="string">'utf-8'</span>   //设定编码方式，使能够正常显示中文</div><div class="line"><span class="comment"># print(html.text)   //也可以把网页源代码输出来看一下</span></div><div class="line"></div><div class="line">homedir = os.getcwd()   //获取项目当前路径</div><div class="line">os.mkdir(homedir+<span class="string">'\pic'</span>)   //创建pic文件夹，用于保存图片</div><div class="line"></div><div class="line">pic_url = re.findall(<span class="string">'img src="(.*?)" width="990"'</span>,html.text,re.S)   //设定正则表达式，爬取图片的url</div><div class="line">i = <span class="number">0</span></div><div class="line"><span class="keyword">for</span> each <span class="keyword">in</span> pic_url:   //遍历pic_url</div><div class="line">    <span class="keyword">print</span> <span class="string">'now downloading:'</span> + each</div><div class="line">    pic = requests.get(<span class="string">"http://www.hunau.edu.cn/"</span>+each) //补充完整的网址，通过get方法获取图片 </div><div class="line">    fp = open(<span class="string">'pic\\'</span> + str(i) + <span class="string">'.jpg'</span>,<span class="string">'wb'</span>)  //在pic文件夹下创建jpg格式的文件</div><div class="line">    fp.write(pic.content)  //将图片写入到工程文件夹下的pic文件夹中</div><div class="line">    fp.close()   </div><div class="line">    i += <span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p>　　文本爬虫，效果如下：</p>
+<p><img src="http://ohe7ixo05.bkt.clouddn.com/2016/7/3-3.jpg" alt="3-3"></p>
+<p>　　<strong>我们在这里只是爬取了三张图片，但是使用 python 来做网页爬虫真的功能很强大，大家可以试一试修改代码去爬取更多的图片。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Http/" rel="tag"># Http</a>
+          
+            <a href="/tags/爬虫/" rel="tag"># 爬虫</a>
+          
+            <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/01/Android Spinner控件之省市区（县）三级联动/" rel="next" title="Android Spinner 控件之省市区（县）三级联动">
+                <i class="fa fa-chevron-left"></i> Android Spinner 控件之省市区（县）三级联动
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/10/Android 获取外网 ip 地址详解/" rel="prev" title="Android 获取外网 ip 地址详解">
+                Android 获取外网 ip 地址详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      
+        <div id="gitment-container"></div>
+      
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fanzhenyu@csu.edu.cn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">155</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jacktaoz.github.io/" title="Jacktao" target="_blank">Jacktao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#基本正则表达式"><span class="nav-number">1.</span> <span class="nav-text">基本正则表达式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导入re模块"><span class="nav-number">1.1.</span> <span class="nav-text">导入re模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用方法"><span class="nav-number">1.2.</span> <span class="nav-text">常用方法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用符号"><span class="nav-number">1.3.</span> <span class="nav-text">常用符号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常用情况"><span class="nav-number">1.4.</span> <span class="nav-text">常用情况</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Http网络请求"><span class="nav-number">2.</span> <span class="nav-text">Http网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#导入requests模块"><span class="nav-number">2.1.</span> <span class="nav-text">导入requests模块</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基本Get请求"><span class="nav-number">2.2.</span> <span class="nav-text">基本Get请求</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例代码"><span class="nav-number">3.</span> <span class="nav-text">实例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#获取图片的源代码"><span class="nav-number">3.1.</span> <span class="nav-text">获取图片的源代码</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#分析源代码，写出正则表达式"><span class="nav-number">3.2.</span> <span class="nav-text">分析源代码，写出正则表达式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#根据获取到的url下载图片"><span class="nav-number">3.3.</span> <span class="nav-text">根据获取到的url下载图片</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+    
+    
+    
+    
+    <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+    <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+    
+        <script type="text/javascript">
+            var gitment = new Gitment({
+                    id: 'Python 爬虫基础 - 正则表达式与 Http 请求', 
+                    owner: 'fzy-Line',
+                    repo: 'fzy-Line.github.io',
+                    oauth: {
+                        client_id: '9f74a018210b61ac4709',
+                        client_secret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+                    }});
+            gitment.render('gitment-container');
+        </script>
+    
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

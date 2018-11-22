@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="单片机," />
+  <meta name="keywords" content="IoT,单片机," />
 
 
 
@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是main函数里的程序即任务级。">
-<meta name="keywords" content="单片机">
+<meta name="description" content="前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如 GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是 main 函数里的程序即任务级。">
+<meta name="keywords" content="IoT,单片机">
 <meta property="og:type" content="article">
 <meta property="og:title" content="单片机设计与开发：前后台系统">
 <meta property="og:url" content="https://fzy-line.github.io/2016/06/03/单片机设计与开发：前后台系统/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是main函数里的程序即任务级。">
+<meta property="og:description" content="前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如 GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是 main 函数里的程序即任务级。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-19T07:37:02.133Z">
+<meta property="og:updated_time" content="2018-11-22T11:50:40.709Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="单片机设计与开发：前后台系统">
-<meta name="twitter:description" content="前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是main函数里的程序即任务级。">
+<meta name="twitter:description" content="前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如 GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是 main 函数里的程序即任务级。">
 
 
 
@@ -411,11 +411,10 @@
       
 
       
-        <p>　　前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是main函数里的程序即任务级。</p>
+        <p>　　前后台系统的架构简单来说就是一个大的循环，加上中断，就形成了一个整的体系。如 GPIO、定时器、数码管实验等都是前后台系统架构，任务顺序地执行的，而前台指的是中断级，后台指的是 main 函数里的程序即任务级。</p>
 <a id="more"></a>
-<p>　　前后台系统又叫作超级大循环系统，这个可以从“while(1)”关键字眼就可以得知。这样的系统比较简单，实时性，并行性要求不太高的情况下是不错的方法，程序设计简单，思路比较清晰。但是当应用程序比较复杂的时候，如果没有一个完整的流程图，恐怕别人很难看懂程序的运行状态，而且随着程序功能的增加，编写应用程序的工程师的大脑也开始混乱。即不利于升级维护，也不利于代码优化。比较复杂一点的应用程序，使用此法虽然能够实现功能，但是自己的思维一直处于混乱状态，导致程序一直不能让自己满意。</p>
-<p>　　这里通过一个简单的例子来说明前后台系统设计的思想，相信很多人平常也这么用过，但是可能并不知道这就是前后台系统的思想。很简单，我们通过单片机来实现一个温度采集并将温度显示在数码管上的小实验。在这里数码管显示就相当于前台，所以display函数放在中断服务函数里，是它能够2ms更新一次数据，然后在主函数通过while(1)循环实现后台任务，即温度采集与数据处理，最终实现温度实时更新。代码框架如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">void display()     //数码管显示函数</div><div class="line">&#123;</div><div class="line">    ........       //段选</div><div class="line">    ........       //位选</div><div class="line">    ........       //消影</div><div class="line">&#125;</div><div class="line"></div><div class="line">void init_timer()     //定时器0初始化</div><div class="line">&#123;</div><div class="line">    TMOD = 0x01;</div><div class="line">    TH0 = (65536-2000)/256;</div><div class="line">    TL0 = (65536-2000)%256;</div><div class="line">    EA = 1;</div><div class="line">    ET0 = 1;</div><div class="line">    TR0 = 1;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void main()</div><div class="line">&#123;   </div><div class="line">    uint temp;</div><div class="line">    uchar adc,num;</div><div class="line">    init_timer();     //定时器初始化</div><div class="line"></div><div class="line">    while(1)</div><div class="line">    &#123;</div><div class="line">        ......     //温度采集</div><div class="line">        ......     //数据处理</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">void timer() interrupt 1     //定时器0中断服务函数</div><div class="line">&#123;</div><div class="line">    TH0 = (65536-2000)/256;</div><div class="line">    TL0 = (65536-2000)%256;</div><div class="line">    display();     //每2ms显示一次</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　前后台系统又叫作超级大循环系统，这个可以从 <code>while(1)</code> 关键字眼就可以得知。这样的系统比较简单，实时性，并行性要求不太高的情况下是不错的方法，程序设计简单，思路比较清晰。但是当应用程序比较复杂的时候，如果没有一个完整的流程图，恐怕别人很难看懂程序的运行状态，而且随着程序功能的增加，编写应用程序的工程师的大脑也开始混乱。即不利于升级维护，也不利于代码优化。比较复杂一点的应用程序，使用此法虽然能够实现功能，但是自己的思维一直处于混乱状态，导致程序一直不能让自己满意。</p>
+<p>　　这里通过一个简单的例子来说明前后台系统设计的思想，相信很多人平常也这么用过，但是可能并不知道这就是前后台系统的思想。很简单，我们通过单片机来实现一个温度采集并将温度显示在数码管上的小实验。在这里数码管显示就相当于前台，所以 <code>display()</code> 函数放在中断服务函数里，是它能够 2ms 更新一次数据，然后在主函数通过 <code>while(1)</code> 循环实现后台任务，即温度采集与数据处理，最终实现温度实时更新。代码框架如下：<br>​<br><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">display</span><span class="params">()</span>     <span class="comment">//数码管显示函数</span></span></div><div class="line">&#123;</div><div class="line">    ........       <span class="comment">//段选</span></div><div class="line">    ........       <span class="comment">//位选</span></div><div class="line">    ........       <span class="comment">//消影</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">init_timer</span><span class="params">()</span>     <span class="comment">//定时器0初始化</span></span></div><div class="line">&#123;</div><div class="line">    TMOD = <span class="number">0x01</span>;</div><div class="line">    TH0 = (<span class="number">65536</span><span class="number">-2000</span>)/<span class="number">256</span>;</div><div class="line">    TL0 = (<span class="number">65536</span><span class="number">-2000</span>)%<span class="number">256</span>;</div><div class="line">    EA = <span class="number">1</span>;</div><div class="line">    ET0 = <span class="number">1</span>;</div><div class="line">    TR0 = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></div><div class="line">&#123;   </div><div class="line">    uint temp;</div><div class="line">    uchar adc,num;</div><div class="line">    init_timer();     <span class="comment">//定时器初始化</span></div><div class="line"></div><div class="line">    <span class="keyword">while</span>(<span class="number">1</span>)</div><div class="line">    &#123;</div><div class="line">        ......     <span class="comment">//温度采集</span></div><div class="line">        ......     <span class="comment">//数据处理</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer</span><span class="params">()</span> interrupt 1     <span class="comment">//定时器0中断服务函数</span></span></div><div class="line">&#123;</div><div class="line">    TH0 = (<span class="number">65536</span><span class="number">-2000</span>)/<span class="number">256</span>;</div><div class="line">    TL0 = (<span class="number">65536</span><span class="number">-2000</span>)%<span class="number">256</span>;</div><div class="line">    display();     <span class="comment">//每2ms显示一次</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>　　当然，前后台系统设计一定要注意一条原则：</p>
 <p>　　<strong>紧急的事务一定要用中断处理，中断只处理紧急事务！</strong></p>
 <p>　　在前后台系统当中，关键的时间操作必须通过中断操作来保证实时性，由于前后台系统中的任务是顺序执行的，中断服务函数提供的信息需要后台程序走到该处理这个信息这一步时才能得到处理的，倘若任务数越多，实时性更加得不到保证，因为循环的执行时间不是常数，程序经过某一特定部分的准确时间也是不能确定的。进而，如果程序修改了，循环的时序也会受到影响。很多基于微处理器的产品采用前后台系统设计，例如微波炉、电话机、玩具等。在另外一些基于微处理器的应用中，从省电的角度出发，平时微处理器处在停机状态(halt)，所有的事都靠中断服务来完成。</p>
@@ -469,6 +468,8 @@
       
         <div class="post-tags">
           
+            <a href="/tags/IoT/" rel="tag"># IoT</a>
+          
             <a href="/tags/单片机/" rel="tag"># 单片机</a>
           
         </div>
@@ -482,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/02/树莓派-DHT11温湿度传感器-yeelink物联网云/" rel="next" title="树莓派+DHT11温湿度传感器+yeelink物联网云">
-                <i class="fa fa-chevron-left"></i> 树莓派+DHT11温湿度传感器+yeelink物联网云
+              <a href="/2016/06/02/树莓派 + DHT11 温湿度传感器 + yeelink 物联网云/" rel="next" title="树莓派 + DHT11 温湿度传感器 + yeelink 物联网云">
+                <i class="fa fa-chevron-left"></i> 树莓派 + DHT11 温湿度传感器 + yeelink 物联网云
               </a>
             
           </div>
@@ -492,8 +493,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/10/树莓派-USB摄像头-yeelink实现云监控/" rel="prev" title="树莓派+USB摄像头+yeelink实现云监控">
-                树莓派+USB摄像头+yeelink实现云监控 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/06/10/树莓派 + USB 摄像头 + yeelink 实现云监控/" rel="prev" title="树莓派 + USB 摄像头 + yeelink 实现云监控">
+                树莓派 + USB 摄像头 + yeelink 实现云监控 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -606,7 +607,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">97</span>
+                <span class="site-state-item-count">93</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
