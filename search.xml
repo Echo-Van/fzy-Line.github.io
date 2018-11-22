@@ -1655,8 +1655,8 @@
         <category>Android</category>
       </categories>
       <tags>
-        <tag>网络</tag>
         <tag>Android</tag>
+        <tag>网络</tag>
       </tags>
   </entry>
   <entry>
@@ -1707,9 +1707,9 @@
       </categories>
       <tags>
         <tag>Python</tag>
+        <tag>Http</tag>
         <tag>爬虫</tag>
         <tag>正则表达式</tag>
-        <tag>Http</tag>
       </tags>
   </entry>
   <entry>
