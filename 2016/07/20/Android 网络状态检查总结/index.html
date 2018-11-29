@@ -902,7 +902,7 @@
           repo: 'fzy-Line.github.io',
           owner: 'fzy-Line',
           admin: ['fzy-Line'],
-          id: location.pathname,
+          id: md5(location.pathname),
           distractionFreeMode: 'true'
         })
         gitalk.render('gitalk-container')           
