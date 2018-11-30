@@ -1,0 +1,1317 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Contiki,定时器," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Contiki 有一个 clock 模块和一系列 timer 模块：timer，stimer，ctimer，etimer，和 rtimer。 　　Contiki 的定时器种类太多，在初期会让人有一种分不清的感觉。都是以 timer（硬件定时器）为基础拓展成软件的定时器方式，有的以事件方式、有的以回调方式，有的通过粗精度来保证软件的低消耗，可以通过功能的划分来选择不同的定时器。">
+<meta name="keywords" content="Contiki,定时器">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Contiki 定时器部分详解">
+<meta property="og:url" content="https://fzy-line.github.io/2017/04/06/Contiki 定时器部分详解/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="Contiki 有一个 clock 模块和一系列 timer 模块：timer，stimer，ctimer，etimer，和 rtimer。 　　Contiki 的定时器种类太多，在初期会让人有一种分不清的感觉。都是以 timer（硬件定时器）为基础拓展成软件的定时器方式，有的以事件方式、有的以回调方式，有的通过粗精度来保证软件的低消耗，可以通过功能的划分来选择不同的定时器。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-30T08:15:33.790Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Contiki 定时器部分详解">
+<meta name="twitter:description" content="Contiki 有一个 clock 模块和一系列 timer 模块：timer，stimer，ctimer，etimer，和 rtimer。 　　Contiki 的定时器种类太多，在初期会让人有一种分不清的感觉。都是以 timer（硬件定时器）为基础拓展成软件的定时器方式，有的以事件方式、有的以回调方式，有的通过粗精度来保证软件的低消耗，可以通过功能的划分来选择不同的定时器。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2017/04/06/Contiki 定时器部分详解/"/>
+
+
+
+
+
+  <title>Contiki 定时器部分详解 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/04/06/Contiki 定时器部分详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Contiki 定时器部分详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-06T17:24:47+08:00">
+                2017-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/" itemprop="url" rel="index">
+                    <span itemprop="name">IoT</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/IoT/OS/" itemprop="url" rel="index">
+                    <span itemprop="name">OS</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>　　Contiki 有一个 clock 模块和一系列 timer 模块：timer，stimer，ctimer，etimer，和 rtimer。</p>
+<p>　　Contiki 的定时器种类太多，在初期会让人有一种分不清的感觉。都是以 timer（硬件定时器）为基础拓展成软件的定时器方式，有的以事件方式、有的以回调方式，有的通过粗精度来保证软件的低消耗，可以通过功能的划分来选择不同的定时器。</p>
+<a id="more"></a>
+<h4 id="Clock模块"><a href="#Clock模块" class="headerlink" title="Clock模块"></a>Clock模块</h4><p>　　clock.h 位于 contiki/core/sys。该文件为内核文件，定义了 clock 模块实现的接口和必要条件。</p>
+<ul>
+<li>clock_init() 函数</li>
+</ul>
+<p>　　就是初始化系统时钟。</p>
+<ul>
+<li>clock_time() 函数</li>
+</ul>
+<p>　　函数就是计时函数，直接返回 count 的值，这样就知道当前时间了。</p>
+<ul>
+<li>clock_seconds() 函数</li>
+</ul>
+<p>　　函数返回以秒为单位的数值 seconds。该全局变量在时钟中断函数中，每当 count 值为 128 时，都会加 1，相当于每增加 1 都经过了 1 秒。</p>
+<ul>
+<li>clock_delay() 和 clock_wait() 函数</li>
+</ul>
+<p>　　用来阻塞 CPU 的，但不会放弃控制权，就是平常的延时函数，有的底层驱动可能会需要。</p>
+<p>　　CLOCK_SECOND 宏就是一秒的宏，该宏值乘以 7.8ms 应该是 1s，所以程序里面设置该宏值为 128，这样，<code>128 * 7.8 = 998.4≈1S</code>。</p>
+<p>　　有 clock.h 必有 clock.c，该文件与具体的硬件平台有关，它可以位于 contiki/cpu/ 下，也可以位于 contiki/platform/ 下。</p>
+<h4 id="Timer定时器"><a href="#Timer定时器" class="headerlink" title="Timer定时器"></a>Timer定时器</h4><h5 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h5><p>　　Timer 定时器以 clock 的 tick 作为时间精度，它是 Contiki 系统最基础的定时器，它使用 Contiki 系统时钟模块中的 clock_time() 函数来获取系统当前时间以便实现定时功能，等待时间到达以后触发，需要轮询调用，即应用程序必须去主动检查定时器是否过期,不能自动的的获得过期的消息。clock 模块提供一些处理系统时间的函数，还有一些用来阻塞 CPU 的函数。</p>
+<h5 id="定时器API定义"><a href="#定时器API定义" class="headerlink" title="定时器API定义"></a>定时器API定义</h5><p>　　/home/user/contiki/core/sys/timer.h：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> TIMER_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> TIMER_H_</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sys/clock.h"</span></span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 定义一个Timer定时器对象。定时器在使用之前必须通过timer_set()进行设置。</div><div class="line"> */</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timer</span> &#123;</span></div><div class="line">  <span class="keyword">clock_time_t</span> start;</div><div class="line">  <span class="keyword">clock_time_t</span> interval;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//设置并启动一个Timer定时器对象</span></div><div class="line"><span class="function">CCIF <span class="keyword">void</span> <span class="title">timer_set</span><span class="params">(struct timer *t, <span class="keyword">clock_time_t</span> interval)</span></span>;</div><div class="line"><span class="comment">//复位一个Timer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_reset</span><span class="params">(struct timer *t)</span></span>;</div><div class="line"><span class="comment">//重启一个Timer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">timer_restart</span><span class="params">(struct timer *t)</span></span>;</div><div class="line"><span class="comment">//检查一个Timer定时器对象是否到期</span></div><div class="line"><span class="function">CCIF <span class="keyword">int</span> <span class="title">timer_expired</span><span class="params">(struct timer *t)</span></span>;</div><div class="line"><span class="comment">//获取一个Timer定时器对象距离所设置的到期时长还剩余多少时间</span></div><div class="line"><span class="keyword">clock_time_t</span> timer_remaining(struct timer *t);</div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* TIMER_H_ */</span></span></div></pre></td></tr></table></figure>
+<h5 id="API的具体实现"><a href="#API的具体实现" class="headerlink" title="API的具体实现"></a>API的具体实现</h5><p>　　位于 /home/user/contiki/core/sys 目录下的 timer.c 文件中。</p>
+<h4 id="Stimer"><a href="#Stimer" class="headerlink" title="Stimer"></a>Stimer</h4><h5 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h5><p>　　设定定时器，以 second 作为时间精度，等待时间到达以后触发，需要轮询调用。实际上 stimer 这个模块跟 timer 的用法，及 API 的功能完全一致，只不过 timer 定时 us 级别的时间，stimer 定时 s 级别的时间。</p>
+<h5 id="定时器API定义-1"><a href="#定时器API定义-1" class="headerlink" title="定时器API定义"></a>定时器API定义</h5><p>　　/home/user/contiki/core/sys/stimer.h：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> STIMER_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> STIMER_H_</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sys/clock.h"</span></span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * 定义一个Stimer定时器对象。定时器在使用之前必须通过stimer_set()进行设置。</div><div class="line"> */</div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">stimer</span> &#123;</span></div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> start;</div><div class="line">  <span class="keyword">unsigned</span> <span class="keyword">long</span> interval;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 设置并启动一个Stimer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">stimer_set</span><span class="params">(struct stimer *t, <span class="keyword">unsigned</span> <span class="keyword">long</span> interval)</span></span>;</div><div class="line"><span class="comment">// 重置一个Stimer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">stimer_reset</span><span class="params">(struct stimer *t)</span></span>;</div><div class="line"><span class="comment">// 重启一个Stimer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">stimer_restart</span><span class="params">(struct stimer *t)</span></span>;</div><div class="line"><span class="comment">// 检查一个Timer定时器对象是否到期</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">stimer_expired</span><span class="params">(struct stimer *t)</span></span>;</div><div class="line"><span class="comment">// 获取一个Timer定时器对象距离所设置的到期时长还剩余多少时间</span></div><div class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">stimer_remaining</span><span class="params">(struct stimer *t)</span></span>;</div><div class="line"><span class="comment">// 得到定时器启动后的时间</span></div><div class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">stimer_elapsed</span><span class="params">(struct stimer *t)</span></span>;</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* STIMER_H_ */</span></span></div></pre></td></tr></table></figure>
+<h5 id="API的具体实现-1"><a href="#API的具体实现-1" class="headerlink" title="API的具体实现"></a>API的具体实现</h5><p>　　位于 /home/user/contiki/core/sys 目录下的 stimer.c 文件中。</p>
+<h4 id="Etimer"><a href="#Etimer" class="headerlink" title="Etimer"></a>Etimer</h4><h5 id="简介-2"><a href="#简介-2" class="headerlink" title="简介"></a>简介</h5><p>　　事件定时器，调用 clock_time 获得当前系统的时间，它提供产生时间事件（timed event）的机制，当设定好的定时器到期时将会给绑定定时器的线程发送一个 PROCESS_EVENT_TIMER 事件；</p>
+<p>　　Contiki 系统可以使用这个定时器做事件调度，主要用在 Contiki 进程当系统的其它功能工作或休眼时，这个进程在等待一个时钟周期。Rime 协议栈里面会经常用来处理通信超时。</p>
+<h5 id="定时器API定义-2"><a href="#定时器API定义-2" class="headerlink" title="定时器API定义"></a>定时器API定义</h5><p>　　/home/user/contiki/core/sys/etimer.h：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> ETIMER_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> ETIMER_H_</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sys/timer.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"sys/process.h"</span></span></div><div class="line"></div><div class="line"><span class="comment">// 定义一个Etimer定时器对象，定时器在使用之前必须通过etimer_set()进行设置。</span></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">etimer</span> &#123;</span></div><div class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">timer</span> <span class="title">timer</span>;</span></div><div class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">etimer</span> *<span class="title">next</span>;</span></div><div class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">process</span> *<span class="title">p</span>;</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 设置并启动一个Etimer定时器对象</span></div><div class="line"><span class="function">CCIF <span class="keyword">void</span> <span class="title">etimer_set</span><span class="params">(struct etimer *et, <span class="keyword">clock_time_t</span> interval)</span></span>;</div><div class="line"><span class="comment">// 重置一个Etimer定时器对象</span></div><div class="line"><span class="function">CCIF <span class="keyword">void</span> <span class="title">etimer_reset</span><span class="params">(struct etimer *et)</span></span>;</div><div class="line"><span class="comment">// 重启一个Etimer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">etimer_restart</span><span class="params">(struct etimer *et)</span></span>;</div><div class="line"><span class="comment">// 获取事件定时器的过期时间。</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">etimer_adjust</span><span class="params">(struct etimer *et, <span class="keyword">int</span> td)</span></span>;</div><div class="line"><span class="comment">// 获取事件定时器的到期时间</span></div><div class="line"><span class="keyword">clock_time_t</span> etimer_expiration_time(struct etimer *et);</div><div class="line"><span class="comment">// 获取事件定时器的启动时间</span></div><div class="line"><span class="keyword">clock_time_t</span> etimer_start_time(struct etimer *et);</div><div class="line"><span class="comment">// 检查一个Etimer定时器对象是否到期</span></div><div class="line"><span class="function">CCIF <span class="keyword">int</span> <span class="title">etimer_expired</span><span class="params">(struct etimer *et)</span></span>;</div><div class="line"><span class="comment">// 停止一个Etimer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">etimer_stop</span><span class="params">(struct etimer *et)</span></span>;</div><div class="line"><span class="comment">// 通知事件定时器时钟已更改</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">etimer_request_poll</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"><span class="comment">// 检查是否有任何非过期的事件定时器</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">etimer_pending</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"><span class="comment">// 所有即将到期的事件定时器的下一个到期时间</span></div><div class="line"><span class="keyword">clock_time_t</span> etimer_next_expiration_time(<span class="keyword">void</span>);</div><div class="line"></div><div class="line">PROCESS_NAME(etimer_process);</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* ETIMER_H_ */</span></span></div></pre></td></tr></table></figure>
+<h5 id="API的具体实现-2"><a href="#API的具体实现-2" class="headerlink" title="API的具体实现"></a>API的具体实现</h5><p>　　位于 /home/user/contiki/core/sys 目录下的 etimer.c 文件中。</p>
+<h4 id="Ctimer"><a href="#Ctimer" class="headerlink" title="Ctimer"></a>Ctimer</h4><h5 id="简介-3"><a href="#简介-3" class="headerlink" title="简介"></a>简介</h5><p>　　回调定时器，调用 etimer，触发以后调用回调函数；</p>
+<p>　　由于 Ctimer 同样也是事件定时器，只不过多了一个回调的功能，所以在初始化 Ctimer 时，用 etimer_set 来初始化系统启动时需要的 Ctimer，然后标记初始化完成。在 ctimer_process 中，主要是去轮询过期的 Ctimer，然后再进行回调。请注意，由于回调函数在另一个进程中，所以根据 protothread 的设计，需要调用  PROCESS_CONTEXT_BEGIN() 和 PROCESS_CONTEXT_END() 来临时的开辟其它进程中的上下文，最后关闭。（可参考 ctimer_process 的具体实现进行分析）</p>
+<h5 id="定时器API定义-3"><a href="#定时器API定义-3" class="headerlink" title="定时器API定义"></a>定时器API定义</h5><p>　　/home/user/contiki/core/sys/ctimer.h：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">#ifndef CTIMER_H_</div><div class="line">#define CTIMER_H_</div><div class="line"></div><div class="line">#include "sys/etimer.h"</div><div class="line"></div><div class="line">// 定义一个Ctimer定时器对象</div><div class="line">struct ctimer &#123;</div><div class="line">  struct ctimer *next;</div><div class="line">  struct etimer etimer;</div><div class="line">  struct process *p;</div><div class="line">  void (*f)(void *);</div><div class="line">  void *ptr;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 复位一个Ctimer定时器对象</div><div class="line">void ctimer_reset(struct ctimer *c);</div><div class="line">// 重启一个Ctimer定时器对象</div><div class="line">void ctimer_restart(struct ctimer *c);</div><div class="line">// 设置并启动一个Ctimer定时器对象</div><div class="line">void ctimer_set(struct ctimer *c, clock_time_t t, void (*f)(void *), void *ptr);</div><div class="line">// 停止一个Ctimer定时器对象</div><div class="line">void ctimer_stop(struct ctimer *c);</div><div class="line">// 检查一个Ctimer定时器对象是否到期</div><div class="line">int ctimer_expired(struct ctimer *c);</div><div class="line">// 初始化Ctimer定时器</div><div class="line">void ctimer_init(void);</div><div class="line"></div><div class="line">#endif /* CTIMER_H_ */</div></pre></td></tr></table></figure>
+<h5 id="API的具体实现-3"><a href="#API的具体实现-3" class="headerlink" title="API的具体实现"></a>API的具体实现</h5><p>　　位于 /home/user/contiki/core/sys 目录下的 ctimer.c 文件中。</p>
+<h4 id="rtimer"><a href="#rtimer" class="headerlink" title="rtimer"></a>rtimer</h4><p>　　实时定时器，直接调用硬件平台，设定一个硬件实时定时器，触发以后调用一个定时器回调。它可以抢占任何进程，这样使得实时任务可以准确调度。</p>
+<p>　　有两种类型的实时任务：一种是硬实时任务，一种是软实时任务，其中硬实时任务的优先级要高点。</p>
+<p>　　rtimer 与其它的 timer 不一样的是，它在平台这一层只是提供了三个接口：</p>
+<ul>
+<li>rtimer_init</li>
+<li>rtimer_set</li>
+<li>rtimer_run_next</li>
+</ul>
+<p>　　这三个接口的实现是严重依赖于 MCU 的特性的。</p>
+<h5 id="定时器API定义-4"><a href="#定时器API定义-4" class="headerlink" title="定时器API定义"></a>定时器API定义</h5><p>　　/home/user/contiki/core/sys/rtimer.h：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> RTIMER_H_</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTIMER_H_</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"contiki-conf.h"</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> RTIMER_CLOCK_LT</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> <span class="keyword">rtimer_clock_t</span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTIMER_CLOCK_LT(a,b)     ((signed short)((a)-(b)) &lt; 0)</span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* RTIMER_CLOCK_LT */</span></span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"rtimer-arch.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">rtimer_init</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rtimer</span>;</span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(* <span class="keyword">rtimer_callback_t</span>)</span><span class="params">(struct rtimer *t, <span class="keyword">void</span> *ptr)</span></span>;</div><div class="line"></div><div class="line"><span class="comment">// 定义一个Ctimer定时器对象</span></div><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rtimer</span> &#123;</span></div><div class="line">  <span class="keyword">rtimer_clock_t</span> time;</div><div class="line">  <span class="keyword">rtimer_callback_t</span> func;</div><div class="line">  <span class="keyword">void</span> *ptr;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">enum</span> &#123;</div><div class="line">  RTIMER_OK,</div><div class="line">  RTIMER_ERR_FULL,</div><div class="line">  RTIMER_ERR_TIME,</div><div class="line">  RTIMER_ERR_ALREADY_SCHEDULED,</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// 设置并启动一个rtimer定时器对象</span></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">rtimer_set</span><span class="params">(struct rtimer *task, <span class="keyword">rtimer_clock_t</span> time,</span></span></div><div class="line">           <span class="keyword">rtimer_clock_t</span> duration, <span class="keyword">rtimer_callback_t</span> func, <span class="keyword">void</span> *ptr);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">rtimer_run_next</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"></div><div class="line"><span class="comment">// 用于获取当前的rtimer时间</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTIMER_NOW() rtimer_arch_now()</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTIMER_TIME(task) ((task)-&gt;time)</span></div><div class="line"></div><div class="line"><span class="comment">// 针对特定平台的初始化操作，被rtimer_init()函数调用</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">rtimer_arch_init</span><span class="params">(<span class="keyword">void</span>)</span></span>;</div><div class="line"><span class="comment">// 传递一个唤醒时间，在特定时刻进行调度操作，调用rtimer_run_next()</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">rtimer_arch_schedule</span><span class="params">(<span class="keyword">rtimer_clock_t</span> t)</span></span>;</div><div class="line"><span class="comment">/*rtimer_clock_t rtimer_arch_now(void);*/</span></div><div class="line"></div><div class="line"><span class="comment">// rtimer每秒的滴答数</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> RTIMER_SECOND RTIMER_ARCH_SECOND</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span> <span class="comment">/* RTIMER_H_ */</span></span></div></pre></td></tr></table></figure>
+<h5 id="API的具体实现-4"><a href="#API的具体实现-4" class="headerlink" title="API的具体实现"></a>API的具体实现</h5><p>　　位于 /home/user/contiki/core/sys 目录下的 rtimer.c 文件中。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Contiki/" rel="tag"># Contiki</a>
+          
+            <a href="/tags/定时器/" rel="tag"># 定时器</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/31/Raspberry Pi 6LBR 配置教程/" rel="next" title="Raspberry Pi 6LBR 配置教程">
+                <i class="fa fa-chevron-left"></i> Raspberry Pi 6LBR 配置教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/14/Python Numpy 学习笔记（一）/" rel="prev" title="Python Numpy 学习笔记（一）">
+                Python Numpy 学习笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fanzhenyu@csu.edu.cn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jacktaoz.github.io/" title="Jacktao" target="_blank">Jacktao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Clock模块"><span class="nav-number">1.</span> <span class="nav-text">Clock模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Timer定时器"><span class="nav-number">2.</span> <span class="nav-text">Timer定时器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时器API定义"><span class="nav-number">2.2.</span> <span class="nav-text">定时器API定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#API的具体实现"><span class="nav-number">2.3.</span> <span class="nav-text">API的具体实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Stimer"><span class="nav-number">3.</span> <span class="nav-text">Stimer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介-1"><span class="nav-number">3.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时器API定义-1"><span class="nav-number">3.2.</span> <span class="nav-text">定时器API定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#API的具体实现-1"><span class="nav-number">3.3.</span> <span class="nav-text">API的具体实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Etimer"><span class="nav-number">4.</span> <span class="nav-text">Etimer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介-2"><span class="nav-number">4.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时器API定义-2"><span class="nav-number">4.2.</span> <span class="nav-text">定时器API定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#API的具体实现-2"><span class="nav-number">4.3.</span> <span class="nav-text">API的具体实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ctimer"><span class="nav-number">5.</span> <span class="nav-text">Ctimer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#简介-3"><span class="nav-number">5.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时器API定义-3"><span class="nav-number">5.2.</span> <span class="nav-text">定时器API定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#API的具体实现-3"><span class="nav-number">5.3.</span> <span class="nav-text">API的具体实现</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rtimer"><span class="nav-number">6.</span> <span class="nav-text">rtimer</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#定时器API定义-4"><span class="nav-number">6.1.</span> <span class="nav-text">定时器API定义</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#API的具体实现-4"><span class="nav-number">6.2.</span> <span class="nav-text">API的具体实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '9f74a018210b61ac4709',
+          clientSecret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+          repo: 'fzy-Line.github.io',
+          owner: 'fzy-Line',
+          admin: ['fzy-Line'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
