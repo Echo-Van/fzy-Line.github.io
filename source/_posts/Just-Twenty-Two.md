@@ -18,14 +18,14 @@ date: 2017-06-17 13:59:27
 
 　　21日轻松完成答辩，准备晚上出去嗨一顿，3个室友加上领导和钟善良，虽然没有太多的人，但是吃了最好吃的蛋糕，唱了最满意的歌，吃了最喜欢的小龙虾，感觉真的很幸福了。谢谢室友的陪伴，谢谢领导和钟善良的蛋糕，答辩完，好多感触，谢谢你们陪我喝酒。
 
-　　![17-1](http://ohe7ixo05.bkt.clouddn.com/2017/6/17-1.jpg)
+　　![17-1](http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/17-1.jpg)
 
 　　听到你们喊我部长我就很开心，更何况看到蛋糕上还是大写的Wuli 部长呢，哈哈哈哈哈。很多次说要戒酒，可是总忍不住要和大家一起喝。我就是这样一个人，有人陪我喝酒我就会很开心呀，因为我觉得很多人喝酒之后都会不一样，都会变得特别有意思。嗯，有你们陪我我就很开心了。可是，以后大概也真的很难再聚在一起喝酒了吧！
 　　
-　　![17-2](http://ohe7ixo05.bkt.clouddn.com/2017/6/17-2.jpg)
+　　![17-2](http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/17-2.jpg)
 
 　　以后，天南地北，我们过生日的时候也很难在一起聚了，只是，希望我们都能一直幸福下去，希望以后你们的朋友也像我一样爱你们（哈哈，找不到有钟傻傻的合照了，将就将就吧）。
 　　
-　　![17-3](http://ohe7ixo05.bkt.clouddn.com/2017/6/17-3.jpg)
+　　![17-3](http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/17-3.jpg)
 
 <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=28068710&auto=1&height=66"></iframe>

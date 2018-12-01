@@ -1,16 +1,16 @@
 ---
 title: CCF-CSP 题解博客汇总
 tags:
-  - 算法学习
   - CCF-CSP
+  - 教女朋友学Python
 categories:
   - Algorithm
   - CCF-CSP
 abbrlink: 51400
-date: 2018-09-28 23:47:43
+date: 2018-11-12 23:47:43
 ---
 
-<center>CCF CSP 题解博客汇总与索引目录（持续更新）。</center>
+<center>教女朋友学Python系列之 CCF-CSP 题解博客汇总与索引目录（持续更新）。</center>
 
 <!--more-->
 
@@ -37,19 +37,19 @@ date: 2018-09-28 23:47:43
 
 
 
-- 201312-2 ISBN号码
+- [201312-2 ISBN号码](http://fanzhenyu.me/2018/10/14/CCF-CSP-ISBN%E5%8F%B7%E7%A0%81/)
 - 201403-2 窗口
-- 201409-2 画图 
+- [201409-2 画图](http://fanzhenyu.me/2018/10/28/CCF-CSP-%E6%B6%88%E9%99%A4%E7%B1%BB%E6%B8%B8%E6%88%8F%E5%92%8C%E7%94%BB%E5%9B%BE/)
 - 201412-2 Z字形扫描
-- 201503-2 数字排序
-- 201509-2 日期计算
-- 201512-2 消除类游戏
+- [201503-2 数字排序](http://fanzhenyu.me/2018/10/27/CCF-CSP-%E6%95%B0%E5%AD%97%E6%8E%92%E5%BA%8F/)
+- [201509-2 日期计算](http://fanzhenyu.me/2018/10/28/CCF-CSP-%E6%97%A5%E6%9C%9F%E8%AE%A1%E7%AE%97/)
+- [201512-2 消除类游戏](http://fanzhenyu.me/2018/10/28/CCF-CSP-%E6%B6%88%E9%99%A4%E7%B1%BB%E6%B8%B8%E6%88%8F%E5%92%8C%E7%94%BB%E5%9B%BE/)
 - 201604-2 俄罗斯方块
-- 201609-2 火车购票
+- [201609-2 火车购票](http://fanzhenyu.me/2018/10/21/CCF-CSP-%E7%81%AB%E8%BD%A6%E8%B4%AD%E7%A5%A8/)
 - 201612-2 工资计算
 - 201703-2 学生排队
 - 201709-2 公共钥匙盒
-- 201712-2 游戏
+- [201712-2 游戏](http://fanzhenyu.me/2018/10/28/CCF-CSP-%E6%B8%B8%E6%88%8F/)
 - 201803-2 碰撞的小球
 
 

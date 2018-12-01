@@ -1,8 +1,8 @@
 ---
 title: CCF-CSP 数列分段与折点计数
 tags:
-  - 算法学习
   - CCF-CSP
+  - 教女朋友学Python
 categories:
   - Algorithm
   - CCF-CSP
@@ -77,7 +77,7 @@ print(count)  # 输出结果
     给定n个整数表示一个商店连续n天的销售量。如果某天之前销售量在增长，而后一天销售量减少，则称这一天为折点，反过来如果之前销售量减少而后一天销售量增长，也称这一天为折点。其他的天都不是折点。如下图中，第3天和第6天是折点。
 ```
 
-![21-1](http://ohe7ixo05.bkt.clouddn.com/2018/9/21-1.png)
+![21-1](http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/9/21-1.png)
 
 ```
     给定n个整数a1, a2, …, an表示销售量，请计算出这些天总共有多少个折点。

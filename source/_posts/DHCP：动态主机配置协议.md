@@ -1,11 +1,10 @@
 ---
 title: DHCP：动态主机配置协议
 tags:
-  - 网络
+  - Network
   - DHCP
 categories: 
   - Network
-  - Network protocol
 abbrlink: 55107
 date: 2018-09-10 21:45:39
 ---
@@ -57,7 +56,7 @@ date: 2018-09-10 21:45:39
 
 - **手动租约续订 **
 
-　　如果需要立即更新DHCP配置消息，用户可以手动续订IP租约。例如，如果用户希望 DHCP 客户端立即从DHCP 服务器获取新安装的路由器的地址，那么需要用户从客户端续订租约来更改这些配置。要手动续订租约，使用 ipconfig 命令，并带 /renew 开关参数。这条命令向 DHCP 服务器发送一条 DHCP REQUEST 消息请求更新配置选项和续订租约时间。
+　　如果需要立即更新 DHCP 配置消息，用户可以手动续订 IP 租约。例如，如果用户希望 DHCP 客户端立即从DHCP 服务器获取新安装的路由器的地址，那么需要用户从客户端续订租约来更改这些配置。要手动续订租约，使用 ipconfig 命令，并带 /renew 开关参数。这条命令向 DHCP 服务器发送一条 DHCP REQUEST 消息请求更新配置选项和续订租约时间。
 
 #### DHCP 服务器
 
@@ -86,17 +85,17 @@ date: 2018-09-10 21:45:39
 
   - 静态租用：首先匹配MAC地址，看是否能在静态租约表中找到对应的项，若能找到就把IP分配给他。静态表中的IP不能被其他客户使用。
   - 动态租用：
-    - server试图分配给client上次分配过的IP，在这之前检查这个IP是否正在使用。
+    - server试图分配给client上次分配过的IP，在这之前检查这个 IP 是否正在使用。
     - discover中含有request ip 时，检查该IP是否在地址池范围，是否正在使用，是否到期，是否是静态IP，网络上是否已经存在。
     - discover不含request ip，从地址池上寻找一个最小的可用IP分配。
 
 - DHCPACK：
 
-  　　根据是否含有request ip和server ip识别客户端现在init_reboot,selecting,renewing/rebinding中的哪个状态，并根据以下规则执行DHCPACK回复：
+  　　根据是否含有 request ip 和 server ip 识别客户端现在 init_reboot,selecting,renewing/rebinding 中的哪个状态，并根据以下规则执行 DHCP ACK 回复：
 
-  - 若client处于selecting状态，验证request ip和server ip是否同服务器中的匹配。
-  - 若client处于init_reboot状态，验证request ip是否符合租约记录。
-  - 若client处于renewing/rebinding状态，验证client ip address是否符合租约记录。
+  - 若 client 处于 selecting 状态，验证 request ip 和 server ip 是否同服务器中的匹配。
+  - 若 client 处于 init_reboot 状态，验证 request ip 是否符合租约记录。
+  - 若 client 处于 renewing/rebinding 状态，验证 client ip address 是否符合租约记录。
 
 - ......
 

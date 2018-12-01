@@ -1,8 +1,8 @@
 ---
 title: CCF-CSP 分蛋糕与打酱油
 tags:
-  - 算法学习
   - CCF-CSP
+  - 教女朋友学Python
 categories:
   - Algorithm
   - CCF-CSP

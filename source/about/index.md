@@ -5,14 +5,14 @@ type: about
 comments: false
 ---
 
-姓名：fzy
+姓名：fanzhenyu
 
-年龄：22
+年龄：23
 
 所在地：湖南-长沙
 
-邮箱：fzyLine@163.com
+专业：计算机科学与技术
+
+邮箱：fanzhenyu@csu.edu.cn
 
 微信：fzy-Line
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=450 src="http://music.163.com/outchain/player?type=1&id=2771045&auto=1&height=430"></iframe>
