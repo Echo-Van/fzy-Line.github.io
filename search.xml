@@ -3,14 +3,14 @@
   <entry>
     <title><![CDATA[CCF-CSP 题解博客汇总]]></title>
     <url>%2F2018%2F11%2F12%2FCCF-CSP-%E9%A2%98%E8%A7%A3%E5%8D%9A%E5%AE%A2%E6%B1%87%E6%80%BB%2F</url>
-    <content type="text"><![CDATA[CCF CSP 题解博客汇总与索引目录（持续更新）。 第一题 201312-1 出现次数最多的数 201403-1 相反数 201409-1 相邻数对 201412-1 门禁系统 201503-1 图像旋转 201509-1 数列分段 201512-1 数位之和 201604-1 折点计数 201609-1 最大波动 201612-1 中间数 201703-1 分蛋糕 201709-1 打酱油 201712-1 最小差值 201803-1 跳一跳 第二题 201312-2 ISBN号码 201403-2 窗口 201409-2 画图 201412-2 Z字形扫描 201503-2 数字排序 201509-2 日期计算 201512-2 消除类游戏 201604-2 俄罗斯方块 201609-2 火车购票 201612-2 工资计算 201703-2 学生排队 201709-2 公共钥匙盒 201712-2 游戏 201803-2 碰撞的小球 第三题 201312-3 最大的矩形 201403-3 命令行选项 201409-3 字符串匹配 201412-3 集合竞价 201503-3 节日 201509-3 模板生成系统 201512-3 画图 201604-3 路径解析 201609-3 炉石传说 201612-3 权限查询 201703-3 Markdown 201709-3 JSON查询 201712-3 Crontab 201803-3 URL映射 ……（未完待续）]]></content>
+    <content type="text"><![CDATA[教女朋友学Python系列之 CCF-CSP 题解博客汇总与索引目录（持续更新）。 第一题 201312-1 出现次数最多的数 201403-1 相反数 201409-1 相邻数对 201412-1 门禁系统 201503-1 图像旋转 201509-1 数列分段 201512-1 数位之和 201604-1 折点计数 201609-1 最大波动 201612-1 中间数 201703-1 分蛋糕 201709-1 打酱油 201712-1 最小差值 201803-1 跳一跳 第二题 201312-2 ISBN号码 201403-2 窗口 201409-2 画图 201412-2 Z字形扫描 201503-2 数字排序 201509-2 日期计算 201512-2 消除类游戏 201604-2 俄罗斯方块 201609-2 火车购票 201612-2 工资计算 201703-2 学生排队 201709-2 公共钥匙盒 201712-2 游戏 201803-2 碰撞的小球 第三题 201312-3 最大的矩形 201403-3 命令行选项 201409-3 字符串匹配 201412-3 集合竞价 201503-3 节日 201509-3 模板生成系统 201512-3 画图 201604-3 路径解析 201609-3 炉石传说 201612-3 权限查询 201703-3 Markdown 201709-3 JSON查询 201712-3 Crontab 201803-3 URL映射 ……（未完待续）]]></content>
       <categories>
         <category>Algorithm</category>
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -22,21 +22,21 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
     <title><![CDATA[CCF-CSP 消除类游戏和画图]]></title>
     <url>%2F2018%2F10%2F28%2FCCF-CSP-%E6%B6%88%E9%99%A4%E7%B1%BB%E6%B8%B8%E6%88%8F%E5%92%8C%E7%94%BB%E5%9B%BE%2F</url>
-    <content type="text"><![CDATA[CCF-CSP 201512-2 消除类游戏 和 201409-2 画图 题解 201512-2 消除类游戏问题描述123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051试题编号：201512-2试题名称：消除类游戏时间限制：1.0s内存限制：256.0MB问题描述 消除类游戏是深受大众欢迎的一种游戏，游戏在一个包含有n行m列的游戏棋盘上进行，棋盘的每一行每一列的方格上放着一个有颜色的棋子，当一行或一列上有连续三个或更多的相同颜色的棋子时，这些棋子都被消除。当有多处可以被消除时，这些地方的棋子将同时被消除。 现在给你一个n行m列的棋盘，棋盘中的每一个方格上有一个棋子，请给出经过一次消除后的棋盘。 请注意：一个棋子可能在某一行和某一列同时被消除。输入格式 输入的第一行包含两个整数n, m，用空格分隔，分别表示棋盘的行数和列数。 接下来n行，每行m个整数，用空格分隔，分别表示每一个方格中的棋子的颜色。颜色使用1至9编号。输出格式 输出n行，每行m个整数，相邻的整数之间使用一个空格分隔，表示经过一次消除后的棋盘。如果一个方格中的棋子被消除，则对应的方格输出0，否则输出棋子的颜色编号。样例输入4 52 2 3 1 23 4 5 1 42 3 2 1 32 2 2 4 4样例输出2 2 3 0 23 4 5 0 42 3 2 0 30 0 0 4 4样例说明 棋盘中第4列的1和第4行的2可以被消除，其他的方格中的棋子均保留。样例输入4 52 2 3 1 23 1 1 1 12 3 2 1 32 2 3 3 3样例输出2 2 3 0 23 0 0 0 02 3 2 0 32 2 0 0 0样例说明 棋盘中所有的1以及最后一行的3可以被同时消除，其他的方格中的棋子均保留。评测用例规模与约定 所有的评测用例满足：1 ≤ n, m ≤ 30。 题解 核心思想还是做标记。初始化一个与输入矩阵同等大小且所有元素都为1的二维数组，然后扫描输入的矩阵，每个元素都向下和向右检查，如果发现当一行或一列上有连续三个或更多的相同颜色的棋子时，就将标记数组中的对应位置置为0.最后，在输出的时候将被标记为0的对应位置的输出修改为0，其余位置正常输出。 123456789101112131415161718192021222324m, n = map(int, input().split()) # 读取输入的行列数lst = []for _ in range(m): # 读取输入的矩阵 lst.append(list(map(int, input().split())))flag = [[1] * n for i in range(m)] # 标记数组，所有元素初始化为1for i in range(m): for j in range(n): if i + 2 &lt; m: # 向下检查 if lst[i][j] == lst[i + 1][j] and lst[i][j] == lst[i + 2][j]: for k in range(3): flag[i + k][j] = 0 # 标记 if j + 2 &lt; n: # 向右检查 if lst[i][j] == lst[i][j + 1] and lst[i][j] == lst[i][j + 2]: for k in range(3): flag[i][j + k] = 0 # 标记for i in range(m): for j in range(n): if flag[i][j] != 0: # 正常输出 print(lst[i][j], end=" ") else: # 输出0 print(flag[i][j], end=" ") print() # 换行 201409-2 画图问题描述12345678910111213141516171819202122232425262728试题编号：201409-2试题名称：画图时间限制：1.0s内存限制：256.0MB问题描述 在一个定义了直角坐标系的纸上，画一个(x1,y1)到(x2,y2)的矩形指将横坐标范围从x1到x2，纵坐标范围从y1到y2之间的区域涂上颜色。 下图给出了一个画了两个矩形的例子。第一个矩形是(1,1) 到(4, 4)，用绿色和紫色表示。第二个矩形是(2, 3)到(6, 5)，用蓝色和紫色表示。图中，一共有15个单位的面积被涂上颜色，其中紫色部分被涂了两次，但在计算面积时只计算一次。在实际的涂色过程中，所有的矩形都涂成统一的颜色，图中显示不同颜色仅为说明方便。 给出所有要画的矩形，请问总共有多少个单位的面积被涂上颜色。输入格式 输入的第一行包含一个整数n，表示要画的矩形的个数。 接下来n行，每行4个非负整数，分别表示要画的矩形的左下角的横坐标与纵坐标，以及右上角的横坐标与纵坐标。输出格式 输出一个整数，表示有多少个单位的面积被涂上颜色。样例输入21 1 4 42 3 6 5样例输出15评测用例规模与约定 1&lt;=n&lt;=100，0&lt;=横坐标、纵坐标&lt;=100。 题解 基本思路也是通过标记数组来完成任务。题目给定横坐标和纵坐标在0到100之间，包括100，所以我们用一个 100x100 的二维数组来标记是否有被涂上颜色。首先，初始化 100x100 二维数组的所有元素为0，然后根据题目给出的区域，将区域内元素标记为1，最后再遍历整个二维数组，统计1的个数，即为被涂上颜色的面积。 12345678910111213141516171819n = int(input()) # 获取输入的矩形个数s = []for i in range(n): # 获取输入的坐标 s.append(input().split())c = [[0] * 100 for i in range(100)] # 定义二维数组count = 0for i in range(n): # 有矩形覆盖的区域标记为1 l = list(map(int, s[i])) for j in range(l[0], l[2]): for k in range(l[1], l[3]): c[j][k] = 1for i in range(100): # 统计被标记的区域 for j in range(100): if c[i][j] == 1: count = count + 1print(count) # 输出结果]]></content>
+    <content type="text"><![CDATA[CCF-CSP 201512-2 消除类游戏 和 201409-2 画图 题解 201512-2 消除类游戏问题描述123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051试题编号：201512-2试题名称：消除类游戏时间限制：1.0s内存限制：256.0MB问题描述 消除类游戏是深受大众欢迎的一种游戏，游戏在一个包含有n行m列的游戏棋盘上进行，棋盘的每一行每一列的方格上放着一个有颜色的棋子，当一行或一列上有连续三个或更多的相同颜色的棋子时，这些棋子都被消除。当有多处可以被消除时，这些地方的棋子将同时被消除。 现在给你一个n行m列的棋盘，棋盘中的每一个方格上有一个棋子，请给出经过一次消除后的棋盘。 请注意：一个棋子可能在某一行和某一列同时被消除。输入格式 输入的第一行包含两个整数n, m，用空格分隔，分别表示棋盘的行数和列数。 接下来n行，每行m个整数，用空格分隔，分别表示每一个方格中的棋子的颜色。颜色使用1至9编号。输出格式 输出n行，每行m个整数，相邻的整数之间使用一个空格分隔，表示经过一次消除后的棋盘。如果一个方格中的棋子被消除，则对应的方格输出0，否则输出棋子的颜色编号。样例输入4 52 2 3 1 23 4 5 1 42 3 2 1 32 2 2 4 4样例输出2 2 3 0 23 4 5 0 42 3 2 0 30 0 0 4 4样例说明 棋盘中第4列的1和第4行的2可以被消除，其他的方格中的棋子均保留。样例输入4 52 2 3 1 23 1 1 1 12 3 2 1 32 2 3 3 3样例输出2 2 3 0 23 0 0 0 02 3 2 0 32 2 0 0 0样例说明 棋盘中所有的1以及最后一行的3可以被同时消除，其他的方格中的棋子均保留。评测用例规模与约定 所有的评测用例满足：1 ≤ n, m ≤ 30。 题解 核心思想还是做标记。初始化一个与输入矩阵同等大小且所有元素都为1的二维数组，然后扫描输入的矩阵，每个元素都向下和向右检查，如果发现当一行或一列上有连续三个或更多的相同颜色的棋子时，就将标记数组中的对应位置置为0.最后，在输出的时候将被标记为0的对应位置的输出修改为0，其余位置正常输出。 123456789101112131415161718192021222324m, n = map(int, input().split()) # 读取输入的行列数lst = []for _ in range(m): # 读取输入的矩阵 lst.append(list(map(int, input().split())))flag = [[1] * n for i in range(m)] # 标记数组，所有元素初始化为1for i in range(m): for j in range(n): if i + 2 &lt; m: # 向下检查 if lst[i][j] == lst[i + 1][j] and lst[i][j] == lst[i + 2][j]: for k in range(3): flag[i + k][j] = 0 # 标记 if j + 2 &lt; n: # 向右检查 if lst[i][j] == lst[i][j + 1] and lst[i][j] == lst[i][j + 2]: for k in range(3): flag[i][j + k] = 0 # 标记for i in range(m): for j in range(n): if flag[i][j] != 0: # 正常输出 print(lst[i][j], end=" ") else: # 输出0 print(flag[i][j], end=" ") print() # 换行 201409-2 画图问题描述12345678试题编号：201409-2试题名称：画图时间限制：1.0s内存限制：256.0MB问题描述 在一个定义了直角坐标系的纸上，画一个(x1,y1)到(x2,y2)的矩形指将横坐标范围从x1到x2，纵坐标范围从y1到y2之间的区域涂上颜色。 下图给出了一个画了两个矩形的例子。第一个矩形是(1,1) 到(4, 4)，用绿色和紫色表示。第二个矩形是(2, 3)到(6, 5)，用蓝色和紫色表示。图中，一共有15个单位的面积被涂上颜色，其中紫色部分被涂了两次，但在计算面积时只计算一次。在实际的涂色过程中，所有的矩形都涂成统一的颜色，图中显示不同颜色仅为说明方便。 12345678910111213141516171819 给出所有要画的矩形，请问总共有多少个单位的面积被涂上颜色。输入格式 输入的第一行包含一个整数n，表示要画的矩形的个数。 接下来n行，每行4个非负整数，分别表示要画的矩形的左下角的横坐标与纵坐标，以及右上角的横坐标与纵坐标。输出格式 输出一个整数，表示有多少个单位的面积被涂上颜色。样例输入21 1 4 42 3 6 5样例输出15评测用例规模与约定 1&lt;=n&lt;=100，0&lt;=横坐标、纵坐标&lt;=100。 题解 基本思路也是通过标记数组来完成任务。题目给定横坐标和纵坐标在0到100之间，包括100，所以我们用一个 100x100 的二维数组来标记是否有被涂上颜色。首先，初始化 100x100 二维数组的所有元素为0，然后根据题目给出的区域，将区域内元素标记为1，最后再遍历整个二维数组，统计1的个数，即为被涂上颜色的面积。 12345678910111213141516171819n = int(input()) # 获取输入的矩形个数s = []for i in range(n): # 获取输入的坐标 s.append(input().split())c = [[0] * 100 for i in range(100)] # 定义二维数组count = 0for i in range(n): # 有矩形覆盖的区域标记为1 l = list(map(int, s[i])) for j in range(l[0], l[2]): for k in range(l[1], l[3]): c[j][k] = 1for i in range(100): # 统计被标记的区域 for j in range(100): if c[i][j] == 1: count = count + 1print(count) # 输出结果]]></content>
       <categories>
         <category>Algorithm</category>
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -48,8 +48,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -61,8 +61,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -74,8 +74,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -87,8 +87,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -100,8 +100,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -113,8 +113,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -126,8 +126,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -139,8 +139,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -164,8 +164,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -177,8 +177,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -190,8 +190,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -203,8 +203,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -216,8 +216,8 @@
         <category>CCF-CSP</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
       </tags>
   </entry>
   <entry>
@@ -1137,8 +1137,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>Python</tag>
+        <tag>算法学习</tag>
         <tag>华为机试</tag>
       </tags>
   </entry>
@@ -1175,8 +1175,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>Python</tag>
+        <tag>算法学习</tag>
         <tag>华为机试</tag>
       </tags>
   </entry>
@@ -1189,8 +1189,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>Python</tag>
+        <tag>算法学习</tag>
         <tag>华为机试</tag>
       </tags>
   </entry>

@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="算法学习,CCF-CSP," />
+  <meta name="keywords" content="CCF-CSP,教女朋友学Python," />
 
 
 
@@ -91,19 +91,19 @@
 
 
 <meta name="description" content="CCF-CSP 201509-1 数列分段 与 201604-1 折点计数 题解">
-<meta name="keywords" content="算法学习,CCF-CSP">
+<meta name="keywords" content="CCF-CSP,教女朋友学Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CCF-CSP 数列分段与折点计数">
 <meta property="og:url" content="https://fzy-line.github.io/2018/09/21/CCF-CSP-数列分段与折点计数/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="CCF-CSP 201509-1 数列分段 与 201604-1 折点计数 题解">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/9/21-1.png">
-<meta property="og:updated_time" content="2018-09-21T13:28:22.231Z">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/9/21-1.png">
+<meta property="og:updated_time" content="2018-12-01T11:32:56.802Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CCF-CSP 数列分段与折点计数">
 <meta name="twitter:description" content="CCF-CSP 201509-1 数列分段 与 201604-1 折点计数 题解">
-<meta name="twitter:image" content="http://ohe7ixo05.bkt.clouddn.com/2018/9/21-1.png">
+<meta name="twitter:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/9/21-1.png">
 
 
 
@@ -420,7 +420,7 @@
 <h5 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h5><p>　　这个题目非常简单，初始化段的计数为1，因为至少有一个段，然后遍历数组，出现不同的数字意味着又有新的段，所以段的计数加1，否则就是同一个段，直接检查下一个数。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">n = int(input())  <span class="comment"># 整数的个数</span></div><div class="line">lst = list(map(int, input().split()))  <span class="comment"># 给定的数列</span></div><div class="line">count = <span class="number">1</span>  <span class="comment"># 计数</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n - <span class="number">1</span>):</div><div class="line">    <span class="keyword">if</span> lst[i] != lst[i + <span class="number">1</span>]:  <span class="comment"># 每次不同就加1</span></div><div class="line">        count += <span class="number">1</span></div><div class="line"></div><div class="line">print(count)  <span class="comment"># 输出结果</span></div></pre></td></tr></table></figure>
 <h4 id="201604-1-折点计数"><a href="#201604-1-折点计数" class="headerlink" title="201604-1 折点计数"></a>201604-1 折点计数</h4><h5 id="问题描述-1"><a href="#问题描述-1" class="headerlink" title="问题描述"></a>问题描述</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">试题编号：201604-1</div><div class="line">试题名称：折点计数</div><div class="line">时间限制：1.0s</div><div class="line">内存限制：256.0MB</div><div class="line"></div><div class="line">问题描述</div><div class="line">    给定n个整数表示一个商店连续n天的销售量。如果某天之前销售量在增长，而后一天销售量减少，则称这一天为折点，反过来如果之前销售量减少而后一天销售量增长，也称这一天为折点。其他的天都不是折点。如下图中，第3天和第6天是折点。</div></pre></td></tr></table></figure>
-<p><img src="http://ohe7ixo05.bkt.clouddn.com/2018/9/21-1.png" alt="21-1"></p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/9/21-1.png" alt="21-1"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">    给定n个整数a1, a2, …, an表示销售量，请计算出这些天总共有多少个折点。</div><div class="line">    为了减少歧义，我们给定的数据保证：在这n天中相邻两天的销售量总是不同的，即ai-1≠ai。注意，如果两天不相邻，销售量可能相同。</div><div class="line"></div><div class="line">输入格式</div><div class="line">    输入的第一行包含一个整数n。</div><div class="line">    第二行包含n个整数，用空格分隔，分别表示a1, a2, …, an。</div><div class="line"></div><div class="line">输出格式</div><div class="line">    输出一个整数，表示折点出现的数量。</div><div class="line"></div><div class="line">样例输入</div><div class="line">   7</div><div class="line">   5 4 1 2 3 6 4</div><div class="line"></div><div class="line">样例输出</div><div class="line">   2</div><div class="line"></div><div class="line">评测用例规模与约定</div><div class="line">    所有评测用例满足：1 ≤ n ≤ 1000，每天的销售量是不超过10000的非负整数。</div></pre></td></tr></table></figure>
 <h5 id="题解-1"><a href="#题解-1" class="headerlink" title="题解"></a>题解</h5><p>　　这个题目也非常简单，由题目可知，这点的特点就是左右两个点要么都大于或者小于这个数，于是依据这个条件从第二个点开始，依次检查到倒数第二个点即可。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">n = int(input())  <span class="comment"># 整数个数</span></div><div class="line">lst = list(map(int, input().split()))  <span class="comment"># 整数列表</span></div><div class="line">count = <span class="number">0</span>  <span class="comment"># 计数变量</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n - <span class="number">1</span>):  <span class="comment"># 遍历数组</span></div><div class="line">    <span class="keyword">if</span> (lst[i] &lt; lst[i - <span class="number">1</span>] <span class="keyword">and</span> lst[i] &lt; lst[i + <span class="number">1</span>]) <span class="keyword">or</span> (lst[i] &gt; lst[i - <span class="number">1</span>] <span class="keyword">and</span> lst[i] &gt; lst[i + <span class="number">1</span>]):  <span class="comment"># 计数</span></div><div class="line">        count += <span class="number">1</span></div><div class="line">print(count)  <span class="comment"># 输出结果</span></div></pre></td></tr></table></figure>
@@ -474,9 +474,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/算法学习/" rel="tag"># 算法学习</a>
-          
             <a href="/tags/CCF-CSP/" rel="tag"># CCF-CSP</a>
+          
+            <a href="/tags/教女朋友学Python/" rel="tag"># 教女朋友学Python</a>
           
         </div>
       
@@ -620,7 +620,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">83</span>
+                <span class="site-state-item-count">84</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
