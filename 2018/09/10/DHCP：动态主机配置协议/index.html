@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="网络,DHCP," />
+  <meta name="keywords" content="Network,DHCP," />
 
 
 
@@ -91,7 +91,7 @@
 
 
 <meta name="description" content="DHCP 协议学习总结。">
-<meta name="keywords" content="网络,DHCP">
+<meta name="keywords" content="Network,DHCP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="DHCP：动态主机配置协议">
 <meta property="og:url" content="https://fzy-line.github.io/2018/09/10/DHCP：动态主机配置协议/index.html">
@@ -99,7 +99,7 @@
 <meta property="og:description" content="DHCP 协议学习总结。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://github.com/CyC2018/CS-Notes/raw/master/pics/bf16c541-0717-473b-b75d-4115864f4fbf.jpg">
-<meta property="og:updated_time" content="2018-09-13T12:30:09.107Z">
+<meta property="og:updated_time" content="2018-12-01T11:20:22.506Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="DHCP：动态主机配置协议">
 <meta name="twitter:description" content="DHCP 协议学习总结。">
@@ -370,17 +370,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Network/Network-protocol/" itemprop="url" rel="index">
-                    <span itemprop="name">Network protocol</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -443,7 +432,7 @@
 <ul>
 <li><strong>手动租约续订 </strong></li>
 </ul>
-<p>　　如果需要立即更新DHCP配置消息，用户可以手动续订IP租约。例如，如果用户希望 DHCP 客户端立即从DHCP 服务器获取新安装的路由器的地址，那么需要用户从客户端续订租约来更改这些配置。要手动续订租约，使用 ipconfig 命令，并带 /renew 开关参数。这条命令向 DHCP 服务器发送一条 DHCP REQUEST 消息请求更新配置选项和续订租约时间。</p>
+<p>　　如果需要立即更新 DHCP 配置消息，用户可以手动续订 IP 租约。例如，如果用户希望 DHCP 客户端立即从DHCP 服务器获取新安装的路由器的地址，那么需要用户从客户端续订租约来更改这些配置。要手动续订租约，使用 ipconfig 命令，并带 /renew 开关参数。这条命令向 DHCP 服务器发送一条 DHCP REQUEST 消息请求更新配置选项和续订租约时间。</p>
 <h4 id="DHCP-服务器"><a href="#DHCP-服务器" class="headerlink" title="DHCP 服务器"></a>DHCP 服务器</h4><h5 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h5><p>　　DHCP SERVER 指的是服务器端，在路由器上体现的就是给LAN端动态分配IP的功能。DHCP SERVER 负责接收客户端的 DHCP 请求，管理 LAN 端所有的IP网络设定资料。DHCP 通过“租约”来实现动态分配IP的功能，实现 IP 的时分复用，从而解决 IP 资源短缺的问题。</p>
 <p>　　<strong>DHCP服务器提供三种IP分配方式：</strong></p>
 <ul>
@@ -463,7 +452,7 @@
 <ul>
 <li>静态租用：首先匹配MAC地址，看是否能在静态租约表中找到对应的项，若能找到就把IP分配给他。静态表中的IP不能被其他客户使用。</li>
 <li>动态租用：<ul>
-<li>server试图分配给client上次分配过的IP，在这之前检查这个IP是否正在使用。</li>
+<li>server试图分配给client上次分配过的IP，在这之前检查这个 IP 是否正在使用。</li>
 <li>discover中含有request ip 时，检查该IP是否在地址池范围，是否正在使用，是否到期，是否是静态IP，网络上是否已经存在。</li>
 <li>discover不含request ip，从地址池上寻找一个最小的可用IP分配。</li>
 </ul>
@@ -471,11 +460,11 @@
 </ul>
 </li>
 <li><p>DHCPACK：</p>
-<p>　　根据是否含有request ip和server ip识别客户端现在init_reboot,selecting,renewing/rebinding中的哪个状态，并根据以下规则执行DHCPACK回复：</p>
+<p>　　根据是否含有 request ip 和 server ip 识别客户端现在 init_reboot,selecting,renewing/rebinding 中的哪个状态，并根据以下规则执行 DHCP ACK 回复：</p>
 <ul>
-<li>若client处于selecting状态，验证request ip和server ip是否同服务器中的匹配。</li>
-<li>若client处于init_reboot状态，验证request ip是否符合租约记录。</li>
-<li>若client处于renewing/rebinding状态，验证client ip address是否符合租约记录。</li>
+<li>若 client 处于 selecting 状态，验证 request ip 和 server ip 是否同服务器中的匹配。</li>
+<li>若 client 处于 init_reboot 状态，验证 request ip 是否符合租约记录。</li>
+<li>若 client 处于 renewing/rebinding 状态，验证 client ip address 是否符合租约记录。</li>
 </ul>
 </li>
 <li><p>……</p>
@@ -537,7 +526,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/网络/" rel="tag"># 网络</a>
+            <a href="/tags/Network/" rel="tag"># Network</a>
           
             <a href="/tags/DHCP/" rel="tag"># DHCP</a>
           
@@ -562,8 +551,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/11/Python数据结构-图/" rel="prev" title="Python数据结构-图">
-                Python数据结构-图 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/11/Python 数据结构-图/" rel="prev" title="Python 数据结构-图">
+                Python 数据结构-图 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -672,7 +661,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -683,7 +672,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-count">83</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
