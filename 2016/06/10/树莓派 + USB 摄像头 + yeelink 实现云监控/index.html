@@ -419,12 +419,12 @@
 
       
         <h4 id="配置USB摄像头"><a href="#配置USB摄像头" class="headerlink" title="配置USB摄像头"></a>配置USB摄像头</h4><h5 id="检查摄像头"><a href="#检查摄像头" class="headerlink" title="检查摄像头"></a>检查摄像头</h5><p>　　检查摄像头是否被树莓派检测到，输入命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> lsusb</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> lsusb</span></div></pre></td></tr></table></figure>
 <a id="more"></a>
 <h5 id="查看输出信息"><a href="#查看输出信息" class="headerlink" title="查看输出信息"></a>查看输出信息</h5><p> <img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/6/10-1.jpg" alt="10-1"></p>
 <p>　　如上图我们可以看到 camera 的信息，如果没有你的摄像头的信息，那么有可能你的树莓派的电源无法供应足够的电力给你的摄像头。这时你可以给你的摄像头用独立的电源线，比如有源 USB hub，并重新输入 lsusb 命令查看。如果摄像头还是不能被识别，我们只有建议你购买其他树莓派支持的摄像头了。</p>
 <h5 id="安装fswebcam"><a href="#安装fswebcam" class="headerlink" title="安装fswebcam"></a>安装fswebcam</h5><p>　　要想拍摄照片，你要安装 fswebcam，这是一款小型摄像头程序。你可以直接通过 Raspbian 的仓库来安装 fswebcam。输入命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install fswebcam</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install fswebcam</span></div></pre></td></tr></table></figure>
 <h4 id="配置yeelink云端"><a href="#配置yeelink云端" class="headerlink" title="配置yeelink云端"></a>配置yeelink云端</h4><ul>
 <li><p>到 <a href="http://www.yeelink.net/" target="_blank" rel="external">yeelink官网</a> 注册一个账号。</p>
 </li>
@@ -437,10 +437,10 @@
 </ul>
 <h4 id="配置shell脚本"><a href="#配置shell脚本" class="headerlink" title="配置shell脚本"></a>配置shell脚本</h4><ul>
 <li><p>创建 shell 脚本。输入命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> touch yeelink.sh</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> touch yeelink.sh</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>打开 yeelink.sh。输入命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> nano yeelink.sh</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nano yeelink.sh</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>编辑 yeelink.sh。写入如下两行，然后保存退出：</p>
 </li>
@@ -449,11 +449,11 @@
 <ul>
 <li>为脚本增加可执行权限。输入命令：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> chmod +x yeelink.sh</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> chmod +x yeelink.sh</span></div></pre></td></tr></table></figure>
 <ul>
 <li>将脚本加入 cronjob 定时任务。输入命令：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> crontab -e</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> crontab -e</span></div></pre></td></tr></table></figure>
 <ul>
 <li>加入下面一行, 让脚本每分钟运行一次,即发送一张图片，然后保存退出</li>
 </ul>
@@ -634,7 +634,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -656,7 +656,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

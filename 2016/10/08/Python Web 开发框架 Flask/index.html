@@ -416,20 +416,20 @@
 <p>　　Flask框架中文版开发文档：<a href="http://docs.jinkan.org/docs/flask/" target="_blank" rel="external">http://docs.jinkan.org/docs/flask/</a></p>
 <p>　　Flask 依赖两个外部库：Werkzeug 和 Jinja2 。 Werkzeug 是一个 WSGI（在 Web 应用和多种服务器之间的标准 Python 接口) 工具集。Jinja2 负责渲染模板。</p>
 <h4 id="virtualenv-–-python虚拟沙盒"><a href="#virtualenv-–-python虚拟沙盒" class="headerlink" title="virtualenv – python虚拟沙盒"></a>virtualenv – python虚拟沙盒</h4><p>　　virtualenv 通过创建独立 Python 开发环境的工具, 来解决依赖、版本以及间接权限问题。简单地说，你可以为每个项目建立不同的/独立的 Python 环境，你将为每个项目安装所有需要的软件包到它们各自独立的环境中。</p>
-<h5 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pip install virtualenv</div></pre></td></tr></table></figure>
+<h5 id="安装virtualenv"><a href="#安装virtualenv" class="headerlink" title="安装virtualenv"></a>安装virtualenv</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pip install virtualenv</span></div></pre></td></tr></table></figure>
 <p>　　由于权限问题使用sudo临时提升权限</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo pip install virtualenv</div></pre></td></tr></table></figure>
-<h5 id="建立并进入虚拟环境"><a href="#建立并进入虚拟环境" class="headerlink" title="建立并进入虚拟环境"></a>建立并进入虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> mkdir myproject</div><div class="line"><span class="meta">$</span> cd myproject</div></pre></td></tr></table></figure>
-<h5 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> . venv/bin/activate  #激活当前virtualenv</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo pip install virtualenv</span></div></pre></td></tr></table></figure>
+<h5 id="建立并进入虚拟环境"><a href="#建立并进入虚拟环境" class="headerlink" title="建立并进入虚拟环境"></a>建立并进入虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mkdir myproject</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> myproject</span></div></pre></td></tr></table></figure>
+<h5 id="激活虚拟环境"><a href="#激活虚拟环境" class="headerlink" title="激活虚拟环境"></a>激活虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> . venv/bin/activate  <span class="comment">#激活当前virtualenv</span></span></div></pre></td></tr></table></figure>
 <h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>（1）执行python程序</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo python Test.py</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo python Test.py</span></div></pre></td></tr></table></figure>
 <p>（2）访问测试</p>
 <p>　　通过浏览器访问如下地址：<a href="http://localhost:5000或者http://127.0.0.1:5000/，就可以看到Hello" target="_blank" rel="external">http://localhost:5000或者http://127.0.0.1:5000/，就可以看到Hello</a> World！</p>
 <p>（3）关闭服务器，按 Ctrl+C。</p>
-<h5 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> deactivate</div></pre></td></tr></table></figure>
-<h5 id="删除虚拟环境"><a href="#删除虚拟环境" class="headerlink" title="删除虚拟环境"></a>删除虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> rm -r venv</div></pre></td></tr></table></figure>
-<h5 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> virtualenv -h</div></pre></td></tr></table></figure>
-<h4 id="Flask框架"><a href="#Flask框架" class="headerlink" title="Flask框架"></a>Flask框架</h4><h5 id="安装flask"><a href="#安装flask" class="headerlink" title="安装flask"></a>安装flask</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pip install flask</div></pre></td></tr></table></figure>
+<h5 id="退出虚拟环境"><a href="#退出虚拟环境" class="headerlink" title="退出虚拟环境"></a>退出虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> deactivate</span></div></pre></td></tr></table></figure>
+<h5 id="删除虚拟环境"><a href="#删除虚拟环境" class="headerlink" title="删除虚拟环境"></a>删除虚拟环境</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> rm -r venv</span></div></pre></td></tr></table></figure>
+<h5 id="获取帮助"><a href="#获取帮助" class="headerlink" title="获取帮助"></a>获取帮助</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> virtualenv -h</span></div></pre></td></tr></table></figure>
+<h4 id="Flask框架"><a href="#Flask框架" class="headerlink" title="Flask框架"></a>Flask框架</h4><h5 id="安装flask"><a href="#安装flask" class="headerlink" title="安装flask"></a>安装flask</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pip install flask</span></div></pre></td></tr></table></figure>
 <h5 id="基本框架"><a href="#基本框架" class="headerlink" title="基本框架"></a>基本框架</h5><p>（1）完整的Flask程序</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask</div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line"><span class="meta">@app.route('/')</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello_world</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">return</span> <span class="string">'Hello World!'</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    app.run()</div></pre></td></tr></table></figure>
 <p>（2）框架说明</p>
@@ -627,7 +627,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -649,7 +649,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

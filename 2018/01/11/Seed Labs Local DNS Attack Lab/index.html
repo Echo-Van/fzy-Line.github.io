@@ -421,7 +421,7 @@
 <h5 id="Vmware配置"><a href="#Vmware配置" class="headerlink" title="Vmware配置"></a>Vmware配置</h5><p>　　SeedProject 提供的是 VirtualBox，但是在这里不建议使用，开源的还是会遇到一些莫名其妙的问题，浪费很多时间在虚拟机环境的配置上不划算。我们应该聚焦实验，所以选择更方便更简单的 VMware。</p>
 <p>　　点击菜单栏-》编辑-》编辑虚拟网络，将下面的子网 IP 修改成 192.168.0.0，子网掩码设置成 255.255.255.0，找到 VMnet8 NAT，编辑它，将网关修改成 192.168.0.2，保存即可。</p>
 <p>　　为方便操作经常需要在虚拟机和主机之间复制内容，所以需要安装 Wmvare Tools。点击顶部菜单栏的虚拟机，选择重新安装 VMware Tools，将打开的 VMware 文件复制到桌面上并解压，然后打开终端，使用命令进行安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd /home/你的用户名/Desktop/VMwareTools版本号.../</div><div class="line"><span class="meta">$</span> ./vmware-install.pl</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> /home/你的用户名/Desktop/VMwareTools版本号.../</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./vmware-install.pl</span></div></pre></td></tr></table></figure>
 <p>　　然后一步步安装说明进行操作即可，安装完成后可能需要重启虚拟机。</p>
 <h5 id="DNS服务器配置"><a href="#DNS服务器配置" class="headerlink" title="DNS服务器配置"></a>DNS服务器配置</h5><p>　　IP 和 DNS 基本配置：</p>
 <ul>
@@ -431,7 +431,7 @@
 <li>DNS 服务器：114.114.114.114</li>
 </ul>
 <p>（1）在 DNS 服务器上安装 BIND9，BIND 是一个开源的 DNS 服务器程序。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get update</div><div class="line"><span class="meta">$</span> sudo apt-get install bind9</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get update</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install bind9</span></div></pre></td></tr></table></figure>
 <p>（2）创建 named.conf.options 文件。DNS 服务器需要读取 /etc/bind/named.conf 配置文件才能启动。这个配置文件通常包含一个叫 /etc/bind/named.conf.options 的选项文件，我们添加以下内容用于后续的 DNS 缓存污染实验：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">options &#123;</div><div class="line">dump-file &quot;/var/cache/bind/dump.db&quot;;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>文件 /var/cache/bind/dump.db 用于转储 DNS 服务器的缓存。假定我们在服务器中拥有一个域名： example.com，因此我们需要配置关于该域名的一些信息。为避免输入所带来的错误，它建议我们从 SeedProject 网站下载相应的文件放置到 /etc/bind/ 目录下。</p>
@@ -441,7 +441,7 @@
 </ul>
 <p>（3）启动 DNS 服务器。</p>
 <p>　　上述步骤完成后，我们的 DNS 服务器基本就配置完成了，然后我们使用如下命令将其启动：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo /etc/init.d/bind9 restart</div><div class="line">or</div><div class="line"><span class="meta">$</span> sudo service bind9 restart</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo /etc/init.d/bind9 restart</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> sudo service bind9 restart</span></div></pre></td></tr></table></figure>
 <h5 id="用户机配置"><a href="#用户机配置" class="headerlink" title="用户机配置"></a>用户机配置</h5><p>　　IP 和 DNS 基本配置：</p>
 <ul>
 <li>IP 地址：192.168.0.100</li>
@@ -476,7 +476,7 @@
 <p>　　Netwox 工具 105 提供了一个实用程序来进行这样的嗅探和响应。攻击者使用 Netwox 工具来监听来自用户机的数据包，并生成一个虚假的 DNS 响应包给 DNS 请求者，即用户机。实验原理示意图如下：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/11-2.png" alt="11-2"></p>
 <p>　　Netwox 命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo netwox 105 --hostname "www.example.com" --hostnameip 192.168.0.200 --authns "ns.example.com" --authnsip 192.168.0.200 --filter "src host 192.168.0.100"</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo netwox 105 --hostname <span class="string">"www.example.com"</span> --hostnameip 192.168.0.200 --authns <span class="string">"ns.example.com"</span> --authnsip 192.168.0.200 --filter <span class="string">"src host 192.168.0.100"</span></span></div></pre></td></tr></table></figure>
 <p>　　配置好以后开始监听，同时，打开 wireshark 以便后续分析攻击结果，当监听到 DNS 请求时，可以在窗口看到生成的 DNS 响应信息，如下图：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/11-3.png" alt="11-3"></p>
 <p>　　同时，在客户机也可以看到查到的地址已经变成了攻击者的 IP 地址，证明攻击成功。如下图：</p>
@@ -487,16 +487,16 @@
 <p>　　当一个 DNS 服务器接收到一个查询时，如果它可以解析则直接解析并响应，当主机名不在它的域中，它将要求其他的 DNS 服务器去解析主机名。当其他的 DNS 服务器将解析结果返回给该服务器后，它将把解析结果存储在缓存中，所以下一次不需要询问其他的 DNS 服务器。如果攻击者可以伪造来自其他 DNS 服务器的响应，那么该 DNS 服务器会接手伪造的 DNS 响应，并在一定时间内将欺骗响应保留在其缓存中。下一次，当用户的机器想要解析相同的主机名时，该 DNS 服务器会使用缓存中的欺骗性响应来回复。这样，攻击者只需要欺骗一次，并且影响将持续到缓存的信息到期。攻击示意图如下：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/11-6.png" alt="11-6"></p>
 <p>　　为避免我们要攻击的 DNS 服务器已经有缓存，攻击之前，我们要确保 DNS 服务器的缓存为空，可以使用以下命令刷新缓存：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo rndc flush</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo rndc flush</span></div></pre></td></tr></table></figure>
 <p>　　攻击者使用 Netwox 工具来监听来自 DNS 服务器机的数据包，然后生成一个假的 DNS 响应给我们的 DNS 服务器。Netwox 的命令如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo netwox 105 --hostname "www.fanzhenyu.me" --hostnameip 192.168.0.200 --authns "ns.fanzhenyu.me" --authnsip 192.168.0.200 --ttl 600 --filter "src host 192.168.0.10" --spoofip "raw"</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/11-7.png" alt="11-7"></p>
 <p>　　然后，在用户机使用如下命令发起 DNS 查询请求：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> nslookup www.fanzhenyu.me</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nslookup www.fanzhenyu.me</span></div></pre></td></tr></table></figure>
 <p>　　攻击结果如下图，与没有攻击对比，缓存污染后 DNS 请求的响应已经是被污染的 IP 地址：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/11-8.png" alt="11-8"></p>
 <p>　　同时，可以使用如下命令转储和查看 DNS 服务器的缓存：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo rndc dumpdb -cache </div><div class="line"><span class="meta">$</span> sudo cat /var/cache/bind/dump.db</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo rndc dumpdb -cache </span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo cat /var/cache/<span class="built_in">bind</span>/dump.db</span></div></pre></td></tr></table></figure>
 <p>　　结果如下图，可以看到缓存已被污染。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/11-9.png" alt="11-9"></p>
 
@@ -673,7 +673,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -695,7 +695,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

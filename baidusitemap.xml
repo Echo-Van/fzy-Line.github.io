@@ -4,6 +4,101 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2018/11/12/Raspberry-Pi-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE/</loc>
+    <lastmod>2018-12-07T15:54:42.197Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 虚拟内存配置</title>
+        <pubTime>2018-11-12T11:55:40.000Z</pubTime>
+        
+        <tag>Raspberry Pi</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/IoT/Raspberry-Pi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/11/16/Raspberry-Pi-%E5%BC%80%E5%90%AF-SSH-%E6%9C%8D%E5%8A%A1/</loc>
+    <lastmod>2018-12-07T15:54:17.587Z</lastmod>
+    <data>
+        <display>
+        <title>Raspberry Pi 开启 SSH 服务</title>
+        <pubTime>2018-11-16T12:00:56.000Z</pubTime>
+        
+        <tag>Raspberry Pi</tag>
+         
+        <tag>SSH</tag>
+         
+         
+           
+             
+              <breadCrumb title="IoT" url="https://fzy-line.github.io/categories/IoT/"/>
+          
+             
+              <breadCrumb title="Raspberry Pi" url="https://fzy-line.github.io/categories/IoT/Raspberry-Pi/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/11/20/Linux-rz-%E5%92%8C-sz-%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2018-12-07T15:50:53.337Z</lastmod>
+    <data>
+        <display>
+        <title>Linux rz 和 sz 命令</title>
+        <pubTime>2018-11-20T12:43:48.000Z</pubTime>
+        
+        <tag>Linux</tag>
+         
+        <tag>rz/sz</tag>
+         
+         
+           
+             
+              <breadCrumb title="Linux" url="https://fzy-line.github.io/categories/Linux/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/11/26/CCF-CSP-%E5%AD%A6%E7%94%9F%E6%8E%92%E9%98%9F/</loc>
+    <lastmod>2018-12-07T15:50:53.336Z</lastmod>
+    <data>
+        <display>
+        <title>CCF-CSP 学生排队</title>
+        <pubTime>2018-11-26T15:48:01.000Z</pubTime>
+        
+        <tag>CCF-CSP</tag>
+         
+        <tag>教女朋友学Python</tag>
+         
+         
+           
+             
+              <breadCrumb title="Algorithm" url="https://fzy-line.github.io/categories/Algorithm/"/>
+          
+             
+              <breadCrumb title="CCF-CSP" url="https://fzy-line.github.io/categories/Algorithm/CCF-CSP/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2018/11/12/CCF-CSP-%E9%A2%98%E8%A7%A3%E5%8D%9A%E5%AE%A2%E6%B1%87%E6%80%BB/</loc>
     <lastmod>2018-12-01T11:45:14.736Z</lastmod>
     <data>
@@ -1610,9 +1705,9 @@
         <title>Contiki中CoAP协议实现</title>
         <pubTime>2017-07-16T13:04:42.000Z</pubTime>
         
-        <tag>CoAP</tag>
-         
         <tag>Contiki</tag>
+         
+        <tag>CoAP</tag>
          
          
            

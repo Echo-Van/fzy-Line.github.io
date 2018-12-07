@@ -420,50 +420,50 @@
         <p>　　正式开始折腾友好的 RIOT 操作系统。</p>
 <a id="more"></a>
 <h4 id="开发环境搭建"><a href="#开发环境搭建" class="headerlink" title="开发环境搭建"></a>开发环境搭建</h4><h5 id="源码下载与编译"><a href="#源码下载与编译" class="headerlink" title="源码下载与编译"></a>源码下载与编译</h5><p>　　以 Ubuntu 系统中搭建 RIOT-OS 开发环境为例，下载源码：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> git clone git://github.com/RIOT-OS/RIOT.git</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> git <span class="built_in">clone</span> git://github.com/RIOT-OS/RIOT.git</span></div></pre></td></tr></table></figure>
 <p>　　主分支一般是稳定版，如需最新版可切换到最新的分支：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cd RIOT</div><div class="line"><span class="meta">$</span> checkout &lt;LATEST_RELEASE&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> RIOT</span></div><div class="line"><span class="meta">$</span><span class="bash"> checkout &lt;LATEST_RELEASE&gt;</span></div></pre></td></tr></table></figure>
 <p>　　编译：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo ./dist/tools/tapsetup/tapsetup  # 创建虚拟以太网接口，连接多个RIOT实例        </div><div class="line"><span class="meta">$</span> cd examples/default/</div><div class="line"><span class="meta">$</span> make all</div><div class="line"><span class="meta">$</span> make term</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo ./dist/tools/tapsetup/tapsetup  <span class="comment"># 创建虚拟以太网接口，连接多个RIOT实例        </span></span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> examples/default/</span></div><div class="line"><span class="meta">$</span><span class="bash"> make all</span></div><div class="line"><span class="meta">$</span><span class="bash"> make term</span></div></pre></td></tr></table></figure>
 <p>　　亲测，32 位 Ubuntu 系统可以正确执行编译，但是 64 位 Ubuntu 在使用 make all 编译时会出错，如图：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/13-1.png" alt="13-1"></p>
 <p>　　可使用如下方法解决：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install libc6-dev-i386</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install libc6-dev-i386</span></div></pre></td></tr></table></figure>
 <p>　　完成后再编译即可。使用 make term 进行本地调试时，也会出错，如图：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/13-2.png" alt="13-2"></p>
 <p>　　此时需加上 sudo 提升下权限：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo make term</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo make term</span></div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/13-3.png" alt="13-3"></p>
 <p>　　如果要编译到指定的平台，可在 make 时使用 BOARD 指定，例如：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo make BOARD=cc2538dk</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo make BOARD=cc2538dk</span></div></pre></td></tr></table></figure>
 <p>　　然后，使用 make 进行编译，会发现如下错误。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/13-4.png" alt="13-4"></p>
 <p>　　编译到 cc2538dk 等平台时需要下载交叉编译工具，否则会报错。根据 RIOT 的官方文档：</p>
 <p><a href="https://github.com/RIOT-OS/RIOT/wiki/Family%3A-ARM" target="_blank" rel="external">https://github.com/RIOT-OS/RIOT/wiki/Family%3A-ARM</a></p>
 <p>　　ARM 系列需要下载 gcc-arm-embedded toolchain，地址如下：<a href="https://developer.arm.com/open-source/gnu-toolchain/gnu-rm" target="_blank" rel="external">https://developer.arm.com/open-source/gnu-toolchain/gnu-rm</a></p>
 <p>　　下载 Linux64 位版本，然后将其解压：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> tar -xjvf 下载工具包名称.tar.bz2 -C /usr/bin</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> tar -xjvf 下载工具包名称.tar.bz2 -C /usr/bin</span></div></pre></td></tr></table></figure>
 <p>　　将其添加到环境变量：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> nano ~/.bashrc</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nano ~/.bashrc</span></div></pre></td></tr></table></figure>
 <p>　　在最后添加如下一行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> export PATH=/usr/bin/下载工具包名称/bin:$PATH</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">export</span> PATH=/usr/bin/下载工具包名称/bin:<span class="variable">$PATH</span></span></div></pre></td></tr></table></figure>
 <p>　　然后执行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> source ~/.bashrc</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bashrc</span></div></pre></td></tr></table></figure>
 <p>　　这样即可执行编译。但是注意编译一定不要使用 sudo，这样的话还是会出错，直接 make 就好了：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> make BOARD=cc2538dk</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> make BOARD=cc2538dk</span></div></pre></td></tr></table></figure>
 <h5 id="基本操作"><a href="#基本操作" class="headerlink" title="基本操作"></a>基本操作</h5><p>　　以 cc2538dk 硬件平台为例：</p>
 <ul>
 <li>编译生成指定硬件平台的可执行文件</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> make BOARD=cc2538dk</div><div class="line">or</div><div class="line"><span class="meta">$</span> make all BOARD=cc2538dk</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> make BOARD=cc2538dk</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> make all BOARD=cc2538dk</span></div></pre></td></tr></table></figure>
 <ul>
 <li>将程序烧录到指定硬件平台</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> make flash BOARD=cc2538dk</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> make flash BOARD=cc2538dk</span></div></pre></td></tr></table></figure>
 <ul>
 <li>通过串口连接到硬件平台进行调试</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> make term BOARD=cc2538dk</div><div class="line">or</div><div class="line"><span class="meta">$</span> make term BOARD=cc2538dk PORT=/dev/ttyACM1</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> make term BOARD=cc2538dk</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> make term BOARD=cc2538dk PORT=/dev/ttyACM1</span></div></pre></td></tr></table></figure>
 <h4 id="例程解析"><a href="#例程解析" class="headerlink" title="例程解析"></a>例程解析</h4><h5 id="main-c"><a href="#main-c" class="headerlink" title="main.c"></a>main.c</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"shell.h"</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"shell_commands.h"</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="built_in">puts</span>(<span class="string">"Hello World!"</span>);</div><div class="line"></div><div class="line">    <span class="built_in">printf</span>(<span class="string">"You are running RIOT on a(n) %s board.\n"</span>, RIOT_BOARD);</div><div class="line">    <span class="built_in">printf</span>(<span class="string">"This board features a(n) %s MCU.\n"</span>, RIOT_MCU);</div><div class="line"></div><div class="line">    <span class="keyword">char</span> line_buf[SHELL_DEFAULT_BUFSIZE];</div><div class="line">    shell_run(<span class="literal">NULL</span>, line_buf, SHELL_DEFAULT_BUFSIZE);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>　　代码风格与我们平时使用的 C 基本没有区别，节点启动后，RIOT 会启动两个线程：</p>
 <ul>
@@ -654,7 +654,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -676,7 +676,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -406,19 +406,19 @@
         <p>　　记录在 Ubuntu 16.04 安装 Mysql 5.7 时遇到的一些问题。</p>
 <a id="more"></a>
 <h5 id="Mysql安装"><a href="#Mysql安装" class="headerlink" title="Mysql安装"></a>Mysql安装</h5><p>　　使用如下命令进行安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install mysql-server mysql-client</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install mysql-server mysql-client</span></div></pre></td></tr></table></figure>
 <p>　　检查安装是否成功以及 Mysql 是否运行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo netstat -tap | grep mysql</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo netstat -tap | grep mysql</span></div></pre></td></tr></table></figure>
 <p>　　启动/关闭/重启 Mysql：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo service mysql start    # 启动</div><div class="line"><span class="meta">$</span> sudo service mysql stop	# 关闭</div><div class="line"><span class="meta">$</span> sudo service mysql restart  # 重启</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo service mysql start    <span class="comment"># 启动</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo service mysql stop	<span class="comment"># 关闭</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo service mysql restart  <span class="comment"># 重启</span></span></div></pre></td></tr></table></figure>
 <p>　　通过以上步骤基本已经完成安装，但是我们也应该注意到，安装过程中都没有要求填写用户名和密码。终端输入 <code>mysql -u root -p</code> 之后，要求输入密码，但是我们并没有设置密码，随便输入之后，提示如下错误：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ERROR 1045 (28000): Access denied for user &apos;root&apos;@&apos;localhost&apos; (using password: YES)</div></pre></td></tr></table></figure>
 <p>　　查找资料发现 5.7 版本与之前的版本不太一致，需要一些特殊的操作，具体请看下一节。</p>
 <h5 id="Mysql-5-7-root无法登录的问题"><a href="#Mysql-5-7-root无法登录的问题" class="headerlink" title="Mysql 5.7 root无法登录的问题"></a>Mysql 5.7 root无法登录的问题</h5><p>　　在这个文件里面有着 Mysql 默认的用户名和用户密码，用户名默认的不是 root，而是 debian-sys-maint，如下所示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> cat /etc/mysql/debian.cnf</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> cat /etc/mysql/debian.cnf</span></div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/1/26-1.png" alt="26-1"></p>
 <p>　　使用该账号进行登录：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> mysql -u debian-sys-maint -p</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mysql -u debian-sys-maint -p</span></div></pre></td></tr></table></figure>
 <p>　　查询已有的数据库</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&gt; show databases;</div></pre></td></tr></table></figure>
 <p>　　操作 Mysql 数据库：</p>
@@ -611,7 +611,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -633,7 +633,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

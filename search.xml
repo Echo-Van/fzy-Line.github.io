@@ -1,6 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[CCF-CSP 学生排队]]></title>
+    <url>%2F2018%2F11%2F26%2FCCF-CSP-%E5%AD%A6%E7%94%9F%E6%8E%92%E9%98%9F%2F</url>
+    <content type="text"><![CDATA[CCF-CSP 201703-2 学生排队 题解 问题描述1234567891011121314151617181920212223242526272829303132333435试题编号：201703-2试题名称：学生排队时间限制：1.0s内存限制：256.0MB问题描述 体育老师小明要将自己班上的学生按顺序排队。他首先让学生按学号从小到大的顺序排成一排，学号小的排在前面，然后进行多次调整。一次调整小明可能让一位同学出队，向前或者向后移动一段距离后再插入队列。 例如，下面给出了一组移动的例子，例子中学生的人数为8人。 0）初始队列中学生的学号依次为1, 2, 3, 4, 5, 6, 7, 8； 1）第一次调整，命令为“3号同学向后移动2”，表示3号同学出队，向后移动2名同学的距离，再插入到队列中，新队列中学生的学号依次为1, 2, 4, 5, 3, 6, 7, 8； 2）第二次调整，命令为“8号同学向前移动3”，表示8号同学出队，向前移动3名同学的距离，再插入到队列中，新队列中学生的学号依次为1, 2, 4, 5, 8, 3, 6, 7； 3）第三次调整，命令为“3号同学向前移动2”，表示3号同学出队，向前移动2名同学的距离，再插入到队列中，新队列中学生的学号依次为1, 2, 4, 3, 5, 8, 6, 7。 小明记录了所有调整的过程，请问，最终从前向后所有学生的学号依次是多少？ 请特别注意，上述移动过程中所涉及的号码指的是学号，而不是在队伍中的位置。在向后移动时，移动的距离不超过对应同学后面的人数，如果向后移动的距离正好等于对应同学后面的人数则该同学会移动到队列的最后面。在向前移动时，移动的距离不超过对应同学前面的人数，如果向前移动的距离正好等于对应同学前面的人数则该同学会移动到队列的最前面。输入格式 输入的第一行包含一个整数n，表示学生的数量，学生的学号由1到n编号。 第二行包含一个整数m，表示调整的次数。 接下来m行，每行两个整数p, q，如果q为正，表示学号为p的同学向后移动q，如果q为负，表示学号为p的同学向前移动-q。 输出格式 输出一行，包含n个整数，相邻两个整数之间由一个空格分隔，表示最终从前向后所有学生的学号。样例输入833 28 -33 -2样例输出1 2 4 3 5 8 6 7评测用例规模与约定 对于所有评测用例，1 ≤ n ≤ 1000，1 ≤ m ≤ 1000，所有移动均合法。 题解1 这道题目思路比较简单，只要每次临时存储要移动的元素，然后考虑是向前移动还是向后移动。如果是向前移动q，则把这个元素前面的q个元素依次向后移动1位，然后再把这个元素放到空出来的那个位置即可。如果是向后移动q，则把这个元素后面的q个元素依次向前移动1位，然后再把这个元素放到空出来的那个位置即可。每次移动都按这个逻辑，最后输出结果即可。 123456789101112131415161718n = int(input()) # 学生的数量m = int(input()) # 调整的次数L = list(range(1, n+1)) # 初始排队序列lst = []for _ in range(m): i = list(map(int, input().split())) index = L.index(i[0]) # 获取要移动的元素的当前索引 tmp = L[index] # 临时存储要移动的元素 if i[1] &gt; 0: # 学生向后移，让他后面的|q|个学生依次向前移动1位 for j in range(index, index+i[1]): L[j] = L[j+1] else: # 学生向前移，让他前面的|q|个学生依次向后移动1位 for j in range(index, index-abs(i[1]), -1): L[j] = L[j-1] L[index+i[1]] = tmp # 要移动的学生，移动到指定位置for i in L: # 输出结果 print(i, end=" ") 题解2 还有一种方法是不需要考虑向前移动还是向后移动，把学生存储在 L 列表中，每次调整时，找出当前学生在列表中的下标，然后把该学生删掉，同时在列表末尾新增一个 0 元素。接着从后往前循环学生列表，到删除学生的下标 +1 为止，依次互换列表中的值，直到 0 元素到达删除的学生下标处；接着要做的就是把删除的学生号重新赋值进去 0 的位置。 123456789101112131415161718n = int(input()) # 学生的数量m = int(input()) # 调整的次数L = list(range(1, n + 1)) # 初始排队序列for _ in range(m): i = list(map(int, input().split())) p = i[0] # 调整的学生 q = i[1] # 调整值 k = L.index(p) # 学生下标 k += q # 调整后的下标，这样就无需考虑正负 L.remove(p) # 学生暂时出列表 L.append(0) # 先填充0 for j in range(k + 1, n)[::-1]: # 从后往前，到删除学生的下标 +1 为止 L[j], L[j - 1] = L[j - 1], L[j] # 互换列表中的值 L[k] = p # 其他学生调整好以后，该学生到列表的指定位置for i in L: # 输出结果 print(i, end=' ')]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>CCF-CSP</category>
+      </categories>
+      <tags>
+        <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux rz 和 sz 命令]]></title>
+    <url>%2F2018%2F11%2F20%2FLinux-rz-%E5%92%8C-sz-%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[使用 rz 和 sz 工具实现客户端与 Linux 服务器端的文件交互。 以 Windows 客户端和 Ubuntu 服务器之间的文件交互为例来进行说明。 安装apt 安装1$ sudo apt-get install lrzsz 源码安装 下载 1$ wget https://www.ohse.de/uwe/releases/lrzsz-0.12.20.tar.gz 解压 1$ tar -xzf lrzsz-0.12.20.tar.gz 编译安装 1234$ cd lrzsz-0.12.20$ ./configure --prefix=/usr/local/lrzsz$ sudo make$ sudo make install 创建连接 123$ cd /usr/bin$ sudo ln -s /usr/local/lrzsz/bin/lrz rz$ sudo ln -s /usr/local/lrzsz/bin/lsz sz 使用sz（下载） sz 命令发送文件到本地： 1$ sz filename rz（上传）1$ rz 执行该命令后，在弹出框中选择要上传的文件即可。 在 SecureCRT 软件中，可以设置上传下载的目录。点击Options -&gt; session options -&gt; X/Y/Zmodem 即可。]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+        <tag>rz/sz</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Raspberry Pi 开启 SSH 服务]]></title>
+    <url>%2F2018%2F11%2F16%2FRaspberry-Pi-%E5%BC%80%E5%90%AF-SSH-%E6%9C%8D%E5%8A%A1%2F</url>
+    <content type="text"><![CDATA[解决新版本 Raspbian 操作系统默认不开启 SSH 服务的问题。 旧版 Raspberry Pi 的 Raspbian 系统默认开启 SSH 功能，但是新版默认是关闭的，这对于没有显示器，需要通过 SSH 连接的用户带来一些不便，这里总结了 Raspbian 中几种开启 SSH 的方法。 方法 1 将TF卡取下来，插上电脑，在 TF 卡的根目录下创建一个空白的文件，文件名叫：ssh。系统启动后会自动开启 ssh 服务。 方法 2 检查 Raspberry Pi SSH 服务是否开启： 1ps -e | grep ssh ssh-agent 为客户端，sshd 为服务器端服务，只有 ssh-agent 没有 sshd 表明 SSH 服务还没有开启。如果发现没有安装 SSH 服务，则使用以下命令安装： 1$ sudo apt-get install openssh-server 如果已经安装，但是没开启，则使用以下命令开启 SSH 服务： 1$ sudo /etc/init.d/ssh start 如果需要修改 SSH 服务的配置，则需要找到 openssh-server 的配置文件 /etc/ssh/sshd_config，其中包含 SSH 服务的各项参数，如默认端口为 22，可以配置为其他端口，配置后重启生效。 另外，也可以设置 SSH 服务开机自动启动，打开 /etc/rc.local 文件： 1$ sudo nano /etc/rc.local 在语句 exit 0 之前加入： 1/etc/init.d/ssh start 方法 3 在 Raspbian 依次打开 菜单（Menu） &gt; 首选项（Preferences） &gt; Raspberry Pi Configuration，然后点击 Interfaces 栏，选择 “enable” SSH服务： 方法 4 使用命令进入 Raspberry Pi 的系统配置界面： 1$ sudo raspi-config 然后，选择 “5 Interfacing Options”，回车，再选择第二项 SSH，回车，选择 yes，回车，搞定！]]></content>
+      <categories>
+        <category>IoT</category>
+        <category>Raspberry Pi</category>
+      </categories>
+      <tags>
+        <tag>Raspberry Pi</tag>
+        <tag>SSH</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CCF-CSP 题解博客汇总]]></title>
     <url>%2F2018%2F11%2F12%2FCCF-CSP-%E9%A2%98%E8%A7%A3%E5%8D%9A%E5%AE%A2%E6%B1%87%E6%80%BB%2F</url>
     <content type="text"><![CDATA[教女朋友学Python系列之 CCF-CSP 题解博客汇总与索引目录（持续更新）。 第一题 201312-1 出现次数最多的数 201403-1 相反数 201409-1 相邻数对 201412-1 门禁系统 201503-1 图像旋转 201509-1 数列分段 201512-1 数位之和 201604-1 折点计数 201609-1 最大波动 201612-1 中间数 201703-1 分蛋糕 201709-1 打酱油 201712-1 最小差值 201803-1 跳一跳 第二题 201312-2 ISBN号码 201403-2 窗口 201409-2 画图 201412-2 Z字形扫描 201503-2 数字排序 201509-2 日期计算 201512-2 消除类游戏 201604-2 俄罗斯方块 201609-2 火车购票 201612-2 工资计算 201703-2 学生排队 201709-2 公共钥匙盒 201712-2 游戏 201803-2 碰撞的小球 第三题 201312-3 最大的矩形 201403-3 命令行选项 201409-3 字符串匹配 201412-3 集合竞价 201503-3 节日 201509-3 模板生成系统 201512-3 画图 201604-3 路径解析 201609-3 炉石传说 201612-3 权限查询 201703-3 Markdown 201709-3 JSON查询 201712-3 Crontab 201803-3 URL映射 ……（未完待续）]]></content>
@@ -11,6 +49,18 @@
       <tags>
         <tag>CCF-CSP</tag>
         <tag>教女朋友学Python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Raspberry Pi 虚拟内存配置]]></title>
+    <url>%2F2018%2F11%2F12%2FRaspberry-Pi-%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[解决 Raspberry Pi 编译项目时提示虚拟内存不足的问题。 虚拟内存不足 在 Raspberry Pi model 3B 上编译C++项目时，得到以下错误提示： 1Virtual memory exhausted: Cannot allocate memory 相比于单片机等嵌入式设备，Raspberry Pi 已经拥有足够强大的处理能力。Raspberry Pi 从 model A 的 256MB 内存到 model 3B+ 的 1G 内存，这对于大多数应用程序来说，这个内存量实际上是足够的。但是，面对二进制文件编译，这样的内存空间往往是不够的，因此，无法编译很多项目。 Raspbian 发行版附带一个 100MB 的 swapfile，这其实就时虚拟内存。但是，默认的设置实际上有点偏小。一般的经验是虚拟内存大小应该是机器上可用内存的两倍。 解决办法 修改配置文件中 swapfile 的大小： 1$ sudo nano /etc/dphys-swapfile 默认是 100MB： 1CONF_SWAPSIZE=100 使用以下命令可以查看内存与虚拟内存： 1$ free -m 我们把它修改成： 1CONF_SWAPSIZE=1024 然后，先停止再启动管理 swapfile 的 Rasbian 服务： 12$ sudo /etc/init.d/dphys-swapfile stop$ sudo /etc/init.d/dphys-swapfile start 再次查看内存与虚拟内存，验证是否设置成功：]]></content>
+      <categories>
+        <category>IoT</category>
+        <category>Raspberry Pi</category>
+      </categories>
+      <tags>
+        <tag>Raspberry Pi</tag>
       </tags>
   </entry>
   <entry>
@@ -775,8 +825,8 @@
         <category>OS</category>
       </categories>
       <tags>
-        <tag>CoAP</tag>
         <tag>Contiki</tag>
+        <tag>CoAP</tag>
       </tags>
   </entry>
   <entry>

@@ -406,38 +406,38 @@
 <a id="more"></a>
 <p>　　虽然 Linux 也有像 tcpdump 这样的工具来实现抓包，但是与难以操作的命令行网络协议分析工具不同的是，Wireshark 拥有非常简洁易用的图形界面，使用 Wireshark 可以很容易地查看有线和无线网络的实时信息。</p>
 <h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><p>　　打开一个终端：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install wireshark</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install wireshark</span></div></pre></td></tr></table></figure>
 <h4 id="运行与配置"><a href="#运行与配置" class="headerlink" title="运行与配置"></a>运行与配置</h4><p>　　安装完成后使用非 root 直接运行 wireshark 的话，由于权限不足，所以无法识别网卡，只能打开 pcap 的文件，所以我们需要使用 sudo 提升权限。</p>
 <p>　　默认情况下，访问网络端口需要 root 权限，而 wireshark 的只是 /usr/share/dumpcap 的一个 UI，/usr/share/dumpcap 需要 root 权限，所以没法 non-root 用户无法读取网卡列表。</p>
 <h5 id="root运行"><a href="#root运行" class="headerlink" title="root运行"></a>root运行</h5><p>　　打开一个终端：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo wireshark</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo wireshark</span></div></pre></td></tr></table></figure>
 <p>　　但是，这样如果使用 root 运行则可能会报错：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/12/2-1.png" alt="2-1"></p>
 <p>　　要对 init.lua 进行修改，终端运行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo gedit /usr/share/wireshark/init.lua</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo gedit /usr/share/wireshark/init.lua</span></div></pre></td></tr></table></figure>
 <p>　　将倒数第二行改为：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">--dofile(DATA_DIR..&quot;console.lua&quot;)</div></pre></td></tr></table></figure>
 <p>　　再启动软件就 OK 啦。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo wireshark</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo wireshark</span></div></pre></td></tr></table></figure>
 <h5 id="非-root-运行"><a href="#非-root-运行" class="headerlink" title="非 root 运行"></a>非 root 运行</h5><p>　　虽然可以使用 root 成功运行 wireshark，但是 wireshark 官方不推荐这么做：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Running as user &quot;root&quot; and group &quot;root&quot;.</div><div class="line">This could be dangerous.</div></pre></td></tr></table></figure>
 <p>　　另外，这样做也不是很方便，特别是在使用桌面版时，如果要通过放置在侧边栏的图标打开 wireshark 时，默认是不会使用 root 用户打开的，所以我们需要设置 wireshark 为非 root 用户也能执行。</p>
 <ul>
 <li>添加 wireshark 用户组</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo groupadd  wireshark</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo groupadd  wireshark</span></div></pre></td></tr></table></figure>
 <ul>
 <li>将 dumpcap 更改为 wireshark 用户组</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo chgrp wireshark /usr/bin/dumpcap</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo chgrp wireshark /usr/bin/dumpcap</span></div></pre></td></tr></table></figure>
 <ul>
 <li>让 wireshark 用户组有 root 权限使用 dumpcap</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo chmod 4755 /usr/bin/dumpcap</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo chmod 4755 /usr/bin/dumpcap</span></div></pre></td></tr></table></figure>
 <ul>
 <li>将需要使用的普通用户名加入 wireshark 用户组，例如我的用户是“fzy”，则需要使用命令：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo gpasswd -a fzy wireshark</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo gpasswd -a fzy wireshark</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -614,7 +614,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -636,7 +636,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

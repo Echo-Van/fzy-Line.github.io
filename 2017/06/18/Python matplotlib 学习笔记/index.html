@@ -423,7 +423,7 @@
 <h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>　　Matplotlib 是一个 Python 的 2D 绘图库，它以各种硬拷贝格式和跨平台的交互式环境生成出版质量级别的图形。它能让使用者很轻松地将数据图形化，并且提供多样化的输出格式。</p>
 <h5 id="pyplot"><a href="#pyplot" class="headerlink" title="pyplot"></a>pyplot</h5><p>　　matplotlib.pyplot 是绘制各类可视化图形的命令子库，它是是命令行式函数的集合，相当于快捷方式，每一个函数都对图像作了修改，比如创建图形，在图像上创建画图区域，在画图区域上画线，在线上标注等。</p>
 <p>　　安装 matplot 之前先要安装 Numpy，Numpy 也是 python 的一个扩展包，提供基础的科学计算。</p>
-<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> python -m pip install -U pip setuptools</div><div class="line"><span class="meta">$</span> python -m pip install matplotlib</div></pre></td></tr></table></figure>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python -m pip install -U pip setuptools</span></div><div class="line"><span class="meta">$</span><span class="bash"> python -m pip install matplotlib</span></div></pre></td></tr></table></figure>
 <h5 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h5><p>　　使用 matplotlib 绘制了 x 平方在区间 [-6，6] 的图像：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#coding=utf-8</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"></div><div class="line">x = np.arange(<span class="number">-6</span>,<span class="number">7</span>,<span class="number">1</span>)</div><div class="line">y = x**<span class="number">2</span></div><div class="line"></div><div class="line">plt.plot(x,y,<span class="string">'b--'</span>)</div><div class="line"></div><div class="line">plt.show()</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/6/18-1.png" alt="18-1"></p>
@@ -906,7 +906,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -928,7 +928,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

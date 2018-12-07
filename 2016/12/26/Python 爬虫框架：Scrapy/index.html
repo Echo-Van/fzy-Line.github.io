@@ -422,7 +422,7 @@
       
         <p>　　Scrapy 是一个为了爬取网站数据，提取结构性数据而编写的应用框架。它使用 Twisted 这个异步网络库来处理网络通讯，架构清晰，并且包含了各种中间件接口，可以灵活的完成各种需求。学习 Python 爬虫有一段时间了，但是也是最近才接触到如此强大的 Scrapy，它比 BeautifulSoup 更加完善，BeautifulSoup 可以说是轮子，而 Scrapy 则是车子，不需要你关注太多的细节。</p>
 <a id="more"></a>
-<h4 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a>安装Scrapy</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pip install Scrapy</div></pre></td></tr></table></figure>
+<h4 id="安装Scrapy"><a href="#安装Scrapy" class="headerlink" title="安装Scrapy"></a>安装Scrapy</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pip install Scrapy</span></div></pre></td></tr></table></figure>
 <p>　　pip 是一个 Python 包管理工具，主要是用于安装 PyPI 上的软件包，可以替代 easy_install 工具。</p>
 <h4 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h4><p>　　Windows下，打开命令提示符窗口，进入到打算存储代码的目录中，使用下面的命令创建一个 Scrapy 项目。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scrapy startproject 项目名</div></pre></td></tr></table></figure>
@@ -515,11 +515,11 @@
 <ul>
 <li>只执行程序，不保存数据：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> scrapy crawl ip</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> scrapy crawl ip</span></div></pre></td></tr></table></figure>
 <ul>
 <li>执行程序，并输出保存数据：</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> scrapy crawl ip -o ip.json</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> scrapy crawl ip -o ip.json</span></div></pre></td></tr></table></figure>
 <p>　　该命令将采用 JSON 格式对爬取的数据进行序列化，生成 ip.json 文件。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/12/25-7.png" alt="25-7"></p>
 <p>　　也可以采用 CSV 格式对爬取的数据进行序列化：</p>
@@ -700,7 +700,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -722,7 +722,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

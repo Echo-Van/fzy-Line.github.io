@@ -464,9 +464,9 @@
 <p>　　打开 /contiki-3.0/examples/hello-world/ 目录下的 Makefile 文件。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 项目名称（主文件名称） */</span></div><div class="line">CONTIKI_PROJECT = hello-world</div><div class="line">all: $(CONTIKI_PROJECT)</div><div class="line"><span class="comment">/* Contiki源文件根目录，根据您的实际情况修改 */</span></div><div class="line">CONTIKI = ../..</div><div class="line"><span class="comment">/* 包含Contiki的Makefile，以实现整个Contiki系统的编译 */</span></div><div class="line">include $(CONTIKI)/Makefile.include</div></pre></td></tr></table></figure>
 <h4 id="编译项目"><a href="#编译项目" class="headerlink" title="编译项目"></a>编译项目</h4><p>　　在控制台 /Shell 中进入 helloworld 项目目录，运行如下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> make TARGET=native</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> make TARGET=native</span></div></pre></td></tr></table></figure>
 <p>　　编译成功后，项目目录下就会生成 hello-world.[目标平台] 的目标文件，如 hello-world.native。如果您使用的是 Linux 操作系统，可以运行如下命令查看 Contiki 程序运行结果：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> ./hello-world.native</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ./hello-world.native</span></div></pre></td></tr></table></figure>
 <p>　　运行结果如下所示：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Starting Contiki</div><div class="line">Hello world :)</div></pre></td></tr></table></figure>
 
@@ -643,7 +643,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -665,7 +665,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

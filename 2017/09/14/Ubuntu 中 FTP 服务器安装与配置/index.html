@@ -408,21 +408,21 @@
       
         <p>　　最近需要用到 FTP，所以在腾讯云服务器上搭建了一个ftp服务器，简单记录一下 Ubuntu Server 中 FTP 服务器的初步配置。</p>
 <a id="more"></a>
-<h4 id="FTP-服务器安装"><a href="#FTP-服务器安装" class="headerlink" title="FTP 服务器安装"></a>FTP 服务器安装</h4><h5 id="安装vsftpd"><a href="#安装vsftpd" class="headerlink" title="安装vsftpd"></a>安装vsftpd</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install vsftpd</div></pre></td></tr></table></figure>
+<h4 id="FTP-服务器安装"><a href="#FTP-服务器安装" class="headerlink" title="FTP 服务器安装"></a>FTP 服务器安装</h4><h5 id="安装vsftpd"><a href="#安装vsftpd" class="headerlink" title="安装vsftpd"></a>安装vsftpd</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install vsftpd</span></div></pre></td></tr></table></figure>
 <h5 id="检查FTP端口是否已经打开"><a href="#检查FTP端口是否已经打开" class="headerlink" title="检查FTP端口是否已经打开"></a>检查FTP端口是否已经打开</h5><p>FTP默认情况下，命令端口是21，数据端口就是20</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> netstat -tnl</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> netstat -tnl</span></div></pre></td></tr></table></figure>
 <p>或者直接在浏览器里输入“ftp://服务器IP”</p>
-<h5 id="启动-vsftpd-服务"><a href="#启动-vsftpd-服务" class="headerlink" title="启动 vsftpd 服务"></a>启动 vsftpd 服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> service vsftpd start</div><div class="line">或</div><div class="line"><span class="meta">$</span> /etc/init.d/vsftpd start</div></pre></td></tr></table></figure>
-<h5 id="停止-vsftpd-服务"><a href="#停止-vsftpd-服务" class="headerlink" title="停止 vsftpd 服务"></a>停止 vsftpd 服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> service vsftpd stop</div><div class="line">或</div><div class="line"><span class="meta">$</span> /etc/init.d/vsftpd stop</div></pre></td></tr></table></figure>
-<h5 id="重启-vsftpd-服务"><a href="#重启-vsftpd-服务" class="headerlink" title="重启 vsftpd 服务"></a>重启 vsftpd 服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> service vsftpd restart</div><div class="line">或</div><div class="line"><span class="meta">$</span> /etc/init.d/vsftpd restart</div></pre></td></tr></table></figure>
-<h5 id="查看服务状态"><a href="#查看服务状态" class="headerlink" title="查看服务状态"></a>查看服务状态</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo service vsftpd status</div></pre></td></tr></table></figure>
+<h5 id="启动-vsftpd-服务"><a href="#启动-vsftpd-服务" class="headerlink" title="启动 vsftpd 服务"></a>启动 vsftpd 服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> service vsftpd start</span></div><div class="line">或</div><div class="line"><span class="meta">$</span><span class="bash"> /etc/init.d/vsftpd start</span></div></pre></td></tr></table></figure>
+<h5 id="停止-vsftpd-服务"><a href="#停止-vsftpd-服务" class="headerlink" title="停止 vsftpd 服务"></a>停止 vsftpd 服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> service vsftpd stop</span></div><div class="line">或</div><div class="line"><span class="meta">$</span><span class="bash"> /etc/init.d/vsftpd stop</span></div></pre></td></tr></table></figure>
+<h5 id="重启-vsftpd-服务"><a href="#重启-vsftpd-服务" class="headerlink" title="重启 vsftpd 服务"></a>重启 vsftpd 服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> service vsftpd restart</span></div><div class="line">或</div><div class="line"><span class="meta">$</span><span class="bash"> /etc/init.d/vsftpd restart</span></div></pre></td></tr></table></figure>
+<h5 id="查看服务状态"><a href="#查看服务状态" class="headerlink" title="查看服务状态"></a>查看服务状态</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo service vsftpd status</span></div></pre></td></tr></table></figure>
 <h4 id="FTP-服务器配置"><a href="#FTP-服务器配置" class="headerlink" title="FTP 服务器配置"></a>FTP 服务器配置</h4><h5 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h5><ul>
 <li>主配置文件：/etc/vsftp.conf</li>
 <li>权限限制用户列表文件：/etc/vsftp.chroot_list</li>
 <li>认证配置文件：/etc/pam.d/vsftpd</li>
 </ul>
 <h5 id="主配置文件"><a href="#主配置文件" class="headerlink" title="主配置文件"></a>主配置文件</h5><p>　　修改主配置文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo nano /etc/vsftpd.conf</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo nano /etc/vsftpd.conf</span></div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">anonymous_enable=NO（是否允许匿名登陆）</div><div class="line">local_enable=YES（是否允许本地登陆）</div><div class="line">write_enable=YES（设置FTP可写）</div></pre></td></tr></table></figure>
 <p>　　<strong>chroot：change root directory</strong></p>
 <p>　　<strong>chroot_local_user：</strong> 是否将所有用户限制在主目录，YES 为启用 NO 禁用。(该项默认值是 NO，即在安装 vsftpd 后不做配置的话，FTP 用户是可以向上切换到要目录之外的)</p>
@@ -435,17 +435,17 @@
 <p>　　530 错误：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/9/14-2.png" alt="14-2"></p>
 <h5 id="权限限制用户列表"><a href="#权限限制用户列表" class="headerlink" title="权限限制用户列表"></a>权限限制用户列表</h5><p>　　修改权限限制用户列表文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo nano /etc/vsftpd.chroot_list</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo nano /etc/vsftpd.chroot_list</span></div></pre></td></tr></table></figure>
 <p>　　具体作用与 chroot_local_user 和 chroot_list_enable 的配置有关，参考上面的表格进行相应的添加或删除，一行对应一个用户。</p>
 <h5 id="认证配置文件"><a href="#认证配置文件" class="headerlink" title="认证配置文件"></a>认证配置文件</h5><p>　　修改可访问用户列表文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo nano /etc/vsftpd.chroot_list</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo nano /etc/vsftpd.chroot_list</span></div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># Standard behaviour for ftpd(8).</div><div class="line">auth    required        pam_listfile.so item=user sense=deny file=/etc/ftpusers onerr=succeed</div><div class="line"></div><div class="line"># Note: vsftpd handles anonymous logins on its own. Do not enable pam_ftp.so.</div><div class="line"></div><div class="line"># Standard pam includes</div><div class="line">@include common-account</div><div class="line">@include common-session</div><div class="line">@include common-auth</div><div class="line">#auth   required        pam_shells.so</div></pre></td></tr></table></figure>
 <p>　　<strong>在这里，注释掉最后一行可以避免 530 错误。</strong></p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/9/14-3.png" alt="14-3"></p>
 <h4 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h4><h5 id="添加-FTP-用户"><a href="#添加-FTP-用户" class="headerlink" title="添加 FTP 用户"></a>添加 FTP 用户</h5><ul>
 <li>创建用户</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo useradd username</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo useradd username</span></div></pre></td></tr></table></figure>
 <p>　　Linux 的 useradd 命令如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">useradd(选项)(参数)</div></pre></td></tr></table></figure>
 <p>　　选项参数如下：</p>
@@ -453,10 +453,10 @@
 <ul>
 <li>设置用户口令</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo passwd username</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo passwd username</span></div></pre></td></tr></table></figure>
 <p>　　然后输入两次密码即可。</p>
-<h5 id="删除-FTP-用户"><a href="#删除-FTP-用户" class="headerlink" title="删除 FTP 用户"></a>删除 FTP 用户</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo userdel username</div></pre></td></tr></table></figure>
-<h4 id="卸载vsftpd"><a href="#卸载vsftpd" class="headerlink" title="卸载vsftpd"></a>卸载vsftpd</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get remove --purge vsftpd</div></pre></td></tr></table></figure>
+<h5 id="删除-FTP-用户"><a href="#删除-FTP-用户" class="headerlink" title="删除 FTP 用户"></a>删除 FTP 用户</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo userdel username</span></div></pre></td></tr></table></figure>
+<h4 id="卸载vsftpd"><a href="#卸载vsftpd" class="headerlink" title="卸载vsftpd"></a>卸载vsftpd</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get remove --purge vsftpd</span></div></pre></td></tr></table></figure>
 <p>　　–purge 选项表示彻底删除改软件和相关文件</p>
 <h4 id="无权限错误"><a href="#无权限错误" class="headerlink" title="无权限错误"></a>无权限错误</h4><p>　　使用 cmd 的 FTP 可以正常登录，但是使用 Windows 的文件管理器登录到 FTP 服务器时报错的问题：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/9/14-4.png" alt="14-4"></p>
@@ -641,7 +641,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">154</span>
+                <span class="site-state-item-count">158</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -663,7 +663,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">84</span>
+                <span class="site-state-item-count">86</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
