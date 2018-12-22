@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode 118. Pascal's Triangle]]></title>
+    <url>%2F2018%2F12%2F04%2FLeetCode-118-Pascal-s-Triangle%2F</url>
+    <content type="text"><![CDATA[LeetCode 118. Pascal’s Triangle 题目描述 英文 Given a non-negative integer numRows, generate the first numRows of Pascal’s triangle. In Pascal’s triangle, each number is the sum of the two numbers directly above it. 中文 给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。 在杨辉三角中，每个数是它左上方和右上方的数的和。 示例123456789输入: 5输出:[ [1], [1,1], [1,2,1], [1,3,3,1], [1,4,6,4,1]] 题解 题解 1 规律：（1）第 i 层有 i 个元素。（2）每层第一个以及最后一个元素值为 1。（3）对于第 i (i &gt; 2) 层第 j（j &gt; 1 &amp;&amp; j &lt; i） 个元素 A[i][j]，A[i][j] = A[i-1][j-1] + A[i-1][j] 。依据以上规律，使用二维数组来实现。 1234567891011121314151617181920class Solution: def generate(self, numRows): """ :type numRows: int :rtype: List[List[int]] """ if numRows == 0: return [] else: L = [[1]] for i in range(1, numRows): L1 = [] for j in range(i+1): if j == 0 or j == i: # 处理每层第一个以及最后一个元素 L1.append(1) else: # 中间元素由+得到 L1.append(L[i-1][j] + L[i-1][j-1]) L.append(L1) return L 题解 2 思路与题解 1 一样，简化的写法。 123456789101112131415class Solution: def generate(self, numRows): """ :type numRows: int :rtype: List[List[int]] """ res = [] for i in range(numRows): res.append([1]) for j in range(1, i + 1): if j == i: res[i].append(1) else: res[i].append(res[i - 1][j - 1] + res[i - 1][j]) return res]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 27. Remove Element]]></title>
+    <url>%2F2018%2F12%2F03%2FLeetCode-27-Remove%20Element%2F</url>
+    <content type="text"><![CDATA[LeetCode 27. Remove Element 题解 题目描述 英文： Given an array nums and a value val, remove all instances of that value in-place and return the new length. Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory. The order of elements can be changed. It doesn’t matter what you leave beyond the new length. 中文： 给定一个数组 nums 和一个值 val，你需要原地移除所有数值等于 val 的元素，返回移除后数组的新长度。 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 元素的顺序可以改变。你不需要考虑数组中超出新长度后面的元素。 示例 示例 1: 12345给定 nums = [3,2,2,3], val = 3,函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2。你不需要考虑数组中超出新长度后面的元素。 示例 2: 1234567给定 nums = [0,1,2,2,3,0,4,2], val = 2,函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4。注意这五个元素可为任意顺序。你不需要考虑数组中超出新长度后面的元素。 题解 题解 1 使用两个游标 i 和 j 来遍历数组，如果 第 i 个元素的值等于 val，则使用 j 记录位置，同时递增 i，直到下一个不等于 val 的元素出现，将此时 i 对应的值复制到 j 的位置上，再增加 j ，重复上述过程直到遍历结束。最后，j 就是新数组的长度。 12345678910111213class Solution: def removeElement(self, nums, val): """ :type nums: List[int] :type val: int :rtype: int """ j = 0 for i in range(len(nums)): # 遍历数组 if nums[i] != val: # 不等于时才记录 nums[j] = nums[i] # 复制不等于 val 的值 j += 1 # 新数组的长度 return j 题解 2 使用列表的 pop() 方法： 12345678910class Solution: def removeElement(self, nums, val): """ :type nums: List[int] :type val: int :rtype: int """ while val in nums: # 如果列表中还有目标元素 nums.pop(nums.index(val)) # 移除该元素 return len(nums) 题解 3 使用 del 语句： 12345678910class Solution: def removeElement(self, nums, val): """ :type nums: List[int] :type val: int :rtype: int """ while val in nums: # 如果列表中还有目标元素 del nums[nums.index(val)] # 移除该元素 return len(nums) 题解 4 使用列表的 remove() 方法（此方法效率最高）： 12345678910class Solution: def removeElement(self, nums, val): """ :type nums: List[int] :type val: int :rtype: int """ while val in nums: # 如果列表中还有目标元素 nums.remove(val) # 移除该元素 return len(nums)]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 66. Plus One]]></title>
+    <url>%2F2018%2F12%2F02%2FLeetCode-66-Plus-One%2F</url>
+    <content type="text"><![CDATA[LeetCode 66. Plus One 题目描述 英文： Given a non-empty array of digits representing a non-negative integer, plus one to the integer. The digits are stored such that the most significant digit is at the head of the list, and each element in the array contain a single digit. You may assume the integer does not contain any leading zero, except the number 0 itself. 中文： 给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。 最高位数字存放在数组的首位， 数组中每个元素只存储一个数字。 你可以假设除了整数 0 之外，这个整数不会以零开头。 示例 示例 1 123输入: [1,2,3]输出: [1,2,4]解释: 输入数组表示数字 123。 示例 2 123输入: [4,3,2,1]输出: [4,3,2,2]解释: 输入数组表示数字 4321。 题解 题解 1 直接对列表最后 1 个数进行加1的操作，如果不等于10，即无需进位，则直接返回加 1 后的数组，否则，处理进位。从数组的尾部开始，依次往前处理进位的情况。如果数组最前面的数依然需要进位，则在数组前增加一个 1。 123456789101112131415161718192021class Solution: def plusOne(self, digits): """ :type digits: List[int] :rtype: List[int] """ digits[len(digits) - 1] += 1 # 最后 1 位加 1 if digits[len(digits) - 1] &lt; 10: # 如果没有进位则直接返回数组 return digits flag = 0 for i in range(len(digits) - 1, -1, -1): # 处理有进位的情况 if flag == 1: # 进位处理 digits[i] += 1 # 进 1 位 flag = 0 # 进位标志清除 if digits[i] == 10: # 需要进位 digits[i] = 0 # 该位清空，先前进 1 位 flag = 1 # 标志进位 if flag == 1: # 如果最前面的数也要进位，则在数组前增加1 return [1] + digits else: return digits 题解 2 考察的就是加法进位的问题，把数组最后 1 个数加 1 也看作是进位。从后向前依次处理进位的情况，然后记录到结果列表中。如果数组最前面的数依然需要进位，则把进位值插入到数组最前面。 12345678910111213141516class Solution: def plusOne(self, digits): """ :type digits: List[int] :rtype: List[int] """ res = [] # 结果列表 sum = 0 one = 1 # 进位值 for i in range(len(digits) - 1, -1, -1): # 从后向前处理 sum = one + digits[i] # 进位值加上当前值 one = int(sum / 10) # 是否要向前进位 res.insert(0, int(sum) % 10) # 记录到结果列表 if one &gt; 0: # 如果最后还有进位，插入到列表最前面 res.insert(0, one) return res]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 1. Two Sum]]></title>
+    <url>%2F2018%2F12%2F01%2FLeetCode-1-Two-Sum%2F</url>
+    <content type="text"><![CDATA[LeetCode 1. Two Sum 题解 题目描述 英文 Given an array of integers, return indices of the two numbers such that they add up to a specific target. You may assume that each input would have exactly one solution, and you may not use the same element twice. 中文 给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。 你可以假设每个输入只对应一种答案，且同样的元素不能被重复利用。 示例1234给定 nums = [2, 7, 11, 15], target = 9因为 nums[0] + nums[1] = 2 + 7 = 9所以返回 [0, 1] 题解 题解 1 两层循环暴力求解，对于列表的每个数，依次使其与其后所有的数单独求和，判断和是否为目标值。 123456789101112class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ length = len(nums) for i in range(length - 1): for j in range(i + 1, length): # i 之后的数 if nums[i] + nums[j] == target: # 判断是否等于目标值 return i, j 题解 2 用一层循环，直接在里面查询 target-nums[i] 是否存在于 nums 列表中，速度比题解 1 快了许多。 123456789101112131415class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ for i in range(len(nums)): x = target - nums[i] if x in nums: # 是否有对应的数与 nums[i] 的和为目标值 j = nums.index(x) if i == j: continue else: return i, j # 输出结果 题解 3 遍历数组，然后使用字典，键为 target-nums[i]，值为 i ，依次判断 nums[i] 是否已经在字典中，如果是，则输出结果，即和为目标值的两个数。否则把 target-nums[i] 的值存入字典。 1234567891011121314class Solution: def twoSum(self, nums, target): """ :type nums: List[int] :type target: int :rtype: List[int] """ d = &#123;&#125; for i in range(len(nums)): x = target - nums[i] if nums[i] in d: # 判断是否已经在字典中 return d[nums[i]], i # 输出结果 else: d[x] = i # 存入字典]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[CCF-CSP 窗口]]></title>
+    <url>%2F2018%2F11%2F30%2FCCF-CSP-%E7%AA%97%E5%8F%A3%2F</url>
+    <content type="text"><![CDATA[CCF-CSP 201403-2 窗口 题解 问题描述12345678910111213141516171819202122232425262728293031323334353637383940试题编号：201403-2试题名称：窗口时间限制：1.0s内存限制：256.0MB问题描述 在某图形操作系统中,有 N 个窗口,每个窗口都是一个两边与坐标轴分别平行的矩形区域。窗口的边界上的点也属于该窗口。窗口之间有层次的区别,在多于一个窗口重叠的区域里,只会显示位于顶层的窗口里的内容。 当你点击屏幕上一个点的时候,你就选择了处于被点击位置的最顶层窗口,并且这个窗口就会被移到所有窗口的最顶层,而剩余的窗口的层次顺序不变。如果你点击的位置不属于任何窗口,则系统会忽略你这次点击。 现在我们希望你写一个程序模拟点击窗口的过程。输入格式 输入的第一行有两个正整数,即 N 和 M。(1 ≤ N ≤ 10,1 ≤ M ≤ 10) 接下来 N 行按照从最下层到最顶层的顺序给出 N 个窗口的位置。 每行包含四个非负整数 x1, y1, x2, y2,表示该窗口的一对顶点坐标分别为 (x1, y1) 和 (x2, y2)。保证 x1 &lt; x2,y1 2。 接下来 M 行每行包含两个非负整数 x, y,表示一次鼠标点击的坐标。 题目中涉及到的所有点和矩形的顶点的 x, y 坐标分别不超过 2559 和 1439。输出格式 输出包括 M 行,每一行表示一次鼠标点击的结果。如果该次鼠标点击选择了一个窗口,则输出这个窗口的编号(窗口按照输入中的顺序从 1 编号到 N);如果没有,则输出&quot;IGNORED&quot;(不含双引号)。样例输入3 40 0 4 41 1 5 52 2 6 61 10 04 40 5样例输出211IGNORED样例说明 第一次点击的位置同时属于第 1 和第 2 个窗口,但是由于第 2 个窗口在上面,它被选择并且被置于顶层。 第二次点击的位置只属于第 1 个窗口,因此该次点击选择了此窗口并将其置于顶层。现在的三个窗口的层次关系与初始状态恰好相反了。 第三次点击的位置同时属于三个窗口的范围,但是由于现在第 1 个窗口处于顶层,它被选择。 最后点击的 (0, 5) 不属于任何窗口。 题解 1 用二维数组做标记，初始标记坐标在哪个窗口，然后依次执行点击，点击后，如果二维数组中对应坐标的值为 0，输出 IGNORED；否则，先输出窗口号，将被点击窗口的所有坐标对应的二维数组中的值设置成该窗口的窗口号。这道题只得了60分（待解决）。 12345678910111213141516171819202122232425n, m = list(map(int, input().split()))L = [[0] * 2559 for i in range(1439)] # 用于标记的数组lst = []rst = []count = 0for _ in range(n): lst.append(list(map(int, input().split()))) # 输入窗口顶点坐标for _ in range(m): rst.append(list(map(int, input().split()))) # 输入鼠标点击坐标for i in lst: # 标记坐标在哪个窗口 count += 1 for x in range(i[0], i[2] + 1): for y in range(i[1], i[3] + 1): L[x][y] = countfor j in rst: # 判断鼠标点击的点在哪个窗口 click = L[j[0]][j[1]] if click == 0: # 没有窗口 print("IGNORED") else: print(click) # 输出窗口号 for x in range(lst[click - 1][0], lst[click - 1][2] + 1): # 将被点击窗口置顶 for y in range(lst[click - 1][1], lst[click - 1][3] + 1): L[x][y] = click 题解 2 该问题本质是匹配，即鼠标点击坐标与窗口坐标的匹配问题。通过两个循环来解决，从第一个鼠标点击坐标开始，与顶层的窗口顶点坐标开始匹配，若该鼠标点击坐标在某个窗口坐标的范围内，则输出该窗口的编号，并将该窗口置顶，输出顶层坐标的编号。否则，输出 IGNORED 表示未找到。 12345678910111213141516171819202122232425n, m = map(int, input().split())v = []c = []for i in range(n): v.append(list(map(int, input().split()))) # 输入窗口顶点坐标for i in range(m): c.append(list(map(int, input().split()))) # 输入鼠标点击坐标s = v[:] # 复制，用于得到顶层坐标的编号v.reverse() # 将窗口顶点坐标翻转，即要从顶层窗口开始匹配flag = 1for i in range(m): # 点击次数 for j in range(n): # 窗口个数 if (c[i][0] &gt;= v[j][0] and c[i][1] &gt;= v[j][1]) and ( c[i][0] &lt;= v[j][2] and c[i][1] &lt;= v[j][3]): # 若该鼠标点击坐标在某个窗口坐标的范围内 flag = 1 # 标记为点中某个窗口 if j != 0: # 如果与鼠标点击坐标匹配的不是顶层窗口 v.insert(0, v[j]) # 则将窗口的顶点坐标置顶，即插入列表的第一个位置 for k in range(j + 1, n): v[k] = v[k + 1] # 其他窗口的顶点坐标，依次跟在顶层窗口坐标后 print(s.index(v[0]) + 1) # 输出顶层坐标的编号 break else: flag = 0 # 没有找到匹配的窗口 if flag == 0: print('IGNORED')]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>CCF-CSP</category>
+      </categories>
+      <tags>
+        <tag>CCF-CSP</tag>
+        <tag>教女朋友学Python</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CCF-CSP 学生排队]]></title>
     <url>%2F2018%2F11%2F26%2FCCF-CSP-%E5%AD%A6%E7%94%9F%E6%8E%92%E9%98%9F%2F</url>
     <content type="text"><![CDATA[CCF-CSP 201703-2 学生排队 题解 问题描述1234567891011121314151617181920212223242526272829303132333435试题编号：201703-2试题名称：学生排队时间限制：1.0s内存限制：256.0MB问题描述 体育老师小明要将自己班上的学生按顺序排队。他首先让学生按学号从小到大的顺序排成一排，学号小的排在前面，然后进行多次调整。一次调整小明可能让一位同学出队，向前或者向后移动一段距离后再插入队列。 例如，下面给出了一组移动的例子，例子中学生的人数为8人。 0）初始队列中学生的学号依次为1, 2, 3, 4, 5, 6, 7, 8； 1）第一次调整，命令为“3号同学向后移动2”，表示3号同学出队，向后移动2名同学的距离，再插入到队列中，新队列中学生的学号依次为1, 2, 4, 5, 3, 6, 7, 8； 2）第二次调整，命令为“8号同学向前移动3”，表示8号同学出队，向前移动3名同学的距离，再插入到队列中，新队列中学生的学号依次为1, 2, 4, 5, 8, 3, 6, 7； 3）第三次调整，命令为“3号同学向前移动2”，表示3号同学出队，向前移动2名同学的距离，再插入到队列中，新队列中学生的学号依次为1, 2, 4, 3, 5, 8, 6, 7。 小明记录了所有调整的过程，请问，最终从前向后所有学生的学号依次是多少？ 请特别注意，上述移动过程中所涉及的号码指的是学号，而不是在队伍中的位置。在向后移动时，移动的距离不超过对应同学后面的人数，如果向后移动的距离正好等于对应同学后面的人数则该同学会移动到队列的最后面。在向前移动时，移动的距离不超过对应同学前面的人数，如果向前移动的距离正好等于对应同学前面的人数则该同学会移动到队列的最前面。输入格式 输入的第一行包含一个整数n，表示学生的数量，学生的学号由1到n编号。 第二行包含一个整数m，表示调整的次数。 接下来m行，每行两个整数p, q，如果q为正，表示学号为p的同学向后移动q，如果q为负，表示学号为p的同学向前移动-q。 输出格式 输出一行，包含n个整数，相邻两个整数之间由一个空格分隔，表示最终从前向后所有学生的学号。样例输入833 28 -33 -2样例输出1 2 4 3 5 8 6 7评测用例规模与约定 对于所有评测用例，1 ≤ n ≤ 1000，1 ≤ m ≤ 1000，所有移动均合法。 题解1 这道题目思路比较简单，只要每次临时存储要移动的元素，然后考虑是向前移动还是向后移动。如果是向前移动q，则把这个元素前面的q个元素依次向后移动1位，然后再把这个元素放到空出来的那个位置即可。如果是向后移动q，则把这个元素后面的q个元素依次向前移动1位，然后再把这个元素放到空出来的那个位置即可。每次移动都按这个逻辑，最后输出结果即可。 123456789101112131415161718n = int(input()) # 学生的数量m = int(input()) # 调整的次数L = list(range(1, n+1)) # 初始排队序列lst = []for _ in range(m): i = list(map(int, input().split())) index = L.index(i[0]) # 获取要移动的元素的当前索引 tmp = L[index] # 临时存储要移动的元素 if i[1] &gt; 0: # 学生向后移，让他后面的|q|个学生依次向前移动1位 for j in range(index, index+i[1]): L[j] = L[j+1] else: # 学生向前移，让他前面的|q|个学生依次向后移动1位 for j in range(index, index-abs(i[1]), -1): L[j] = L[j-1] L[index+i[1]] = tmp # 要移动的学生，移动到指定位置for i in L: # 输出结果 print(i, end=" ") 题解2 还有一种方法是不需要考虑向前移动还是向后移动，把学生存储在 L 列表中，每次调整时，找出当前学生在列表中的下标，然后把该学生删掉，同时在列表末尾新增一个 0 元素。接着从后往前循环学生列表，到删除学生的下标 +1 为止，依次互换列表中的值，直到 0 元素到达删除的学生下标处；接着要做的就是把删除的学生号重新赋值进去 0 的位置。 123456789101112131415161718n = int(input()) # 学生的数量m = int(input()) # 调整的次数L = list(range(1, n + 1)) # 初始排队序列for _ in range(m): i = list(map(int, input().split())) p = i[0] # 调整的学生 q = i[1] # 调整值 k = L.index(p) # 学生下标 k += q # 调整后的下标，这样就无需考虑正负 L.remove(p) # 学生暂时出列表 L.append(0) # 先填充0 for j in range(k + 1, n)[::-1]: # 从后往前，到删除学生的下标 +1 为止 L[j], L[j - 1] = L[j - 1], L[j] # 互换列表中的值 L[k] = p # 其他学生调整好以后，该学生到列表的指定位置for i in L: # 输出结果 print(i, end=' ')]]></content>
@@ -1290,8 +1355,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1428,8 +1493,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1466,8 +1531,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1479,8 +1544,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1492,8 +1557,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1505,8 +1570,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1543,8 +1608,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1556,8 +1621,8 @@
         <category>本科刷题</category>
       </categories>
       <tags>
-        <tag>算法学习</tag>
         <tag>LeetCode</tag>
+        <tag>算法学习</tag>
       </tags>
   </entry>
   <entry>
@@ -1755,8 +1820,8 @@
       <tags>
         <tag>Http</tag>
         <tag>Python</tag>
-        <tag>正则表达式</tag>
         <tag>爬虫</tag>
+        <tag>正则表达式</tag>
       </tags>
   </entry>
   <entry>

@@ -407,39 +407,39 @@
         <p>　　pidstat 主要用于监控全部或指定进程占用系统资源的情况，如 CPU，内存、设备 IO、任务切换、线程等。</p>
 <a id="more"></a>
 <h4 id="pidstat安装"><a href="#pidstat安装" class="headerlink" title="pidstat安装"></a>pidstat安装</h4><p>　　要使用 pidstat 需要安装 Sysstat，它是一个工具集，包括 sar、pidstat、iostat、mpstat、sadf、sadc。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install sysstat</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install sysstat</div></pre></td></tr></table></figure>
 <p>　　pidstat 首次运行时显示自系统启动开始的各项统计信息，之后运行 pidstat 将显示自上次运行该命令以后的统计信息。用户可以通过指定统计的次数和时间来获得所需的统计信息。</p>
 <h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p>　　用户手册：<a href="http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html" target="_blank" rel="external">http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html</a></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Usage: pidstat [ options ] [ &lt;interval&gt; [ &lt;count&gt; ] ]</div><div class="line">Options are:</div><div class="line">[ -d ] [ -h ] [ -I ] [ -l ] [ -R ] [ -r ] [ -s ] [ -t ] [ -U [ &lt;username&gt; ] ]</div><div class="line">[ -u ] [ -V ] [ -v ] [ -w ] [ -C &lt;command&gt; ] [ -G &lt;process_name&gt; ]</div><div class="line">[ -p &#123; &lt;pid&gt; [,...] | SELF | ALL &#125; ] [ -T &#123; TASK | CHILD | ALL &#125; ]</div></pre></td></tr></table></figure>
 <h5 id="指定采样周期和采样次数"><a href="#指定采样周期和采样次数" class="headerlink" title="指定采样周期和采样次数"></a>指定采样周期和采样次数</h5><p>　　pidstat 命令指定采样周期和采样次数，例如以 2 秒为采样周期，输出 10 次 CPU 使用统计信息：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10</div></pre></td></tr></table></figure>
 <h5 id="p-参数"><a href="#p-参数" class="headerlink" title="-p 参数"></a>-p 参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-p &#123; pid [,...] | SELF | ALL &#125; #指定进程显示其报告</div></pre></td></tr></table></figure>
 <p>　　选择要报告统计信息的任务（进程）。pid 是进程标识号。 SELF 关键字表示要为 pidstat 进程本身报告统计信息，而 ALL 关键字表示要为系统管理的所有任务报告统计信息。SELF 和 ALL 可不指定，如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -p 进程号</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -p 进程号</div></pre></td></tr></table></figure>
 <p>　　可使用以下命令获得进程号，以下命令会列出所有进程的进程号：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ps -e</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> ps -e</div></pre></td></tr></table></figure>
 <p>　　也可以通过 top 命令或者直接查看某个服务的状态得到该服务涉及的进程。</p>
 <h5 id="u参数"><a href="#u参数" class="headerlink" title="-u参数"></a>-u参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的 CPU 使用统计，执行 ”pidstat -u” 与单独执行 ”pidstat” 的效果一样。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat</div><div class="line">or</div><div class="line"><span class="meta">$</span> pidstat -u</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-1.png" alt="26-1"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- %usr  # 在用户级（应用程序）执行任务时使用的CPU的百分比，有或没有优先级。请注意，此字段不包括运行虚拟处理器的时间</div><div class="line">- %system   # 在系统级别（内核）执行任务时CPU占用的百分比</div><div class="line">- %guest    # 虚拟机中任务占用的CPU的百分比（运行虚拟处理器）</div><div class="line">- %CPU  # 该任务使用的CPU时间的总百分比</div><div class="line">- CPU   # 处理器号，任务被哪个处理器处理</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="r参数"><a href="#r参数" class="headerlink" title="-r参数"></a>-r参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的页面故障和内存利用率。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-2.png" alt="26-2"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- minflt/s  # 每秒次缺页错误次数(minor page faults)，次缺页错误次数意即虚拟内存地址映射成物理内存地址产生的page fault次数</div><div class="line">- majflt/s  # 每秒主缺页错误次数(major page faults)，当虚拟内存地址映射成物理内存地址时，相应的page在swap中，这样的page fault为major page fault，一般在内存使用紧张时产生</div><div class="line">- VSZ   # 该进程使用的虚拟内存(以kB为单位)</div><div class="line">- RSS   # 该进程使用的物理内存(以kB为单位)</div><div class="line">- %MEM  # 当前任务使用的有效内存的百分比</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="d参数"><a href="#d参数" class="headerlink" title="-d参数"></a>-d参数</h5><p>　　使用 -d 选项，pidstat 将将显示各活动进程的 I/O 统计信息（内核 2.6.20 及更高版本）。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -d</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -d</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-3.png" alt="26-3"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- kB_rd/s   # 每秒此进程从磁盘读取的千字节数</div><div class="line">- kB_wr/s   # 此进程已经或者将要写入磁盘的每秒千字节数</div><div class="line">- kB_ccwr/s # 由任务取消的写入磁盘的千字节数</div><div class="line">- iodelay   # 阻止正在监视的任务的I/O延迟，以时钟滴答测量</div><div class="line">- Command   # 命令的名字</div></pre></td></tr></table></figure>
 <h5 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">-h  # 显示所有的活动的任务</div><div class="line">-I  # 在SMP环境，指出任务的CPU使用（等同于选项-u）应该被除于cpu的总数</div><div class="line">-l  # 显示进程的命令名和它的参数</div><div class="line">-T &#123; TASK | CHILD | ALL &#125;   # 指定必须监测的内容：TASK是默认的，单个任务的报告；CHILD：指定的进程和他们的子进程的全局报告，ALL：相当于TASK和CHILD</div><div class="line">-s  # 堆栈的使用</div><div class="line">-t  # 显示与所选任务相关的线程的统计数据</div><div class="line">-w  # 报告任务切换情况</div></pre></td></tr></table></figure>
 <h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r -p 1643 2 5</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r -p 1643 2 5</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息以及 CPU 使用率。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u -r -p 1643 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -u -r -p 1643 2 10</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 10 次系统中所有任务的子进程的页面错误统计信息。只显示具有非零统计值的子进程。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -T CHILD -r 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -T CHILD -r 2 10</div></pre></td></tr></table></figure>
 <h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><p>　　重定向输出即可，例如，每隔两秒记录 1 次，一共 10 次，并输出到 data.txt 文件。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10 &gt; data.txt</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10 &gt; data.txt</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -614,7 +614,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">158</span>
+                <span class="site-state-item-count">163</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -625,7 +625,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -636,7 +636,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">86</span>
+                <span class="site-state-item-count">89</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
