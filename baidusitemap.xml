@@ -4,6 +4,68 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2018/12/23/CDN%EF%BC%9A%E5%86%85%E5%AE%B9%E5%88%86%E5%8F%91%E7%BD%91%E7%BB%9C/</loc>
+    <lastmod>2018-12-23T09:05:21.435Z</lastmod>
+    <data>
+        <display>
+        <title>CDN：内容分发网络</title>
+        <pubTime>2018-12-23T08:16:47.000Z</pubTime>
+        
+        <tag>CDN</tag>
+         
+         
+           
+             
+              <breadCrumb title="Distributed" url="https://fzy-line.github.io/categories/Distributed/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/12/10/%E7%88%B1%E6%83%9C%E8%87%AA%E5%B7%B1%E7%9A%84%E7%BE%BD%E6%AF%9B/</loc>
+    <lastmod>2018-12-23T09:02:34.016Z</lastmod>
+    <data>
+        <display>
+        <title>爱惜自己的羽毛</title>
+        <pubTime>2018-12-10T08:20:51.000Z</pubTime>
+        
+        <tag>Life</tag>
+         
+         
+           
+             
+              <breadCrumb title="Life" url="https://fzy-line.github.io/categories/Life/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/12/08/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%E5%92%8C%E4%B8%A4%E5%86%9B%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-12-23T07:39:29.315Z</lastmod>
+    <data>
+        <display>
+        <title>拜占庭将军问题和两军问题</title>
+        <pubTime>2018-12-08T12:28:13.000Z</pubTime>
+        
+        <tag>Distributed system</tag>
+         
+        <tag>Blockchain</tag>
+         
+         
+           
+             
+              <breadCrumb title="Distributed" url="https://fzy-line.github.io/categories/Distributed/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2018/12/06/%E5%88%9D%E8%AF%86-%E6%AF%94%E7%89%B9%E5%B8%81%E4%B8%8E%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
     <lastmod>2018-12-23T07:35:34.669Z</lastmod>
     <data>
@@ -64,28 +126,6 @@
           
              
               <breadCrumb title="LeetCode" url="https://fzy-line.github.io/categories/Algorithm/LeetCode/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2018/12/08/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%E5%92%8C%E4%B8%A4%E5%86%9B%E9%97%AE%E9%A2%98/</loc>
-    <lastmod>2018-12-23T07:27:44.225Z</lastmod>
-    <data>
-        <display>
-        <title>拜占庭将军问题和两军问题</title>
-        <pubTime>2018-12-08T12:28:13.000Z</pubTime>
-        
-        <tag>Distributed system</tag>
-         
-        <tag>Blockchain</tag>
-         
-         
-           
-             
-              <breadCrumb title="Distributed system" url="https://fzy-line.github.io/categories/Distributed-system/"/>
           
         </display>
     </data>
@@ -3309,9 +3349,9 @@
          
         <tag>Python</tag>
          
-        <tag>爬虫</tag>
-         
         <tag>正则表达式</tag>
+         
+        <tag>爬虫</tag>
          
          
            
