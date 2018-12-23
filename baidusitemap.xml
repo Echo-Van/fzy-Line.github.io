@@ -4,8 +4,97 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2018/12/06/%E5%88%9D%E8%AF%86-%E6%AF%94%E7%89%B9%E5%B8%81%E4%B8%8E%E5%8C%BA%E5%9D%97%E9%93%BE/</loc>
+    <lastmod>2018-12-23T07:35:34.669Z</lastmod>
+    <data>
+        <display>
+        <title>初识-比特币与区块链</title>
+        <pubTime>2018-12-06T12:27:57.000Z</pubTime>
+        
+        <tag>比特币</tag>
+         
+        <tag>区块链</tag>
+         
+         
+           
+             
+              <breadCrumb title="Distributed" url="https://fzy-line.github.io/categories/Distributed/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/12/12/%E5%88%9D%E8%AF%86-%E8%99%9A%E6%8B%9F%E5%8C%96%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2018-12-23T07:31:56.867Z</lastmod>
+    <data>
+        <display>
+        <title>初识-虚拟化技术</title>
+        <pubTime>2018-12-12T04:29:02.000Z</pubTime>
+        
+        <tag>虚拟化</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud Computing" url="https://fzy-line.github.io/categories/Cloud-Computing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/12/05/LeetCode-26-Remove-Duplicates-from-Sorted-Array/</loc>
+    <lastmod>2018-12-23T07:31:36.462Z</lastmod>
+    <data>
+        <display>
+        <title>LeetCode 26. Remove Duplicates from Sorted Array</title>
+        <pubTime>2018-12-05T02:35:11.000Z</pubTime>
+        
+        <tag>LeetCode</tag>
+         
+        <tag>Array</tag>
+         
+         
+           
+             
+              <breadCrumb title="Algorithm" url="https://fzy-line.github.io/categories/Algorithm/"/>
+          
+             
+              <breadCrumb title="LeetCode" url="https://fzy-line.github.io/categories/Algorithm/LeetCode/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/12/08/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98%E5%92%8C%E4%B8%A4%E5%86%9B%E9%97%AE%E9%A2%98/</loc>
+    <lastmod>2018-12-23T07:27:44.225Z</lastmod>
+    <data>
+        <display>
+        <title>拜占庭将军问题和两军问题</title>
+        <pubTime>2018-12-08T12:28:13.000Z</pubTime>
+        
+        <tag>Distributed system</tag>
+         
+        <tag>Blockchain</tag>
+         
+         
+           
+             
+              <breadCrumb title="Distributed system" url="https://fzy-line.github.io/categories/Distributed-system/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2018/12/03/LeetCode-27-Remove%20Element/</loc>
-    <lastmod>2018-12-22T13:50:34.612Z</lastmod>
+    <lastmod>2018-12-23T02:37:06.152Z</lastmod>
     <data>
         <display>
         <title>LeetCode 27. Remove Element</title>
@@ -1830,9 +1919,9 @@
         <title>Contiki中CoAP协议实现</title>
         <pubTime>2017-07-16T13:04:42.000Z</pubTime>
         
-        <tag>Contiki</tag>
-         
         <tag>CoAP</tag>
+         
+        <tag>Contiki</tag>
          
          
            

@@ -1,0 +1,1351 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="虚拟化," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="虚拟化技术简介。">
+<meta name="keywords" content="虚拟化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识-虚拟化技术">
+<meta property="og:url" content="https://fzy-line.github.io/2018/12/12/初识-虚拟化技术/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="虚拟化技术简介。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-2.jpg">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-1.jpg">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-3.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-4.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-5.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-6.png">
+<meta property="og:updated_time" content="2018-12-23T07:31:56.867Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识-虚拟化技术">
+<meta name="twitter:description" content="虚拟化技术简介。">
+<meta name="twitter:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-2.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2018/12/12/初识-虚拟化技术/"/>
+
+
+
+
+
+  <title>初识-虚拟化技术 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2018/12/12/初识-虚拟化技术/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">初识-虚拟化技术</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T12:29:02+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cloud-Computing/" itemprop="url" rel="index">
+                    <span itemprop="name">Cloud Computing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>虚拟化技术简介。</center>
+
+<a id="more"></a>
+<h4 id="什么是虚拟化？"><a href="#什么是虚拟化？" class="headerlink" title="什么是虚拟化？"></a>什么是虚拟化？</h4><p>　　虚拟化是指通过虚拟化技术将一台计算机虚拟为多台逻辑计算机，本质上是软/硬件层的抽象。在一台计算机上同时运行多个逻辑计算机，每个逻辑计算机可运行不同的操作系统，并且应用程序都可以在相互独立的空间内运行而互不影响，从而显著提高计算机的工作效率。</p>
+<h4 id="虚拟化的目的"><a href="#虚拟化的目的" class="headerlink" title="虚拟化的目的"></a>虚拟化的目的</h4><p>　　虚拟化技术主要用来解决高性能的物理硬件产能过剩和老的旧的硬件产能过低的重组重用，透明化底层物理硬件，从而最大化的利用物理硬件，简单来说就是将底层资源进行分区，并向上层提供特定的和多样化的执行环境。</p>
+<p>　　通过一个简单明了的例子来进行说明为什么需要虚拟化？</p>
+<p>　　生鲜市场有很多买东西的商贩（企业），他们需要一个库房（服务器）来存放和处理这些商品。但是鱼呀、肉啊都需要低温才可以保鲜，所以得有制冷机（操作系统），主流的制冷机有 Windows 制冷机和 Linux 制冷机两种，配备了制冷机的库房就可以正常工作啦！最初的冷库就是这个样子：</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-2.jpg" alt="12-1"></p>
+<p>　　可是问题来了，各种库藏品都很矫情，它们对温度的要求不一致，放在一起还会串味儿，鸡腿变成了咸鱼口味，冰激凌有了小龙虾味儿。</p>
+<p>　　有个叫 VMware 的泥瓦匠想了个办法，把库房隔成很多叫做“虚拟机”的小库房，每个房间放一个制冷机，这样就再也不怕串味儿，每个小房间的温度独立可控，鱼呀虾呀表示很 Happy。这就叫做冷库虚拟化技术。</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-1.jpg" alt="12-2"></p>
+<p>　　原本是个挺完美的方案了，偏偏有人爱吹毛求疵瞎 BB，比如老板就觉得每个隔间都要放制冷机太占地方而且又费电，总想着找点别的办法。</p>
+<p>　　好了，故事先说到这里。后续的博客中再介绍改进的办法，这一篇主要关注虚拟化技术的基础。</p>
+<h4 id="虚拟化的原理"><a href="#虚拟化的原理" class="headerlink" title="虚拟化的原理"></a>虚拟化的原理</h4><p>　　在 OS 中加入一个虚拟化层（VMM），虚拟化层可以对下层（HostOS）硬件资源（物理CPU、内存、磁盘、网卡、显卡等）进行封装、隔离，抽象为另一种形式的逻辑资源，再提供给上层（GuestOS）使用。所以你可以理解 VMM 其实就是联系 HostOS 和 GuestOS 的一个中间件（如下图），当然虚拟化可以将一份资源抽象为多份，也可以将多份资源抽象为一份。</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-3.png" alt="12-3"></p>
+<p>　　虚拟机通常叫做客户机（Guest），物理机叫宿主机（Host），VMM（Virtual Machine Monitor，虚拟机监控系统，也叫 Hypervisor）处在中间层，既要负责对虚拟资源的管理，包括虚拟环境的调度，虚拟机之间的通信以及虚拟机的管理等，又要负责物理资源的管理，包括处理器、中断、内存、设备等的管理，此外，还要提供一些附加功能，包括定时器、安全机制、电源管理等。</p>
+<h4 id="虚拟化的实现方式"><a href="#虚拟化的实现方式" class="headerlink" title="虚拟化的实现方式"></a>虚拟化的实现方式</h4><p>　　VMM 根据平台类型和实现结构有两种不同的分类（如下图），按平台类型可以分为全虚拟化和半虚拟化，按实现结构可分为 Hypervisor 模型和宿主模型。</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-4.png" alt="12-4"></p>
+<h5 id="按平台类型分"><a href="#按平台类型分" class="headerlink" title="按平台类型分"></a>按平台类型分</h5><p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-5.png" alt="12-5"></p>
+<ul>
+<li><strong>全虚拟化</strong></li>
+</ul>
+<p>　　全虚拟化也称为原始虚拟化技术，Hypervisor 运行在裸硬件上，充当主机操作系统，而由 Hypervisor 管理的虚拟服务器运行客户端操作系统（Guest OS）。该模型使用 VMM 完全模拟出一个跟物理主机完全一样的环境，VMM 在 Guest 操作系统和裸硬件之间用于工作协调，一些受保护指令必须由 Hypervisor（VMM 虚拟机管理程序）来捕获处理。既 VMM 会为 GuestOS 抽象模拟出它所需要的包括 CPU、磁盘、内存、网卡、显卡等抽象硬件资源，所以全虚拟化的 GuestOS 并不会知道自己其实是一台虚拟机。</p>
+<p>　　但是，全虚拟化实现非常困难，首先，这需要硬件的支持，而硬件在初期设计的时候，没有那么远的前瞻性，可以预想到为虚拟化提供支持，其次，指令的复杂性，即使通过模拟的方式也很难做到全部指令都模拟。所以，就需要借助其他的一些技术来辅助虚拟化。全虚拟化的运行速度要快于硬件模拟，但是性能方面不如裸机，因为Hypervisor 需要占用一些资源。典型的全虚拟化软件有：VMWare、Hyper-V、KVM-x86(复杂指令集)。</p>
+<p>　　完全虚拟化是处理器密集型技术，因为它要求 Hypervisor 管理各个虚拟服务器，并让它们彼此独立。减轻这种负担的一种方法就是，改动客户操作系统，让它以为自己运行在虚拟环境下，能够与 Hypervisor 协同工作，这种方法就叫半/准虚拟化。</p>
+<ul>
+<li><strong>半虚拟化</strong></li>
+</ul>
+<p>　　半虚拟化也叫准虚拟化，是另一种类似于全虚拟化的技术，它使用 Hypervisor 分享存取底层的硬件，但是它的 Guest OS 集成了虚拟化方面的代码。半虚拟化需要 Guest 操作系统做一些修改，使 Guest 操作系统意识到自己是处于虚拟化环境的，但是半虚拟化提供了与原操作系统相近的性能。优点是性能高，经过准虚拟化处理的服务器可与 Hypervisor 协同工作，其响应能力几乎不亚于未经过虚拟化处理的服务器。</p>
+<p>　　其实现方式有：修改内核，通告被虚拟化出来的操作系统它是运行在虚拟化技术软件之上的，虚拟化出来的操作系统上执行的进程还是运行在真实硬件上，性能还是很好。半虚拟化除了修改内核外还有另外一种实现方法–在每一个 GuestOS 中安装半虚拟化软件：VMTools、RHEVTools。典型的半虚拟化软件有：Xen、KVM-PowerPC（简易指令集）。</p>
+<h5 id="按实现结构分"><a href="#按实现结构分" class="headerlink" title="按实现结构分"></a>按实现结构分</h5><p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/12/12-6.png" alt="12-6"></p>
+<ul>
+<li>Hypervisor 模型</li>
+</ul>
+<p>　　VMM 既是操作系统，也是虚拟化软件，也就是集成了虚拟化功能的操作系统，对上为 Guest 提供虚拟化功能，对下管理着所有物理资源，它的优点就是效率高，虚拟机的安全性只依赖于 VMM，缺点就是管理所有的物理资源，意味着 VMM 要承担很多的开发工作，特别是驱动层面的开发，我们知道硬件的 I/O 设备是很多的，这些设备都要有对应的驱动来设配才能为虚拟机提供功能。</p>
+<ul>
+<li>宿主模型</li>
+</ul>
+<p>　　剥离了管理功能和虚拟化功能，虚拟化功能只是作为内核的一个模块来加载，比如 KVM 技术就是其中的佼佼者，KVM 技术可以说是云计算最核心的技术了，后面会经常用到。一般 KVM 只负责 CPU 和内存的虚拟化，I/O 的虚拟化则由另外一个技术来完成，即 Qemu。</p>
+<h4 id="成熟的虚拟化技术"><a href="#成熟的虚拟化技术" class="headerlink" title="成熟的虚拟化技术"></a>成熟的虚拟化技术</h4><h5 id="VirtualBox"><a href="#VirtualBox" class="headerlink" title="VirtualBox"></a>VirtualBox</h5><p>　　Oracle公司的直接基于 Intel VT 及 AMD-V 的虚拟机管理软件。</p>
+<h5 id="VMware-Workstation"><a href="#VMware-Workstation" class="headerlink" title="VMware Workstation"></a>VMware Workstation</h5><p>　　Vmware 公司的基于 Vmware 虚拟技术的虚拟机管理软件。</p>
+<h5 id="KVM"><a href="#KVM" class="headerlink" title="KVM"></a>KVM</h5><p>　　KVM 是一个轻量级的虚拟化管理程序模块，该模块主要来自于 Linux 内核。KVM 是一个全虚拟化的解决方案。可以在 x86 架构的计算机上实现虚拟化功能。但 KVM 需要 CPU 中虚拟化功能的支持，只可在具有虚拟化支持的 CPU 上运行，即具有 VT 功能的 Intel CPU 和具有 AMD-V 功能的 AMD CPU。</p>
+<h5 id="XEN"><a href="#XEN" class="headerlink" title="XEN"></a>XEN</h5><p>　　Xen 也是 Linux 下的一个虚拟化解决方案，但它是一个外部的 Hypervisor 程序（虚拟机管理程序）；它能够控制虚拟机和给多个客户机分配资源。Xen 的实现方法是运行支持 Xen 功能的 kernel，这个 kernel 是工作在 Xen 的控制之下，叫做 Domain0，使用这个kernel启动机器后，你可以在这个机器上使用 qemu 软件，虚拟出多个系统。</p>
+<p>　　KVM 与 XEN 对比：</p>
+<table>
+<thead>
+<tr>
+<th>两者区别</th>
+<th>Xen</th>
+<th>KVM</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>问世时间</td>
+<td>2003年</td>
+<td>2007年</td>
+</tr>
+<tr>
+<td>支持企业</td>
+<td>Citrix、Novell、Oracle、Sun、Ret Hat（RHEL5）和Virtual Iron</td>
+<td>Redhat、Ubuntu等</td>
+</tr>
+<tr>
+<td>支持的虚拟化技术</td>
+<td>全虚拟化、半虚拟化</td>
+<td>全虚拟化</td>
+</tr>
+<tr>
+<td>支持架构</td>
+<td>x86、IA64和AMD、Fujitsu、IBM、Sun等公司的ARM，以及x86/64 CPU商家和Intel嵌入式的支持</td>
+<td>支持虚拟化的CPU</td>
+</tr>
+<tr>
+<td>支持操作系统</td>
+<td>UNIX、Linux和Microsoft Windows</td>
+<td>UNIX、Linux和Microsoft Windows</td>
+</tr>
+<tr>
+<td>动态迁移</td>
+<td>支持</td>
+<td>支持（以前不支持）</td>
+</tr>
+<tr>
+<td>内核支持</td>
+<td>需要对内核打补丁</td>
+<td>内置在内核中</td>
+</tr>
+</tbody>
+</table>
+<p>　　参考资料：</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNzI1NzY3Nw==&amp;mid=2247484443&amp;idx=1&amp;sn=9dd1a17e4e99dd2a0952abc149d49f35&amp;chksm=e8ca12b9dfbd9baf0cee0891da8ee61da65746f80aab59fbcd4fe865afc43f60d3197532c6b2&amp;mpshare=1&amp;scene=1&amp;srcid=0801CrPRcBdDZ4RzFK8KtHtP&amp;pass_ticket=nWj0F%2bwzYMoBWp/T4YkRCBlfl0I0NWKisijQB8/KUHQpLZGVBVd0liQNtd4MTTDM#rd" target="_blank" rel="external">[1] 【炸裂的云计算-01】虚拟化原理和分类</a></p>
+<p><a href="https://www.cnblogs.com/bakari/p/7857967.html" target="_blank" rel="external">[2] 虚拟化技术总览</a></p>
+<p><a href="https://blog.csdn.net/gongxifacai_believe/article/details/69266198?locationNum=9&amp;fps=1" target="_blank" rel="external">[3] 虚拟化技术详解</a></p>
+<p><a href="https://www.zhihu.com/question/20848931" target="_blank" rel="external">[4] 虚拟机是怎么实现的？</a></p>
+<p><a href="http://www.cnblogs.com/hsqdboke/p/4103415.html" target="_blank" rel="external">[5] 虚拟化、（完）全虚拟化、半虚拟化和准虚拟化技术个人总结</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/虚拟化/" rel="tag"># 虚拟化</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/08/拜占庭将军问题和两军问题/" rel="next" title="拜占庭将军问题和两军问题">
+                <i class="fa fa-chevron-left"></i> 拜占庭将军问题和两军问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fanzhenyu@csu.edu.cn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">167</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">92</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jacktaoz.github.io/" title="Jacktao" target="_blank">Jacktao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是虚拟化？"><span class="nav-number">1.</span> <span class="nav-text">什么是虚拟化？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟化的目的"><span class="nav-number">2.</span> <span class="nav-text">虚拟化的目的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟化的原理"><span class="nav-number">3.</span> <span class="nav-text">虚拟化的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟化的实现方式"><span class="nav-number">4.</span> <span class="nav-text">虚拟化的实现方式</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#按平台类型分"><span class="nav-number">4.1.</span> <span class="nav-text">按平台类型分</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#按实现结构分"><span class="nav-number">4.2.</span> <span class="nav-text">按实现结构分</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#成熟的虚拟化技术"><span class="nav-number">5.</span> <span class="nav-text">成熟的虚拟化技术</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#VirtualBox"><span class="nav-number">5.1.</span> <span class="nav-text">VirtualBox</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VMware-Workstation"><span class="nav-number">5.2.</span> <span class="nav-text">VMware Workstation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#KVM"><span class="nav-number">5.3.</span> <span class="nav-text">KVM</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#XEN"><span class="nav-number">5.4.</span> <span class="nav-text">XEN</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '9f74a018210b61ac4709',
+          clientSecret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+          repo: 'fzy-Line.github.io',
+          owner: 'fzy-Line',
+          admin: ['fzy-Line'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
