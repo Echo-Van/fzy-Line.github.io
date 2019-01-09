@@ -1,6 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode 219. Contains Duplicate II]]></title>
+    <url>%2F2019%2F01%2F07%2FLeetCode-219-Contains-Duplicate-II%2F</url>
+    <content type="text"><![CDATA[LeetCode 219. Contains Duplicate II 题解 题目描述 英文： Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k. 中文： 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。 示例 示例 1: 12输入: nums = [1,2,3,1], k = 3输出: true 示例 2: 12输入: nums = [1,0,1,1], k = 1输出: true 示例 3: 12输入: nums = [1,2,3,1,2,3], k = 2输出: false 题解 题解 1 使用字典来进行处理。 1234567891011121314151617class Solution: def containsNearbyDuplicate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: bool """ length = len(nums) if length &lt;= 1: return False dic = &#123;&#125; for i in range(length): if nums[i] in dic: if i-dic[nums[i]] &lt;= k: return True dic[nums[i]] = i return False 可以使用 217. Contains Duplicate 题中的方法稍作改进，使用 set() 方法得到不重复元素的集合，然后判断列表长度是否等于集合的长度，如果是则表示列表中没有重复的元素，直接返回 False。否则，进行上面的操作来做进一步的判断。 12345678910111213141516171819class Solution: def containsNearbyDuplicate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: bool """ length = len(nums) if length == len(set(nums)): # 改进的地方 return False if length &lt;= 1: return False dic = &#123;&#125; for i in range(length): if nums[i] in dic: if i-dic[nums[i]] &lt;= k: return True dic[nums[i]] = i return False 题解 2 使用集合，集合中只存放 k 个元素，即满足题目要求的两个索引 i 和 j 的差的绝对值最大为。遍历数组，每次判断元素是否在集合中，如果在，则表示有满足条件的重复元素，返回 True，并且每次都将元素加入到集合中，判断集合中元素个数是否大于 k，如果大于，则将第一个元素移除，保证集合中元素的索引与当前元素的索引相差最大为 k，即只考虑当前元素的前面 k 个元素。 123456789101112131415class Solution: def containsNearbyDuplicate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: bool """ record = set() for i in range(len(nums)): if nums[i] in record: # 有满足条件的重复元素 return True record.add(nums[i]) # 加入到集合 if len(record) == k + 1: # 保证集合中只有 k 个元素 record.remove(nums[i - k]) # 移除最前面的元素 return False]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 217. Contains Duplicate]]></title>
+    <url>%2F2019%2F01%2F06%2FLeetCode-217-Contains-Duplicate%2F</url>
+    <content type="text"><![CDATA[LeetCode 217. Contains Duplicate 题解 题目描述 英文： Given an array of integers, find if the array contains any duplicates. Your function should return true if any value appears at least twice in the array, and it should return false if every element is distinct. 中文： 给定一个整数数组，判断是否存在重复元素。 如果任何值在数组中出现至少两次，函数返回 true。如果数组中每个元素都不相同，则返回 false。 示例 示例 1: 12输入: [1,2,3,1]输出: true 示例 2: 12输入: [1,2,3,4]输出: false 示例 3: 12输入: [1,1,1,3,3,4,3,2,4,2]输出: true 题解 题解 1 依据集合中元素不重复的特性，使用 set() 方法得到不重复元素的集合，然后判断列表长度是否等于集合的长度，如果是则表示列表中没有重复的元素，返回 False，否则，有，返回 True。 12345678910class Solution: def containsDuplicate(self, nums): """ :type nums: List[int] :rtype: bool """ if len(nums) == len(set(nums)): return False else: return True 题解 2 先对列表进行排序，然后遍历列表，依次比较每个元素是否等于其后一个元素，如果等于，则表示列表中有重复的元素，返回 True，否则，返回 False。 1234567891011121314class Solution: def containsDuplicate(self, nums): """ :type nums: List[int] :rtype: bool """ length = len(nums) if length == 0: return False nums.sort() for i in range(length-1): if nums[i] == nums[i+1]: return True return False]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 268. Missing Number]]></title>
+    <url>%2F2019%2F01%2F05%2FLeetCode-268-Missing-Number%2F</url>
+    <content type="text"><![CDATA[LeetCode 268. Missing Number 题解 题目描述 英文： Given an array containing n distinct numbers taken from 0, 1, 2, ..., n, find the one that is missing from the array. 中文： 给定一个包含 0, 1, 2, ..., n 中 n 个数的序列，找出 0 .. n 中没有出现在序列中的那个数。 示例 示例 1: 12输入: [3,0,1]输出: 2 示例 2: 12输入: [9,6,4,2,3,5,7,0,1]输出: 8 题解 题解 1 由于索引即为 0 到 n 的数，所以可以先对数组进行排序，然后遍历数组，依次比较每个数是否与其索引相等，如果不相等，则对应的索引即为缺失值。当然，还要注意处理最后一个数缺失的情况，因为遍历数组只能处理 0 到 n-1。 123456789101112class Solution: def missingNumber(self, nums): """ :type nums: List[int] :rtype: int """ length = len(nums) nums.sort() # 排序 for i in range(length): # 遍历数组，判断列表值是否与索引相等 if nums[i] != i: # 如果不相等，则索引即为缺失的数 return i return nums[length - 1] + 1 # 处理缺失最后一个数的情况 题解 2 首先计算 0 到 n 的和，然后用和减去数组元素的和，即可得到缺失的元素。 12345678910class Solution: def missingNumber(self, nums): """ :type nums: List[int] :rtype: int """ con = 0 for i in range(len(nums)+1): # 求和 con += i return con - sum(nums) # 得到缺失值 也可以直接使用公式计算和，然后减去数组元素的和，即可得到缺失的元素。 12345678class Solution: def missingNumber(self, nums): """ :type nums: List[int] :rtype: int """ length = len(nums) return int(length*(length+1)/2 - sum(nums))]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode 189. Rotate Array]]></title>
     <url>%2F2019%2F01%2F02%2FLeetCode-189-Rotate-Array%2F</url>
     <content type="text"><![CDATA[LeetCode 189. Rotate Array 题解 题目描述 英文： Given an array, rotate the array to the right by k steps, where k is non-negative. 中文： 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。 说明: 尽可能想出更多的解决方案，至少有三种不同的方法可以解决这个问题。 要求使用空间复杂度为 O(1) 的原地算法。 示例示例 1: 123456输入: [1,2,3,4,5,6,7] 和 k = 3输出: [5,6,7,1,2,3,4]解释:向右旋转 1 步: [7,1,2,3,4,5,6]向右旋转 2 步: [6,7,1,2,3,4,5]向右旋转 3 步: [5,6,7,1,2,3,4] 示例 2: 12345输入: [-1,-100,3,99] 和 k = 2输出: [3,99,-1,-100]解释: 向右旋转 1 步: [99,-1,-100,3]向右旋转 2 步: [3,99,-1,-100] 题解 题解 1 思路很简单，每次弹出最后一个元素，再插入到列表索引为 0 的位置即可。但是，这种方法非常耗时。 12345678910class Solution: def rotate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: void Do not return anything, modify nums in-place instead. """ for i in range(k): n = nums.pop() # 弹出 nums.insert(0, n) # 插入 题解 2 巧用 reversed() 反转函数，先将整个列表反转，然后再对前 k 个反转，再对 k+1 到列表末尾的反转。以列表 [1, 2, 3, 4, 5, 6, 7] 为例，向右移 k=3 个位置，先将整个列表反转得到 [7, 6, 5, 4, 3, 2, 1] ，再对前 3 个反转得到 [5, 6, 7, 4, 3, 2, 1]，最后对第 4 到 7 个元素进行反转得到 [5, 6, 7, 1, 2, 3, 4] 。但是，这里需要注意，k 可能会超过列表的长度，我们可以发现，当列表长度为 7 时， k = 3 和 k = 10，得到的结果是一样的，因为当 k = 10 时只是将列表所有数都移动了一遍，然后再移动 k = 3 次。所以，我们通过 k=k%len(nums) 来处理这种情况。 123456789101112class Solution: def rotate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: void Do not return anything, modify nums in-place instead. """ l = len(nums) k = k % l # 处理 k 超过列表长度的情况 nums.reverse() # 列表反转 nums[:k] = reversed(nums[:k]) # 列表前 k 个元素反转 nums[k:l] = reversed(nums[k:l]) # 列表 第 k+1 个开始到列表末尾的元素反转]]></content>
@@ -1073,8 +1112,8 @@
         <category>OS</category>
       </categories>
       <tags>
-        <tag>CoAP</tag>
         <tag>Contiki</tag>
+        <tag>CoAP</tag>
       </tags>
   </entry>
   <entry>
