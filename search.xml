@@ -1,6 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[LeetCode 80. Remove Duplicates from Sorted Array II]]></title>
+    <url>%2F2019%2F01%2F14%2FLeetCode-80-Remove-Duplicates-from-Sorted-Array-II%2F</url>
+    <content type="text"><![CDATA[LeetCode 80. Remove Duplicates from Sorted Array II 题解 题目描述 英文： Given a sorted array nums, remove the duplicates in-place such that duplicates appeared at most twice and return the new length. Do not allocate extra space for another array, you must do this by modifying the input array in-place with O(1) extra memory. 中文： 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素最多出现两次，返回移除后数组的新长度。 不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。 示例 示例 1: 12345给定 nums = [1,1,1,2,2,3],函数应返回新长度 length = 5, 并且原数组的前五个元素被修改为 1, 1, 2, 2, 3 。你不需要考虑数组中超出新长度后面的元素。 示例 2: 12345给定 nums = [0,0,1,1,1,1,2,3,3],函数应返回新长度 length = 7, 并且原数组的前五个元素被修改为 0, 0, 1, 1, 2, 3, 3 。你不需要考虑数组中超出新长度后面的元素。 说明: 为什么返回数值是整数，但输出的答案是数组呢? 请注意，输入数组是以“引用”方式传递的，这意味着在函数里修改输入数组对于调用者是可见的。 你可以想象内部操作如下: 12345678// nums 是以“引用”方式传递的。也就是说，不对实参做任何拷贝int len = removeDuplicates(nums);// 在函数里修改输入数组对于调用者是可见的。// 根据你的函数返回的长度, 它会打印出数组中该长度范围内的所有元素。for (int i = 0; i &lt; len; i++) &#123; print(nums[i]);&#125; 题解 题解 1 双指针，指向同一个数组，但是指针 i 是数组的索引，而 j 是结果的索引，检查 i 指向的元素是否与 j 指向的元素相同，如果相同则计数。如果i 指向的元素是否与 j 指向的元素不同，或者相等时的计数小于2，则 j 右移，并将 i 指向的元素复制到 j 指向的位置。如果计数大于等于2，则不做处理。 123456789101112131415161718192021class Solution: def removeDuplicates(self, nums): """ :type nums: List[int] :rtype: int """ if len(nums) == 0: return 0 j = 0 count = 0 for i in range(1, len(nums)): if nums[i] == nums[j]: count += 1 if count &lt; 2: j += 1 nums[j] = nums[i] else: j += 1 nums[j] = nums[i] count = 0 return j+1 题解 2 还是采用双指针，i 指向第 1 个元素，为满足题目每个元素最多出现两次的要求，j 指向 i 之后的第 2 个元素，每次判断 i 和 j 所指元素是否相等，如果相等，则删除 j 指向的元素，否则，i 和 j 都向右移动，直到 j 到达 列表 nums 的末尾即可。 123456789101112131415class Solution: def removeDuplicates(self, nums): """ :type nums: List[int] :rtype: int """ i = 0 j = 2 while j &lt; len(nums): if nums[i] == nums[j]: del nums[j] # 删除出现次数超过 2 次的元素 else: # 向右扫描 i += 1 j += 1 return len(nums) 另一种写法： 12345678910111213class Solution: def removeDuplicates(self, nums): """ :type nums: List[int] :rtype: int """ j = 0 for i in nums: # 遍历数组，并向右扫描 if j &lt; 2 or i != nums[j - 2]: # 判断出现次数是否小于 2 次 nums[j] = i j += 1 return j]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 74. Search a 2D Matrix]]></title>
+    <url>%2F2019%2F01%2F13%2FLeetCode-74-Search-a-2D-Matrix%2F</url>
+    <content type="text"><![CDATA[LeetCode 74. Search a 2D Matrix 题解 题目描述 英文： Write an efficient algorithm that searches for a value in an m x n matrix. This matrix has the following properties: Integers in each row are sorted from left to right. The first integer of each row is greater than the last integer of the previous row. 中文： 编写一个高效的算法来判断 m x n 矩阵中，是否存在一个目标值。该矩阵具有如下特性： 每行中的整数从左到右按升序排列。 每行的第一个整数大于前一行的最后一个整数。 示例 示例 1: 12345678输入:matrix = [ [1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]target = 3输出: true 示例 2: 12345678输入:matrix = [ [1, 3, 5, 7], [10, 11, 16, 20], [23, 30, 34, 50]]target = 13输出: false 题解 题解 1 利用矩阵的如下特性：（1）每行中的整数从左到右按升序排列。（2）每行的第一个整数大于前一行的最后一个整数。我们从右上角开始扫描，比较元素与目标值，如果大于目标值，则向下扫描，如果小于则向左扫描，否则返回True。 12345678910111213141516171819202122class Solution: def searchMatrix(self, matrix, target): """ :type matrix: List[List[int]] :type target: int :rtype: bool """ if len(matrix) == 0: return False elif len(matrix[0]) == 0: return False else: row = 0 col = len(matrix[0])-1 while row &lt; len(matrix) and col &gt;= 0: # 扫描完毕条件 if target &gt; matrix[row][col]: # 目标值大于当前元素 row += 1 # 向下移动 elif target &lt; matrix[row][col]: # 目标值小于当前元素 col -= 1 # 向左移动 else: return True return False 题解 2 使用二分法。先通过比较目标值与每行第一个数组定位目标值在在哪一行，然后锁定某一行后再对那一行进行二分查找。 12345678910111213141516171819202122232425262728293031class Solution: def searchMatrix(self, matrix, target): """ :type matrix: List[List[int]] :type target: int :rtype: bool """ row = len(matrix) if row == 0: return False col = len(matrix[0]) if col == 0: return False else: # 先定位大致在哪一行 row_index = row - 1 for i in range(row): if target &lt; matrix[i][0]: row_index = i - 1 break # 在这一行，再用二分法查找 left, right = 0, col - 1 while left &lt;= right: mid = int((left + right) / 2) if matrix[row_index][mid] == target: return True elif matrix[row_index][mid] &lt; target: left = mid + 1 # 在右半部分 else: right = mid - 1 # 在左半部分 return False]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Array</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 226. Invert Binary Tree]]></title>
+    <url>%2F2019%2F01%2F12%2FLeetCode-226-Invert-Binary-Tree%2F</url>
+    <content type="text"><![CDATA[LeetCode 226. Invert Binary Tree 题解 题目描述 英文： Invert a binary tree. 中文： 翻转一棵二叉树。 示例输入： 12345 4 / \ 2 7 / \ / \1 3 6 9 输出： 12345 4 / \ 7 2 / \ / \9 6 3 1 题解 题解 1 深度优先搜索，递归解法，每次递归交换当前节点的左右子树，同时对左右子树做同样的处理。写法简单，但是比较耗内存。 123456789101112131415161718192021222324# Definition for a binary tree node.# class TreeNode:# def __init__(self, x):# self.val = x# self.left = None# self.right = Noneclass Solution: def invertTree(self, root): """ :type root: TreeNode :rtype: TreeNode """ if root is None: return root if root.left is not None or root.right is not None: tmp = root.left root.left = root.right root.right = tmp if root.left is not None: self.invertTree(root.left) if root.right is not None: self.invertTree(root.right) return root 简化的写法： 12345678910111213141516# Definition for a binary tree node.# class TreeNode:# def __init__(self, x):# self.val = x# self.left = None# self.right = Noneclass Solution: def invertTree(self, root): """ :type root: TreeNode :rtype: TreeNode """ if root: root.left, root.right = self.invertTree(root.right), self.invertTree(root.left) return root 题解 2 非递归解法，借助队列来实现，依次检查队头元素，如果右子节点则将其互换，然后加入队列，直到队列中没有元素： 12345678910111213141516171819202122232425# Definition for a binary tree node.# class TreeNode:# def __init__(self, x):# self.val = x# self.left = None# self.right = Noneclass Solution: def invertTree(self, root): """ :type root: TreeNode :rtype: TreeNode """ if root is None: return None q = [root] while (len(q) &gt; 0): node = q[0] # 获得队头元素 node.left, node.right = node.right, node.left # 交换 if node.left: q.append(node.left) # 左子节点加入队列 if node.right: q.append(node.right) # 右子节点加入队列 del q[0] # 移除队头元素 return root 也可以使用栈来实现： 123456789101112131415161718192021222324# Definition for a binary tree node.# class TreeNode(object):# def __init__(self, x):# self.val = x# self.left = None# self.right = Noneclass Solution(object): def invertTree(self, root): """ :type root: TreeNode :rtype: TreeNode """ if root is None: return None stack = [root] while (len(q) &gt; 0): node = stack.pop() # 取出栈顶元素 node.left, node.right = node.right, node.left # 交换 if node.left: stack.append(node.left) # 左子节点入栈 if node.right: stack.append(node.right) # 右子节点入栈 return root]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Tree</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[LeetCode 104. Maximum Depth of Binary Tree]]></title>
+    <url>%2F2019%2F01%2F11%2FLeetCode-104-Maximum-Depth-of-Binary-Tree%2F</url>
+    <content type="text"><![CDATA[LeetCode 104. Maximum Depth of Binary Tree 题解 题目描述 英文： Given a binary tree, find its maximum depth. The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node. Note: A leaf is a node with no children. 中文： 给定一个二叉树，找出其最大深度。 二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。 说明: 叶子节点是指没有子节点的节点。 示例给定二叉树 [3,9,20,null,null,15,7]， 12345 3 / \9 20 / \ 15 7 返回它的最大深度 3 。 题解 题解 1 深度优先搜索（DFS），递归求解，树的深度 = max（左子树深度，右子树深度）+ 1。分别遍历根节点的左右子树（这里的根节点是相对而言的，不只是最初的根节点），每遍历一层，加 1，比较左右结果大小，最后结果再加 1。 123456789class Solution: def maxDepth(self, root): """ :type root: TreeNode :rtype: int """ if root is None: return 0 return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right)) 题解 2 广度优先搜索，利用队列求解。每次从队头取出元素，检查是否有子节点，如果有则将节点的左右子节点分别加入队列，每次检查深度都加 1，直到队列中不再有元素。 12345678910111213141516171819class Solution: def maxDepth(self, root): """ :type root: TreeNode :rtype: int """ if root is None: return 0 depth = 0 q = [root] while(len(q)!=0): depth += 1 # 深度统计 for i in range(len(q)): if q[0].left: q.append(q[0].left) # 左子节点插入到队列 if q[0].right: q.append(q[0].right) # 右子节点插入到队列 del q[0] # 删除队头元素 return depth]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>LeetCode</category>
+      </categories>
+      <tags>
+        <tag>LeetCode</tag>
+        <tag>Tree</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[LeetCode 219. Contains Duplicate II]]></title>
     <url>%2F2019%2F01%2F07%2FLeetCode-219-Contains-Duplicate-II%2F</url>
     <content type="text"><![CDATA[LeetCode 219. Contains Duplicate II 题解 题目描述 英文： Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the array such that nums[i] = nums[j] and the absolute difference between i and j is at most k. 中文： 给定一个整数数组和一个整数 k，判断数组中是否存在两个不同的索引 i 和 j，使得 nums [i] = nums [j]，并且 i 和 j 的差的绝对值最大为 k。 示例 示例 1: 12输入: nums = [1,2,3,1], k = 3输出: true 示例 2: 12输入: nums = [1,0,1,1], k = 1输出: true 示例 3: 12输入: nums = [1,2,3,1,2,3], k = 2输出: false 题解 题解 1 使用字典来进行处理。 1234567891011121314151617class Solution: def containsNearbyDuplicate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: bool """ length = len(nums) if length &lt;= 1: return False dic = &#123;&#125; for i in range(length): if nums[i] in dic: if i-dic[nums[i]] &lt;= k: return True dic[nums[i]] = i return False 可以使用 217. Contains Duplicate 题中的方法稍作改进，使用 set() 方法得到不重复元素的集合，然后判断列表长度是否等于集合的长度，如果是则表示列表中没有重复的元素，直接返回 False。否则，进行上面的操作来做进一步的判断。 12345678910111213141516171819class Solution: def containsNearbyDuplicate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: bool """ length = len(nums) if length == len(set(nums)): # 改进的地方 return False if length &lt;= 1: return False dic = &#123;&#125; for i in range(length): if nums[i] in dic: if i-dic[nums[i]] &lt;= k: return True dic[nums[i]] = i return False 题解 2 使用集合，集合中只存放 k 个元素，即满足题目要求的两个索引 i 和 j 的差的绝对值最大为。遍历数组，每次判断元素是否在集合中，如果在，则表示有满足条件的重复元素，返回 True，并且每次都将元素加入到集合中，判断集合中元素个数是否大于 k，如果大于，则将第一个元素移除，保证集合中元素的索引与当前元素的索引相差最大为 k，即只考虑当前元素的前面 k 个元素。 123456789101112131415class Solution: def containsNearbyDuplicate(self, nums, k): """ :type nums: List[int] :type k: int :rtype: bool """ record = set() for i in range(len(nums)): if nums[i] in record: # 有满足条件的重复元素 return True record.add(nums[i]) # 加入到集合 if len(record) == k + 1: # 保证集合中只有 k 个元素 record.remove(nums[i - k]) # 移除最前面的元素 return False]]></content>
@@ -1112,8 +1164,8 @@
         <category>OS</category>
       </categories>
       <tags>
-        <tag>Contiki</tag>
         <tag>CoAP</tag>
+        <tag>Contiki</tag>
       </tags>
   </entry>
   <entry>
