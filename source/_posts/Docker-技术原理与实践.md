@@ -1,5 +1,5 @@
 ---
-title: Docker 技术原理与实践（上）
+title: Docker 技术原理与实践
 tags:
   - Docker
 categories:
