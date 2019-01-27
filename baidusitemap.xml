@@ -4,6 +4,71 @@
 
     
   <url>
+    <loc>https://fzy-line.github.io/2019/01/27/Docker-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-%E9%95%9C%E5%83%8F%E7%AF%87%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
+    <lastmod>2019-01-27T09:48:55.265Z</lastmod>
+    <data>
+        <display>
+        <title>Docker 基本操作-镜像篇（上）</title>
+        <pubTime>2019-01-27T08:44:23.000Z</pubTime>
+        
+        <tag>Docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud Computing" url="https://fzy-line.github.io/categories/Cloud-Computing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2019/01/17/Python-%E9%B8%AD%E5%AD%90%E7%B1%BB%E5%9E%8B/</loc>
+    <lastmod>2019-01-27T09:26:29.076Z</lastmod>
+    <data>
+        <display>
+        <title>Python 鸭子类型</title>
+        <pubTime>2019-01-17T01:59:28.000Z</pubTime>
+        
+        <tag>Python</tag>
+         
+        <tag>多态</tag>
+         
+         
+           
+             
+              <breadCrumb title="Coding" url="https://fzy-line.github.io/categories/Coding/"/>
+          
+             
+              <breadCrumb title="Python" url="https://fzy-line.github.io/categories/Coding/Python/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2018/12/27/Docker-%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5/</loc>
+    <lastmod>2019-01-27T09:21:04.214Z</lastmod>
+    <data>
+        <display>
+        <title>Docker 技术原理与实践</title>
+        <pubTime>2018-12-27T04:09:10.000Z</pubTime>
+        
+        <tag>Docker</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud Computing" url="https://fzy-line.github.io/categories/Cloud-Computing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://fzy-line.github.io/2019/01/26/%E4%BF%9D%E5%81%A5%E5%93%81%E9%A3%8E%E6%B3%A2%E4%B8%8B%E7%9A%84%E6%80%9D%E8%80%83/</loc>
     <lastmod>2019-01-26T16:05:47.074Z</lastmod>
     <data>
@@ -340,26 +405,6 @@
           
              
               <breadCrumb title="LeetCode" url="https://fzy-line.github.io/categories/Algorithm/LeetCode/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://fzy-line.github.io/2018/12/27/Docker-%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E8%B7%B5%EF%BC%88%E4%B8%8A%EF%BC%89/</loc>
-    <lastmod>2019-01-01T04:19:13.961Z</lastmod>
-    <data>
-        <display>
-        <title>Docker 技术原理与实践（上）</title>
-        <pubTime>2018-12-27T04:09:10.000Z</pubTime>
-        
-        <tag>Docker</tag>
-         
-         
-           
-             
-              <breadCrumb title="Cloud Computing" url="https://fzy-line.github.io/categories/Cloud-Computing/"/>
           
         </display>
     </data>
@@ -2417,9 +2462,9 @@
         <title>Contiki中CoAP协议实现</title>
         <pubTime>2017-07-16T13:04:42.000Z</pubTime>
         
-        <tag>Contiki</tag>
-         
         <tag>CoAP</tag>
+         
+        <tag>Contiki</tag>
          
          
            
