@@ -1,0 +1,1383 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Docker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Docker 镜像基本操作介绍。">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker 基本操作-镜像篇（下）">
+<meta property="og:url" content="https://fzy-line.github.io/2019/02/06/Docker-基本操作-镜像篇（下）/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="Docker 镜像基本操作介绍。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-02-21T09:28:13.905Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker 基本操作-镜像篇（下）">
+<meta name="twitter:description" content="Docker 镜像基本操作介绍。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2019/02/06/Docker-基本操作-镜像篇（下）/"/>
+
+
+
+
+
+  <title>Docker 基本操作-镜像篇（下） | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2019/02/06/Docker-基本操作-镜像篇（下）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker 基本操作-镜像篇（下）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-06T17:26:34+08:00">
+                2019-02-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cloud-Computing/" itemprop="url" rel="index">
+                    <span itemprop="name">Cloud Computing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>Docker 镜像基本操作介绍。</center>
+
+<a id="more"></a>
+<h4 id="基于容器构建镜像"><a href="#基于容器构建镜像" class="headerlink" title="基于容器构建镜像"></a>基于容器构建镜像</h4><p>　　在上篇中已经介绍了如何基于运行着的容器生成镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
+<ul>
+<li>选项 <code>-a</code> ：提交的镜像作者；</li>
+<li>选项 <code>-c</code> ：使用 Dockerfile 指令来创建镜像；</li>
+<li>选项 <code>-m</code> ：提交时的说明文字；</li>
+<li>选项 <code>-p</code> ：在 commit 时，将容器暂停。</li>
+</ul>
+<p>　　<code>docker commit</code> 命令是在原有镜像的基础上，再叠加上容器的存储层，并构成新的镜像。以后我们运行这个新镜像的时候，就会拥有原有容器最后的文件变化。 因为，当运行一个容器的时候（如果不使用卷的话） ，所做的任何文件修改都会被记录于容器存储层里。而 <code>docker commit</code> 命令，可以将容器的存储层保存下来成为镜像。</p>
+<p>　　使用 <code>docker commit</code> 命令虽然可以比较直观的帮助理解镜像分层存储的概念，但是实际环境中并不会这样使用。 因为存在以下问题：</p>
+<ul>
+<li>在容器中安装软件包、编译构建，会有大量的无关内容被添加进来，如果不小心清理，<code>docker commit</code> 将会导致镜像极为臃肿。 </li>
+<li>使用 <code>docker commit</code> 意味着除了制作镜像的人知道执行过什么命令、怎么生成的镜像，别人根本无从得知，这对后续的维护十分不利。</li>
+<li>使用 <code>docker commit</code> 制作镜像，以及后期修改的话，每一次修改都会让镜像更加臃肿一次，所删除的上一层的东西并不会丢失，会一直如影随形的跟着这个镜像，即使根本无法访问到。 </li>
+</ul>
+<p>　　因此，一般不要使用 <code>docker commit</code> 定制镜像，定制镜像应该使用 Dockerfile 来完成。 </p>
+<h4 id="基于-Dockerfile-构建镜像"><a href="#基于-Dockerfile-构建镜像" class="headerlink" title="基于 Dockerfile 构建镜像"></a>基于 Dockerfile 构建镜像</h4><p>　　Dockerfile 使用基本的基于 DSL （领域特定语言）语法的指令来构建一个 Docker 镜像，它实际是一个文本文件，其内包含了一条条的指令(Instruction)，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。然后，使用<code>docker build</code> 命令基于该 Dockerfile 中的指令构建一个新的镜像。</p>
+<h5 id="Dockerfile-指令"><a href="#Dockerfile-指令" class="headerlink" title="Dockerfile 指令"></a>Dockerfile 指令</h5><ul>
+<li><strong>FROM 指定基础镜像</strong></li>
+</ul>
+<p>　　基础镜像是必须指定的。FROM 用于指定基础镜像，因此 Dockerfile 中 FROM 是必备的指令，并且必须是第一条指令。 </p>
+<p>　　可以使用 <code>nginx</code> 、<code>mysql</code> 、<code>python</code> 、<code>golang</code> 等官方镜像作为基础镜像，也可以使用更为基础的操作系统镜像，如 <code>ubuntu</code>、<code>debian</code> 、<code>centos</code> 。除了选择现有镜像为基础镜像外，Docker 还存在一个特殊的镜像，名为 scratch 。这个镜像是虚拟的概念，并不实际存在，它表示一个空白的镜像。</p>
+<ul>
+<li><strong>RUN 执行命令</strong></li>
+</ul>
+<p>　　<code>RUN</code> 指令是用来执行命令行命令的。 有两种格式：</p>
+<ul>
+<li><code>shell</code> 格式： <code>RUN &lt;命令&gt;</code> ，就像直接在命令行中输入的命令一样。 </li>
+<li><code>exec</code> 格式： <code>RUN [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;]</code> ，这更像是函数调用中的格式。</li>
+</ul>
+<p>　　镜像构建时，一定要确保每一层只添加真正需要添加的东西，任何无关的东西都应该清理掉。</p>
+<ul>
+<li><strong>COPY 复制文件</strong></li>
+</ul>
+<p>　　<code>COPY</code> 指令将从构建上下文目录中 <code>&lt;源路径&gt;</code> 的文件/目录复制到新的一层的镜像内的 <code>&lt;目标路径&gt;</code> 位置。其格式如下：</p>
+<ul>
+<li><code>COPY &lt;源路径&gt;... &lt;目标路径&gt;</code></li>
+<li><code>COPY [&quot;&lt;源路径1&gt;&quot;,... &quot;&lt;目标路径&gt;&quot;]</code></li>
+</ul>
+<p>　　<code>&lt;源路径&gt;</code> 可以是多个，甚至可以是通配符。而 <code>&lt;目标路径&gt;</code> 可以是容器内的绝对路径，也可以是相对于工作目录的相对路径（工作目录可以用 WORKDIR 指令来指定） 。目标路径不需要事先创建，如果目录不存在会在复制文件前先行创建缺失目录。 </p>
+<ul>
+<li><strong>ADD 更高级的复制文件 </strong></li>
+</ul>
+<p>　　<code>ADD</code> 指令和 <code>COPY</code> 的格式和性质基本一致，但是，&lt;源路径&gt; 可以是一个 URL  Docker 引擎会试图去下载这个链接的文件放到 &lt;目标路径&gt; 去 。如果 &lt;源路径&gt; 为一个 tar 压缩文件的话，压缩格式为 gzip , bzip2 以及 xz 的情况下， ADD 指令将会自动解压缩这个压缩文件到 &lt;目标路径&gt; 去。 </p>
+<p>　　在 <code>COPY</code> 和 <code>ADD</code> 指令中选择的时候，可以遵循这样的原则，所有的文件复制均使用 <code>COPY</code> 指令，仅在需要自动解压缩的场合使用 <code>ADD</code> 。 </p>
+<ul>
+<li><strong>CMD 容器启动命令</strong></li>
+</ul>
+<p>　　<code>CMD</code> 指令就是用于指定默认的容器主进程的启动命令的。每个 <code>Dockerfile</code> 只有⼀个 <code>CMD</code> 命令， 如果指定了多个 <code>CMD</code> 命令， 那么只有最后⼀条会被执行， 如果启动容器的时候指定了运行的命令， 则会覆盖掉 <code>CMD</code> 指定的命令。</p>
+<ul>
+<li><code>shell</code> 格式： <code>CMD &lt;命令&gt;</code></li>
+<li><code>exec</code> 格式： <code>CMD [&quot;可执行文件&quot;, &quot;参数1&quot;, &quot;参数2&quot;...]</code></li>
+<li><strong>ENTRYPOINT 入口点</strong></li>
+</ul>
+<p>　　<code>ENTRYPOINT</code> 的目的和 <code>CMD</code> 一样，都是在指定容器启动程序及参数。 <code>ENTRYPOINT</code> 在运行时也可以替代，不过比 <code>CMD</code> 要略显繁琐，需要通过 <code>docker run</code> 的参数 <code>--entrypoint</code> 来指定。同样，一个 <code>Dockerfile</code> 中只能有一条 <code>ENTRYPOINT</code> 命令，如果多条，则只执行最后一条。另外，<code>ENTRYPOINT</code> 没有 <code>CMD</code> 的可替换特性。</p>
+<p>　　当指定了 <code>ENTRYPOINT</code> 后， <code>CMD</code> 的含义就发生了改变，不再是直接的运行其命令，而是将<code>CMD</code> 的内容作为参数传给 <code>ENTRYPOINT</code> 指令，换句话说实际执行时，将变为： <code>&lt;ENTRYPOINT&gt; &quot;&lt;CMD&gt;&quot;</code>。</p>
+<ul>
+<li><strong>ENV 设置环境变量</strong></li>
+</ul>
+<p>　　<code>ENV</code> 指令⽤于设置环境变量。也可以在容器启动后，通过 <code>docker inspect</code> 查看这个环境变量，还可以通过在 <code>docker run –env key=value</code> 时设置或修改环境变量。<code>ENV</code> 指令的格式有两种：</p>
+<ul>
+<li><code>ENV &lt;key&gt; &lt;value&gt;</code></li>
+<li><code>ENV &lt;key1&gt;=&lt;value1&gt; &lt;key2&gt;=&lt;value2&gt;...</code></li>
+</ul>
+<p>　　定义了环境变量，那么在后续的指令中，就可以使用这个环境变量。环境变量可以使用的地方很多，例如 <code>RUN</code> 、<code>COPY</code> 等指令中。</p>
+<ul>
+<li><strong>ARG 设置构建参数 </strong></li>
+</ul>
+<p>　　<code>ARG</code> 指令用于设置构建参数， 类似于 <code>ENV</code>。 和 <code>ENV</code> 不同的是， <code>ARG</code> 设置的是构建时的环境变量， 在容<br>器运行时是不会存在这些变量的。格式为：<code>ARG &lt;name&gt;[=&lt;default value&gt;]</code> 。</p>
+<ul>
+<li><strong>EXPOSE 声明端口 </strong></li>
+</ul>
+<p>　　<code>EXPOSE</code> 指令是声明运行时容器提供服务端口，这只是一个声明，在运行时并不会因为这个声明应用就会开启这个端口的服务。 格式为 <code>EXPOSE &lt;端口1&gt; [&lt;端口2&gt;...]</code> 。</p>
+<p>　　在 <code>Dockerfile</code> 中写入这样的声明有两个好处，一个是帮助镜像使用者理解这个镜像服务的守护端口，以方便配置映射；另一个用处则是在运行时使用随机端口映射时，也就是 <code>docker run -P</code> 时，会自动随机映射 <code>EXPOSE</code> 的端口。</p>
+<p>　　<code>EXPOSE</code> 和运行时 <code>-p &lt;宿主端口&gt;:&lt;容器端口&gt;</code> 的区别：</p>
+<ul>
+<li><code>-p</code> 是映射宿主端口和容器端口，也就是将容器的对应端口服务公开给外界访问。</li>
+<li><p><code>EXPOSE</code> 仅仅是声明容器打算使用什么端口而已，并不会自动在宿主进行端口映射。 </p>
+</li>
+<li><p><strong>VOLUME 定义匿名卷</strong></p>
+</li>
+</ul>
+<p>　　<code>VOLUME</code> 指令使容器中的⼀个目录具有持久化存储的功能， 该目录可被容器本身使用， 也可共享给其他容器。 即，可实现挂载功能，可以将本地文件夹或者其他容器中的文件夹挂在到这个容器中。当容器中的应用有持久化数据的需求时可以在 <code>Dockerfile</code> 中使用该指令。其格式为：</p>
+<ul>
+<li><code>VOLUME [&quot;&lt;路径1&gt;&quot;, &quot;&lt;路径2&gt;&quot;...]</code></li>
+<li><p><code>VOLUME &lt;路径&gt;</code></p>
+</li>
+<li><p><strong>ONBUILD 为他人做嫁衣</strong></p>
+</li>
+</ul>
+<p>　　<code>ONBUILD</code> 是一个特殊的指令，它后面跟的是其它指令，比如 <code>RUN</code> , <code>COPY</code> 等，而这些指令，在当前镜像构建时并不会被执行。只有当以当前镜像为基础镜像，去构建下一级镜像的时候才会被执行。格式：<code>ONBUILD &lt;其它指令&gt;</code>。 </p>
+<ul>
+<li><strong>WORKDIR 指定工作目录</strong></li>
+</ul>
+<p>　　使用 <code>WORKDIR</code> 指令可以来指定工作目录（或者称为当前目录） ，以后各层的当前目录就被改为指定的目录，如该目录不存在， <code>WORKDIR</code> 会帮你建立目录。 格式为 <code>WORKDIR &lt;工作目录路径&gt;</code> 。 </p>
+<p>　　实际上就是切换目录指令， 类似于 <code>cd</code> 命令， 写在该指令后的 <code>RUN</code> ，<code>CMD</code> 以及 <code>ENTRYPOINT</code> 指令都将该目录作为当前目录， 并执行相应的命令。 </p>
+<ul>
+<li><strong>USER 指定当前用户 </strong></li>
+</ul>
+<p>　　<code>USER</code> 指令用于设置启动镜像时的用户或者 <code>UID</code>， 写在该指令后的 <code>RUN</code>、<code>CMD</code> 以及 <code>ENTRYPOINT</code> 指令都将使用该用户执行命令。 格式：<code>USER &lt;用户名&gt;</code> 。</p>
+<p>　　<code>USER</code> 指令和 <code>WORKDIR</code> 相似，都是改变环境状态并影响以后的层。 <code>WORKDIR</code> 是改变工作目录， <code>USER</code> 则是改变之后层的执行 <code>RUN</code> , <code>CMD</code> 以及 <code>ENTRYPOINT</code> 这类命令的身份。 </p>
+<ul>
+<li><strong>LABEL 为镜像添加元数据 </strong></li>
+</ul>
+<p>　　<code>LABEL</code> 指令用于为镜像添加元数据。格式为：<code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code> 。⽤于指定维护者信息的 <code>MAINTAINER</code> 指令已经过时，可使用 <code>LABEL maintainer=&quot;xxx@xxx.com&quot;</code> 替代。</p>
+<h5 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h5><p>　　<code>docker build</code> 和 <code>docker image build</code> 命令使用 Dockerfile 创建镜像。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
+<p>　　或：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
+<ul>
+<li>选项 <code>--tag, -t</code> ：设置标签，格式： <code>name:tag</code>， tag 可选；</li>
+<li>选项 <code>--no-cache</code> ：创建镜像的过程不使用缓存；</li>
+<li>选项 <code>--add-host</code> ：添加自定义从 host 到 IP 的映射， 格式为：<code>host:ip</code>；</li>
+<li>选项 <code>--build-arg</code> ：设置构建时的变量；</li>
+<li>选项 <code>--cache-from</code> ： 作为缓存源的镜像；</li>
+<li>……具体选项可查看官方文档，这里不详细介绍。</li>
+</ul>
+<p>　　<strong>PATH|URL</strong>： 指定构建镜像的上下文的路径，构建镜像的过程中，可以且只可以引用上下文中的任何文件。</p>
+<p>　　<code>docker build</code> 支持从从 URL 构建，例如从 Git 仓库：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker build git仓库地址</div></pre></td></tr></table></figure>
+<p>　　如果所给出的 URL 不是个 Git 仓库，而是个  tar  压缩包，那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。用给定的 tar 压缩包构建：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker build - &lt; context.tar.gz</div></pre></td></tr></table></figure>
+<p>　　也可以使用当前目录的 Dockerfile 创建镜像，或者通过 -f Dockerfile 文件的位置。还支持从标准输入中读取 Dockerfile 进行构建。</p>
+<p>　　示例，创建 Dockerfile 文件，内容如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span> echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div></pre></td></tr></table></figure>
+<p>　　构建镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker build -t mynginx .</div><div class="line">Sending build context to Docker daemon  2.048kB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line"><span class="meta"> ---&gt;</span> f09fe80eb0e7</div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span> Running in 403fbe9c02bf</div><div class="line">Removing intermediate container 403fbe9c02bf</div><div class="line"><span class="meta"> ---&gt;</span> b3074b079926</div><div class="line">Successfully built b3074b079926</div><div class="line">Successfully tagged mynginx:latest</div></pre></td></tr></table></figure>
+<p>　　在这条命令中，使用 <code>-t</code> 指定了镜像名为 mynginx，由于没有使用 <code>-f</code> 指令，所以默认使用上下文路径下名为 Dockerfile 的文件认为是构建镜像的”Dockerfile”。最后指定上下文路径，在这条命令中，上下文路径是 <code>.</code> 。</p>
+<h4 id="精简镜像体积"><a href="#精简镜像体积" class="headerlink" title="精简镜像体积"></a>精简镜像体积</h4><h5 id="选择最精简的基础镜像"><a href="#选择最精简的基础镜像" class="headerlink" title="选择最精简的基础镜像"></a>选择最精简的基础镜像</h5><p>　　选择体积最小的基础镜像可有效降低镜像体积。如：<code>alpine</code>、<code>busybox</code> 等。</p>
+<h5 id="清理镜像构建的中间产物"><a href="#清理镜像构建的中间产物" class="headerlink" title="清理镜像构建的中间产物"></a>清理镜像构建的中间产物</h5><p>　　构建镜像的过程中，当 Dockerfile 的指令执行完成后，删除镜像不需要用的的文件。<code>apt-get autoremove</code> 和 <code>apt-get clean all</code> 把所有不必要的依赖全删，或者使用系统 rm 命令删除不需要的源文件。</p>
+<h5 id="减少镜像的层数"><a href="#减少镜像的层数" class="headerlink" title="减少镜像的层数"></a>减少镜像的层数</h5><p>　　镜像是一个分层存储的文件，并且镜像对层数也是有一定数量的限制，当前镜像的层数最高是127层，如果不多加注意，将会导致镜像越来越臃肿。在使用 Dockerfile 构建镜像时，每一条指令都会生成一个层，因此可以通过串联 Dockerfile 指令，例如RUN 指令通过 <code>&amp;&amp;</code> 和 <code>/</code> 支持将命令串联在一起，减少最终生成镜像的层数。</p>
+<h5 id="多阶段构建"><a href="#多阶段构建" class="headerlink" title="多阶段构建"></a>多阶段构建</h5><p>　　Docker 多阶段构建是 17.05 以后引入的新特性，旨在解决编译和构建复杂的问题，减小镜像大小。对于多阶段构建，在 Dockerfile 中使用多个<code>FROM</code> 语句。每个 <code>FROM</code> 指令可以使用不同的基础，并且每个指令都开始一个新的构建。您可以选择性地将工件从一个阶段复制到另一个阶段，从而在最终镜像中只留下您想要的内容（这里只做简单描述，后续再详细分析 Docker 的多阶段构建）。 </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/04/Python-二维数组/" rel="next" title="Python 二维数组">
+                <i class="fa fa-chevron-left"></i> Python 二维数组
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fanzhenyu@csu.edu.cn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">196</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">98</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://fzy-line.github.io/" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jacktaoz.github.io/" title="Jacktao" target="_blank">Jacktao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.shohret.com" title="shohret" target="_blank">shohret</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#基于容器构建镜像"><span class="nav-number">1.</span> <span class="nav-text">基于容器构建镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于-Dockerfile-构建镜像"><span class="nav-number">2.</span> <span class="nav-text">基于 Dockerfile 构建镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Dockerfile-指令"><span class="nav-number">2.1.</span> <span class="nav-text">Dockerfile 指令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#构建镜像"><span class="nav-number">2.2.</span> <span class="nav-text">构建镜像</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#精简镜像体积"><span class="nav-number">3.</span> <span class="nav-text">精简镜像体积</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#选择最精简的基础镜像"><span class="nav-number">3.1.</span> <span class="nav-text">选择最精简的基础镜像</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#清理镜像构建的中间产物"><span class="nav-number">3.2.</span> <span class="nav-text">清理镜像构建的中间产物</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#减少镜像的层数"><span class="nav-number">3.3.</span> <span class="nav-text">减少镜像的层数</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#多阶段构建"><span class="nav-number">3.4.</span> <span class="nav-text">多阶段构建</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '9f74a018210b61ac4709',
+          clientSecret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+          repo: 'fzy-Line.github.io',
+          owner: 'fzy-Line',
+          admin: ['fzy-Line'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
