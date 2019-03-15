@@ -142,9 +142,9 @@ font:
 # Value is the target link (E.g. GitHub: https://github.com/iissnan)
 social:
   GitHub: https://github.com/fzy-Line
-  Twitter: https://fzy-line.github.io/
-  Weibo: http://weibo.com/fzyLine
+  CSDN: https://blog.csdn.net/u013151320
   知乎: https://www.zhihu.com/people/line-37/activities
+  Weibo: http://weibo.com/fzyLine
 
 
 # Social Links Icons
@@ -157,10 +157,9 @@ social_icons:
   # Icon Mappings.
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
-  Twitter: twitter
-  Weibo: weibo
+  CSDN: wordpress
   Zhihu: zhihu
-
+  Weibo: weibo
 
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.jpg
@@ -214,8 +213,13 @@ links_title: 友情链接
 #links_layout: block
 #links_layout: inline
 links:
+  阮一峰: http://www.ruanyifeng.com/blog/
+  TomCzHen: https://www.tomczhen.com/
+  一叶孤舟: https://zhouzhipeng.com/
+  高策: http://gaocegege.com/Blog/
+  Roy: http://www.hi-roy.com/
   Jacktao: https://jacktaoz.github.io/
-  shohret: http://www.shohret.com
+#  shohret: http://www.shohret.com
   pandaonmars: https://pandaonmars.github.io/
 
 
