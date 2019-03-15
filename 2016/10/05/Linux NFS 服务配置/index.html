@@ -431,23 +431,23 @@
 <li><strong>anonuid/anongid</strong> 要和root_squash以及all_squash选项一同使用，用于指定使用NFS的用户被限定后的uid和gid</li>
 </ul>
 <h5 id="启动NFS服务"><a href="#启动NFS服务" class="headerlink" title="启动NFS服务"></a>启动NFS服务</h5><p>　　在启动nfs前，需先启动rpcbind</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> service rpcbind start</span></div><div class="line"><span class="meta">$</span><span class="bash"> service nfs start</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> service rpcbind start</div><div class="line"><span class="meta">$</span> service nfs start</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/10/5-1.png" alt="5-1"></p>
 <p>　　虽然上面的命令能够正常启动服务，但是根据提示，我们应该使用如下命令来替换：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl start rpcbind.service</span></div><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl start nfs.service</span></div></pre></td></tr></table></figure>
-<h5 id="关闭NFS服务"><a href="#关闭NFS服务" class="headerlink" title="关闭NFS服务"></a>关闭NFS服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl stop rpcbind.service</span></div><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl stop nfs.service</span></div></pre></td></tr></table></figure>
-<h4 id="客户端挂载NFS"><a href="#客户端挂载NFS" class="headerlink" title="客户端挂载NFS"></a>客户端挂载NFS</h4><h5 id="查看服务器共享的目录"><a href="#查看服务器共享的目录" class="headerlink" title="查看服务器共享的目录"></a>查看服务器共享的目录</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> showmount -e 服务器ip地址</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> /bin/systemctl start rpcbind.service</div><div class="line"><span class="meta">$</span> /bin/systemctl start nfs.service</div></pre></td></tr></table></figure>
+<h5 id="关闭NFS服务"><a href="#关闭NFS服务" class="headerlink" title="关闭NFS服务"></a>关闭NFS服务</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> /bin/systemctl stop rpcbind.service</div><div class="line"><span class="meta">$</span> /bin/systemctl stop nfs.service</div></pre></td></tr></table></figure>
+<h4 id="客户端挂载NFS"><a href="#客户端挂载NFS" class="headerlink" title="客户端挂载NFS"></a>客户端挂载NFS</h4><h5 id="查看服务器共享的目录"><a href="#查看服务器共享的目录" class="headerlink" title="查看服务器共享的目录"></a>查看服务器共享的目录</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> showmount -e 服务器ip地址</div></pre></td></tr></table></figure>
 <p>会得到如下的结果：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Export list for 服务器ip地址:</div><div class="line">/home/fzy 客户端ip地址</div></pre></td></tr></table></figure>
-<h5 id="在客户端上挂载NFS"><a href="#在客户端上挂载NFS" class="headerlink" title="在客户端上挂载NFS"></a>在客户端上挂载NFS</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mount -t nfs 服务器ip地址:服务器共享目录  挂载点</span></div></pre></td></tr></table></figure>
+<h5 id="在客户端上挂载NFS"><a href="#在客户端上挂载NFS" class="headerlink" title="在客户端上挂载NFS"></a>在客户端上挂载NFS</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> mount -t nfs 服务器ip地址:服务器共享目录  挂载点</div></pre></td></tr></table></figure>
 <p>　　其中 <code>-t nfs</code> 指定挂载的类型为 nfs</p>
 <h5 id="查看是否挂载成功"><a href="#查看是否挂载成功" class="headerlink" title="查看是否挂载成功"></a>查看是否挂载成功</h5><p>　　命令 df 用于查看已挂载磁盘的总容量、使用容量、剩余容量等。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> df -h</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> df -h</div></pre></td></tr></table></figure>
 <p>　　<code>-h</code> 表示使用合适的单位显示。如下图：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/10/5-2.png" alt="5-2"></p>
-<h5 id="解除挂载"><a href="#解除挂载" class="headerlink" title="解除挂载"></a>解除挂载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> umount 已挂载的目录</span></div></pre></td></tr></table></figure>
+<h5 id="解除挂载"><a href="#解除挂载" class="headerlink" title="解除挂载"></a>解除挂载</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> umount 已挂载的目录</div></pre></td></tr></table></figure>
 <p>　　如果遇到：umount.nfs: 已挂载的目录: device is busy。可以添加 -l 参数，如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> umount -l 已挂载的目录</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> umount -l 已挂载的目录</div></pre></td></tr></table></figure>
 <p>　　选项 –l 并不是马上 umount，而是在该目录空闲后再 umount，即延迟卸载。</p>
 <h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>　　方法一：</p>
 <p>　　<code>/etc/fstab</code> 里添加如下内容：</p>
@@ -637,7 +637,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">198</span>
+                <span class="site-state-item-count">202</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -659,7 +659,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">98</span>
+                <span class="site-state-item-count">99</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -684,7 +684,7 @@
               <span class="links-of-author-item">
                 <a href="https://blog.csdn.net/u013151320" target="_blank" title="CSDN">
                   
-                    <i class="fa fa-fw fa-csdn"></i>
+                    <i class="fa fa-fw fa-wordpress"></i>
                   
                   CSDN
                 </a>

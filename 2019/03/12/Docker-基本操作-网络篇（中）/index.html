@@ -1,0 +1,1372 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Docker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Docker 网络基本操作介绍。">
+<meta name="keywords" content="Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker-基本操作-网络篇（中）">
+<meta property="og:url" content="https://fzy-line.github.io/2019/03/12/Docker-基本操作-网络篇（中）/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="Docker 网络基本操作介绍。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-1.png">
+<meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-2.png">
+<meta property="og:updated_time" content="2019-03-13T11:22:28.059Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Docker-基本操作-网络篇（中）">
+<meta name="twitter:description" content="Docker 网络基本操作介绍。">
+<meta name="twitter:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2019/03/12/Docker-基本操作-网络篇（中）/"/>
+
+
+
+
+
+  <title>Docker-基本操作-网络篇（中） | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2019/03/12/Docker-基本操作-网络篇（中）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker-基本操作-网络篇（中）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-12T10:59:17+08:00">
+                2019-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cloud-Computing/" itemprop="url" rel="index">
+                    <span itemprop="name">Cloud Computing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>Docker 网络基本操作介绍。</center>
+
+<a id="more"></a>
+<h4 id="IPtables"><a href="#IPtables" class="headerlink" title="IPtables"></a>IPtables</h4><p>　　Linux 的防火墙由 Netfilter 和 Iptables 组成。用户空间的 Iptables 制定防火墙规则，内核空间的 Netfilter 实现防火墙功能。Netfilter （内核空间）位于Linux内核中的包过滤防火墙功能体系，称为 Linux 防火墙的“内核态”。 Iptables （用户空间）位于 /sbin/iptables，是用来管理防火墙的命令的工具，为防火墙体系提供过滤规则/策略，决定如何过滤或处理到达防火墙主机的数据包，称为 Linux 防火墙的“用户态”。</p>
+<h5 id="白名单和黑名单"><a href="#白名单和黑名单" class="headerlink" title="白名单和黑名单"></a>白名单和黑名单</h5><p>　　制作防火墙规则通常有两种基本策略。<strong>一是黑名单策略；二是白名单策略。</strong></p>
+<ul>
+<li>黑名单策略指没有被拒绝的流量都可以通过，这种策略下管理员必须针对每一种新出现的攻击，制定新的规则，因此不推荐。</li>
+<li>白名单策略指没有被允许的流量都要拒绝，这种策略比较保守，根据需要逐渐开放，目前一般都采用白名单策略，推荐。</li>
+</ul>
+<h5 id="四表五链"><a href="#四表五链" class="headerlink" title="四表五链"></a>四表五链</h5><p>　　Iptables 有四表五链(其实有五表，是后来加进来的)，四表分别是下图的的 <code>raw，mangle，nat，filter</code> 表。五链分别是 <code>PREROUTING，INPUT，OUTPUT，FORWARD，POSTROUTING</code> 链。表决定了数据报文处理的方式，而链则决定了数据报文的流经哪些位置。</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-1.png" alt="12-1"></p>
+<ul>
+<li><p><strong>五链：</strong></p>
+<ul>
+<li>PREROUTING：数据包进入路由表之前；</li>
+<li>INPUT：通过路由表后目的地为本机；</li>
+<li>FORWARD：通过路由表后，目的地不为本机；</li>
+<li>OUTPUT：由本机产生，向外转发；</li>
+<li>POSTROUTIONG：发送到网卡接口之前。</li>
+</ul>
+</li>
+<li><p><strong>四表：</strong></p>
+<ul>
+<li>filter 表：负责过滤功能，防火墙；内核模块：iptables_filter</li>
+<li>nat 表：network address translation，网络地址转换功能；内核模块：iptable_nat</li>
+<li>mangle 表：拆解报文，做出修改，并重新封装的功能；iptable_mangle</li>
+<li>raw 表：关闭 nat 表上启用的连接追踪机制；iptable_raw</li>
+</ul>
+</li>
+</ul>
+<h5 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h5><p>　　处理流程下图所示，例如，制定一个filter表的规则，filter表决定是否放行数据包通过，那如果通过，则必须经由INPUT链流入数据包，INPUT链是处理入站数据的，如果没问题，继续放行到用户空间，再经由OUTPUT链将数据包流出。而对于 NAT 表的规则，NAT 表主要实现转发功能，数据包先经由PREROUTING链进行路由选择，选择好路线后再经由FORWARD链转发数据，然后再进行一个路由选择，最后由POSTROUTING链流出数据。</p>
+<p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-2.png" alt="12-2"></p>
+<h5 id="Iptables-语法"><a href="#Iptables-语法" class="headerlink" title="Iptables 语法"></a>Iptables 语法</h5><p>　　语法格式如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> iptables [-t 表名] 选项 [链名] [条件] [-j 控制类型]</div></pre></td></tr></table></figure>
+<p>　　参数说明：</p>
+<ul>
+<li><code>-P</code>：设置默认策略：iptables；</li>
+<li><code>-P</code>：INPUT (DROP|ACCEPT)；</li>
+<li><code>-F</code>：清空规则链；</li>
+<li><code>-L</code>：查看规则链；</li>
+<li>`-A：在规则链的末尾加入新规则；</li>
+<li><code>-I num</code>：在规则链的头部加入新规则；</li>
+<li><code>-D num</code>：删除某一条规则；</li>
+<li><code>-s</code>：匹配来源地址 IP/MASK，加叹号 “!” 表示除这个 IP 外；</li>
+<li><code>-d</code>：匹配目标地址；</li>
+<li><code>-i</code>：网卡名称 匹配从这块网卡流入的数据；</li>
+<li><code>-o</code>：网卡名称 匹配从这块网卡流出的数据；</li>
+<li><code>-p</code>：匹配协议,如tcp，udp，icmp；</li>
+<li><code>--dport num</code>：匹配目标端口号；</li>
+<li><code>--sport num</code>：匹配来源端口号。</li>
+</ul>
+<h5 id="SNAT、DNAT-与-MASQUERADE"><a href="#SNAT、DNAT-与-MASQUERADE" class="headerlink" title="SNAT、DNAT 与 MASQUERADE"></a>SNAT、DNAT 与 MASQUERADE</h5><ul>
+<li><strong>SNAT（source network address translation，源地址目标转换）</strong></li>
+</ul>
+<p>　　局域网内的主机都配置了内网 IP，在访问外部网络的时候，路由器将数据包的报头中的源地址替换成路由器的 IP 。当外部网络的服务器比如网站 Web 服务器接到访问请求的时候，他的日志记录下来的是路由器的 IP 地址，而不是 主机的内网 IP 。因为，服务器收到的数据包的报头的“源地址”部分已经被替换。</p>
+<ul>
+<li><strong>DNAT（destination network address translation，目标网络地址转换）</strong></li>
+</ul>
+<p>　　当 Web 服务器放在内网，配置内网 IP ，前端有个防火墙，配置公网 IP，客户端使用公网 IP 来访问这个网站。当访问的时候，客户端发出一个数据包，这个数据包的报头里边，目标地址写的是防火墙的公网 IP 。防火墙会把这个数据包的报头改写一次，将目标地址改写成 Web 服务器的内网 IP ，然后再把这个数据包发送到内网的Web 服务器上这样，数据包就可以穿透防火墙，并从公网 IP 变成了一个对内网地址的访问。</p>
+<ul>
+<li><strong>MASQUERADE（地址伪装）</strong></li>
+</ul>
+<p>　　MASQUERADE 是 SNAT 的一个特例，因为它在 Iptables 中有着和 SNAT 相近的效果。SNAT 是指在数据包从网卡发送出去的时候，把数据包中的源地址部分替换为指定的 IP，这样，接收方就认为数据包的来源是被替换的那个 IP 的主机。MASQUERADE是用发送数据的网卡上的IP来替换源IP，因此，对于那些IP不固定的场合，比如拨号网络或者通过 dhcp 分配 IP 的情况下，就得用 MASQUERADE。</p>
+<h4 id="容器访问控制"><a href="#容器访问控制" class="headerlink" title="容器访问控制"></a>容器访问控制</h4><h5 id="容器访问外部网络"><a href="#容器访问外部网络" class="headerlink" title="容器访问外部网络"></a>容器访问外部网络</h5><p>　　容器要想访问外部网络，需要本地系统的转发支持。在 Linux 系统中，检查转发是否打开，即<code>net.ipv4.ip_forward</code> 是否等于 0。如果为 0，说明没有开启转发，则需要手动打开。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span>sysctl net.ipv4.ip_forward</div><div class="line">net.ipv4.ip_forward = 1</div></pre></td></tr></table></figure>
+<p>　　也可以在启动 Docker 服务的时候设定 <code>--ip-forward=true</code> , Docker 就会自动设定系统的 ip_forward 参数为 1。 </p>
+<h5 id="容器之间访问"><a href="#容器之间访问" class="headerlink" title="容器之间访问"></a>容器之间访问</h5><p>　　容器之间相互访问，需要两方面的支持：</p>
+<ul>
+<li>容器的网络拓扑是否已经互联。默认情况下，所有容器都会被连接到 docker0 网桥上。</li>
+<li>本地系统的防火墙软件 – iptables 是否允许通过。 </li>
+</ul>
+<p>　　在同一宿主机下，Docker 的容器是通过虚拟网桥来进行连接的。默认情况下，在同一宿主机中运行的不同容器之间是允许网络互通的。因为，当启动 Docker 服务时候，默认会添加一条转发策略到 iptables 的 FORWARD 链上。策略为通过（ACCEPT ） 还是禁止（DROP ） 取决于配置 <code>--icc=true</code>  还是 <code>--icc=false</code> 。因为缺省值为  <code>--icc=true</code>  ，所以默认是允许容器间互通的。</p>
+<p>　　如果为了安全考虑，修改 <code>vim /etc/default/docker</code>，在末尾添加配置 <code>DOCKER_OPTS=&quot;--icc=false&quot;</code> 来禁止它。需要重启 Docker 的服务 <code>sudo service docker restart</code>。这样就会拒绝所有容器间互联。</p>
+<p>　　另外，也可以允许特定容器间的连接。在 Docker 守护进程的启动选项中设置 <code>--icc=false</code> 和 <code>--iptables=true</code> ，然后在容器启动时使用 <code>--link</code> 选项来与特定容器进行连接。Docker 利用 iptables 中的机制，在 <code>--icc=false</code> 时，阻断所有的 Docker 容器间的访问，仅仅运行利用 link 选项配置的容器进行相互的访问。</p>
+<h4 id="端口映射"><a href="#端口映射" class="headerlink" title="端口映射"></a>端口映射</h4><p>　　默认情况下，容器可以主动访问到外部网络的连接，但是外部网络无法访问到容器。 </p>
+<h5 id="容器访问外部"><a href="#容器访问外部" class="headerlink" title="容器访问外部"></a>容器访问外部</h5><p>　　容器所有到外部网络的连接，源地址都会被 NAT 成本地系统的 IP 地址。这是使用 iptables 的源地址伪装操作实现的。 例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# iptables -t nat -nL</div><div class="line">......</div><div class="line">Chain POSTROUTING (policy ACCEPT)</div><div class="line">target     prot opt source               destination         </div><div class="line">MASQUERADE  all  --  172.17.0.0/16        0.0.0.0/0</div></pre></td></tr></table></figure>
+<p>　　上述规则将所有源地址在 <code>172.17.0.0/16</code> 网段，目标地址为其他网段（外部网络） 的流量动态伪装为从系统网卡发出。如前一节所述，这里使用的是 MASQUERADE（地址伪装），MASQUERADE 跟传统 SNAT 的好处是它能动态从网卡获取地址。</p>
+<h5 id="外部访问容器"><a href="#外部访问容器" class="headerlink" title="外部访问容器"></a>外部访问容器</h5><p>　　容器允许外部访问，可以在 <code>docker run</code> 时候通过 <code>-p</code> 或 <code>-P</code> 参数来启用。但是，不管用那种办法，其实也是在本地的 iptables 的 nat 表中添加相应的规则。例如：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker run -p 80:80 --name=web -d nginx</div><div class="line">bbe79958143a510ef5aca1b37770e5e19549d7f0a5fd441db092723fca6c1159</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# iptables -t nat -nL</div><div class="line">......</div><div class="line">Chain POSTROUTING (policy ACCEPT)</div><div class="line">target     prot opt source               destination         </div><div class="line">MASQUERADE  all  --  172.17.0.0/16        0.0.0.0/0           </div><div class="line">MASQUERADE  tcp  --  172.17.0.2           172.17.0.2           tcp dpt:80</div></pre></td></tr></table></figure>
+<h4 id="网络配置命令"><a href="#网络配置命令" class="headerlink" title="网络配置命令"></a>网络配置命令</h4><p>　　只有在 Docker 服务启动的时候才能配置，而且不能马上生效的命令：</p>
+<ul>
+<li><code>-b BRIDGE</code> 或 <code>--bridge=BRIDGE</code> ：指定容器挂载的网桥；</li>
+<li><code>--bip=CIDR</code> ：定制 docker0 的掩码；</li>
+<li><code>-H SOCKET...</code> 或 <code>--host=SOCKET...</code> ：Docker 服务端接收命令的通道；</li>
+<li><code>--icc=true|false</code> ：是否支持容器之间进行通信；</li>
+<li><code>--ip-forward=true|false</code> ：请看下文容器之间的通信；</li>
+<li><code>--iptables=true|false</code> ：是否允许 Docker 添加 iptables 规则；</li>
+<li><code>--mtu=BYTES</code> ：容器网络中的 MTU。</li>
+</ul>
+<p>　　示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 编辑docker默认配置：DOCKER_OPTS="--icc=false --iptables=true "</div><div class="line"><span class="meta">$</span> sudo vim /etc/default/docker</div><div class="line"><span class="meta">#</span> 重启docker服务</div><div class="line"><span class="meta">$</span> sudo service docker restart</div></pre></td></tr></table></figure>
+<p>　　既可以在启动服务时指定，也可以在启动容器时指定的命令选项：</p>
+<ul>
+<li><code>--dns=IP_ADDRESS...</code> 使用指定的DNS服务器；</li>
+<li><code>--dns-search=DOMAIN...</code> 指定DNS搜索域。</li>
+</ul>
+<p>　　 只能在容器启动时使用的命令选项，<code>docker run</code> 命令与网络相关的选项：</p>
+<ul>
+<li><code>-h HOSTNAME</code> 或 <code>--hostname=HOSTNAME</code> ：配置容器主机名；</li>
+<li><code>--link=CONTAINER_NAME:ALIAS</code> ：添加到另一个容器的连接；</li>
+<li><code>--net=bridge|none|container:NAME_or_ID|host</code> ：配置容器的桥接模式；</li>
+<li><code>-p SPEC 或 --publish=SPEC</code> ：映射容器端口到宿主主机；</li>
+<li><code>-P or --publish-all=true|false</code> ：映射容器所有端口到宿主主机 。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Docker/" rel="tag"># Docker</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/09/Docker-基本操作-网络篇（上）/" rel="next" title="Docker 基本操作-网络篇（上）">
+                <i class="fa fa-chevron-left"></i> Docker 基本操作-网络篇（上）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fanzhenyu@csu.edu.cn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">202</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">99</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://blog.csdn.net/u013151320" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-wordpress"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/line-37/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/fzyLine" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" title="阮一峰" target="_blank">阮一峰</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.tomczhen.com/" title="TomCzHen" target="_blank">TomCzHen</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://zhouzhipeng.com/" title="一叶孤舟" target="_blank">一叶孤舟</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gaocegege.com/Blog/" title="高策" target="_blank">高策</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hi-roy.com/" title="Roy" target="_blank">Roy</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://jacktaoz.github.io/" title="Jacktao" target="_blank">Jacktao</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://pandaonmars.github.io/" title="pandaonmars" target="_blank">pandaonmars</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#IPtables"><span class="nav-number">1.</span> <span class="nav-text">IPtables</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#白名单和黑名单"><span class="nav-number">1.1.</span> <span class="nav-text">白名单和黑名单</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四表五链"><span class="nav-number">1.2.</span> <span class="nav-text">四表五链</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#处理流程"><span class="nav-number">1.3.</span> <span class="nav-text">处理流程</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Iptables-语法"><span class="nav-number">1.4.</span> <span class="nav-text">Iptables 语法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SNAT、DNAT-与-MASQUERADE"><span class="nav-number">1.5.</span> <span class="nav-text">SNAT、DNAT 与 MASQUERADE</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#容器访问控制"><span class="nav-number">2.</span> <span class="nav-text">容器访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容器访问外部网络"><span class="nav-number">2.1.</span> <span class="nav-text">容器访问外部网络</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#容器之间访问"><span class="nav-number">2.2.</span> <span class="nav-text">容器之间访问</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端口映射"><span class="nav-number">3.</span> <span class="nav-text">端口映射</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#容器访问外部"><span class="nav-number">3.1.</span> <span class="nav-text">容器访问外部</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#外部访问容器"><span class="nav-number">3.2.</span> <span class="nav-text">外部访问容器</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络配置命令"><span class="nav-number">4.</span> <span class="nav-text">网络配置命令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="/js/src/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '9f74a018210b61ac4709',
+          clientSecret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
+          repo: 'fzy-Line.github.io',
+          owner: 'fzy-Line',
+          admin: ['fzy-Line'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
