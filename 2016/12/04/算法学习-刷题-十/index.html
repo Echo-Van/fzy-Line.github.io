@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="Line&#39;s Blog">
 <meta property="og:description" content="继续使用Python进行算法练习解题，此篇博客的5道题依然来自于牛客网（专业IT笔试面试备考平台）在线编程之：华为机试在线训练(6-10题)。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-28T13:14:01.390Z">
+<meta property="og:updated_time" content="2019-04-20T02:26:57.511Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="算法学习-刷题(十)">
 <meta name="twitter:description" content="继续使用Python进行算法练习解题，此篇博客的5道题依然来自于牛客网（专业IT笔试面试备考平台）在线编程之：华为机试在线训练(6-10题)。">
@@ -372,8 +372,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Algorithm/本科刷题/" itemprop="url" rel="index">
-                    <span itemprop="name">本科刷题</span>
+                  <a href="/categories/Algorithm/Exercise/" itemprop="url" rel="index">
+                    <span itemprop="name">Exercise</span>
                   </a>
                 </span>
 
@@ -433,7 +433,7 @@
 <h5 id="Python实现"><a href="#Python实现" class="headerlink" title="Python实现"></a>Python实现</h5><p>如果一个数是质数，那么它的倍数都不是质数。</p>
 <p>我们不需要考虑是否是质数因子，因为每次得到的那个因子肯定是质数因子，其他数都可以从这些质数因子相乘得到。比如，i = 4能被整除的不可能出现，因为当i=2时已经被全求出来了。</p>
 <p>这个题的思路其实不太好描述，还是看代码吧！</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">while True:</div><div class="line">    try:</div><div class="line">        n = int(raw_input())</div><div class="line">        i = 2</div><div class="line">        while n&gt;1:</div><div class="line">            while(n%i == 0):</div><div class="line">                print i,    </div><div class="line">                n = n/i</div><div class="line">            i += 1</div><div class="line"></div><div class="line">    except:</div><div class="line">        break</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    <span class="keyword">try</span>:</div><div class="line">        n = int(raw_input())</div><div class="line">        i = <span class="number">2</span></div><div class="line">        <span class="keyword">while</span> n&gt;<span class="number">1</span>:</div><div class="line">            <span class="keyword">while</span>(n%i == <span class="number">0</span>):</div><div class="line">                <span class="keyword">print</span> i,    </div><div class="line">                n = n/i</div><div class="line">            i += <span class="number">1</span></div><div class="line"></div><div class="line">    <span class="keyword">except</span>:</div><div class="line">        <span class="keyword">break</span></div></pre></td></tr></table></figure>
 <p>python中print输出一行，如果想多次输出的内容不换行，可以在print后面加逗号.</p>
 <h4 id="取近似值"><a href="#取近似值" class="headerlink" title="取近似值"></a>取近似值</h4><h5 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h5><p>写出一个程序，接受一个正浮点数值，输出该数值的近似整数值。如果小数点后数值大于等于5,向上取整；小于5，则向下取整。</p>
 <p>输入描述:</p>
@@ -445,7 +445,7 @@
 <p>输出例子:</p>
 <p>6</p>
 <h5 id="Python实现-1"><a href="#Python实现-1" class="headerlink" title="Python实现"></a>Python实现</h5><p>将输入的数据转换成float类型，再用round函数进行四舍五入，最后转换成int类型进行输出</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">import sys</div><div class="line">num = sys.stdin.readline()  #读取一行数据</div><div class="line">print int(round(float(num)))</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> sys</div><div class="line">num = sys.stdin.readline()  <span class="comment">#读取一行数据</span></div><div class="line"><span class="keyword">print</span> int(round(float(num)))</div></pre></td></tr></table></figure>
 <h4 id="合并表记录"><a href="#合并表记录" class="headerlink" title="合并表记录"></a>合并表记录</h4><h5 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h5><p>数据表记录包含表索引和数值，请对表索引相同的记录进行合并，即将相同索引的数值进行求和运算，输出按照key值升序进行输出。</p>
 <p>输入描述:</p>
 <p>先输入键值对的个数，然后输入成对的index和value值，以空格隔开</p>
@@ -461,7 +461,7 @@
 <p>0 3</p>
 <p>1 2</p>
 <p>3 4</p>
-<h5 id="Python实现-2"><a href="#Python实现-2" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line"></div><div class="line">n = int(raw_input())</div><div class="line">dic = &#123;&#125;    #构造字典</div><div class="line">for i in range(n):</div><div class="line">    item = raw_input().split()  #获取一行输入</div><div class="line">    key = int(item[0])  #得到该行的第一个数：键</div><div class="line">    value = int(item[1])    #得到该行的第二个数：值</div><div class="line">    if key in dic:  #如果字典中已经存在这个键，则将其键值相加</div><div class="line">        dic[key] += value;</div><div class="line">    else:   #否则添加新的键值对</div><div class="line">        dic[key] = value;</div><div class="line"></div><div class="line">lst = dic.keys()    #获取字典的所有键</div><div class="line">lst.sort()  #对键进行排序</div><div class="line"></div><div class="line">for i in lst:   #根据键从小到大输出</div><div class="line">    print i,dic[i]</div></pre></td></tr></table></figure>
+<h5 id="Python实现-2"><a href="#Python实现-2" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line">n = int(raw_input())</div><div class="line">dic = &#123;&#125;    <span class="comment">#构造字典</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">    item = raw_input().split()  <span class="comment">#获取一行输入</span></div><div class="line">    key = int(item[<span class="number">0</span>])  <span class="comment">#得到该行的第一个数：键</span></div><div class="line">    value = int(item[<span class="number">1</span>])    <span class="comment">#得到该行的第二个数：值</span></div><div class="line">    <span class="keyword">if</span> key <span class="keyword">in</span> dic:  <span class="comment">#如果字典中已经存在这个键，则将其键值相加</span></div><div class="line">        dic[key] += value;</div><div class="line">    <span class="keyword">else</span>:   <span class="comment">#否则添加新的键值对</span></div><div class="line">        dic[key] = value;</div><div class="line"></div><div class="line">lst = dic.keys()    <span class="comment">#获取字典的所有键</span></div><div class="line">lst.sort()  <span class="comment">#对键进行排序</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> lst:   <span class="comment">#根据键从小到大输出</span></div><div class="line">    <span class="keyword">print</span> i,dic[i]</div></pre></td></tr></table></figure>
 <h4 id="提取不重复的整数"><a href="#提取不重复的整数" class="headerlink" title="提取不重复的整数"></a>提取不重复的整数</h4><h5 id="题目描述-3"><a href="#题目描述-3" class="headerlink" title="题目描述"></a>题目描述</h5><p>输入一个int型整数，按照从右向左的阅读顺序，返回一个不含重复数字的新的整数。</p>
 <p>输入描述:</p>
 <p>输入一个int型整数</p>
@@ -471,7 +471,7 @@
 <p>9876673</p>
 <p>输出例子:</p>
 <p>37689</p>
-<h5 id="Python实现-3"><a href="#Python实现-3" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line"></div><div class="line">input_str = raw_input()</div><div class="line">res = []    </div><div class="line">for i in list(reversed(input_str)):    #反转字符串，并将其转换从列表</div><div class="line">    if i not in res:    #去除重复的数字</div><div class="line">        res.append(i)</div><div class="line">print &quot;&quot;.join(res)    #列表转字符串</div></pre></td></tr></table></figure>
+<h5 id="Python实现-3"><a href="#Python实现-3" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding:utf-8 -*-</span></div><div class="line"></div><div class="line">input_str = raw_input()</div><div class="line">res = []    </div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> list(reversed(input_str)):    <span class="comment">#反转字符串，并将其转换从列表</span></div><div class="line">    <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> res:    <span class="comment">#去除重复的数字</span></div><div class="line">        res.append(i)</div><div class="line"><span class="keyword">print</span> <span class="string">""</span>.join(res)    <span class="comment">#列表转字符串</span></div></pre></td></tr></table></figure>
 <h4 id="字符个数统计"><a href="#字符个数统计" class="headerlink" title="字符个数统计"></a>字符个数统计</h4><h5 id="题目描述-4"><a href="#题目描述-4" class="headerlink" title="题目描述"></a>题目描述</h5><p>编写一个函数，计算字符串中含有的不同字符的个数。字符在ACSII码范围内(0~127)。不在范围内的不作统计。</p>
 <p>输入描述:</p>
 <p>输入N个字符，字符在ACSII码范围内。</p>
@@ -481,7 +481,7 @@
 <p>abc</p>
 <p>输出例子:</p>
 <p>3</p>
-<h5 id="Python实现-4"><a href="#Python实现-4" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">#-*- coding:utf-8 -*-</div><div class="line">import sys</div><div class="line"></div><div class="line">def count(input_str):   #自定义处理函数</div><div class="line">    s = []</div><div class="line">    cnt = 0</div><div class="line">    for ch in input_str:    #去除重复的字符</div><div class="line">        if ch not in s:</div><div class="line">            s.append(ch)</div><div class="line"></div><div class="line">    for c in s:     #统计个数</div><div class="line">        if (ord(c) &gt;=0 and ord(c) &lt;= 127):</div><div class="line">            cnt+=1</div><div class="line"></div><div class="line">    print cnt</div><div class="line"></div><div class="line">input_str = sys.stdin.readline()    #根据题目要求要实现多组数据的测试</div><div class="line">count(input_str)    #调用函数处理</div></pre></td></tr></table></figure>
+<h5 id="Python实现-4"><a href="#Python实现-4" class="headerlink" title="Python实现"></a>Python实现</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#-*- coding:utf-8 -*-</span></div><div class="line"><span class="keyword">import</span> sys</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">count</span><span class="params">(input_str)</span>:</span>   <span class="comment">#自定义处理函数</span></div><div class="line">    s = []</div><div class="line">    cnt = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> ch <span class="keyword">in</span> input_str:    <span class="comment">#去除重复的字符</span></div><div class="line">        <span class="keyword">if</span> ch <span class="keyword">not</span> <span class="keyword">in</span> s:</div><div class="line">            s.append(ch)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> s:     <span class="comment">#统计个数</span></div><div class="line">        <span class="keyword">if</span> (ord(c) &gt;=<span class="number">0</span> <span class="keyword">and</span> ord(c) &lt;= <span class="number">127</span>):</div><div class="line">            cnt+=<span class="number">1</span></div><div class="line"></div><div class="line">    <span class="keyword">print</span> cnt</div><div class="line"></div><div class="line">input_str = sys.stdin.readline()    <span class="comment">#根据题目要求要实现多组数据的测试</span></div><div class="line">count(input_str)    <span class="comment">#调用函数处理</span></div></pre></td></tr></table></figure>
 
       
     </div>
@@ -658,7 +658,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">203</span>
+                <span class="site-state-item-count">204</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -669,7 +669,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
