@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[找出数组中出现次数超过一半的数]]></title>
     <url>%2F2019%2F04%2F27%2F%E6%89%BE%E5%87%BA%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%87%E4%B8%80%E5%8D%8A%E7%9A%84%E6%95%B0%2F</url>
-    <content type="text"><![CDATA[面试遇到的题目，数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。 计数+比较 不考虑效率，采用最简单的办法，遍历数组，使用 List 的 count() 方法统计元素出现的次数： 123456def more_than_half_num(arr): half = len(arr) // 2 for i in arr: if arr.count(i) &gt; half: return i return None 构造一个map，key为元素的值，value为元素出现的次数，然后遍历map找到目标元素： 12345678910111213def more_than_half_num(arr): dict = &#123;&#125; for i in arr: if i in dict: dict[i] += 1 else: dict[i] = 1 half = len(arr) // 2 for k, v in dict.items(): if v &gt; half: return k return None 排序+中位数 数组排序后，如果符合条件的数存在，则一定是数组中间那个数。可使用排序算法对数组进行排序，然后求排序后数组的中间数 + 判断中间数出现次数是否超过数组的一半。下面以快速排序为例： 1234567891011121314151617181920212223242526272829def part_sort(arr, left, right): key = right while left &lt; right: while left &lt; right and arr[left] &lt;= arr[key]: left += 1 while left &lt; right and arr[right] &gt;= arr[key]: right -= 1 arr[left], arr[right] = arr[right], arr[left] print(arr) arr[left], arr[key] = arr[key], arr[left] return leftdef quick_sort(arr, left, right): if left &gt;= right: return index = part_sort(arr, left, right) quick_sort(arr, left, index - 1) quick_sort(arr, index, right)def more_than_half_num(arr): length = len(arr) quick_sort(arr, 0, length - 1) res = arr[length // 2] if arr.count(res) &gt; length // 2: return res else: return None 一次遍历 数组中有一个数字出现的次数超过数组长度的一半，也就是说出现的次数比其他所有数字出现次数的和还要多。因此我们可以考虑在遍历数组的时候利用两个辅助变量，一个记录数字出现的次数，一个记录数字。 当我们遍历到下一个数字的时候，如果下一个数字和我们之前保存的数字相同，则次数加1； 如果下一个数字和我们之前保存的数字不同，则次数减1。 如果次数为零，我们需要保存下一个数字，并把次数设为1。 123456789101112131415def more_than_half_num(arr): res = arr[0] cnt = 1 for i in range(1, len(arr)): if arr[i] == res: cnt += 1 else: cnt -= 1 if cnt == 0: res = arr[i] cnt = 1 if arr.count(res) &gt; len(arr)//2: return res else: return None]]></content>
+    <content type="text"><![CDATA[数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。 计数+比较 不考虑效率，采用最简单的办法，遍历数组，使用 List 的 count() 方法统计元素出现的次数： 123456def more_than_half_num(arr): half = len(arr) // 2 for i in arr: if arr.count(i) &gt; half: return i return None 构造一个map，key为元素的值，value为元素出现的次数，然后遍历map找到目标元素： 12345678910111213def more_than_half_num(arr): dict = &#123;&#125; for i in arr: if i in dict: dict[i] += 1 else: dict[i] = 1 half = len(arr) // 2 for k, v in dict.items(): if v &gt; half: return k return None 排序+中位数 数组排序后，如果符合条件的数存在，则一定是数组中间那个数。可使用排序算法对数组进行排序，然后求排序后数组的中间数 + 判断中间数出现次数是否超过数组的一半。下面以快速排序为例： 1234567891011121314151617181920212223242526272829def part_sort(arr, left, right): key = right while left &lt; right: while left &lt; right and arr[left] &lt;= arr[key]: left += 1 while left &lt; right and arr[right] &gt;= arr[key]: right -= 1 arr[left], arr[right] = arr[right], arr[left] print(arr) arr[left], arr[key] = arr[key], arr[left] return leftdef quick_sort(arr, left, right): if left &gt;= right: return index = part_sort(arr, left, right) quick_sort(arr, left, index - 1) quick_sort(arr, index, right)def more_than_half_num(arr): length = len(arr) quick_sort(arr, 0, length - 1) res = arr[length // 2] if arr.count(res) &gt; length // 2: return res else: return None 一次遍历 数组中有一个数字出现的次数超过数组长度的一半，也就是说出现的次数比其他所有数字出现次数的和还要多。因此我们可以考虑在遍历数组的时候利用两个辅助变量，一个记录数字出现的次数，一个记录数字。 当我们遍历到下一个数字的时候，如果下一个数字和我们之前保存的数字相同，则次数加1； 如果下一个数字和我们之前保存的数字不同，则次数减1。 如果次数为零，我们需要保存下一个数字，并把次数设为1。 123456789101112131415def more_than_half_num(arr): res = arr[0] cnt = 1 for i in range(1, len(arr)): if arr[i] == res: cnt += 1 else: cnt -= 1 if cnt == 0: res = arr[i] cnt = 1 if arr.count(res) &gt; len(arr)//2: return res else: return None]]></content>
       <categories>
         <category>Algorithm</category>
         <category>Basic</category>
@@ -29,7 +29,7 @@
   <entry>
     <title><![CDATA[查找数组中出现奇数次的那个数字]]></title>
     <url>%2F2019%2F04%2F16%2F%E6%9F%A5%E6%89%BE%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E5%A5%87%E6%95%B0%E6%AC%A1%E7%9A%84%E9%82%A3%E4%B8%AA%E6%95%B0%E5%AD%97%2F</url>
-    <content type="text"><![CDATA[面试遇到的题目，有一个数组，其中的数都是以偶数次的形式出现，只有一个数出现的次数为奇数次，要求找出这个出现次数为奇数次的数。 集合+统计解题思路 最简单能想到的，效率不高。利用集合的特性，通过 Python 的 set() 函数筛选出数组中有哪些数，然后遍历集合，使用 List 的 count 方法统计集合中每个元素在数组中出现的次数，如果是奇数次则直接返回该数。 Python 实现12345def find_odd_times_num(arr): num = set(arr) for i in num: if arr.count(i) % 2 != 0: return i 排序+遍历解题思路 将数组从小到大排序，然后遍历数组，并对出现的数进行计数b，当出现不同的数时，判断上一个数出现次数是奇数还是偶数。 Python 实现12345678910111213def find_odd_times_num(arr): arr.sort() cnt = 1 for i in range(1, len(arr)): if arr[i] != arr[i - 1]: if cnt % 2 != 0: return arr[i-1] else: cnt = 1 else: cnt += 1 if cnt % 2 != 0: return arr[i] 改进版本： 借用计数排序的思想，先找到数组中最大的元素，然后开辟一个新数组，原数组中每个元素的值即为新数组的下标，遍历原数组记录每个元素出现的次数，最后遍历新数组，找到奇数，返回其下标。 12345678def find_odd_times_num(arr): m = max(arr) cnt = [0] * m for i in arr: cnt[i-1] += 1 for j in range(m): if cnt[j] % 2 != 0: return j+1 Map + 统计解题思路 遍历数组记录出现次数先计数，并存储到 Map 中，再遍历 Map，找出 Map 中 value 为奇数的 key。 Python 实现12345678910def find_odd_times_num(arr): dict = &#123;&#125; for i in arr: if i in dict: dict[i] += 1 else: dict[i] = 1 for k, v in dict.items(): if v % 2 != 0: return k 位运算解题思路 巧妙地采用异或的特点进行处理，即整数 n 与 0 的异或结果为 n，整数 n 与 n 的异或结果为 0，异或运算满足交换律和结合律。即，所有出现偶数次的数异或的结果为 0，而对于出现次数为奇数次n的数，其出现的前 n-1 次异或的结果为 0，而 0 与其最后1次出现进行异或，得到该数本身。因此，可以很方便找出出现次数为奇数次的数。 Python 实现12345def find_odd_times_num(arr): res = 0 for i in arr: res ^= i return res]]></content>
+    <content type="text"><![CDATA[有一个数组，其中的数都是以偶数次的形式出现，只有一个数出现的次数为奇数次，要求找出这个出现次数为奇数次的数。 集合+统计解题思路 最简单能想到的，效率不高。利用集合的特性，通过 Python 的 set() 函数筛选出数组中有哪些数，然后遍历集合，使用 List 的 count 方法统计集合中每个元素在数组中出现的次数，如果是奇数次则直接返回该数。 Python 实现12345def find_odd_times_num(arr): num = set(arr) for i in num: if arr.count(i) % 2 != 0: return i 排序+遍历解题思路 将数组从小到大排序，然后遍历数组，并对出现的数进行计数b，当出现不同的数时，判断上一个数出现次数是奇数还是偶数。 Python 实现12345678910111213def find_odd_times_num(arr): arr.sort() cnt = 1 for i in range(1, len(arr)): if arr[i] != arr[i - 1]: if cnt % 2 != 0: return arr[i-1] else: cnt = 1 else: cnt += 1 if cnt % 2 != 0: return arr[i] 改进版本： 借用计数排序的思想，先找到数组中最大的元素，然后开辟一个新数组，原数组中每个元素的值即为新数组的下标，遍历原数组记录每个元素出现的次数，最后遍历新数组，找到奇数，返回其下标。 12345678def find_odd_times_num(arr): m = max(arr) cnt = [0] * m for i in arr: cnt[i-1] += 1 for j in range(m): if cnt[j] % 2 != 0: return j+1 Map + 统计解题思路 遍历数组记录出现次数先计数，并存储到 Map 中，再遍历 Map，找出 Map 中 value 为奇数的 key。 Python 实现12345678910def find_odd_times_num(arr): dict = &#123;&#125; for i in arr: if i in dict: dict[i] += 1 else: dict[i] = 1 for k, v in dict.items(): if v % 2 != 0: return k 位运算解题思路 巧妙地采用异或的特点进行处理，即整数 n 与 0 的异或结果为 n，整数 n 与 n 的异或结果为 0，异或运算满足交换律和结合律。即，所有出现偶数次的数异或的结果为 0，而对于出现次数为奇数次n的数，其出现的前 n-1 次异或的结果为 0，而 0 与其最后1次出现进行异或，得到该数本身。因此，可以很方便找出出现次数为奇数次的数。 Python 实现12345def find_odd_times_num(arr): res = 0 for i in arr: res ^= i return res]]></content>
       <categories>
         <category>Algorithm</category>
         <category>Basic</category>
@@ -1434,8 +1434,8 @@
         <category>Linux</category>
       </categories>
       <tags>
-        <tag>Ubuntu</tag>
         <tag>FTP</tag>
+        <tag>Ubuntu</tag>
       </tags>
   </entry>
   <entry>
@@ -2389,8 +2389,8 @@
       <tags>
         <tag>Http</tag>
         <tag>Python</tag>
-        <tag>正则表达式</tag>
         <tag>爬虫</tag>
+        <tag>正则表达式</tag>
       </tags>
   </entry>
   <entry>
