@@ -2,6 +2,27 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://fzy-line.github.io/2019/07/01/Python-%E6%8A%BD%E8%B1%A1%E5%9F%BA%E7%B1%BB-ABC-%E6%A8%A1%E5%9D%97/</loc>
+    
+    <lastmod>2019-07-24T14:19:49.134Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fzy-line.github.io/2019/06/24/Python-daemon%E5%AE%88%E6%8A%A4%E8%BF%9B%E7%A8%8B/</loc>
+    
+    <lastmod>2019-07-24T13:42:07.818Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fzy-line.github.io/2019/06/26/Python-ORM%E6%A1%86%E6%9E%B6-SQLAlchemy/</loc>
+    
+    <lastmod>2019-07-24T13:37:51.494Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://fzy-line.github.io/2019/06/12/Python-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1-%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2019-06-30T09:38:41.048Z</lastmod>
@@ -408,14 +429,14 @@
   </url>
   
   <url>
-    <loc>https://fzy-line.github.io/2018/12/10/LeetCode-121-Best-Time-to-Buy-and-Sell-Stock/</loc>
+    <loc>https://fzy-line.github.io/2018/12/12/LeetCode-119-Pascal-s-Triangle-II/</loc>
     
     <lastmod>2018-12-31T17:40:25.377Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://fzy-line.github.io/2018/12/12/LeetCode-119-Pascal-s-Triangle-II/</loc>
+    <loc>https://fzy-line.github.io/2018/12/10/LeetCode-121-Best-Time-to-Buy-and-Sell-Stock/</loc>
     
     <lastmod>2018-12-31T17:40:25.377Z</lastmod>
     
