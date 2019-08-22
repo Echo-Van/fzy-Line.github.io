@@ -90,18 +90,18 @@
 
 
 
-<meta name="description" content="select基本原理　　select() 的机制中提供一种 fd_set 的数据结构，实际上是一个 long 类型的数组，每一个数组元素都能与一打开的文件句柄（不管是Socket句柄,还是其他文件或命名管道或设备句柄）建立联系，建立联系的工作由程序员完成，当调用 select() 时，由内核根据 IO 状态修改 fd_set 的内容，由此来通知执行了 select() 的进程哪一个 Socket">
+<meta name="description" content="IO 多路复用之 select/poll/epoll 学习">
 <meta name="keywords" content="Linux,IO多路复用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="IO多路复用-select&#x2F;poll&#x2F;epoll">
 <meta property="og:url" content="https://fzy-line.github.io/2019/07/18/IO多路复用-select-poll-epoll/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="select基本原理　　select() 的机制中提供一种 fd_set 的数据结构，实际上是一个 long 类型的数组，每一个数组元素都能与一打开的文件句柄（不管是Socket句柄,还是其他文件或命名管道或设备句柄）建立联系，建立联系的工作由程序员完成，当调用 select() 时，由内核根据 IO 状态修改 fd_set 的内容，由此来通知执行了 select() 的进程哪一个 Socket">
+<meta property="og:description" content="IO 多路复用之 select/poll/epoll 学习">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-22T15:29:28.620Z">
+<meta property="og:updated_time" content="2019-08-22T15:34:01.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IO多路复用-select&#x2F;poll&#x2F;epoll">
-<meta name="twitter:description" content="select基本原理　　select() 的机制中提供一种 fd_set 的数据结构，实际上是一个 long 类型的数组，每一个数组元素都能与一打开的文件句柄（不管是Socket句柄,还是其他文件或命名管道或设备句柄）建立联系，建立联系的工作由程序员完成，当调用 select() 时，由内核根据 IO 状态修改 fd_set 的内容，由此来通知执行了 select() 的进程哪一个 Socket">
+<meta name="twitter:description" content="IO 多路复用之 select/poll/epoll 学习">
 
 
 
@@ -400,7 +400,9 @@
       
 
       
-        <a id="more"></a>
+        <center>IO 多路复用之 select/poll/epoll 学习</center>
+
+<a id="more"></a>
 <h4 id="select"><a href="#select" class="headerlink" title="select"></a>select</h4><h5 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h5><p>　　select() 的机制中提供一种 <code>fd_set</code> 的数据结构，实际上是一个 long 类型的数组，每一个数组元素都能与一打开的文件句柄（不管是Socket句柄,还是其他文件或命名管道或设备句柄）建立联系，建立联系的工作由程序员完成，当调用 select() 时，由内核根据 IO 状态修改 fd_set 的内容，由此来通知执行了 select() 的进程哪一个 Socket 或文件可读。</p>
 <h5 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h5><p>　　select 目前几乎在所有的平台上支持，其良好跨平台支持也是它的一个优点。但是，select 仅仅知道有 I/O 事件发生了，却并不知道是哪那几个流（可能有一个，多个，甚至全部），因此只能无差别轮询所有流，找出能读出数据，或者写入数据的流，然后进行操作。select 主要有三个缺点：</p>
 <ul>
