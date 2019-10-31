@@ -427,11 +427,11 @@
 <ul>
 <li>缓存查看</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> arp -a	# 参数-a的意思是显示高速缓存中所有的内容。</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> arp -a	<span class="comment"># 参数-a的意思是显示高速缓存中所有的内容。</span></span></div></pre></td></tr></table></figure>
 <ul>
 <li>缓存清空</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> arp -d</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> arp -d</span></div></pre></td></tr></table></figure>
 <h4 id="代理-ARP"><a href="#代理-ARP" class="headerlink" title="代理 ARP"></a>代理 ARP</h4><p>　　如果 ARP 请求是从一个网络的主机发往另一个网络上的主机，可能需要经过很多路由器，而路由器隔离广播域，每个接口/网段都是独立的广播域， ARP 请求又是二层广播包，所以 ARP 广播包没法通过过路由器。。因此，网关设备收到此 ARP 请求，会用自己的 MAC 地址返回给请求者，这便是代理 ARP（Proxy ARP）。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/9/13-1.png" alt=""></p>
 <p>　　上图中，PC 发送 ARP 请求服务器 8.8.8.8 的 MAC 地址，路由器（网关）收到这个请求时会进行判断，由于目标 8.8.8.8 不属于本网段（即跨网段），此时便返回自己的接口 MAC 地址给 PC，后续电脑访问服务器时，目标 MAC 直接封装为 MAC254。</p>
@@ -662,7 +662,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">231</span>
+                <span class="site-state-item-count">236</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -684,7 +684,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-count">104</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

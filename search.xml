@@ -1,6 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[分布式系统-CAP定理]]></title>
+    <url>%2F2019%2F10%2F12%2F%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F-CAP%E5%AE%9A%E7%90%86%2F</url>
+    <content type="text"><![CDATA[CAP理论作为分布式系统的基石，应该是每个入门分布式系统（包括区块链）的人都应该学习的内容。 C、 A、P的含义 CAP 指的是： Consistency，一致性。 Availability，可用性。 Partition tolerance，分区容错。 Consistency 一致性指 “all nodes see the same data at the same time”，即所有节点在同一时间的数据完全一致。即写操作之后的读操作，必须返回该值。 通俗来说，对于客户端的每次读操作，要么读到的是最新的数据，要么读取失败。换句话说，一致性是站在分布式系统的角度，对访问本系统的客户端的一种承诺：要么我给您返回一个错误，要么我给你返回绝对一致的最新数据，不难看出，其强调的是数据正确。 Availability 可用性指 “Reads and writes always succeed”，即服务在正常响应时间内一直可用。只要收到用户的请求，服务器就必须给出回应。 通俗来说，任何客户端的请求都能得到响应数据，不会出现响应错误。换句话说，可用性是站在分布式系统的角度，对访问本系统的客户的另一种承诺：我一定会给您返回数据，不会给你返回错误，但不保证数据最新，强调的是不出错。 Partition tolerance 分区容错性指 “the system continues to operate despite arbitrary message loss or failure of part of the system”，即分布式系统在遇到某节点或网络分区故障的时候，仍然能够对外提供满足一致性或可用性的服务。 通俗来说，由于分布式系统通过网络进行通信，网络是不可靠的。当任意数量的消息丢失或延迟到达时，系统仍会继续提供服务，不会挂掉。换句话说，分区容忍性是站在分布式系统的角度，对访问本系统的客户端的再一种承诺：我会一直运行，不管我的内部出现何种数据同步问题，强调的是不挂掉。 C、A、P三者之间的冲突 CAP 理论说的就是：一个分布式系统，不可能同时做到这三点。但是，不要以为在所有时候都只能选择两个特性。在不存在网络失败的情况下（分布式系统正常运行时），C 和 A能够同时保证。只有当网络发生分区或失败时，才会在 C 和 A 之间做出选择。 对于一个分布式系统而言，P 是前提，必须保证，因为只要有网络交互就一定会有延迟和数据丢失，这种状况必须接受，必须保证系统不能挂掉。所以只剩下C、A可以选择。要么保证数据一致性（保证数据绝对正确），要么保证可用性（保证系统不出错）。 由于分区容错性可能出现，因此一致性和可用性不可能同时成立。系统设计时只能选择一个目标。如果追求一致性，那么无法保证所有节点的可用性；如果追求所有节点的可用性，那就没法做到一致性。 例如两台服务器，如果保证 S2 的一致性，那么 S1 必须在写操作时，锁定 S2 的读操作和写操作。只有数据同步后，才能重新开放读写。锁定期间，S2 不能读写，没有可用性不。如果保证 S2 的可用性，那么势必不能锁定 S2，所以一致性不成立。]]></content>
+      <categories>
+        <category>Distributed</category>
+      </categories>
+      <tags>
+        <tag>CAP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TCP 中的7种定时器]]></title>
+    <url>%2F2019%2F09%2F26%2FTCP-%E4%B8%AD%E7%9A%847%E7%A7%8D%E5%AE%9A%E6%97%B6%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[学习总结 TCP 中7种非常重要的定时器。 握手阶段连接建立定时器 当发送端发送 SYN 报文想建立一条新连接时，会开启连接建立定时器，如果没有收到对端的 SYN+ACK 包，则将进行重传。重传的次数由 /proc/sys/net/ipv4/tcp_syn_retries 决定，例如 Ubuntu 系统下，该值为6，那么最多将重传 6 次（间隔是指数递增的， 1s、2s、4s、8s、16s、32s），6 次重试以后放弃重试，connect 调用返回 -1，调用超时。 数据传输阶段重传定时器 主要用于处理在发送数据包的时候没有收到 ACK 的情况。重传定时器的时间是动态计算的，取决于 RTT 和重传的次数。重传时间间隔也是指数级退避，直到达到 120s 为止，重传次数是15次（由操作系统的 /proc/sys/net/ipv4/tcp_retries2 决定)，总时间将近 15 分钟。 延迟 ACK 定时器 在 TCP 收到数据包以后在没有数据包要回复时，不马上回复 ACK。这时开启一个定时器，等待一段时间看是否有数据需要回复。如果期间有数据要回复，则在回复的数据中捎带 ACK，如果时间到了也没有数据要发送，则也发送 ACK。 keep-alive 定时器 TCP 的设计中，如果双方都没有关闭连接，同时连接的空闲时间超过 2 小时，就会发送一个探测报文。如果对方有回复则表示连接还活着，对方还在，如果经过几次探测对方都没有回复则表示连接已失效，客户端会丢弃这个连接。keep-alive 定时器就是用于定时探测是否存活。 Persist 定时器 专门用于零窗口探测。TCP 利用滑动窗口来实现流量控制，当接收端 B 接收窗口为 0 时，发送端 A 此时不能再发送数据，发送端此时开启 Persist 定时器，超时后发送一个特殊的报文给接收端看对方窗口是否已经恢复，这个特殊的报文只有一个字节。 挥手阶段FIN_WAIT_2 定时器 在挥手阶段，用 FIN_WAIT_2 定时器来防止被动关闭连接的一方一直不发送 FIN 包，导致关闭连接的一方一直处于等待状态。这个值由/proc/sys/net/ipv4/tcp_fin_timeout 决定，Ubuntu 系统中默认为 60 ms。 TIME_WAIT 定时器 主动关闭连接的一方在接收到被动关闭连接的一方发送的 FIN 包，并发送 ACK后，需等待 2MSL 的时间才能关闭连接。这主要是为了可靠的实现 TCP 全双工的连接终止（处理最后 ACK 丢失的情况），避免当前关闭连接与后续连接混淆（让旧连接的包在网络中消逝）。因为在 TIME_WAIT 持续 2 个 MSL 的时间后，端口号才可以被安全的重用。]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>Network</tag>
+        <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[剑指offer-栈和队列(下)]]></title>
+    <url>%2F2019%2F08%2F28%2F%E5%89%91%E6%8C%87offer-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97-%E4%B8%8B%2F</url>
+    <content type="text"><![CDATA[秋招，来了！ 翻转单词顺序列题目描述 牛客最近来了一个新员工Fish，每天早晨总是会拿着一本英文杂志，写些句子在本子上。同事Cat对Fish写的内容颇感兴趣，有一天他向Fish借来翻看，但却读不懂它的意思。例如，“student. a am I”。后来才意识到，这家伙原来把句子单词的顺序翻转了，正确的句子应该是“I am a student.”。Cat对一一的翻转这些单词顺序可不在行，你能帮助他么？ 题解 1 把字符串按照空格切分成字符串列表，然后将列表反转，再使用 join 方法组合成新的字符串即可。 12345678910# -*- coding:utf-8 -*-class Solution: def ReverseSentence(self, s): if not s: return "" src = s.strip().split() if not src: return s src.reverse() return " ".join(src) 题解 2 利用栈，把字符串按照空格切分成字符串列表，把列表当作栈，然后依次弹出最后一个元素。 1234567891011121314# -*- coding:utf-8 -*-class Solution: def ReverseSentence(self, s): if not s: return "" stack = [] stack = s.strip().split() if not stack: return s result = "" while stack: result += stack.pop() result += " " return result.strip() 需要特别注意全是空格的字符串。 滑动窗口的最大值题目描述 给定一个数组和滑动窗口的大小，找出所有滑动窗口里数值的最大值。例如，如果输入数组{2,3,4,2,6,2,5,1}及滑动窗口的大小3，那么一共存在6个滑动窗口，他们的最大值分别为{4,4,6,6,6,5}； 针对数组{2,3,4,2,6,2,5,1}的滑动窗口有以下6个： {[2,3,4],2,6,2,5,1}， {2,[3,4,2],6,2,5,1}， {2,3,[4,2,6],2,5,1}， {2,3,4,[2,6,2],5,1}， {2,3,4,2,[6,2,5],1}， {2,3,4,2,6,[2,5,1]}。 题解 1 暴力法。通过切片得到每个窗口内的元素，然后使用内置函数 max 求每个窗口内的最大值。 1234567891011# -*- coding:utf-8 -*-class Solution: def maxInWindows(self, num, size): max_value = [] if num is None or size == 0: return max_value if size == 1: return num for i in range(len(num) - size + 1): max_value.append(max(num[i:i + size])) return max_value 题解 2 使用双端队列，即可以在队列的两端实现插入和删除操作。让队列的队首元素始终是当前窗口的最大值的索引，且队列的长度始终小于等于 size。在这个队列中，从两端删除元素： 从队首删除元素：因为长度超了，必须删掉当前最左的元素。 从队尾删除元素：把队列中比新元素小的元素的下标弹出，保证队列队头是窗口元素值最大的下标。 1234567891011121314151617# -*- coding:utf-8 -*-class Solution: def maxInWindows(self, num, size): # write code here max_value = [] if num is None or size == 0: return max_value deque = [] for i in range(len(num)): while deque and num[i] &gt;= num[deque[-1]]: # 弹出队列中比新元素小的元素的下标 deque.pop() deque.append(i) if i - deque[0] + 1 &gt; size: # 超过最大长度 deque.pop(0) if i + 1 &gt;= size: # 保存当前最大值 max_value.append(num[deque[0]]) return max_value]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>Exercise</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithm</tag>
+        <tag>剑指offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[剑指offer-链表(下)]]></title>
+    <url>%2F2019%2F08%2F16%2F%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8-%E4%B8%8B%2F</url>
+    <content type="text"><![CDATA[秋招，来了！ 链表中环的入口结点题目描述 给一个链表，若其中包含环，请找出该链表的环的入口结点，否则，输出null。 题解 1 使用快慢指针。快指针每次走两步，慢指针每次走一步。当两个指针相遇时，再让慢指针从头开始，两个指针都开始走，每次走一步，再次相遇时就是环的入口节点。 12345678910111213141516171819202122232425262728# Definition for singly-linked list.# class ListNode(object):# def __init__(self, x):# self.val = x# self.next = Noneclass Solution(object): def entryNodeOfLoop(self, head): """ :type head: ListNode :rtype: ListNode """ if head is None: return None fast = head slow = head while fast and fast.next: fast = fast.next.next # 快指针走两步 slow = slow.next # 慢指针走一步 if fast == slow: # 快慢指针相遇 slow = head # 慢指针从头开始 while fast != slow: # 快慢指针一起走，每次走一步 fast = fast.next slow = slow.next return fast return None 题解 2 遍历链表，用一个列表记录节点值，如果当前节点的值已经存在于记录列表中，则直接返回当前节点。 123456789101112131415161718192021# Definition for singly-linked list.# class ListNode(object):# def __init__(self, x):# self.val = x# self.next = Noneclass Solution(object): def entryNodeOfLoop(self, head): """ :type head: ListNode :rtype: ListNode """ if head is None: return None records = [] while head: if head.val in records: return head else: records.append(head.val) head = head.next 复杂链表的复制题目描述 输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点），返回结果为复制后复杂链表的 head。（注意，输出结果中请不要返回参数中的节点引用，否则判题程序会直接返回空） 题解 1 这个题目的关键在于 random 指针的处理，如果遍历链表一个个节点复制，那么当前节点的random指针指向的节点在复制的链表中可能还不存在。所以，需要用一个字典来保存每个节点及其对应的克隆节点的地址，这样就可以通过查询这个哈希表在 O(1) 的时间内找到 random 指针所指向的节点。 12345678910111213141516171819202122232425262728293031323334# -*- coding:utf-8 -*-# class RandomListNode:# def __init__(self, x):# self.label = x# self.next = None# self.random = Noneclass Solution: # 返回 RandomListNode def Clone(self, pHead): # write code here if pHead is None: return pHead records = &#123;&#125; copy_head = RandomListNode(pHead.label) copy = copy_head head = pHead.next while head: # 将原始链表复制出来，先忽略random指针，但是保存原始节点和复制节点的地址 copy.next = RandomListNode(head.label) copy = copy.next records[id(head)] = copy head = head.next head = pHead copy = copy_head while head: # 处理random指针 if head.random: copy.random = records[id(head.random)] copy = copy.next head = head.next return copy_head 题解 2 也可以不使用字典，拆成三步来处理： 遍历链表，复制每个结点，如复制结点 src 得到 copy，将结点 copy 插到结点 src 后面； 重新遍历链表，复制老结点的随机指针给新结点，如 src.random = copy.random.next; 拆分链表，将链表拆分为原链表和复制后的链表。 1234567891011121314151617181920212223242526272829303132333435# -*- coding:utf-8 -*-# class RandomListNode:# def __init__(self, x):# self.label = x# self.next = None# self.random = Noneclass Solution: # 返回 RandomListNode def Clone(self, pHead): # write code here if pHead is None: return pHead head = pHead while head: # 复制每个节点 copy = RandomListNode(head.label) copy.next = head.next head.next = copy head = copy.next head = pHead while head: # 处理random指针 copy = head.next if head.random: copy.random = head.random.next head = copy.next cur, copy_head = pHead, pHead.next while cur: # 拆分链表 copy = cur.next cur.next = copy.next if copy.next: copy.next = cur.next.next cur = cur.next return copy_head]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>Exercise</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithm</tag>
+        <tag>剑指offer</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[剑指offer-链表(中)]]></title>
+    <url>%2F2019%2F08%2F10%2F%E5%89%91%E6%8C%87offer-%E9%93%BE%E8%A1%A8-%E4%B8%AD%2F</url>
+    <content type="text"><![CDATA[秋招，来了！ 两个链表的第一个公共结点题目描述 输入两个链表，找出它们的第一个公共结点。 题解 1 暴力破解。在第一个链表上顺序遍历每一个结点，每遍历到一个结点，就在第二个链表上顺序遍历每个结点。如果在第二个链表上有一个结点与第一个链表上的结点一样，则说明两个链表在这个结点上重合，于是就找到了他们的公共结点。 12345678910111213141516# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def FindFirstCommonNode(self, pHead1, pHead2): while pHead1: tmp = pHead2 while tmp: if tmp.val == pHead1.val: return tmp tmp = tmp.next pHead1 = pHead1.next return None 题解 2 利用栈结构。如果两个链表有公共结点，那么其公共结点之后的结点就是一样的。因此，可以从后往前遍历两个链表，将链表的每个结点依次压入栈（先进后出）中，再依次弹出。如果栈顶元素不相同，则公共结点就是前一个弹出的元素。 1234567891011121314151617181920212223# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def FindFirstCommonNode(self, pHead1, pHead2): if pHead1 is None or pHead2 is None: return None stack1 = [] stack2 = [] while pHead1: # 链表1入栈 stack1.append(pHead1) pHead1 = pHead1.next while pHead2: # 链表2入栈 stack2.append(pHead2) pHead2 = pHead2.next result = None while stack1 and stack2 and stack1[-1] == stack2[-1]: # 出栈 result = stack1.pop() stack2.pop() return result 题解 3 如果两个链表有公共结点，那么其公共结点之后的结点就是一样的。那么两个链表头到公共结点的距离差就是两个链表的长度差，因此，只需要求出两个链表的长度只差 k，让长的链表先走 k 个结点，再继续同时遍历两个链表，当两个链表的指针相等的时候，就是第一个相同的结点。 123456789101112131415161718192021222324252627282930313233# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def FindFirstCommonNode(self, pHead1, pHead2): len1 = len2 = 0 tmp1 = pHead1 tmp2 = pHead2 while tmp1: len1 += 1 tmp1 = tmp1.next while tmp2: len2 += 1 tmp2 = tmp2.next if len1 &gt; len2: # 先走k步 k = len1 - len2 while k: k -= 1 pHead1 = pHead1.next else: k = len2 - len1 while k: k -= 1 pHead2 = pHead2.next while pHead1 and pHead2: if pHead1 == pHead2: return pHead1 pHead1 = pHead1.next pHead2 = pHead2.next return None 合并两个排序的链表题目描述 输入两个单调递增的链表，输出两个链表合成后的链表，当然我们需要合成后的链表满足单调不减规则。 题解 1 找到两个链表中头节点值相对更小的链表，将其作为主链表，第二个链表中的元素则不断加入到主链表中。具体策略是：主链表定义两个指针，指向两个相邻的元素。当第二个链表中的元素值小于主链表中第二个指针时，将第二个链表的当前元素插入到主链表两个指针指向的元素中间，并调整指针指向。 1234567891011121314151617181920212223242526272829303132# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: # 返回合并后列表 def Merge(self, pHead1, pHead2): if pHead1 is None: return pHead2 if pHead2 is None: return pHead1 head = ListNode(0) if pHead1.val &lt; pHead2.val: head.next = pHead1 secHead = pHead2 else: head.next = pHead2 secHead = pHead1 mainHead = head.next.next while mainHead and secHead: if mainHead.val &lt;= secHead.val: mainHead = mainHead.next else: tmp = secHead tmp.next = mainHead.next mainHead.next = tmp secHead = secHead.next return head.next 题解 2 递归解法。每次比较两个头节点，将较小的合并，再检查下一个节点，最后得到的就是合并后的链表。 123456789101112131415161718192021# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: # 返回合并后列表 def Merge(self, pHead1, pHead2): if pHead1 is None: return pHead2 if pHead2 is None: return pHead1 head = ListNode(0) if pHead1.val &lt; pHead2.val: head = pHead1 head.next = self.Merge(pHead1.next, pHead2) else: head = pHead2 head.next = self.Merge(pHead1, pHead2.next) return head 删除链表中重复的结点题目描述 在一个排序的链表中，存在重复的结点，请删除该链表中重复的结点，重复的结点不保留，返回链表头指针。 例如，链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;5 题解 原本以为是去重的任务，即把重复的元素删除，也就是链表1-&gt;2-&gt;3-&gt;3-&gt;4-&gt;4-&gt;5 处理后为 1-&gt;2-&gt;3-&gt;4-&gt;5： 1234567891011121314151617# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def deleteDuplication(self, pHead): if pHead is None or pHead.next is None: return pHead head = ListNode(0) # 指向pHead的结点 head.next = pHead while pHead: while pHead.next and pHead.val == pHead.next.val: # 去除重复 pHead.next = pHead.next.next pHead = pHead.next # 指针后移 return head.next 但是，题目的意思是只要重复出现过的元素就都删掉，只保留没有重复出现的。因此， 在原链表之前链一个结点 head，用它的 .next 属性返回原列表去重后的链表头指针； 使用两个指针 cur 和 pre，分别指当前判断的结点和当前结点的前一个结点； 因为可能会出现连续重复的结点值，所以需要循环内再套循环判断。 12345678910111213141516171819202122232425# -*- coding:utf-8 -*-# class ListNode:# def __init__(self, x):# self.val = x# self.next = Noneclass Solution: def deleteDuplication(self, pHead): if pHead is None or pHead.next is None: return pHead head = ListNode(0) # 指向pHead的结点 head.next = pHead pre = head cur = pHead while cur: if cur.next and cur.val == cur.next.val: # 处理重复 tmp = cur.next while tmp and tmp.val == cur.val: tmp = tmp.next pre.next = tmp cur = tmp else: # 不是重复的，指针后移 pre = cur cur = cur.next return head.next]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>Exercise</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithm</tag>
+        <tag>剑指offer</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[剑指offer-栈和队列(上)]]></title>
     <url>%2F2019%2F08%2F06%2F%E5%89%91%E6%8C%87offer-%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97-%E4%B8%8A%2F</url>
     <content type="text"><![CDATA[秋招，来了！ 用两个栈实现队列题目描述 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。 题解 入栈时，将元素压入第一个栈；出栈时，先把第一个栈的元素依次弹出并压入到第二个栈，此时第二个栈的栈顶元素即为队头元素，弹出栈顶元素作为结果，然后再把第二个栈的元素依次弹出并压入到第一个栈，最后返回结果即可。 123456789101112131415161718# -*- coding:utf-8 -*-class Solution: def __init__(self): self.stack1 = [] self.stack2 = [] def push(self, node): self.stack1.append(node) def pop(self): while self.stack1: self.stack2.append(self.stack1.pop()) result = None if self.stack2: result = self.stack2.pop() while self.stack2: self.stack1.append(self.stack2.pop()) return result 补充 用两个队列来实现一个栈，完成栈的 Push 和 Pop 操作。入栈时直接压入 queue1 中，出栈时先将除 queue1 最后一个元素外依次 Pop 出队列，并压入 queue2 中，将留在 queue1 中的最后一个元素出队列即为出队元素，之后再次将 queue2 中的元素压回 queue1 中。 123456789101112131415161718192021# -*- coding:utf-8 -*-class Solution: def __init__(self): self.queue1 = [] self.queue2 = [] def push(self, node): self.queue1.append(node) def pop(self): while self.queue1: self.queue2.append(self.queue1[0]) del self.queue1[0] result = None if self.queue2: result = self.queue2[-1] del self.queue2[-1] while self.queue2: self.queue1.append(self.queue2[0]) del self.queue2[0] return result 包含min函数的栈题目描述 定义栈的数据结构，请在该类型中实现一个能够得到栈中所含最小元素的min函数（时间复杂度应为O(1)）。 题解 1 通过列表存放栈的元素，通过内置函数 min 得到列表中最小的元素即为栈中最小的元素。 12345678910111213141516# -*- coding:utf-8 -*-class Solution: def __init__(self): self.stack = [] def push(self, node): self.stack.append(node) def pop(self): if self.stack: return self.stack.pop() else: return None def top(self): return self.stack[-1] def min(self): return min(self.stack) 题解 2 设置一个变量存放最小值，每一次压栈的时候进行比较。再设置一个辅助栈，用于存放当前栈的最小值（设置辅助栈是因为，若最小值出栈了，最小值需要进行更新，因此需要辅助栈来保存次小值）。 12345678910111213141516171819202122232425262728# -*- coding:utf-8 -*-class Solution: def __init__(self): self.stack = [] self.min_stack = [] self.min_item = float('inf') def push(self, node): if node &lt; self.min_item: self.min_item = node self.min_stack.append(node) self.stack.append(node) def pop(self): if self.stack: item = self.stack.pop() if item == self.min_stack[-1]: self.min_stack.pop() self.min_item = self.min_stack[-1] return item else: return None def top(self): return self.stack[-1] def min(self): return self.min_item 栈的压入、弹出序列题目描述 输入两个整数序列，第一个序列表示栈的压入顺序，请判断第二个序列是否可能为该栈的弹出顺序。假设压入栈的所有数字均不相等。例如序列1,2,3,4,5是某栈的压入顺序，序列4,5,3,2,1是该压栈序列对应的一个弹出序列，但4,3,5,1,2就不可能是该压栈序列的弹出序列。（注意：这两个序列的长度是相等的） 题解 借助一个辅助列表，模拟栈的操作，遍历压入序列，每次压入一个元素，然后检查栈顶元素是否与 j 指向的弹出序列的元素相等，如果是则弹出，并检查弹出序列的下一个元素，再次判断栈顶元素是否与 j 指向的弹出序列的元素相等，直到不相等，再执行压入操作。最后判断栈是否为空，如果为空则证明第二个序列就是该栈的弹出序列。 123456789101112131415161718# -*- coding:utf-8 -*-class Solution: def IsPopOrder(self, pushV, popV): len_push = len(pushV) len_pop = len(popV) if len_push != len_pop: return False stack = [] j = 0 for i in range(len_push): stack.append(pushV[i]) while j&lt;len_pop and popV[j] == stack[-1]: stack.pop() j += 1 if stack: return False else: return True]]></content>
@@ -386,12 +451,12 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Python 二分查找]]></title>
-    <url>%2F2019%2F03%2F09%2FPython-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%2F</url>
+    <title><![CDATA[Python 数据结构-二分查找]]></title>
+    <url>%2F2019%2F03%2F09%2FPython-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE%2F</url>
     <content type="text"><![CDATA[Python 二分查找学习。 二分查找 二分查找又称折半查找，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。因此，折半查找方法适用于不经常变动而查找频繁的有序列表。首先，假设表中元素是按升序排列，将表中间位置记录的关键字与查找关键字比较，如果两者相等，则查找成功；否则利用中间位置记录将表分成前、后两个子表，如果中间位置记录的关键字大于查找关键字，则进一步查找前一子表，否则进一步查找后一子表。重复以上过程，直到找到满足条件的记录，使查找成功，或直到子表不存在为止，此时查找不成功。如图所示： 由上述描述可知，使用二分查找有两个前提条件： 待查找的列表必须有序（通常是从小到大的顺序）。 必须使用线性表的顺序存储结构来存储数据（底层用数组实现的）。 二分查找的时间复杂度是 O(logn)，远远好于顺序查找的 O(n) 。 代码实现递归实现1234567891011def binary_search(nums, target): length = len(nums) if length &lt; 1: return False mid = length // 2 if nums[mid] &gt; target: return binary_search(nums[0:mid], target) elif nums[mid] &lt; target: return binary_search(nums[mid+1:], target) else: return True 非递归实现1234567891011def binary_search(nums, target): left = 0 right = len(nums)-1 while left &lt; right: mid = left+right // 2 if nums[mid] &gt; target: right = mid - 1 elif nums[mid] &lt; target: left = mid + 1 else: return True]]></content>
       <categories>
-        <category>Coding</category>
-        <category>Python</category>
+        <category>Algorithm</category>
+        <category>Data structure</category>
       </categories>
       <tags>
         <tag>Python</tag>
@@ -536,8 +601,8 @@
     <url>%2F2019%2F01%2F23%2FPython-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E4%BA%8C%E5%8F%89%E6%A0%91%2F</url>
     <content type="text"><![CDATA[Python 数据结构-二叉树学习。 二叉树是树的特殊一种，具有如下特点：1、每个结点最多有两颗子树，结点的度最大为2。2、左子树和右子树是有顺序的，次序不能颠倒。3、即使某结点只有一个子树，也要区分左右子树。 基本结构节点12345class Node(): def __init__(self, val = 0): self.val = val self.left = None self.right = None 二叉树123class BinaryTree(): def __init__(self): self.root = None 基本操作插入节点123456789101112131415161718def insert_node(self, val): node = Node(val) if not self.root: self.root = node return else: q = [self.root] while True: root = q.pop(0) if root.left is None: root.left = node return elif root.right is None: root.right = node return else: q.append(root.left) q.append(root.right) 判断是否为空12345def is_empty(self): if self.root: return True else: return False 统计节点数12345def count_node(self, root): if root is None: return 0 else: return 1 + self.count_node(root.left) + self.count_node(root.right) 最大深度 递归方式 1234def max_depth(self, root): if root is None: return 0 return 1 + max(self.max_depth(root.left), self.max_depth(root.right)) 非递归方式 123456789101112131415def max_depth(self, root): if root is None: return 0 depth = 0 queue = [root] while len(queue) != 0: depth += 1 node = queue[0] for i in range(len(queue)): if node.left: queue.append(node.left) if node.right: queue.append(node.right) del queue[0] return depth 构造树1234nums = [4, 2, 7, 1, 3, 6, 9]tree = BinaryTree()for i in nums: tree.insert_node(i) 生成如下所示的二叉树： 12345 4 / \ 2 7 / \ / \1 3 6 9 打印树12345def print_tree(self, root): if root: print(root.val, end=" ") self.print_tree(root.left) self.print_tree(root.right) 反转树 递归方式 12345678def invert_tree(self, root): if not root: return root.left, root.right = root.right, root.left if root.left: self.invert_tree(root.left) if root.right: self.invert_tree(root.right) 非递归方式 123456789101112def invert_tree(self, root): if root is None: return root if root.left is not None or root.right is not None: tmp = root.left root.left = root.right root.right = tmp if root.left is not None: self.invert_tree(root.left) if root.right is not None: self.invert_tree(root.right) return root 遍历前序遍历 递归方式 123456789def pre_order(self, root, res=None): if root is None: return [] if res is None: return [] res.append(root.val) self.pre_order(root.left, res) self.pre_order(root.right, res) return res 非递归方式 1234567891011121314def pre_order(self, root): res = [] if not root: return res stack = [] stack.append(root) while stack: root = stack.pop() res.append(root.val) if root.right: stack.append(root.right) if root.left: stack.append(root.left) return res 中序遍历 递归方式 123456789def in_order(self, root, res=None): if root is None: return [] if res is None: return [] self.in_order(root.left, res) res.append(root.val) self.in_order(root.right, res) return res 非递归方式 12345678910111213def in_order(self, root): res = [] if not root: return res stack = [] while root or stack: while root: stack.append(root) root = root.left root = stack.pop() res.append(root.val) root = root.right return res 后序遍历 递归方式 12345678def post_order(self, root): res = [] if root is None: return [] preorder(root.left, res) preorder(root.right, res) res.append(root.val) return res 非递归方式 1234567891011121314151617def post_order(self, root): res_temp = [] res = [] if not root: return res stack = [] stack.append(root) while stack: root = stack.pop() res_temp.append(root.val) if root.left: stack.append(root.left) if root.right: stack.append(root.right) while res_temp: res.append(res_temp.pop()) return res 层次遍历1234567891011121314151617def level_order(self, root): res = [] if not root: return res level = [root] while level: current = [] new_level = [] for node in level: current.append(node.val) if node.left: new_level.append(node.left) if node.right: new_level.append(node.right) level = new_level res.append(current) return res]]></content>
       <categories>
-        <category>Coding</category>
-        <category>Python</category>
+        <category>Algorithm</category>
+        <category>Data structure</category>
       </categories>
       <tags>
         <tag>Python</tag>
@@ -1733,8 +1798,8 @@
         <category>OS</category>
       </categories>
       <tags>
-        <tag>CoAP</tag>
         <tag>Contiki</tag>
+        <tag>CoAP</tag>
       </tags>
   </entry>
   <entry>
@@ -2361,8 +2426,8 @@
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>Http</tag>
         <tag>网络</tag>
+        <tag>Http</tag>
       </tags>
   </entry>
   <entry>
@@ -2426,8 +2491,8 @@
       </categories>
       <tags>
         <tag>Android</tag>
-        <tag>Http</tag>
         <tag>网络</tag>
+        <tag>Http</tag>
       </tags>
   </entry>
   <entry>
@@ -2526,8 +2591,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>文件</tag>
         <tag>Python</tag>
+        <tag>文件</tag>
       </tags>
   </entry>
   <entry>

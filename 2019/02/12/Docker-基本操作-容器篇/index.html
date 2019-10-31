@@ -404,7 +404,7 @@
 
 <a id="more"></a>
 <h4 id="启动与运行"><a href="#启动与运行" class="headerlink" title="启动与运行"></a>启动与运行</h4><p>　　启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态（stopped ） 的容器重新启动。使用 <code>docker run</code> 或 <code>docker container run</code>  命令基于镜像新建并启动一个新的容器。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-d</code> ：表示后台运行；</li>
 <li>选项 <code>-i</code>：以交互模式运行容器，通常与 <code>-t</code> 同时使用；</li>
@@ -444,7 +444,7 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker logs 5ed90f3deafe</div><div class="line">hello world</div><div class="line">hello world</div><div class="line">hello world</div></pre></td></tr></table></figure>
 <p>　　注： 容器是否会长久运行，是和 <code>docker run</code> 或 <code>docker container run</code>  指定的命令有关，和 <code>-d</code> 参数无关。 </p>
 <h4 id="列出容器"><a href="#列出容器" class="headerlink" title="列出容器"></a>列出容器</h4><p>　　命令 <code>docker ps</code> 和 <code>docker container ls</code> 用于列出运行中的容器。如需列出所有容器（包括已停止的容器），可使用 <code>-a</code> 参数。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker ps [OPTIONS]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container ls [OPTIONS]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker ps [OPTIONS]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container ls [OPTIONS]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--all, -a</code> ：显示所有的容器，包括未运行的；</li>
 <li>选项 <code>--filter, -f</code> ：根据条件过滤显示的内容；</li>
@@ -470,20 +470,20 @@
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker run -it ubuntu</div><div class="line">root@76866ccb8619:/# root@iZwz96uyro861qckgz89ljZ:~# 此时，ctrl+p+q 退回到宿主机的终端，容器没有被关闭</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps # 查看容器状态</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         10 seconds ago      Up 9 seconds                            condescending_ptolemy</div></pre></td></tr></table></figure>
 <p>　　此时，如果想要进入运行着的容器则可以使用命令 <code>docker attach</code> 、<code>nsenter</code>和 <code>docker exec</code> 。</p>
 <h5 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a>docker attach</h5><p>　　使用 <code>docker attach</code> 或 <code>docker container attach</code> 命令进入容器。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker attach [OPTIONS] CONTAINER COMMAND [ARG...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container attach [OPTIONS] CONTAINER</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker attach [OPTIONS] CONTAINER COMMAND [ARG...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container attach [OPTIONS] CONTAINER</span></div></pre></td></tr></table></figure>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker attach 76866ccb8619</div><div class="line">root@76866ccb8619:/# 已经进入到容器内</div></pre></td></tr></table></figure>
 <p>　　但是，很多场景下， 使用 <code>docker attach</code> 命令并不方便。 当多个窗口同时 <code>attach</code> 到同⼀个容器时， 所有窗口都会同步显示。 同理， 如果某个窗口发生阻塞， 其他窗口也无法执行操作。 </p>
 <h5 id="nsenter"><a href="#nsenter" class="headerlink" title="nsenter"></a>nsenter</h5><p>　　nsenter 工具可以访问另一个进程的名称空间，它已经被包含在 util-linux 2.23 或更高版本中。为了连接到容器， 需要找到容器第⼀个进程的 PID 。首先，使用 <code>docker inspect</code> 来查看该容器的详细信息，截取 PID 部分进行显示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker inspect -f &#123;&#123;.State.Pid&#125;&#125; $CONTAINER_ID</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker inspect -f &#123;&#123;.State.Pid&#125;&#125; <span class="variable">$CONTAINER_ID</span></span></div></pre></td></tr></table></figure>
 <p>　　获得 PID 后， 然后使用 nsenter 命令进入容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> nsenter --target "$PID" --mount --uts --ipc --net --pid</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nsenter --target <span class="string">"<span class="variable">$PID</span>"</span> --mount --uts --ipc --net --pid</span></div></pre></td></tr></table></figure>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         10 seconds ago      Up 9 seconds                            condescending_ptolemy</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker inspect -f &#123;&#123;.State.Pid&#125;&#125; 76866ccb8619</div><div class="line">31542</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# nsenter --target 31542 --mount --uts --ipc --net --pid    </div><div class="line">mesg: ttyname failed: No such device</div><div class="line">root@76866ccb8619:/# 已经进入到容器内</div></pre></td></tr></table></figure>
 <p>　　测试发现，通过这种，<code>ctrl+p+q</code> 也无法退回到宿主机的终端，需要使用 <code>exit</code> ，此时的 <code>exit</code> 并不会关闭容器。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">root@76866ccb8619:/# 此时，ctrl+p+q 也无法退回到宿主机的终端</div><div class="line">root@76866ccb8619:/# exit</div><div class="line">logout</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         9 minutes ago       Up 9 minutes                            condescending_ptolemy</div></pre></td></tr></table></figure>
 <h5 id="docker-exec（推荐）"><a href="#docker-exec（推荐）" class="headerlink" title="docker exec（推荐）"></a>docker exec（推荐）</h5><p>　　在运行的容器中执行命令 <code>docker exec</code> 。命令格式：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> [OPTIONS] CONTAINER COMMAND [ARG...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-d</code> ：分离模式，在后台运行；</li>
 <li>选项 <code>-i</code> ：即使没有附加也保持 STDIN 打开；</li>
@@ -493,7 +493,7 @@
 <p>　　注意，该命令必须提供两个参数，一是容器名或ID，二是在运行的容器中执行的命令。操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker exec -it 76866ccb8619 /bin/bash</div><div class="line">root@76866ccb8619:/#</div></pre></td></tr></table></figure>
 <h4 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h4><p>　　命令<code>docker stop</code> 和 <code>docker container stop</code> 命令用于终止容器。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker stop [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container stop [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker stop [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container stop [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--time, -t</code> ：强制杀死容器前等待的时间， 单位是秒，默认值 10。</li>
 </ul>
@@ -501,25 +501,25 @@
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker stop 76866ccb8619</div><div class="line">76866ccb8619</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div></pre></td></tr></table></figure>
 <h4 id="启动已终止容器"><a href="#启动已终止容器" class="headerlink" title="启动已终止容器"></a>启动已终止容器</h4><p>　　对于已停止的容器， 可使用 <code>docker start</code> 命令来启动。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker start [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container start [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker start [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container start [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <p>　　操作示例，使用 <code>docker ps -a</code> 找到已停止的容器的ID，然后通过 <code>docker start</code> 命令将其再次启动：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps -a</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         31 minutes ago      Exited (0) 13 minutes ago                       condescending_ptolemy</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker start 76866ccb8619</div><div class="line">76866ccb8619</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         32 minutes ago      Up 3 seconds                            condescending_ptolemy</div></pre></td></tr></table></figure>
 <h4 id="重启容器"><a href="#重启容器" class="headerlink" title="重启容器"></a>重启容器</h4><p>　　使用 <code>docker restart</code> 命令来重启容器。 该命令实际上是先执行了 <code>docker stop</code> 命令， 然后执行了 <code>docker start</code> 命令。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker restart [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container restart [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker restart [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container restart [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--time, -t</code> ：关闭容器前等待的时间， 单位是秒，默认是 10 。</li>
 </ul>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker restart 76866ccb8619</div><div class="line">76866ccb8619</div></pre></td></tr></table></figure>
 <h4 id="导出和导入容器"><a href="#导出和导入容器" class="headerlink" title="导出和导入容器"></a>导出和导入容器</h4><h5 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h5><p>　　使用 <code>docker export</code> 或 <code>docker container export</code> 命令，导出容器快照到本地文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker export [OPTIONS] CONTAINER</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container export [OPTIONS] CONTAINER</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">export</span> [OPTIONS] CONTAINER</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container <span class="built_in">export</span> [OPTIONS] CONTAINER</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--output, -o</code> ：将输入内容写到文件。</li>
 </ul>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         35 minutes ago      Up About a minute                       condescending_ptolemy</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker export 76866ccb8619 &gt; ubuntu.tar</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# ls</div><div class="line">ubuntu.tar</div></pre></td></tr></table></figure>
 <h5 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h5><p>　　使用 <code>docker import</code> 命令，从容器快照文件中再导入为镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-c</code> ：应用docker 指令创建镜像；</li>
 <li>选项 <code>-m</code> ：提交时的说明文字。</li>
@@ -527,19 +527,19 @@
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# cat ubuntu.tar | docker import - my/ubuntu:v1.0  </div><div class="line">sha256:e4f23944020551aaa9da470d3af9520cb6e8d5857c855bedf8f3345e524a57a4</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker image ls</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">my/ubuntu           v1.0                e4f239440205        8 seconds ago       69.8MB</div></pre></td></tr></table></figure>
 <p>　　此外，也可以通过指定 URL 或者某个目录来导入：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker import URL 镜像标签</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker import URL 镜像标签</span></div></pre></td></tr></table></figure>
 <p>　　既可以使用 <code>docker load</code> 来导入镜像存储文件到本地镜像库，也可以使用 <code>docker import</code> 来导入一个容器快照到本地镜像库。区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态） ，而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。 </p>
 <h4 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h4><p>　　命令 <code>docker rm</code> 和 <code>docker container rm</code> 用于删除一个处于终止状态的容器。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker rm [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container rm [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker rm [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container rm [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--force, -f</code> ：通过 SIGKILL 信号强制删除正在运行中的容器；</li>
 <li>选项 <code>--link, -l</code>：删除容器间的网络连接；</li>
 <li>选项 <code>--volumes, -v</code> ：删除与容器关联的卷。</li>
 </ul>
 <p>　　不加 <code>-f</code> 选项的命令只能删除已停止的容器， 如需删除正在运行的容器， 需使用 <code>-f</code> 参数。 如果要删除所有的容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker rm -f $(docker ps -a -q)</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker rm -f $(docker ps -a -q)</span></div></pre></td></tr></table></figure>
 <p>　　清理所有处于终止状态的容器 ：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker container prune</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker container prune</span></div></pre></td></tr></table></figure>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker rm -f 76866ccb8619</div><div class="line">76866ccb8619</div></pre></td></tr></table></figure>
 
@@ -714,7 +714,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">231</span>
+                <span class="site-state-item-count">236</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -736,7 +736,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">102</span>
+                <span class="site-state-item-count">104</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
