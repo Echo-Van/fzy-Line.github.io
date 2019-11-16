@@ -1,16 +1,15 @@
 ---
-title: Python 二分查找
+title: Python 数据结构-二分查找
 tags:
   - Python
-categories:
-  - Coding
-  - Python
+categories: 
+  - Algorithm
+  - Data structure
 abbrlink: 63506
 date: 2019-03-09 10:22:15
 ---
 
 <center>Python 二分查找学习。</center>
-
 <!--more-->
 
 #### 二分查找

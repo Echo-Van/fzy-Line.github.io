@@ -5,13 +5,12 @@ date: 2019-01-23 19:24:08
 tags:
   - Python
   - 二叉树
-categories:
-  - Coding
-  - Python
+categories: 
+  - Algorithm
+  - Data structure
 ---
 
 <center>Python 数据结构-二叉树学习。</center>
-
 <!--more-->
 
 　　二叉树是树的特殊一种，具有如下特点：1、每个结点最多有两颗子树，结点的度最大为2。2、左子树和右子树是有顺序的，次序不能颠倒。3、即使某结点只有一个子树，也要区分左右子树。
