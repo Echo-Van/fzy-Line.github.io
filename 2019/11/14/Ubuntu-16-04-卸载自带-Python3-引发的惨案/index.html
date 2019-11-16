@@ -407,17 +407,17 @@
 
 <a id="more"></a>
 <h4 id="惨案"><a href="#惨案" class="headerlink" title="惨案"></a>惨案</h4><p>　　由于实验需要使用 Python3.6 以上版本，于是决定卸载 Python3.5。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 卸载 python3.5</div><div class="line"><span class="meta">$</span> sudo apt-get remove python3.5</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 卸载 python3.5</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get remove python3.5</span></div></pre></td></tr></table></figure>
 <p>　　没用，终端输入 python3 还是可以使用。于是，网上查找卸载python3.5的方法：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 卸载 python3.5 及其依赖</div><div class="line"><span class="meta">$</span> sudo apt-get remove --auto-remove python3.5</div><div class="line"><span class="meta">#</span> 清除 python3.5</div><div class="line"><span class="meta">$</span> sudo apt-get purge python3.5</div><div class="line">or</div><div class="line"><span class="meta">$</span> sudo apt-get purge --auto-remove python3.5</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 卸载 python3.5 及其依赖</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get remove --auto-remove python3.5</span></div><div class="line"><span class="meta">#</span><span class="bash"> 清除 python3.5</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get purge python3.5</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get purge --auto-remove python3.5</span></div></pre></td></tr></table></figure>
 <p>　　接下来，终端输入 python3 依然还是可以使用。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 删除链接</div><div class="line">sudo rm /usr/bin/python3</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 删除链接</span></div><div class="line">sudo rm /usr/bin/python3</div></pre></td></tr></table></figure>
 <p>　　然后，突然发现侧边菜单栏变灰，感觉不对劲，重启。然后，侧边菜单栏不见了，右键连打开终端的选项都没有了。</p>
 <p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/14-1.jpg" alt="14-1"></p>
 <p>　　于是，查找解决方案：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 切换到命令行模式</div><div class="line">ctrl+alt+t</div><div class="line"><span class="meta">#</span> 失败，再次尝试</div><div class="line">ctrl+alt+F1</div><div class="line"><span class="meta">#</span> 成功</div><div class="line"><span class="meta">$</span> sudo apt install -f</div><div class="line"><span class="meta">#</span> 重新安装桌面</div><div class="line"><span class="meta">$</span> sudo apt-get -f install ubuntu-minimal ubuntu-standard ubuntu-desktop</div><div class="line"><span class="meta">#</span> 重启</div><div class="line"><span class="meta">$</span> sudo reboot</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 切换到命令行模式</span></div><div class="line">ctrl+alt+t</div><div class="line"><span class="meta">#</span><span class="bash"> 失败，再次尝试</span></div><div class="line">ctrl+alt+F1</div><div class="line"><span class="meta">#</span><span class="bash"> 成功</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install -f</span></div><div class="line"><span class="meta">#</span><span class="bash"> 重新安装桌面</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get -f install ubuntu-minimal ubuntu-standard ubuntu-desktop</span></div><div class="line"><span class="meta">#</span><span class="bash"> 重启</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo reboot</span></div></pre></td></tr></table></figure>
 <p>　　重启后，菜单栏又出现了。但是，终端依然没有。可以在  xterm 或者 中尝试安装：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt install gnome-terminal</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install gnome-terminal</span></div></pre></td></tr></table></figure>
 <p>　　但是，一般是不起作用的，还是打不开。由于系统中很多软件都是依赖 python3，所以卸载了 python3 导致了系统崩溃。即使安装了 python3.6+ 并设置了 python3 的软连接，依然不行。</p>
 <p>　　可以尝试重装 python3.5，然后设置 python3 软连接。也可以尝试以下方法：</p>
 <ul>
@@ -427,11 +427,11 @@
 <p>　　惨案发生后，即使菜单栏回来了，终端或许也能打开了，但是使用 apt 安装软件一直报 dpkg 的错误，找了很多方法也没有解决，所以还是决定重新装系统了。</p>
 <h4 id="正确安装-Python-3-6"><a href="#正确安装-Python-3-6" class="headerlink" title="正确安装 Python 3.6+"></a>正确安装 Python 3.6+</h4><p>　　正确的方式就是不要轻易删除 python3 及其依赖。特别是不要删除依赖。在 Ubuntu16.04 中修改 python3 指向 3.6+ 版本以后，某些软件会无法使用，比如终端，需要使用上面连接的方法进行相应的处理。</p>
 <p>　　安装 Python3.6+ 以上版本的正确姿势：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 从官网下载对应版本的源码</div><div class="line">https://www.python.org/downloads/source/</div><div class="line"><span class="meta">#</span> 解压</div><div class="line"><span class="meta">$</span> tar -zxvf xxxxx</div><div class="line"><span class="meta">$</span> cd xxxx</div><div class="line"><span class="meta">#</span> 创建安装目录</div><div class="line"><span class="meta">$</span> sudo mkdir -p /usr/local/python3</div><div class="line"><span class="meta">#</span> 配置、编译、安装</div><div class="line"><span class="meta">$</span> ./configure --preifx=/usr/local/python3 --enable-optimizations</div><div class="line"><span class="meta">$</span> make</div><div class="line"><span class="meta">$</span> sudo make install</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 从官网下载对应版本的源码</span></div><div class="line">https://www.python.org/downloads/source/</div><div class="line"><span class="meta">#</span><span class="bash"> 解压</span></div><div class="line"><span class="meta">$</span><span class="bash"> tar -zxvf xxxxx</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> xxxx</span></div><div class="line"><span class="meta">#</span><span class="bash"> 创建安装目录</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo mkdir -p /usr/<span class="built_in">local</span>/python3</span></div><div class="line"><span class="meta">#</span><span class="bash"> 配置、编译、安装</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./configure --preifx=/usr/<span class="built_in">local</span>/python3 --<span class="built_in">enable</span>-optimizations</span></div><div class="line"><span class="meta">$</span><span class="bash"> make</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo make install</span></div></pre></td></tr></table></figure>
 <p>　　安装以后，不修改 python3 的指向，可以为 python3.6+ 版本指定不同的链接名：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 添加 python37 的软链接</div><div class="line"><span class="meta">$</span> ln -s /usr/local/python3/bin/python3.7 /usr/bin/python37</div><div class="line"><span class="meta">#</span> 添加 pip3 的软链接（这样pip3就是python3.7专用的，也可以起名为 pip37，不影响python3.5的pip3）</div><div class="line"><span class="meta">$</span> ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 添加 python37 的软链接</span></div><div class="line"><span class="meta">$</span><span class="bash"> ln -s /usr/<span class="built_in">local</span>/python3/bin/python3.7 /usr/bin/python37</span></div><div class="line"><span class="meta">#</span><span class="bash"> 添加 pip3 的软链接（这样pip3就是python3.7专用的，也可以起名为 pip37，不影响python3.5的pip3）</span></div><div class="line"><span class="meta">$</span><span class="bash"> ln -s /usr/<span class="built_in">local</span>/python3/bin/pip3.7 /usr/bin/pip3</span></div></pre></td></tr></table></figure>
 <p>　　检测版本，查看是否成功：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> python37 -V</div><div class="line"><span class="meta">$</span> pip3 -V</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python37 -V</span></div><div class="line"><span class="meta">$</span><span class="bash"> pip3 -V</span></div></pre></td></tr></table></figure>
 <p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/14-2.jpg" alt="14-2"></p>
 <p>　　重新安装系统、软件、搭建实验环境，真的是心累啊。谨记，以后不要随便卸载系统自带软件，特别是不要相信某些博客写的彻底清除xxx及其依赖的操作。</p>
 
@@ -499,8 +499,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/10/12/分布式系统-CAP定理/" rel="next" title="分布式系统-CAP定理">
-                <i class="fa fa-chevron-left"></i> 分布式系统-CAP定理
+              <a href="/2019/11/09/分布式一致性协议-Raft/" rel="next" title="分布式一致性协议 Raft">
+                <i class="fa fa-chevron-left"></i> 分布式一致性协议 Raft
               </a>
             
           </div>
@@ -604,7 +604,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">237</span>
+                <span class="site-state-item-count">239</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -626,7 +626,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">104</span>
+                <span class="site-state-item-count">105</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

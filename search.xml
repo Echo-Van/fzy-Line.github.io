@@ -7,17 +7,17 @@
 
 <a id="more"></a>
 <h4 id="惨案"><a href="#惨案" class="headerlink" title="惨案"></a>惨案</h4><p>　　由于实验需要使用 Python3.6 以上版本，于是决定卸载 Python3.5。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 卸载 python3.5</div><div class="line"><span class="meta">$</span> sudo apt-get remove python3.5</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 卸载 python3.5</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get remove python3.5</span></div></pre></td></tr></table></figure>
 <p>　　没用，终端输入 python3 还是可以使用。于是，网上查找卸载python3.5的方法：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 卸载 python3.5 及其依赖</div><div class="line"><span class="meta">$</span> sudo apt-get remove --auto-remove python3.5</div><div class="line"><span class="meta">#</span> 清除 python3.5</div><div class="line"><span class="meta">$</span> sudo apt-get purge python3.5</div><div class="line">or</div><div class="line"><span class="meta">$</span> sudo apt-get purge --auto-remove python3.5</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 卸载 python3.5 及其依赖</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get remove --auto-remove python3.5</span></div><div class="line"><span class="meta">#</span><span class="bash"> 清除 python3.5</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get purge python3.5</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get purge --auto-remove python3.5</span></div></pre></td></tr></table></figure>
 <p>　　接下来，终端输入 python3 依然还是可以使用。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 删除链接</div><div class="line">sudo rm /usr/bin/python3</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 删除链接</span></div><div class="line">sudo rm /usr/bin/python3</div></pre></td></tr></table></figure>
 <p>　　然后，突然发现侧边菜单栏变灰，感觉不对劲，重启。然后，侧边菜单栏不见了，右键连打开终端的选项都没有了。</p>
 <p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/14-1.jpg" alt="14-1"></p>
 <p>　　于是，查找解决方案：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 切换到命令行模式</div><div class="line">ctrl+alt+t</div><div class="line"><span class="meta">#</span> 失败，再次尝试</div><div class="line">ctrl+alt+F1</div><div class="line"><span class="meta">#</span> 成功</div><div class="line"><span class="meta">$</span> sudo apt install -f</div><div class="line"><span class="meta">#</span> 重新安装桌面</div><div class="line"><span class="meta">$</span> sudo apt-get -f install ubuntu-minimal ubuntu-standard ubuntu-desktop</div><div class="line"><span class="meta">#</span> 重启</div><div class="line"><span class="meta">$</span> sudo reboot</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 切换到命令行模式</span></div><div class="line">ctrl+alt+t</div><div class="line"><span class="meta">#</span><span class="bash"> 失败，再次尝试</span></div><div class="line">ctrl+alt+F1</div><div class="line"><span class="meta">#</span><span class="bash"> 成功</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install -f</span></div><div class="line"><span class="meta">#</span><span class="bash"> 重新安装桌面</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get -f install ubuntu-minimal ubuntu-standard ubuntu-desktop</span></div><div class="line"><span class="meta">#</span><span class="bash"> 重启</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo reboot</span></div></pre></td></tr></table></figure>
 <p>　　重启后，菜单栏又出现了。但是，终端依然没有。可以在  xterm 或者 中尝试安装：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt install gnome-terminal</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install gnome-terminal</span></div></pre></td></tr></table></figure>
 <p>　　但是，一般是不起作用的，还是打不开。由于系统中很多软件都是依赖 python3，所以卸载了 python3 导致了系统崩溃。即使安装了 python3.6+ 并设置了 python3 的软连接，依然不行。</p>
 <p>　　可以尝试重装 python3.5，然后设置 python3 软连接。也可以尝试以下方法：</p>
 <ul>
@@ -27,11 +27,11 @@
 <p>　　惨案发生后，即使菜单栏回来了，终端或许也能打开了，但是使用 apt 安装软件一直报 dpkg 的错误，找了很多方法也没有解决，所以还是决定重新装系统了。</p>
 <h4 id="正确安装-Python-3-6"><a href="#正确安装-Python-3-6" class="headerlink" title="正确安装 Python 3.6+"></a>正确安装 Python 3.6+</h4><p>　　正确的方式就是不要轻易删除 python3 及其依赖。特别是不要删除依赖。在 Ubuntu16.04 中修改 python3 指向 3.6+ 版本以后，某些软件会无法使用，比如终端，需要使用上面连接的方法进行相应的处理。</p>
 <p>　　安装 Python3.6+ 以上版本的正确姿势：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 从官网下载对应版本的源码</div><div class="line">https://www.python.org/downloads/source/</div><div class="line"><span class="meta">#</span> 解压</div><div class="line"><span class="meta">$</span> tar -zxvf xxxxx</div><div class="line"><span class="meta">$</span> cd xxxx</div><div class="line"><span class="meta">#</span> 创建安装目录</div><div class="line"><span class="meta">$</span> sudo mkdir -p /usr/local/python3</div><div class="line"><span class="meta">#</span> 配置、编译、安装</div><div class="line"><span class="meta">$</span> ./configure --preifx=/usr/local/python3 --enable-optimizations</div><div class="line"><span class="meta">$</span> make</div><div class="line"><span class="meta">$</span> sudo make install</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 从官网下载对应版本的源码</span></div><div class="line">https://www.python.org/downloads/source/</div><div class="line"><span class="meta">#</span><span class="bash"> 解压</span></div><div class="line"><span class="meta">$</span><span class="bash"> tar -zxvf xxxxx</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> xxxx</span></div><div class="line"><span class="meta">#</span><span class="bash"> 创建安装目录</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo mkdir -p /usr/<span class="built_in">local</span>/python3</span></div><div class="line"><span class="meta">#</span><span class="bash"> 配置、编译、安装</span></div><div class="line"><span class="meta">$</span><span class="bash"> ./configure --preifx=/usr/<span class="built_in">local</span>/python3 --<span class="built_in">enable</span>-optimizations</span></div><div class="line"><span class="meta">$</span><span class="bash"> make</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo make install</span></div></pre></td></tr></table></figure>
 <p>　　安装以后，不修改 python3 的指向，可以为 python3.6+ 版本指定不同的链接名：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 添加 python37 的软链接</div><div class="line"><span class="meta">$</span> ln -s /usr/local/python3/bin/python3.7 /usr/bin/python37</div><div class="line"><span class="meta">#</span> 添加 pip3 的软链接（这样pip3就是python3.7专用的，也可以起名为 pip37，不影响python3.5的pip3）</div><div class="line"><span class="meta">$</span> ln -s /usr/local/python3/bin/pip3.7 /usr/bin/pip3</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 添加 python37 的软链接</span></div><div class="line"><span class="meta">$</span><span class="bash"> ln -s /usr/<span class="built_in">local</span>/python3/bin/python3.7 /usr/bin/python37</span></div><div class="line"><span class="meta">#</span><span class="bash"> 添加 pip3 的软链接（这样pip3就是python3.7专用的，也可以起名为 pip37，不影响python3.5的pip3）</span></div><div class="line"><span class="meta">$</span><span class="bash"> ln -s /usr/<span class="built_in">local</span>/python3/bin/pip3.7 /usr/bin/pip3</span></div></pre></td></tr></table></figure>
 <p>　　检测版本，查看是否成功：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> python37 -V</div><div class="line"><span class="meta">$</span> pip3 -V</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python37 -V</span></div><div class="line"><span class="meta">$</span><span class="bash"> pip3 -V</span></div></pre></td></tr></table></figure>
 <p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/14-2.jpg" alt="14-2"></p>
 <p>　　重新安装系统、软件、搭建实验环境，真的是心累啊。谨记，以后不要随便卸载系统自带软件，特别是不要相信某些博客写的彻底清除xxx及其依赖的操作。</p>
 ]]></content>
@@ -41,6 +41,73 @@
       <tags>
         <tag>Mysql</tag>
         <tag>Ubuntu</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>分布式一致性协议 Raft</title>
+    <url>/2019/11/09/%E5%88%86%E5%B8%83%E5%BC%8F%E4%B8%80%E8%87%B4%E6%80%A7%E5%8D%8F%E8%AE%AE-Raft/</url>
+    <content><![CDATA[<center>分布式一致性协议 Raft 学习。</center>
+
+<a id="more"></a>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>　　Raft 协议有效的借鉴了美国总统大选的策略，采用精英（Raft 称呼这个精英为 Leader）领导全局的方案，整个集群中只有 Leader 可以处理 client 发送过来的请求，其他非 Leader 节点即使接收到请求也必须将其转发到 Leader 节点进行处理。Raft 集群中的成员分三种角色：</p>
+<ul>
+<li>Leader：领导者，处理所有客户端交互，日志复制等，一般一次只有一个Leader。</li>
+<li>Follower：追随者，类似选民，完全被动。</li>
+<li>Condidate：候选人，可以被选为一个新的领导人。</li>
+</ul>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/9-1.jpg" alt="9-1"></p>
+<p>　　英文动画演示：<a href="http://thesecretlivesofdata.com/raft/" target="_blank" rel="external">http://thesecretlivesofdata.com/raft/</a></p>
+<h4 id="选举过程"><a href="#选举过程" class="headerlink" title="选举过程"></a>选举过程</h4><h5 id="两个超时"><a href="#两个超时" class="headerlink" title="两个超时"></a>两个超时</h5><ul>
+<li>选举超时</li>
+</ul>
+<p>　　为了每个节点同时发起投票，会给每个节点分配一个随机的选举超时时间（Election Timeout），即从Follower 状态成为 Candidate 状态需要等待的时间，随机分配在 150ms 到 300ms 之间。在这个时间内，节点必须等待，不能成为 Candidate 状态。</p>
+<ul>
+<li>心跳超时</li>
+</ul>
+<p>　　Leader 会固定间隔时间向 Follower 节点发送心跳消息，这个固定间隔时间被称为心跳超时（Heartbeat Timeout）</p>
+<h5 id="选举流程"><a href="#选举流程" class="headerlink" title="选举流程"></a>选举流程</h5><ol>
+<li><p>在集群初始状态下是没有 Leader 的，集群中所有成员均是 Follower。在选举开始期间，任何一个服务器（Follower）都可以成为一个候选者（Candidate）。</p>
+</li>
+<li><p>每一个节点都有自己的计时器，当计时达到了超时时间（Election Timeout），该节点会转变为Candidate。它向其他服务器（Follower）发出要求选举自己的请求。</p>
+</li>
+<li><p>其他收到投票请求且还未投票的服务器（Follower）节点会发出 OK 进行投票，发起者收到反馈通知后</p>
+<p>票数增加。</p>
+</li>
+<li><p>如果在这个过程中，候选者可以自己选自己，只要达到 N/2 + 1 的大多数票，候选人就可以成为Leader，其余落败的 Condidate 角色转变为 Follower 开始服从 Leader 领导。</p>
+</li>
+<li><p>选举出 Leader 后 Leader 会定期向所有 Follower 发送 heartbeat 来维护其 Leader 地位，并且可以向选民（Follower）发出指令，比如进行日志复制。</p>
+</li>
+</ol>
+<h5 id="重新选举"><a href="#重新选举" class="headerlink" title="重新选举"></a>重新选举</h5><p>　　如果所有 Condidate 均投票给自己，这样无法决出票数多的一方。Raft 算法为了解决这个问题引入了北洋时期袁世凯获选大总统的谋略，即选不出 Leader 不罢休，直到选出为止，一轮选不出 Leader，便令所有 Condidate 随机 sleep（Raft 论文称为 timeout，选举超时）一段时间，然后马上开始新一轮的选举，这里的随机 sleep 就起了很关键的因素，第一个从 sleap 状态恢复过来的 Condidate 会向所有 Condidate 发出投票给我的申请，这时还没有苏醒的 Condidate 就只能投票给已经苏醒的 Condidate ，因此可以有效解决 Condiadte 均投票给自己的故障，便可快速的决出 Leader。</p>
+<p>　　如果 Follower 一段时间后未收到 Leader 的心跳则认为 Leader 已经挂掉，便转变自身角色为 Condidate，同时发起新一轮的选举，产生新的 Leader，其继续承担日志复制等指导工作。</p>
+<h4 id="日志复制"><a href="#日志复制" class="headerlink" title="日志复制"></a>日志复制</h4><p>　　日志复制（Log Replication）主要作用是用于保证节点的一致性，这阶段所做的操作也是为了保证一致性与高可用性。</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/9-2.jpg" alt="9-2"></p>
+<p>　　数据一致性策略：Raft 协议强依赖 Leader 节点来确保集群数据一致性。即 Client 发送过来的数据均先到达 Leader 节点，Leader 接收到数据后，先将数据标记为 uncommitted 状态，随后 Leader 开始向所有 Follower 复制数据并等待响应，在获得集群中大于 N/2 个 Follower 的已成功接收数据完毕的响应后，Leader 将数据的状态标记为 committed，随后向 client 发送数据已接收确认，再向所有 Follower 节点发送通知表明该数据状态为committed。</p>
+<p>　　日志复制流程：</p>
+<ol>
+<li>假设 Leader 已经选出，这时客户端向 Leader 发出增加日志的请求。</li>
+<li>Leader 要求 Follower 遵从他的复制指令，都将这个新的日志内容追加到他们各自日志中。如果一次复制失败，会不断进行重试。</li>
+<li>大多数 Follower 服务器将新的日志写入磁盘文件后，确认追加成功，发出 Commited OK。</li>
+<li>随后提交自己的日志，向 client 发送数据已接收确认。在下一个心跳中，Leader会通知所有 Follower 更新 commited 项目。</li>
+</ol>
+<h4 id="安全性"><a href="#安全性" class="headerlink" title="安全性"></a>安全性</h4><h5 id="选举限制"><a href="#选举限制" class="headerlink" title="选举限制"></a>选举限制</h5><p>　　拥有最新的已提交的日志的 Follower 才有资格成为 Leader。</p>
+<p>　　Candidate 在请求其他服务器（Follower）投票给自己时，要带上自己的最后一条日志的 term 和日志 index，其他节点收到消息时，如果发现自己的日志比请求中携带的更新，则拒绝投票。日志比较的原则是，如果本地的最后一条日志的 term 更大，则 term 大的更新，如果 term 一样大，则日志 index 更大的更新。</p>
+<h5 id="日志提交限制"><a href="#日志提交限制" class="headerlink" title="日志提交限制"></a>日志提交限制</h5><p>　　Leader 只能推进 commit index 来提交当前 term 的已经复制到大多数服务器上的日志，旧 term 日志的提交要等到提交当前 term 的日志来间接提交（log index 小于 commit index 的日志被间接提交）。通俗来说，Leader 可以复制前面 term 的日志，但是不会主动提交前面 term 的日志。而是通过提交当前 term 的日志，而间接地提交前面 term 的日志。</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/9-3.png" alt="9-3"></p>
+<ol>
+<li>在 (a) 中，S1 是 Leader，部分的复制了索引位置 2 的日志条目。</li>
+<li>在 (b) 中，S1 离线，然后 S5 在任期 3 里通过 S3、S4 和自己的选票赢得选举，然后从客户端接收了一条不一样的日志条目放在了索引 2 处。</li>
+<li>然后到 (c)，S5 又离线了；S1 重新启动，选举成功，开始复制日志。在这时，来自任期 2 的那条日志已经被复制到了集群中的大多数机器上，但是还没有被提交。</li>
+<li>如果 S1 在 (d) 中又离线了，S5 可以重新被选举成功（通过来自 S2，S3 和 S4 的选票），然后覆盖了他们在索引 2 处的日志。反之，如果在离线之前，S1 把自己主导的新任期里产生的日志条目复制到了大多数机器上，就如 (e) 中那样，那么在后面任期里面这些新的日志条目就会被提交（因为S5 就不可能选举成功）。 这样在同一时刻就同时保证了，之前的所有老的日志条目就会被提交。</li>
+</ol>
+<p>　　在上图中，trem 2 内产生的日志可能在 (d) 的情况下被覆盖，所以在出现 (c) 的状态下，Leader 节点是不能提交 term 2 的日志条目的，即不能更新 commit index。</p>
+<p>　　在上图 (e) 的情况下，commit index 的变化应该是1-&gt;3，即在 (c) 的情况下，term 4 在索引 3 的位置 commit 了一条消息，commit index 直接被修改成 3。而 term 2 的那条日志会通过 Log Matching Property 最终被复制到大多数节点且被应用。</p>
+]]></content>
+      <categories>
+        <category>Distributed</category>
+      </categories>
+      <tags>
+        <tag>Raft</tag>
       </tags>
   </entry>
   <entry>
@@ -91,6 +158,37 @@
       <tags>
         <tag>Network</tag>
         <tag>TCP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>剑指offer-数组</title>
+    <url>/2019/09/01/%E5%89%91%E6%8C%87offer-%E6%95%B0%E7%BB%84/</url>
+    <content><![CDATA[<p><center>秋招，来了！</center><br><a id="more"></a></p>
+<h4 id="数组中出现次数超过一半的数字"><a href="#数组中出现次数超过一半的数字" class="headerlink" title="数组中出现次数超过一半的数字"></a>数组中出现次数超过一半的数字</h4><h5 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h5><p>　　数组中有一个数字出现的次数超过数组长度的一半，请找出这个数字。例如输入一个长度为9的数组{1,2,3,2,2,2,5,4,2}。由于数字2在数组中出现了5次，超过数组长度的一半，因此输出2。如果不存在则输出0。</p>
+<h5 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h5><p>　　参考以前写的博客：<a href="http://fanzhenyu.cn/2019/04/27/找出数组中出现次数超过一半的数/" target="_blank" rel="external">找出数组中出现次数超过一半的数</a></p>
+<h4 id="数组中重复的数字"><a href="#数组中重复的数字" class="headerlink" title="数组中重复的数字"></a>数组中重复的数字</h4><h5 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h5><p>　　在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任意一个重复的数字。 例如，如果输入长度为7的数组{2,3,1,0,2,5,3}，那么对应的输出是第一个重复的数字2。</p>
+<h5 id="题解-1"><a href="#题解-1" class="headerlink" title="题解 1"></a>题解 1</h5><p>　　遍历数组，使用 Python 的关键字 in 判断该元素是否在其之后还出现过，如果是则直接返回。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]</span></div><div class="line">    <span class="comment"># 函数返回True/False</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">duplicate</span><span class="params">(self, numbers, duplication)</span>:</span></div><div class="line">        length = len(numbers)</div><div class="line">        <span class="keyword">if</span> numbers <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> length==<span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</div><div class="line">            <span class="keyword">if</span> numbers[i] <span class="keyword">in</span> numbers[i+<span class="number">1</span>:]:</div><div class="line">                duplication[<span class="number">0</span>] = numbers[i]</div><div class="line">                <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div></pre></td></tr></table></figure>
+<h5 id="题解-2"><a href="#题解-2" class="headerlink" title="题解 2"></a>题解 2</h5><p>　　用布尔列表表示对应的值是否已经出现过 ，如果是则返回该值。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]</span></div><div class="line">    <span class="comment"># 函数返回True/False</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">duplicate</span><span class="params">(self, numbers, duplication)</span>:</span></div><div class="line">        length = len(numbers)</div><div class="line">        <span class="keyword">if</span> numbers <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> length == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">        bool_list = [<span class="keyword">False</span>] * length</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</div><div class="line">            <span class="keyword">if</span> bool_list[numbers[i]]:  <span class="comment"># 重复出现</span></div><div class="line">                duplication[<span class="number">0</span>] = numbers[i]</div><div class="line">                <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">            bool_list[numbers[i]] = <span class="keyword">True</span>  <span class="comment"># 标记为已经出现</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div></pre></td></tr></table></figure>
+<h5 id="题解-3"><a href="#题解-3" class="headerlink" title="题解 3"></a>题解 3</h5><p>　　由于数组长度为 n，且所有数字都在 0 到 n-1 的范围内，因此考虑利用数组下标。从下标 0 开始，对每个元素，若 <code>numbers[i]</code> 不等于 <code>i</code>，则交换 <code>numbers[i]</code> 和 <code>numbers[numbers[i]]</code>，直至 <code>i</code> 和 <code>numbers[i]</code> 相等继续循环，或 <code>numbers[i]</code> 和 <code>numbers[numbers[i]]</code> 相等即遇到重复元素返回 True。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># 这里要特别注意~找到任意重复的一个值并赋值到duplication[0]</span></div><div class="line">    <span class="comment"># 函数返回True/False</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">duplicate</span><span class="params">(self, numbers, duplication)</span>:</span></div><div class="line">        <span class="comment"># write code here</span></div><div class="line">        length = len(numbers)</div><div class="line">        <span class="keyword">if</span> numbers <span class="keyword">is</span> <span class="keyword">None</span> <span class="keyword">or</span> length == <span class="number">0</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(length):</div><div class="line">            <span class="keyword">while</span> i != numbers[i]:</div><div class="line">                <span class="keyword">if</span> numbers[i] == numbers[numbers[i]]:</div><div class="line">                    duplication[<span class="number">0</span>] = numbers[i]</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">                tmp = numbers[numbers[i]]</div><div class="line">                numbers[numbers[i]] = numbers[i]</div><div class="line">                numbers[i] = tmp</div><div class="line">        <span class="keyword">return</span> <span class="keyword">False</span></div></pre></td></tr></table></figure>
+<h4 id="调整数组顺序使奇数位于偶数前面"><a href="#调整数组顺序使奇数位于偶数前面" class="headerlink" title="调整数组顺序使奇数位于偶数前面"></a>调整数组顺序使奇数位于偶数前面</h4><h5 id="题目描述-2"><a href="#题目描述-2" class="headerlink" title="题目描述"></a>题目描述</h5><p>　　输入一个整数数组，实现一个函数来调整该数组中数字的顺序，使得所有的奇数位于数组的前半部分，所有的偶数位于数组的后半部分，并保证奇数和奇数，偶数和偶数之间的相对位置不变。</p>
+<h5 id="题解-1-1"><a href="#题解-1-1" class="headerlink" title="题解 1"></a>题解 1</h5><p>　　一次遍历，判断每个数的奇偶性，然后使用两个列表来存储奇数和偶数，最后将两个列表合并。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reOrderArray</span><span class="params">(self, array)</span>:</span></div><div class="line">        odd = []</div><div class="line">        even = []</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> array:</div><div class="line">            <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:</div><div class="line">                even.append(i)</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                odd.append(i)</div><div class="line">        odd.extend(even)</div><div class="line">        <span class="keyword">return</span> odd</div></pre></td></tr></table></figure>
+<h5 id="题解-2-1"><a href="#题解-2-1" class="headerlink" title="题解 2"></a>题解 2</h5><p>　　考虑用双指针。第一个指针初始化时指向数组的第一个数字，它只向后移动；第二个指针初始化时指向数组的最后一个数字，它指向前移动。如果第一个指针的数字是偶数，并且第二个指针指向的数字是奇数，就交换两个数字。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reOrderArray</span><span class="params">(self, array)</span>:</span></div><div class="line">        left = <span class="number">0</span></div><div class="line">        right = len(array) - <span class="number">1</span></div><div class="line">        <span class="keyword">while</span> left &lt;= right:</div><div class="line">            <span class="keyword">while</span> array[left] % <span class="number">2</span> != <span class="number">0</span>:</div><div class="line">                left += <span class="number">1</span></div><div class="line">            <span class="keyword">while</span> array[right] % <span class="number">2</span> != <span class="number">1</span>:</div><div class="line">                right -= <span class="number">1</span></div><div class="line">            <span class="keyword">if</span> left &lt; right:</div><div class="line">                array[left], array[right] = array[right], array[left]</div><div class="line">        <span class="keyword">return</span> array</div></pre></td></tr></table></figure>
+<p>　　<strong>注意，题目要求保证奇数和奇数，偶数和偶数之间的相对位置不变。</strong></p>
+<p>　　同样采用双指针，第一个指针 left 从左向右遍历，找到第一个偶数，第二个指针 right 从 left+1 开始向后找，直到找到第一个奇数。然后，将 [left,…,right-1] 的元素整体后移一位，最后将找到的奇数放入 left 的位置，并且第一个指针继续向后进行下一次查找。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="comment"># -*- coding:utf-8 -*-</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">reOrderArray</span><span class="params">(self, array)</span>:</span></div><div class="line">        left = <span class="number">0</span></div><div class="line">        length = len(array)</div><div class="line">        <span class="keyword">while</span> left &lt; length:</div><div class="line">            <span class="keyword">while</span> left &lt; length <span class="keyword">and</span> array[left] % <span class="number">2</span> != <span class="number">0</span>:</div><div class="line">                left += <span class="number">1</span></div><div class="line">            right = left + <span class="number">1</span></div><div class="line">            <span class="keyword">while</span> right &lt; length <span class="keyword">and</span> array[right] % <span class="number">2</span> != <span class="number">1</span>:</div><div class="line">                right += <span class="number">1</span></div><div class="line">            <span class="keyword">if</span> right &lt; length:</div><div class="line">                tmp = array[right]</div><div class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(right - <span class="number">1</span>, left - <span class="number">1</span>, <span class="number">-1</span>):</div><div class="line">                    array[i + <span class="number">1</span>] = array[i]</div><div class="line">                array[left] = tmp</div><div class="line">            <span class="keyword">else</span>:</div><div class="line">                <span class="keyword">break</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> array</div></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Algorithm</category>
+        <category>Exercise</category>
+      </categories>
+      <tags>
+        <tag>Python</tag>
+        <tag>Algorithm</tag>
+        <tag>剑指offer</tag>
       </tags>
   </entry>
   <entry>
@@ -7024,10 +7122,10 @@
 <a id="more"></a>
 <p>　　iwconfig 用于 Linux 系统配置无线网络设备或显示无线网络设备信息。iwconfig 命令类似于 ifconfig 命令，但是他配置对象是无线网卡，它对网络设备进行无线操作，如设置无线通信频段。</p>
 <h4 id="iwconfig-安装"><a href="#iwconfig-安装" class="headerlink" title="iwconfig 安装"></a>iwconfig 安装</h4><p>　　Ubuntu 下使用如下命令安装，wireless-tools 工具包中包含了 iwconfig。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt install wireless-tools</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install wireless-tools</span></div></pre></td></tr></table></figure>
 <h4 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Usage: iwconfig [interface]</div><div class="line">                interface essid &#123;NNN|any|on|off&#125;</div><div class="line">                interface mode &#123;managed|ad-hoc|master|...&#125;</div><div class="line">                interface freq N.NNN[k|M|G]</div><div class="line">                interface channel N</div><div class="line">                interface bit &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface rate &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface enc &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface key &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface power &#123;period N|timeout N|saving N|off&#125;</div><div class="line">                interface nickname NNN</div><div class="line">                interface nwid &#123;NN|on|off&#125;</div><div class="line">                interface ap &#123;N|off|auto&#125;</div><div class="line">                interface txpower &#123;NmW|NdBm|off|auto&#125;</div><div class="line">                interface sens N</div><div class="line">                interface retry &#123;limit N|lifetime N&#125;</div><div class="line">                interface rts &#123;N|auto|fixed|off&#125;</div><div class="line">                interface frag &#123;N|auto|fixed|off&#125;</div><div class="line">                interface modulation &#123;11g|11a|CCK|OFDMg|...&#125;</div><div class="line">                interface commit</div><div class="line">       Check man pages for more details.</div></pre></td></tr></table></figure>
 <h5 id="essid"><a href="#essid" class="headerlink" title="essid"></a>essid</h5><p>　　设置无线网卡的 ESSID(Extension Service Set ID)。通过 ESSID 来区分不同的无线网络，正常情况下只有相同 ESSID 的无线站点才可以互相通讯，除非想监听无线网络。其后的参数为双引号括起的 ESSID 字符串，或者是any/on/off，如果 ESSID字符串中包含any/no/off，则需要在前面加”–”。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig eth0 essid any</div><div class="line"><span class="meta">$</span> iwconfig eth0 essid "My Network""</div><div class="line"><span class="meta">$</span> iwconfig eth0 essid -- "ANY""</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid <span class="string">"My Network"</span><span class="string">"</span></span></div><div class="line"><span class="meta">$</span><span class="bash"><span class="string"> iwconfig eth0 essid -- "</span>ANY<span class="string">""</span></span></div></pre></td></tr></table></figure>
 <h5 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h5><p>　　设置无线网卡的工作模式，可以是</p>
 <ul>
 <li>Ad-hoc：不带 AP 的点对点无线网络</li>
@@ -7038,23 +7136,23 @@
 <li>Monitor：监听模式</li>
 <li>Auto：由无线网卡自动选择工作模式</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 mode Managed</div><div class="line"><span class="meta">$</span> iwconfig wlan0 mode Ad-Hoc</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Managed</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Ad-Hoc</span></div></pre></td></tr></table></figure>
 <h5 id="freq-channel"><a href="#freq-channel" class="headerlink" title="freq/channel"></a>freq/channel</h5><p>　　设置无线网卡的工作频率或者频道，小于 1000 的参数被认为是频道，大于 10000 的参数被认为是频率。频率单位为 Hz，可以在数字后面附带 k, M, G 来改变数量级，比如 2.4G。频道从1开始。使用 lwlist 工具可以查看无线网卡支持的频率和频道。参数 off/auto 指示无线网络自动挑选频率。</p>
 <p>　　注意：如果是 Managed 模式，AP 会指示无线网卡的工作频率，因此该设置的参数会被忽略。Ad-hoc 模式下只使用该设定的频率初始无线网络，如果加入已经存在的 Ad-hoc 网络则会忽略该设置的频率参数。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 freq 2422000000</div><div class="line"><span class="meta">$</span> iwconfig wlan0 freq 2.422G</div><div class="line"><span class="meta">$</span> iwconfig wlan0 channel 3</div><div class="line"><span class="meta">$</span> iwconfig wlan0 channel auto</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2422000000</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2.422G</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel auto</span></div></pre></td></tr></table></figure>
 <h5 id="rate-bit"><a href="#rate-bit" class="headerlink" title="rate/bit"></a>rate/bit</h5><p>　　如果无线网卡支持多速率，则可以通过该命令设置工作的速率。小于 1000 的参数由具体的无线网卡驱动定义，一般是传输速率的索引值，大于 1000 的为速率，单位 bps，可以在数字后面附带 k，M，G 来指定数量级。auto 参数让无线网卡自动选择速率 fixed 参数让无线网卡不使用自动速率模式。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 rate 11M</div><div class="line"><span class="meta">$</span> iwconfig wlan0 rate auto</div><div class="line"><span class="meta">$</span> iwconfig wlan0 rate 5.5M auto</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 11M</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 5.5M auto</span></div></pre></td></tr></table></figure>
 <h5 id="ap"><a href="#ap" class="headerlink" title="ap"></a>ap</h5><p>　　连接到指定的 AP 或者无线网络，后面的参数可以是 AP 的 MAC 地址，也可以是 iwlist scan 出来的标识符。如果是 Ad-hoc，则连接一个已经存在的 Ad-hoc 网络。使用 off 参数让无线网卡不改变当前已连接的 AP 下进入自动模式。any/auto 参数，无线网卡自动选择最好的 AP。</p>
 <p>　　注意：如果无线信号低到一定程度，无线网络会进入自动选择AP模式。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 ap 00:60:1D:01:23:45</div><div class="line"><span class="meta">$</span> iwconfig wlan0 ap any</div><div class="line"><span class="meta">$</span> iwconfig wlan0 ap off</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap 00:60:1D:01:23:45</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap off</span></div></pre></td></tr></table></figure>
 <h5 id="key-enc"><a href="#key-enc" class="headerlink" title="key/enc"></a>key/enc</h5><p>　　设置无线网卡使用的加密密钥，此处为设置 WEP 模式的加密 key，如果要使用 WPA，需要 wpa_supplicant 工具包。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 key 0123-4567-89</div><div class="line"><span class="meta">$</span> iwconfig wlan0 key [3] 0123-4567-89</div><div class="line"><span class="meta">$</span> iwconfig wlan0 key s:password [2]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key [3] 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key s:password [2]</span></div></pre></td></tr></table></figure>
 <h5 id="power"><a href="#power" class="headerlink" title="power"></a>power</h5><p>　　设置无线网卡的电源管理模式。period ‘value’  指定唤醒的周期，timeout ‘value’ 指定进入休眠的等待时间，这两个参数之前可以加 min 和 max 修饰，这些值的单位为秒，可以附加 m 和 u 来指定毫秒和微秒。off/on 参数指定是否允许电源管理，all/unicast/multicast 指定允许唤醒的数据包类型。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 power period 2</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power 500m unicast</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power timeout 300u all</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power saving 3</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power off</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power min period 2 power max period 4</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power period 2</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power 500m unicast</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power timeout 300u all</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power saving 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power off</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power min period 2 power max period 4</span></div></pre></td></tr></table></figure>
 <h5 id="txpower"><a href="#txpower" class="headerlink" title="txpower"></a>txpower</h5><p>　　如果无线网卡支持多发射功率设定，则使用该参数设定发射，单位为 dBm，如果指定为 W（毫瓦），只转换公式为：<br>dBm=30+log(W)。参数 on/off 可以打开和关闭发射单元，auto 和 fixed 指定无线是否自动选择发射功率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower 15</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower 30mW</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower auto</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower off</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 15</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 30mW</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower off</span></div></pre></td></tr></table></figure>
 <h5 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h5><p>　　设置无线网卡的重传机制。limit ‘value’  指定最大重传次数；lifetime ‘value’ 指定最长重试时间，单位为秒，可以附带 m 和 u 来指定单位为毫秒和微秒。如果无线网卡支持自动模式，则在 limit 和 lifetime 之前还可以附加 min 和 max 来指定上下限值。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 retry 16</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry lifetime 300m</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry short 12</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry min limit 8</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry 16</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry lifetime 300m</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry short 12</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry min <span class="built_in">limit</span> 8</span></div></pre></td></tr></table></figure>
 <h5 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h5><p>　　提交所有的参数修改给无线网卡驱动。有些无线网卡驱动会先缓存无线网卡参数修，使用这个命令来让无线网卡的参数修改生效。不过一般不需要使用该命令，因为无线网卡驱动最终都会是参数的修改生效，一般在 debug 时会用到。</p>
 <h5 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- nwid: Network ID  # 只用于pre-802.11的无线网卡，802.11网卡利用ESSID和AP的MAC地址来替换nwid，现在基本上不用设置。</div><div class="line">- nick: Nickname  # 一些网卡需要设置该参数，但是802.11协议栈、MAC都没有用到该参数，一般也不用设置。</div><div class="line">- sens # 设置接收灵敏度的下限，在该下限之下，无线网卡认为该无线网络信号太差。</div><div class="line">- rts   # 设置节点发送RTS的最小包的大小</div><div class="line">- frag  # 设置发送数据包的分片大小。</div><div class="line">- modu  # 设定的特定调制集</div></pre></td></tr></table></figure>
 ]]></content>
@@ -7105,39 +7203,39 @@
     <content><![CDATA[<p>　　pidstat 主要用于监控全部或指定进程占用系统资源的情况，如 CPU，内存、设备 IO、任务切换、线程等。</p>
 <a id="more"></a>
 <h4 id="pidstat安装"><a href="#pidstat安装" class="headerlink" title="pidstat安装"></a>pidstat安装</h4><p>　　要使用 pidstat 需要安装 Sysstat，它是一个工具集，包括 sar、pidstat、iostat、mpstat、sadf、sadc。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install sysstat</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install sysstat</div></pre></td></tr></table></figure>
 <p>　　pidstat 首次运行时显示自系统启动开始的各项统计信息，之后运行 pidstat 将显示自上次运行该命令以后的统计信息。用户可以通过指定统计的次数和时间来获得所需的统计信息。</p>
 <h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p>　　用户手册：<a href="http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html" target="_blank" rel="external">http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html</a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Usage: pidstat [ options ] [ &lt;interval&gt; [ &lt;count&gt; ] ]</div><div class="line">Options are:</div><div class="line">[ -d ] [ -h ] [ -I ] [ -l ] [ -R ] [ -r ] [ -s ] [ -t ] [ -U [ &lt;username&gt; ] ]</div><div class="line">[ -u ] [ -V ] [ -v ] [ -w ] [ -C &lt;command&gt; ] [ -G &lt;process_name&gt; ]</div><div class="line">[ -p &#123; &lt;pid&gt; [,...] | SELF | ALL &#125; ] [ -T &#123; TASK | CHILD | ALL &#125; ]</div></pre></td></tr></table></figure>
 <h5 id="指定采样周期和采样次数"><a href="#指定采样周期和采样次数" class="headerlink" title="指定采样周期和采样次数"></a>指定采样周期和采样次数</h5><p>　　pidstat 命令指定采样周期和采样次数，例如以 2 秒为采样周期，输出 10 次 CPU 使用统计信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10</div></pre></td></tr></table></figure>
 <h5 id="p-参数"><a href="#p-参数" class="headerlink" title="-p 参数"></a>-p 参数</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-p &#123; pid [,...] | SELF | ALL &#125; #指定进程显示其报告</div></pre></td></tr></table></figure>
 <p>　　选择要报告统计信息的任务（进程）。pid 是进程标识号。 SELF 关键字表示要为 pidstat 进程本身报告统计信息，而 ALL 关键字表示要为系统管理的所有任务报告统计信息。SELF 和 ALL 可不指定，如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -p 进程号</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -p 进程号</div></pre></td></tr></table></figure>
 <p>　　可使用以下命令获得进程号，以下命令会列出所有进程的进程号：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ps -e</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> ps -e</div></pre></td></tr></table></figure>
 <p>　　也可以通过 top 命令或者直接查看某个服务的状态得到该服务涉及的进程。</p>
 <h5 id="u参数"><a href="#u参数" class="headerlink" title="-u参数"></a>-u参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的 CPU 使用统计，执行 ”pidstat -u” 与单独执行 ”pidstat” 的效果一样。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat</div><div class="line">or</div><div class="line"><span class="meta">$</span> pidstat -u</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-1.png" alt="26-1"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- %usr  # 在用户级（应用程序）执行任务时使用的CPU的百分比，有或没有优先级。请注意，此字段不包括运行虚拟处理器的时间</div><div class="line">- %system   # 在系统级别（内核）执行任务时CPU占用的百分比</div><div class="line">- %guest    # 虚拟机中任务占用的CPU的百分比（运行虚拟处理器）</div><div class="line">- %CPU  # 该任务使用的CPU时间的总百分比</div><div class="line">- CPU   # 处理器号，任务被哪个处理器处理</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="r参数"><a href="#r参数" class="headerlink" title="-r参数"></a>-r参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的页面故障和内存利用率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-2.png" alt="26-2"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- minflt/s  # 每秒次缺页错误次数(minor page faults)，次缺页错误次数意即虚拟内存地址映射成物理内存地址产生的page fault次数</div><div class="line">- majflt/s  # 每秒主缺页错误次数(major page faults)，当虚拟内存地址映射成物理内存地址时，相应的page在swap中，这样的page fault为major page fault，一般在内存使用紧张时产生</div><div class="line">- VSZ   # 该进程使用的虚拟内存(以kB为单位)</div><div class="line">- RSS   # 该进程使用的物理内存(以kB为单位)</div><div class="line">- %MEM  # 当前任务使用的有效内存的百分比</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="d参数"><a href="#d参数" class="headerlink" title="-d参数"></a>-d参数</h5><p>　　使用 -d 选项，pidstat 将将显示各活动进程的 I/O 统计信息（内核 2.6.20 及更高版本）。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -d</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -d</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-3.png" alt="26-3"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- kB_rd/s   # 每秒此进程从磁盘读取的千字节数</div><div class="line">- kB_wr/s   # 此进程已经或者将要写入磁盘的每秒千字节数</div><div class="line">- kB_ccwr/s # 由任务取消的写入磁盘的千字节数</div><div class="line">- iodelay   # 阻止正在监视的任务的I/O延迟，以时钟滴答测量</div><div class="line">- Command   # 命令的名字</div></pre></td></tr></table></figure>
 <h5 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-h  # 显示所有的活动的任务</div><div class="line">-I  # 在SMP环境，指出任务的CPU使用（等同于选项-u）应该被除于cpu的总数</div><div class="line">-l  # 显示进程的命令名和它的参数</div><div class="line">-T &#123; TASK | CHILD | ALL &#125;   # 指定必须监测的内容：TASK是默认的，单个任务的报告；CHILD：指定的进程和他们的子进程的全局报告，ALL：相当于TASK和CHILD</div><div class="line">-s  # 堆栈的使用</div><div class="line">-t  # 显示与所选任务相关的线程的统计数据</div><div class="line">-w  # 报告任务切换情况</div></pre></td></tr></table></figure>
 <h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r -p 1643 2 5</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r -p 1643 2 5</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息以及 CPU 使用率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u -r -p 1643 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -u -r -p 1643 2 10</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 10 次系统中所有任务的子进程的页面错误统计信息。只显示具有非零统计值的子进程。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -T CHILD -r 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -T CHILD -r 2 10</div></pre></td></tr></table></figure>
 <h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><p>　　重定向输出即可，例如，每隔两秒记录 1 次，一共 10 次，并输出到 data.txt 文件。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10 &gt; data.txt</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10 &gt; data.txt</div></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -10564,23 +10662,23 @@
 <li><strong>anonuid/anongid</strong> 要和root_squash以及all_squash选项一同使用，用于指定使用NFS的用户被限定后的uid和gid</li>
 </ul>
 <h5 id="启动NFS服务"><a href="#启动NFS服务" class="headerlink" title="启动NFS服务"></a>启动NFS服务</h5><p>　　在启动nfs前，需先启动rpcbind</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> service rpcbind start</div><div class="line"><span class="meta">$</span> service nfs start</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> service rpcbind start</span></div><div class="line"><span class="meta">$</span><span class="bash"> service nfs start</span></div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/10/5-1.png" alt="5-1"></p>
 <p>　　虽然上面的命令能够正常启动服务，但是根据提示，我们应该使用如下命令来替换：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> /bin/systemctl start rpcbind.service</div><div class="line"><span class="meta">$</span> /bin/systemctl start nfs.service</div></pre></td></tr></table></figure>
-<h5 id="关闭NFS服务"><a href="#关闭NFS服务" class="headerlink" title="关闭NFS服务"></a>关闭NFS服务</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> /bin/systemctl stop rpcbind.service</div><div class="line"><span class="meta">$</span> /bin/systemctl stop nfs.service</div></pre></td></tr></table></figure>
-<h4 id="客户端挂载NFS"><a href="#客户端挂载NFS" class="headerlink" title="客户端挂载NFS"></a>客户端挂载NFS</h4><h5 id="查看服务器共享的目录"><a href="#查看服务器共享的目录" class="headerlink" title="查看服务器共享的目录"></a>查看服务器共享的目录</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> showmount -e 服务器ip地址</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl start rpcbind.service</span></div><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl start nfs.service</span></div></pre></td></tr></table></figure>
+<h5 id="关闭NFS服务"><a href="#关闭NFS服务" class="headerlink" title="关闭NFS服务"></a>关闭NFS服务</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl stop rpcbind.service</span></div><div class="line"><span class="meta">$</span><span class="bash"> /bin/systemctl stop nfs.service</span></div></pre></td></tr></table></figure>
+<h4 id="客户端挂载NFS"><a href="#客户端挂载NFS" class="headerlink" title="客户端挂载NFS"></a>客户端挂载NFS</h4><h5 id="查看服务器共享的目录"><a href="#查看服务器共享的目录" class="headerlink" title="查看服务器共享的目录"></a>查看服务器共享的目录</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> showmount -e 服务器ip地址</span></div></pre></td></tr></table></figure>
 <p>会得到如下的结果：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Export list for 服务器ip地址:</div><div class="line">/home/fzy 客户端ip地址</div></pre></td></tr></table></figure>
-<h5 id="在客户端上挂载NFS"><a href="#在客户端上挂载NFS" class="headerlink" title="在客户端上挂载NFS"></a>在客户端上挂载NFS</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> mount -t nfs 服务器ip地址:服务器共享目录  挂载点</div></pre></td></tr></table></figure>
+<h5 id="在客户端上挂载NFS"><a href="#在客户端上挂载NFS" class="headerlink" title="在客户端上挂载NFS"></a>在客户端上挂载NFS</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> mount -t nfs 服务器ip地址:服务器共享目录  挂载点</span></div></pre></td></tr></table></figure>
 <p>　　其中 <code>-t nfs</code> 指定挂载的类型为 nfs</p>
 <h5 id="查看是否挂载成功"><a href="#查看是否挂载成功" class="headerlink" title="查看是否挂载成功"></a>查看是否挂载成功</h5><p>　　命令 df 用于查看已挂载磁盘的总容量、使用容量、剩余容量等。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> df -h</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> df -h</span></div></pre></td></tr></table></figure>
 <p>　　<code>-h</code> 表示使用合适的单位显示。如下图：</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2016/10/5-2.png" alt="5-2"></p>
-<h5 id="解除挂载"><a href="#解除挂载" class="headerlink" title="解除挂载"></a>解除挂载</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> umount 已挂载的目录</div></pre></td></tr></table></figure>
+<h5 id="解除挂载"><a href="#解除挂载" class="headerlink" title="解除挂载"></a>解除挂载</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> umount 已挂载的目录</span></div></pre></td></tr></table></figure>
 <p>　　如果遇到：umount.nfs: 已挂载的目录: device is busy。可以添加 -l 参数，如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> umount -l 已挂载的目录</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> umount -l 已挂载的目录</span></div></pre></td></tr></table></figure>
 <p>　　选项 –l 并不是马上 umount，而是在该目录空闲后再 umount，即延迟卸载。</p>
 <h5 id="开机自动挂载"><a href="#开机自动挂载" class="headerlink" title="开机自动挂载"></a>开机自动挂载</h5><p>　　方法一：</p>
 <p>　　<code>/etc/fstab</code> 里添加如下内容：</p>
@@ -12866,8 +12964,8 @@
       <tags>
         <tag>Http</tag>
         <tag>Python</tag>
-        <tag>爬虫</tag>
         <tag>正则表达式</tag>
+        <tag>爬虫</tag>
       </tags>
   </entry>
   <entry>
