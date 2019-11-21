@@ -101,7 +101,7 @@
 <meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/9-1.png">
 <meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/9-2.png">
 <meta property="og:image" content="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/9-3.png">
-<meta property="og:updated_time" content="2019-03-13T11:22:28.060Z">
+<meta property="og:updated_time" content="2019-11-21T12:42:36.800Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 基本操作-网络篇（上）">
 <meta name="twitter:description" content="Docker 网络基本操作介绍。">
@@ -365,8 +365,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Cloud-Computing/" itemprop="url" rel="index">
-                    <span itemprop="name">Cloud Computing</span>
+                  <a href="/categories/Cloud-Edge-Computing/" itemprop="url" rel="index">
+                    <span itemprop="name">Cloud/Edge Computing</span>
                   </a>
                 </span>
 
@@ -404,9 +404,7 @@
       
 
       
-        <center>Docker 网络基本操作介绍。</center>
-
-<a id="more"></a>
+        <p><center>Docker 网络基本操作介绍。</center><br><a id="more"></a></p>
 <h4 id="网络命名空间"><a href="#网络命名空间" class="headerlink" title="网络命名空间"></a>网络命名空间</h4><p>　　Docker 使用了 Linux 的 Namespaces 技术来进行资源隔离，如 PID Namespace 隔离进程，Mount Namespace 隔离文件系统，Network Namespace 隔离网络等。一个 Network Namespace 提供了一份独立的网络环境，包括网卡、路由、Iptable 规则等都与其他的 Network Namespace 隔离。默认情况下，一个 Docker 容器一般会分配一个独立的 Network Namespace。</p>
 <h4 id="4-种基本的网络模式"><a href="#4-种基本的网络模式" class="headerlink" title="4 种基本的网络模式"></a>4 种基本的网络模式</h4><h5 id="Bridge-模式"><a href="#Bridge-模式" class="headerlink" title="Bridge 模式"></a>Bridge 模式</h5><p>　　Bridge 模式是 Docker 默认的网络设置，此模式会为每一个容器分配 Network Namespace、设置 IP 等，并将一个主机上的 Docker 容器连接到一个名为 docker0 的虚拟网桥上。在使用 docker run 命令启动容器时，也可以使用 –net=bridge 选项进行指定。</p>
 <p>　　在该模式中，Docker 守护进程创建了一个虚拟网桥 docker0，附加在其上的任何网卡之间都能自动转发数据包。虚拟网桥的工作方式和物理交换机类似，这样主机上的所有容器就通过交换机连在了一个二层网络中。默认情况下，Docker 守护进程会创建一对对等接口，将其中一个接口设置为容器的 eth0 接口，另一个接口放置在宿主机的命名空间中，从而将宿主机上的所有容器都连接到这个内部网络上。同时，守护进程还会从网桥的私有地址空间中分配一个  IP地址和子网给该容器。</p>
@@ -601,7 +599,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">243</span>
+                <span class="site-state-item-count">244</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
