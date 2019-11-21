@@ -1,5 +1,5 @@
 ---
-title: 剑指offer-二叉树(上)
+title: 剑指offer-二叉树(一)
 categories:
   - Algorithm
   - Exercise
@@ -12,7 +12,6 @@ date: 2019-08-01 22:09:25
 ---
 
 <center>秋招，来了！</center>
-
 <!--more-->
 
 #### 二叉树的深度

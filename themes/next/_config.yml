@@ -143,8 +143,8 @@ font:
 social:
   GitHub: https://github.com/fzy-Line
   CSDN: https://blog.csdn.net/u013151320
-  知乎: https://www.zhihu.com/people/line-37/activities
-  Weibo: http://weibo.com/fzyLine
+  # 知乎: https://www.zhihu.com/people/line-37/activities
+  # Weibo: http://weibo.com/fzyLine
 
 
 # Social Links Icons
@@ -218,9 +218,9 @@ links:
   一叶孤舟: https://zhouzhipeng.com/
   高策: http://gaocegege.com/Blog/
   Roy: http://www.hi-roy.com/
-  Jacktao: https://jacktaoz.github.io/
+  # Jacktao: https://jacktaoz.github.io/
 #  shohret: http://www.shohret.com
-  pandaonmars: https://pandaonmars.github.io/
+  # pandaonmars: https://pandaonmars.github.io/
 
 
 # ---------------------------------------------------------------
