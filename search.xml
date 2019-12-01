@@ -1,6 +1,268 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>SSL/TLS 协议</title>
+    <url>/2019/12/01/SSL-TLS-%E5%8D%8F%E8%AE%AE/</url>
+    <content><![CDATA[<p><center>图解密码技术学习笔记-SSL/TLS协议</center><br><a id="more"></a></p>
+<h4 id="SSL-TLS-概念"><a href="#SSL-TLS-概念" class="headerlink" title="SSL/TLS 概念"></a>SSL/TLS 概念</h4><p>　　SSL/TLS 协议位于网络 OSI 七层模型的会话层，用来加密通信。SSL（Secure Sockets Layer，安全套接字层）是一种标准安全协议，用于在在线通信中建立Web服务器和浏览器之间的加密链接。SSL 通过互相认证、使用数字签名确保完整性、使用加密确保私密性，以实现客户端和服务器之间的安全通讯。</p>
+<p>　　TLS（Transport Layer Security，传输层安全）是 IETF 在 SSL 3.0 的基础上设计的协议，它是 SSL 协议的升级版。两者差别极小，可以理解为 TLS 是 SSL 3.1。</p>
+<h4 id="TLS-协议结构"><a href="#TLS-协议结构" class="headerlink" title="TLS 协议结构"></a>TLS 协议结构</h4><p>　　TLS 协议分成两层：TLS 记录协议（TLS record protocol）、TLS 握手协议（TLS handshake protocol）</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/12/1-1.png" alt="1-1"></p>
+<p>　　TLS 握手协议负责加密以外的其他事情。握手协议分成 4 个子协议，分别是：</p>
+<ul>
+<li><strong>握手协议</strong>：负责通信双方之间协商决定密码算法和共享密钥</li>
+<li><strong>密码规格变更协议</strong>：负责向通信对象传达变更密码方式的信号</li>
+<li><strong>警告协议</strong>：负责在发生错误时将错误传给对方</li>
+<li><strong>应用数据协议</strong>：是将TLS承载的应用数据传达给通讯对象</li>
+</ul>
+<p>　　TLS 记录协议负责消息的压缩、加密以及数据的认证。TLS 记录协议使用到的所有的算法等都是经过握手协议协商确认后的，以保证通讯双方是使用相同的算法。处理过程：</p>
+<ul>
+<li>首先，消息会被分割成多份，并用协商好的压缩算法进行压缩。</li>
+<li>其次，压缩片段会加上消息认证码以保证完整性，为了防止重放攻击还加上了片段编号。</li>
+<li>再次，压缩后的消息片段会加上消息认证码一起进行加密。加密使用 CBC 模式，初始向量是通过主密码生成。</li>
+<li>最后，加密后的报文，再加上数据类型、版本号、压缩后的长度组成的报头，就是最终的数据报文。</li>
+</ul>
+<h4 id="握手过程"><a href="#握手过程" class="headerlink" title="握手过程"></a>握手过程</h4><p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/12/1-2.png" alt="1-2"></p>
+<ol>
+<li><strong>ClientHello（客户端 -&gt; 服务器）</strong></li>
+</ol>
+<ul>
+<li>客户端向服务端发送自己的信息：可用的版本号、当前时间、客户端随机数、会话ID、可用的密码套件清单、可用的压缩方式清单。</li>
+<li>可用的版本号、可用的密码套件清单、可用的压缩方式清单：因为不同的浏览器可能支持的情况不一样，所以需要发送给服务端以方便协商。</li>
+<li>当前时间：TLS不使用，但是上层的协议有可能使用。</li>
+<li>客户端随机数：后面会使用到。</li>
+<li>会话ID：客户端和服务端需要重新使用之前的连接时，会使用到此信息。</li>
+</ul>
+<ol>
+<li><strong>ServerHello（服务器 -&gt; 客户端）</strong></li>
+</ol>
+<ul>
+<li>服务端向客户端发送自己的信息：使用的版本号、当前时间、服务器随机数、会话ID、使用的密码套件清单、使用的压缩方式清单</li>
+<li>使用的版本号、使用的密码套件清单、使用的压缩方式清单：这里发送的就是协商后的确定结果</li>
+<li>当前时间：TLS不使用，但是上层的协议有可能使用</li>
+<li>服务器随机数：后面会使用到</li>
+</ul>
+<ol>
+<li><strong>Certificate（服务器 -&gt; 客户端）</strong></li>
+</ol>
+<ul>
+<li>发送服务器的证书，包含证书清单，客户端会对其进行验证。如果是匿名通信，则不发送该消息。</li>
+<li>如果 Certificate 不足以满足需求时，则会发送 ServerKeyExchange （服务器 -&gt; 客户端）消息。具体的内容根据密码套件的不同而有所不同。这个不是必须的。</li>
+<li>双向认证，服务器则会发送 CertificateRquest（服务器 -&gt; 客户端）找客户端要其证书用来验证。这个也不是必须的。</li>
+</ul>
+<ol>
+<li><strong>ServerHelloDone（服务器 -&gt; 客户端）</strong></li>
+</ol>
+<ul>
+<li>通知客户端 Hello 时间结束。</li>
+<li>如果服务器要了客户端的证书，则客户端发送 Certificate（客户端 -&gt; 服务器）将其证书发送给服务器。</li>
+</ul>
+<ol>
+<li><strong>ClientKeyExchange（客户端 -&gt; 服务器）</strong></li>
+</ol>
+<ul>
+<li>这个就是最关键的一步，交换生成最终密钥的关键素材。</li>
+<li>如果是使用的 RSA，则会将经过服务器公钥加密的预备主密码随着 ClientKeyExchange 消息一起发送。</li>
+<li>如果是 Diffie-Hellman 密钥交换，则随着 ClientKeyExchange 消息一起发送的是 Diffie-Hellman 公开值。</li>
+<li>预备主密码使得服务端和客户端分别计算出相同的主密码。</li>
+<li>如果服务器向客户端发送了消息，客户端还会向服务器发送 CertificateVerify（客户端 -&gt; 服务器）消息，这是为了向服务器证明，自己确实是真实的客户端，拥有客户端证书的私钥。为了实现这个目的，客户端会计算主密码和握手协议种传送的消息的散列值加上自己的数字签名后发送给服务器。</li>
+</ul>
+<ol>
+<li><strong>生成密钥</strong></li>
+</ol>
+<ul>
+<li>根据关键的密钥素材主密码生成：对称密码的密钥、消息认证码的密钥、对称密码的CBC模式中使用的初始化向量</li>
+</ul>
+<ol>
+<li><strong>ChangeCipherSpec（客户端 -&gt; 服务器）和 Finished（客户端 -&gt; 服务器）</strong></li>
+</ol>
+<ul>
+<li><strong>ChangeCipherSpec</strong><ul>
+<li>这不是握手协议，而是密码规格变更协议。客户端告诉服务器我要换密码了。</li>
+<li>因为已经双方已经交换了密码套件信息，可以开始切换密码进行通信了。</li>
+</ul>
+</li>
+<li><strong>Finished</strong><ul>
+<li>代表客户端已经搞定了</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><strong>ChangeCipherSpec（服务器 -&gt; 客户端）</strong>和 <strong>Finished（服务器 -&gt; 客户端）</strong></li>
+</ol>
+<ul>
+<li><strong>ChangeCipherSpec</strong><ul>
+<li>服务器告诉客户端，我要开始换密码了</li>
+</ul>
+</li>
+<li><strong>Finished</strong><ul>
+<li>代表服务器已经搞定了</li>
+</ul>
+</li>
+</ul>
+<p>　　接下来，就可以切换到安全的应用数据交换。</p>
+<h4 id="主密码"><a href="#主密码" class="headerlink" title="主密码"></a>主密码</h4><ul>
+<li>主密码是根据下面信息计算出来的：预备主密码、客户端随机数、服务器随机数。</li>
+<li>如果是 RSA，在握手的时候客户端就会把预备主密码发送给服务器；如果是 Diffie-Hellman，则会发送公开值给服务器，然后客户端和服务器根据这个值生成预备主密码。</li>
+<li>客户端随机数和服务器随机数相当于为了防止攻击者事先计算出来的盐值。</li>
+<li>使用主密码生成对称密码的密钥、消息认证码的密钥、对称密码的CBC模式中使用的初始化向量。</li>
+</ul>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>安全</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>网络地址转换协议：NAT</title>
+    <url>/2019/11/30/%E7%BD%91%E7%BB%9C%E5%9C%B0%E5%9D%80%E8%BD%AC%E6%8D%A2%E5%8D%8F%E8%AE%AE%EF%BC%9ANAT/</url>
+    <content><![CDATA[<center>2019 年 11 月 26 日，是人类互联网时代值得纪念的一天，全球 43 亿个 IPv4 地址今日正式耗尽。而在IPv4地址不够用时，支持网络的核心技术就是 NAT 协议。</center>
+
+<a id="more"></a>
+<h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><p>　　NAT（Network Address Translation，网络地址转换） 技术是一种把内部网络（简称为内网）私有 IP 地址转换为外部网络（简称为外网）公共 IP 地址的技术，它使得一定范围内的多台主机只利用一个公共 IP 地址连接到外网，可以在很大程度上缓解了公网 IPv4 地址紧缺的问题。</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/30-1.jpg" alt="30-1"></p>
+<p>　　NAT 不仅能缓解 lPv4 地址不足的问题，而且还能够有效地避免来自网络外部的攻击，隐藏并保护网络内部的计算机。目前，IPv4 地址资源的紧缺使得 NAT 技术获得了广泛的应用。</p>
+<h4 id="NAT-分类"><a href="#NAT-分类" class="headerlink" title="NAT 分类"></a>NAT 分类</h4><h5 id="静态-NAT"><a href="#静态-NAT" class="headerlink" title="静态 NAT"></a>静态 NAT</h5><p>　　私网和公网 IP 一对一映射，一旦确定，即便不用，其他私网 IP 也不能再使用该公网 IP 地址。借助于静态转换，可以实现外部网络对内部网络中某些特定设备（如服务器）的访问。缺点也很明显，需要独占宝贵的合法 IP 。</p>
+<h5 id="动态-NAT"><a href="#动态-NAT" class="headerlink" title="动态 NAT"></a>动态 NAT</h5><p>　　私网和公网 IP 池进行一对一映射，免去了人为的配置，同时可以让有限的公网 IP 地址能够重复使用，但依旧是一个私网 IP 对应一个公网 IP 地址。</p>
+<p>　　需要进行数据传输时，从内部全局地址池动态选择一个未使用的地址对内部本地地址进行转换。当数据传输完毕，将地址放回地址池子。</p>
+<h5 id="端口地址转换-PAT"><a href="#端口地址转换-PAT" class="headerlink" title="端口地址转换 PAT"></a>端口地址转换 PAT</h5><p>　　真正实现多对一的映射，一个私网 IP 对应一个公网 IP + 端口号，因此端口不同，一个公网 IP 就能被多个私网 IP 地址使用。端口复用，实现了多个内部地址与同一个内部全局地址进行转换。</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/30-2.png" alt="30-2"></p>
+<h4 id="基本原理"><a href="#基本原理" class="headerlink" title="基本原理"></a>基本原理</h4><p>　　NAT 通过利用端口号对内部地址和端口号进行转换，并维护一个转换表。主要步骤：</p>
+<ul>
+<li><p>替换，内网主机访问外网时，利用（公网 IP 地址，新端口号）替换每个外出 IP 数据报的（源 IP 地址，源端口号）</p>
+</li>
+<li><p>记录，将每对（公网 IP地址，新端口号）与（源IP地址，源端口号）的替换信息存储到 NAT 转换表中。</p>
+</li>
+<li><p>替换，根据 NAT 转换表，利用（源 IP 地址，源端口号）替换每个进入内网 IP 数据报的（目的 IP 地址，目的端口号），即（公网 IP 地址，新端口号）</p>
+</li>
+</ul>
+<p>　　NAT 丢弃不活跃链接的时候，是不会通知内网的你以及外网的程序的，也就是说，是不可能重建的。这样就带来了一个问题，假如有的应用程序需要长时间的链接呢？ </p>
+<p>　　最合理的方法当然就是自己实现心跳包，每隔一段时间程序发送一个小包给对方，对方也发回来，不仅保活，也可以检查服务是否遇到不可知错误而中断。当然，不一定需要自己实现心跳包，对稳定性需求不高，可以用 linux 内核提供的 TCP keep-alive。启用后，系统会按设定的时间（默认是2小时），发送一个包过去。</p>
+<h4 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h4><p>　　NAT可以分为 SNAT（Source Network Address Translation，源网络地址转换）、MASQUERADE（ IP 地址伪装）和 DNAT（Destination Network Address Translation，目的网络地址转换）两种模式。Linux 的 NAT 可以通过 iptables 配置实现。</p>
+<h5 id="SNAT"><a href="#SNAT" class="headerlink" title="SNAT"></a>SNAT</h5><p>　　内部地址要访问公网上的服务时，内部地址会主动发起连接，将内部地址转换成公有 IP。例如，内网的多个 PC 机访问外部网络的时候，具有公网 IP 的路由器将数据包的报头中的源地址替换成路由器的 IP，当外部网络的服务器接到访问请求的时候，记录下来的是路由器的 IP 地址，而不是 PC 机的内网 IP，因为服务器收到的数据包的“源地址”已经被替换。</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/30-3.png" alt="30-3"></p>
+<h5 id="MASQUERADE"><a href="#MASQUERADE" class="headerlink" title="MASQUERADE"></a>MASQUERADE</h5><p>　　SNAT 中的一种特例，可以实现自动化的 SNAT。采用 SNAT 时，对于那些 IP 不固定的场合，比如拨号网络或者通过dhcp分配IP的情况下，出口 IP 经常会改变，而 iptables 规则内的 IP 是不会随着自动变化的，每次地址变化后都必须手工修改一次 iptables，把规则里边的固定 IP 改成新的 IP 。MASQUERADE 就是针对这种场景而设计的，它可以从服务器的网卡上自动获取当前 IP 地址来做 NAT。</p>
+<h5 id="DNAT"><a href="#DNAT" class="headerlink" title="DNAT"></a>DNAT</h5><p>　　当内部需要对外提供服务时，外部发起主动连接，路由器或着防火墙的网关接收到这个连接，然后把连接转换到内部，此过程是由带公有 IP 的网关代替内部服务来接收外部的连接，然后在内部做地址转换。主要用于内部服务对外发布。典型应用就是 Web 服务器放在内网，配置内网 IP，前端有个防火墙，配置公网 IP，互联网上的访问者使用公网 IP 来访问这个网站。</p>
+<p><img src="https://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/11/30-4.png" alt="30-4"></p>
+<h4 id="展望"><a href="#展望" class="headerlink" title="展望"></a>展望</h4><p>　　随着 IPv4 地址的耗尽，再经济的模式也无以为继，IPv4 必须退出历史舞台。人们自然会认为，NAT作为 IPv4的超级补丁技术使命已经完结。</p>
+<p>　　实际上，IPv4 向 IPv6过渡的阶段，NAT 仍然是一种必不可少的技术。因为 Internet 无法在一日之内完成全网升级，必然是局部升级，逐渐替换。在两套协议并存的时期，用户和服务资源分布在不同网络之间，跨网访问的需求必须得到满足。而这正是 NAT 所擅长的领域：地址替换，因此 NAT-PT（Network Address Translator - Protocol Translator，附带协议转换器的网络地址转换器，是一种纯 IPv6 节点和IPv4节点间的互通方式）应运而生。由于 IPv4 和 IPv6 之间的差异，NAT 要做的事比以往更复杂，有更多的限制和细节。</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>NAT</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>散列函数与消息认证码</title>
+    <url>/2019/11/18/%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0%E4%B8%8E%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E7%A0%81/</url>
+    <content><![CDATA[<center>图解密码技术学习笔记-散列函数与消息认证码</center>
+
+<a id="more"></a>
+<h4 id="单向散列函数"><a href="#单向散列函数" class="headerlink" title="单向散列函数"></a>单向散列函数</h4><h5 id="概念与性质"><a href="#概念与性质" class="headerlink" title="概念与性质"></a>概念与性质</h5><p>　　单向散列函数，又称单向 Hash 函数、杂凑函数，就是把任意长的输入消息串变化成固定长的输出串且由输出串难以得到输入串的一种函数。</p>
+<p>　　单向散列函数可以根据消息的内容计算出散列值，而散列值就可以被用来检查消息的完整性。散列值的长度与消息的长度无关。具有以下性质：</p>
+<ul>
+<li>根据任意长度的消息计算出固定长度的散列值；</li>
+<li>能够快速计算出散列值；</li>
+<li>消息不同散列值也不同；</li>
+<li>具备单向性，即无法通过散列值反算出消息。</li>
+</ul>
+<p>　　密码学中使用的单向散列函数，不仅要具备弱抗碰撞性，还必须具备强抗碰撞性。</p>
+<ul>
+<li><strong>抗碰撞性</strong>：难以发现碰撞的性质称为”抗碰撞性”。</li>
+<li><strong>弱抗碰撞性</strong>：给定某条消息的散列值，必须保证要找到和这条消息相同散列值的另一条消息是非常困难的。</li>
+<li><strong>强抗碰撞性</strong>：要找到散列值相同的两条不同的消息是非常困难的。</li>
+</ul>
+<p>　　单向散列函数输出的散列值也称为消息摘要或者指纹。消息的完整性也叫一致性。</p>
+<h5 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h5><ul>
+<li>MD4、MD5（128位，其强抗碰撞性已经被攻破）</li>
+<li>SHA-1（160位，其强抗碰撞性已经被攻破）、SHA-256、SHA-384、SHA-512</li>
+</ul>
+<h5 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h5><ul>
+<li><p><strong>检测软件是否被篡改</strong></p>
+<p>软件发布者将散列值公开发布到网上，使用软件的人就可以根据这个来判断获得的软件是否已经被篡改。</p>
+</li>
+<li><p><strong>基于口令的加密</strong><br>PBE(Password Based Encryption)基于口令的加密，是将口令和salt（随机数）混合后计算其散列值，作为加密的密钥。这样可以抵御针对口令的字典攻击。</p>
+</li>
+<li><p><strong>消息认证码</strong><br>消息认证码是将”发送者和接收者之间的共享密钥”和”消息”进行混合计算出的散列值。使用消息认证码可以检测并防止通信过程中的错误、篡改以及伪装。在SSL/TLS中得到了运用。</p>
+</li>
+<li><p><strong>数字签名</strong><br>数字签名非常的耗时，所以不会对整个消息进行数字签名。一般先计算出消息的散列值，然后再针对散列值进行数字签名。</p>
+</li>
+<li><p><strong>伪随机数生成器</strong><br>伪随机数需要具备”事实上不可能根据过去的随机数列预测未来的随机数列”这样的性质。为了保证不可预测性，可以利用单向散列函数的单向性。</p>
+</li>
+<li><p><strong>一次性口令</strong><br>一次性口令通常被用于服务器对客户端的合法性认证。这种方式中，通过使用单向散列函数可以保证口令只在通信链路上传送一次，因此即使窃听者窃取了口令，也无法使用。</p>
+</li>
+</ul>
+<h5 id="攻击"><a href="#攻击" class="headerlink" title="攻击"></a>攻击</h5><ul>
+<li><strong>暴力破解</strong>。本质是破解弱抗碰撞性。针对某一特定的消息找到与其相同的散列值的消息进行替换。从消息的冗余性入手，即在不改变消息意思的前提下能够对文件内容进行修改的程度，只要找到一份跟原文相同的散列值即可。</li>
+<li><strong>生日攻击</strong>。本质是破解强抗碰撞性。所谓的生日攻击就是：随机选出N个人，其中任意两个人的生日相同的概率大于二分之一，请问N为多少？在这里，攻击是指，只要任何两份文档存在相同的散列值时，即可达成攻击。编写消息的人是攻击者。攻击者首先生成两份散列值相同，但内容不同的文件。其中一份要B支付1百万的合同给了A，A生成散列值后发送给B。攻击者截获此报文后，替换成散列值相同的要B支付1亿元的合同。</li>
+</ul>
+<h5 id="无法解决的问题"><a href="#无法解决的问题" class="headerlink" title="无法解决的问题"></a>无法解决的问题</h5><p>　　单向散列函数能够辨别出篡改，但无法识别出伪装，也就是无法判断出发送消息的人是否是正确的。</p>
+<h4 id="消息认证码"><a href="#消息认证码" class="headerlink" title="消息认证码"></a>消息认证码</h4><h5 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h5><p>　　消息的认证指的是消息来自正确的发送者。消息认证码是一种与密钥相关的单向散列函数。单向散列函数保证了完整性，无法被篡改；共享密钥只有发送者和接收者知道，保证了可以检查发送者身份的正确性。</p>
+<p>　　消息认证码的输入是任意长度的消息和一个发送者与接收者之间共享的密钥<strong>，</strong>输出是固定长度的数据，这个数据称为MAC值。</p>
+<p>　　消息认证码同时解决消息的完整性和发送者正确性。</p>
+<ul>
+<li><strong>消息完整性</strong>解决的是消息是否有被篡改的问题，也就是保证了消息的完整性。</li>
+<li><strong>消息认证</strong>解决的是消息的发送者正确性的问题，确保消息不是其他人伪装发送的。</li>
+</ul>
+<h5 id="使用过程"><a href="#使用过程" class="headerlink" title="使用过程"></a>使用过程</h5><ul>
+<li>发送者发送消息后，使用发送的消息和共享密钥计算出 MAC 值，并发送给接收者；</li>
+<li>接收者接收到消息后，使用接收到的消息和共享密钥计算出 MAC 值；</li>
+<li>接收者接收到 MAC 值后，使用接收到的 MAC 值和自己计算的 MAC 值做比对。如果相同，则表示消息没有被篡改，且发送者的身份正确。</li>
+</ul>
+<h5 id="实现方式"><a href="#实现方式" class="headerlink" title="实现方式"></a>实现方式</h5><ul>
+<li>使用 SHA-1 等单向散列函数实现，其中一种实现方式为 HMAC。</li>
+<li>使用 AES 等分组密码实现。 <ul>
+<li>分组的密钥作为共享密钥。</li>
+<li>使用 CBC 模式进行加密。CBC 模式就是前一个分组的密文与此分组的明文 XOR 后，再加密生成当前分组的密文。</li>
+<li>由于不需要进行解密，所以只保留最后一个分组。由于最后一个分组会受到密钥和整个消息的双重影响，所以可以作为消息认证码。</li>
+</ul>
+</li>
+<li>流密码和公钥密码也可以实现消息认证码。</li>
+</ul>
+<h5 id="应用实例"><a href="#应用实例" class="headerlink" title="应用实例"></a>应用实例</h5><ul>
+<li><strong>SWIFT</strong></li>
+</ul>
+<p>　　用于银行与银行之间传递交易消息，使用了消息认证码保障完整性和对消息进行验证。共享密钥在使用公钥密码之前，是用人进行配送的。</p>
+<ul>
+<li><strong>IPsec</strong></li>
+</ul>
+<p>　　针对 IP 协议增加安全性的一种方式，使用消息认证码对消息内容进行认证和保证完整性。</p>
+<ul>
+<li><strong>SSL/TLS</strong></li>
+</ul>
+<p>　　安全套接字协议和安全传输层协议。</p>
+<h5 id="攻击-1"><a href="#攻击-1" class="headerlink" title="攻击"></a>攻击</h5><ul>
+<li><strong>重放攻击</strong></li>
+</ul>
+<p>　　攻击者可以截获发送者的消息和 MAC 值，然后对接收者重放发送。这时虽然攻击者没有破解消息认证码，但对于接收者来说消息和 MAC 值是匹配的，所以还是会执行。解决的办法：</p>
+<ul>
+<li><strong>序号</strong>。增加一个流水号，每次都加1。有效果，但是通信双方都需要记录最后一个消息的序号。</li>
+<li><strong>时间戳</strong>。发送消息中包含当前时间，如果收到以前的消息则当做错误消息不执行。有效果，但是通信双方的时钟必须一致，不一致也会留下重放攻击的空间。</li>
+<li><strong>Nonce</strong>。先发送一个伪随机数（称为 Nonce），然后发送消息计算 MAC 值时包含 Nonce。由于每次通信 Nonce 都会发生变化，也就无法进行重放攻击。此办法的缺点是增加了通信量。</li>
+<li><strong>密钥推测攻击</strong></li>
+</ul>
+<p>　　如果是单向散列函数来进行生成 MAC，则使用攻击单向散列函数的暴力破解和生日攻击来完成攻击。</p>
+<h5 id="无法解决的问题-1"><a href="#无法解决的问题-1" class="headerlink" title="无法解决的问题"></a>无法解决的问题</h5><ul>
+<li><strong>对第三方认证</strong></li>
+</ul>
+<p>　　如果接收者想要让第三方来认证发送者，这点是没法办到的。因为共享密钥只有一个，对于第三方来说无法通过共享密钥来判断到底哪个是发送者，哪个是接收者。</p>
+<ul>
+<li><strong>防止否认</strong></li>
+</ul>
+<p>　　发送者可以否认自己发送过消息，通过消息认证码是无法防止否认的。</p>
+]]></content>
+      <categories>
+        <category>Network</category>
+      </categories>
+      <tags>
+        <tag>安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Ubuntu 16.04 卸载自带 Python3 引发的惨案</title>
     <url>/2019/11/14/Ubuntu-16-04-%E5%8D%B8%E8%BD%BD%E8%87%AA%E5%B8%A6-Python3-%E5%BC%95%E5%8F%91%E7%9A%84%E6%83%A8%E6%A1%88/</url>
     <content><![CDATA[<center>由于无知，卸载 Ubuntu 自带的 python3 引发惨案，谨记，深刻反思。</center>
@@ -7361,10 +7623,10 @@
 <a id="more"></a>
 <p>　　iwconfig 用于 Linux 系统配置无线网络设备或显示无线网络设备信息。iwconfig 命令类似于 ifconfig 命令，但是他配置对象是无线网卡，它对网络设备进行无线操作，如设置无线通信频段。</p>
 <h4 id="iwconfig-安装"><a href="#iwconfig-安装" class="headerlink" title="iwconfig 安装"></a>iwconfig 安装</h4><p>　　Ubuntu 下使用如下命令安装，wireless-tools 工具包中包含了 iwconfig。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt install wireless-tools</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install wireless-tools</span></div></pre></td></tr></table></figure>
 <h4 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Usage: iwconfig [interface]</div><div class="line">                interface essid &#123;NNN|any|on|off&#125;</div><div class="line">                interface mode &#123;managed|ad-hoc|master|...&#125;</div><div class="line">                interface freq N.NNN[k|M|G]</div><div class="line">                interface channel N</div><div class="line">                interface bit &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface rate &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface enc &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface key &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface power &#123;period N|timeout N|saving N|off&#125;</div><div class="line">                interface nickname NNN</div><div class="line">                interface nwid &#123;NN|on|off&#125;</div><div class="line">                interface ap &#123;N|off|auto&#125;</div><div class="line">                interface txpower &#123;NmW|NdBm|off|auto&#125;</div><div class="line">                interface sens N</div><div class="line">                interface retry &#123;limit N|lifetime N&#125;</div><div class="line">                interface rts &#123;N|auto|fixed|off&#125;</div><div class="line">                interface frag &#123;N|auto|fixed|off&#125;</div><div class="line">                interface modulation &#123;11g|11a|CCK|OFDMg|...&#125;</div><div class="line">                interface commit</div><div class="line">       Check man pages for more details.</div></pre></td></tr></table></figure>
 <h5 id="essid"><a href="#essid" class="headerlink" title="essid"></a>essid</h5><p>　　设置无线网卡的 ESSID(Extension Service Set ID)。通过 ESSID 来区分不同的无线网络，正常情况下只有相同 ESSID 的无线站点才可以互相通讯，除非想监听无线网络。其后的参数为双引号括起的 ESSID 字符串，或者是any/on/off，如果 ESSID字符串中包含any/no/off，则需要在前面加”–”。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig eth0 essid any</div><div class="line"><span class="meta">$</span> iwconfig eth0 essid "My Network""</div><div class="line"><span class="meta">$</span> iwconfig eth0 essid -- "ANY""</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid <span class="string">"My Network"</span><span class="string">"</span></span></div><div class="line"><span class="meta">$</span><span class="bash"><span class="string"> iwconfig eth0 essid -- "</span>ANY<span class="string">""</span></span></div></pre></td></tr></table></figure>
 <h5 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h5><p>　　设置无线网卡的工作模式，可以是</p>
 <ul>
 <li>Ad-hoc：不带 AP 的点对点无线网络</li>
@@ -7375,23 +7637,23 @@
 <li>Monitor：监听模式</li>
 <li>Auto：由无线网卡自动选择工作模式</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 mode Managed</div><div class="line"><span class="meta">$</span> iwconfig wlan0 mode Ad-Hoc</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Managed</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Ad-Hoc</span></div></pre></td></tr></table></figure>
 <h5 id="freq-channel"><a href="#freq-channel" class="headerlink" title="freq/channel"></a>freq/channel</h5><p>　　设置无线网卡的工作频率或者频道，小于 1000 的参数被认为是频道，大于 10000 的参数被认为是频率。频率单位为 Hz，可以在数字后面附带 k, M, G 来改变数量级，比如 2.4G。频道从1开始。使用 lwlist 工具可以查看无线网卡支持的频率和频道。参数 off/auto 指示无线网络自动挑选频率。</p>
 <p>　　注意：如果是 Managed 模式，AP 会指示无线网卡的工作频率，因此该设置的参数会被忽略。Ad-hoc 模式下只使用该设定的频率初始无线网络，如果加入已经存在的 Ad-hoc 网络则会忽略该设置的频率参数。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 freq 2422000000</div><div class="line"><span class="meta">$</span> iwconfig wlan0 freq 2.422G</div><div class="line"><span class="meta">$</span> iwconfig wlan0 channel 3</div><div class="line"><span class="meta">$</span> iwconfig wlan0 channel auto</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2422000000</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2.422G</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel auto</span></div></pre></td></tr></table></figure>
 <h5 id="rate-bit"><a href="#rate-bit" class="headerlink" title="rate/bit"></a>rate/bit</h5><p>　　如果无线网卡支持多速率，则可以通过该命令设置工作的速率。小于 1000 的参数由具体的无线网卡驱动定义，一般是传输速率的索引值，大于 1000 的为速率，单位 bps，可以在数字后面附带 k，M，G 来指定数量级。auto 参数让无线网卡自动选择速率 fixed 参数让无线网卡不使用自动速率模式。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 rate 11M</div><div class="line"><span class="meta">$</span> iwconfig wlan0 rate auto</div><div class="line"><span class="meta">$</span> iwconfig wlan0 rate 5.5M auto</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 11M</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 5.5M auto</span></div></pre></td></tr></table></figure>
 <h5 id="ap"><a href="#ap" class="headerlink" title="ap"></a>ap</h5><p>　　连接到指定的 AP 或者无线网络，后面的参数可以是 AP 的 MAC 地址，也可以是 iwlist scan 出来的标识符。如果是 Ad-hoc，则连接一个已经存在的 Ad-hoc 网络。使用 off 参数让无线网卡不改变当前已连接的 AP 下进入自动模式。any/auto 参数，无线网卡自动选择最好的 AP。</p>
 <p>　　注意：如果无线信号低到一定程度，无线网络会进入自动选择AP模式。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 ap 00:60:1D:01:23:45</div><div class="line"><span class="meta">$</span> iwconfig wlan0 ap any</div><div class="line"><span class="meta">$</span> iwconfig wlan0 ap off</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap 00:60:1D:01:23:45</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap off</span></div></pre></td></tr></table></figure>
 <h5 id="key-enc"><a href="#key-enc" class="headerlink" title="key/enc"></a>key/enc</h5><p>　　设置无线网卡使用的加密密钥，此处为设置 WEP 模式的加密 key，如果要使用 WPA，需要 wpa_supplicant 工具包。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 key 0123-4567-89</div><div class="line"><span class="meta">$</span> iwconfig wlan0 key [3] 0123-4567-89</div><div class="line"><span class="meta">$</span> iwconfig wlan0 key s:password [2]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key [3] 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key s:password [2]</span></div></pre></td></tr></table></figure>
 <h5 id="power"><a href="#power" class="headerlink" title="power"></a>power</h5><p>　　设置无线网卡的电源管理模式。period ‘value’  指定唤醒的周期，timeout ‘value’ 指定进入休眠的等待时间，这两个参数之前可以加 min 和 max 修饰，这些值的单位为秒，可以附加 m 和 u 来指定毫秒和微秒。off/on 参数指定是否允许电源管理，all/unicast/multicast 指定允许唤醒的数据包类型。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 power period 2</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power 500m unicast</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power timeout 300u all</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power saving 3</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power off</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power min period 2 power max period 4</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power period 2</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power 500m unicast</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power timeout 300u all</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power saving 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power off</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power min period 2 power max period 4</span></div></pre></td></tr></table></figure>
 <h5 id="txpower"><a href="#txpower" class="headerlink" title="txpower"></a>txpower</h5><p>　　如果无线网卡支持多发射功率设定，则使用该参数设定发射，单位为 dBm，如果指定为 W（毫瓦），只转换公式为：<br>dBm=30+log(W)。参数 on/off 可以打开和关闭发射单元，auto 和 fixed 指定无线是否自动选择发射功率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower 15</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower 30mW</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower auto</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower off</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 15</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 30mW</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower off</span></div></pre></td></tr></table></figure>
 <h5 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h5><p>　　设置无线网卡的重传机制。limit ‘value’  指定最大重传次数；lifetime ‘value’ 指定最长重试时间，单位为秒，可以附带 m 和 u 来指定单位为毫秒和微秒。如果无线网卡支持自动模式，则在 limit 和 lifetime 之前还可以附加 min 和 max 来指定上下限值。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 retry 16</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry lifetime 300m</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry short 12</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry min limit 8</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry 16</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry lifetime 300m</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry short 12</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry min <span class="built_in">limit</span> 8</span></div></pre></td></tr></table></figure>
 <h5 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h5><p>　　提交所有的参数修改给无线网卡驱动。有些无线网卡驱动会先缓存无线网卡参数修，使用这个命令来让无线网卡的参数修改生效。不过一般不需要使用该命令，因为无线网卡驱动最终都会是参数的修改生效，一般在 debug 时会用到。</p>
 <h5 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- nwid: Network ID  # 只用于pre-802.11的无线网卡，802.11网卡利用ESSID和AP的MAC地址来替换nwid，现在基本上不用设置。</div><div class="line">- nick: Nickname  # 一些网卡需要设置该参数，但是802.11协议栈、MAC都没有用到该参数，一般也不用设置。</div><div class="line">- sens # 设置接收灵敏度的下限，在该下限之下，无线网卡认为该无线网络信号太差。</div><div class="line">- rts   # 设置节点发送RTS的最小包的大小</div><div class="line">- frag  # 设置发送数据包的分片大小。</div><div class="line">- modu  # 设定的特定调制集</div></pre></td></tr></table></figure>
 ]]></content>
