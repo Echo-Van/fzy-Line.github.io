@@ -3,13 +3,12 @@ title: Docker 技术原理与实践
 tags:
   - Docker
 categories:
-  - Cloud Computing
+  - Cloud/Edge Computing
 abbrlink: 31772
 date: 2018-12-27 12:09:10
 ---
 
 <center>Docker 技术原理与实践介绍。</center>
-
 <!--more-->
 
 #### Docker 简介

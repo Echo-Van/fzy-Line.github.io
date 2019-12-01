@@ -3,13 +3,12 @@ title: Docker 基本操作-镜像篇（下）
 tags:
   - Docker
 categories:
-  - Cloud Computing
+  - Cloud/Edge Computing
 abbrlink: 23291
 date: 2019-02-06 17:26:34
 ---
 
 <center>Docker 镜像基本操作介绍。</center>
-
 <!--more-->
 
 #### 基于容器构建镜像

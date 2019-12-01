@@ -3,13 +3,12 @@ title: Docker 基本操作-容器篇
 tags:
   - Docker
 categories:
-  - Cloud Computing
+  - Cloud/Edge Computing
 abbrlink: 53168
 date: 2019-02-12 22:06:15
 ---
 
 <center>Docker 容器基本操作介绍。</center>
-
 <!--more-->
 
 #### 启动与运行

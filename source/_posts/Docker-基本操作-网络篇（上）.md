@@ -3,7 +3,7 @@ title: Docker 基本操作-网络篇（上）
 tags:
   - Docker
 categories:
-  - Cloud Computing
+  - Cloud/Edge Computing
 abbrlink: 31298
 date: 2019-03-09 10:24:39
 ---
@@ -11,7 +11,6 @@ date: 2019-03-09 10:24:39
 
 
 <center>Docker 网络基本操作介绍。</center>
-
 <!--more-->
 
 #### 网络命名空间
