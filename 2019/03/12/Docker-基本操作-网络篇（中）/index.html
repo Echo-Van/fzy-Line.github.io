@@ -434,7 +434,7 @@
 <h5 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h5><p>　　处理流程下图所示，例如，制定一个filter表的规则，filter表决定是否放行数据包通过，那如果通过，则必须经由INPUT链流入数据包，INPUT链是处理入站数据的，如果没问题，继续放行到用户空间，再经由OUTPUT链将数据包流出。而对于 NAT 表的规则，NAT 表主要实现转发功能，数据包先经由PREROUTING链进行路由选择，选择好路线后再经由FORWARD链转发数据，然后再进行一个路由选择，最后由POSTROUTING链流出数据。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-2.png" alt="12-2"></p>
 <h5 id="Iptables-语法"><a href="#Iptables-语法" class="headerlink" title="Iptables 语法"></a>Iptables 语法</h5><p>　　语法格式如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iptables [-t 表名] 选项 [链名] [条件] [-j 控制类型]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> iptables [-t 表名] 选项 [链名] [条件] [-j 控制类型]</div></pre></td></tr></table></figure>
 <p>　　参数说明：</p>
 <ul>
 <li><code>-P</code>：设置默认策略：iptables；</li>
@@ -465,7 +465,7 @@
 </ul>
 <p>　　MASQUERADE 是 SNAT 的一个特例，因为它在 Iptables 中有着和 SNAT 相近的效果。SNAT 是指在数据包从网卡发送出去的时候，把数据包中的源地址部分替换为指定的 IP，这样，接收方就认为数据包的来源是被替换的那个 IP 的主机。MASQUERADE是用发送数据的网卡上的IP来替换源IP，因此，对于那些IP不固定的场合，比如拨号网络或者通过 dhcp 分配 IP 的情况下，就得用 MASQUERADE。</p>
 <h4 id="容器访问控制"><a href="#容器访问控制" class="headerlink" title="容器访问控制"></a>容器访问控制</h4><h5 id="容器访问外部网络"><a href="#容器访问外部网络" class="headerlink" title="容器访问外部网络"></a>容器访问外部网络</h5><p>　　容器要想访问外部网络，需要本地系统的转发支持。在 Linux 系统中，检查转发是否打开，即<code>net.ipv4.ip_forward</code> 是否等于 0。如果为 0，说明没有开启转发，则需要手动打开。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">sysctl net.ipv4.ip_forward</span></div><div class="line">net.ipv4.ip_forward = 1</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span>sysctl net.ipv4.ip_forward</div><div class="line">net.ipv4.ip_forward = 1</div></pre></td></tr></table></figure>
 <p>　　也可以在启动 Docker 服务的时候设定 <code>--ip-forward=true</code> , Docker 就会自动设定系统的 ip_forward 参数为 1。 </p>
 <h5 id="容器之间访问"><a href="#容器之间访问" class="headerlink" title="容器之间访问"></a>容器之间访问</h5><p>　　容器之间相互访问，需要两方面的支持：</p>
 <ul>
@@ -492,7 +492,7 @@
 <li><code>--mtu=BYTES</code> ：容器网络中的 MTU。</li>
 </ul>
 <p>　　示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 编辑docker默认配置：DOCKER_OPTS=<span class="string">"--icc=false --iptables=true "</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo vim /etc/default/docker</span></div><div class="line"><span class="meta">#</span><span class="bash"> 重启docker服务</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo service docker restart</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span> 编辑docker默认配置：DOCKER_OPTS="--icc=false --iptables=true "</div><div class="line"><span class="meta">$</span> sudo vim /etc/default/docker</div><div class="line"><span class="meta">#</span> 重启docker服务</div><div class="line"><span class="meta">$</span> sudo service docker restart</div></pre></td></tr></table></figure>
 <p>　　既可以在启动服务时指定，也可以在启动容器时指定的命令选项：</p>
 <ul>
 <li><code>--dns=IP_ADDRESS...</code> 使用指定的DNS服务器；</li>
@@ -678,7 +678,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-count">249</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -808,7 +808,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

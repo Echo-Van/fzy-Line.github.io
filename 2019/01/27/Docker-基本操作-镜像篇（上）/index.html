@@ -402,7 +402,7 @@
       
         <p><center>Docker 镜像基本操作介绍。</center><br><a id="more"></a></p>
 <h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><p>　　Docker 运行容器前需要本地存在对应的镜像，如果本地不存在该镜像，Docker 会从镜像仓库下载该镜像。 从 Docker 镜像仓库获取镜像的命令是：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</div></pre></td></tr></table></figure>
 <ul>
 <li>Docker 镜像仓库地址：地址的格式一般是 &lt;域名/IP&gt;[:端口号] 。默认地址是 Docker Hub。</li>
 <li>仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt; 。对于 Docker Hub，如果不给出用户名，则默认为 library ，也就是官方镜像。 </li>
@@ -413,9 +413,9 @@
 <p>　　示例，从Docker Hub 拉取 ubuntu 系统的镜像：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker pull ubuntu</div><div class="line">Using default tag: latest</div><div class="line">latest: Pulling from library/ubuntu</div><div class="line">84ed7d2f608f: Pull complete </div><div class="line">be2bf1c4a48d: Pull complete </div><div class="line">a5bdc6303093: Pull complete </div><div class="line">e9055237d68d: Pull complete </div><div class="line">Digest: sha256:868fd30a0e47b8d8ac485df174795b5e2fe8a6c8f056cc707b232d65b8a1ab68</div><div class="line">Status: Downloaded newer image for ubuntu:latest</div></pre></td></tr></table></figure>
 <h4 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h4><p>　　列出已经下载到本地的镜像，使用：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image ls</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image ls</div></pre></td></tr></table></figure>
 <p>　　或者：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker images</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker images</div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--all, -a</code>，列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</li>
 <li>选项 <code>--digests</code>，显示镜像的摘要信息；</li>
@@ -428,11 +428,11 @@
 <p>　　示例：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker image ls</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">hello-world         latest              fce289e99eb9        3 weeks ago         1.84kB</div><div class="line">ubuntu              latest              1d9c17228a9e        3 weeks ago         86.7MB</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker images</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">hello-world         latest              fce289e99eb9        3 weeks ago         1.84kB</div><div class="line">ubuntu              latest              1d9c17228a9e        3 weeks ago         86.7MB</div></pre></td></tr></table></figure>
 <h4 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h4><p>　　镜像是静态的定义，容器是镜像运行时的实体。这里称之为运行镜像其实是不合理的，因为只有容器才能说是运行。但是，启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态的容器重新启动。这里要说的就是基于镜像来启动容器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</div></pre></td></tr></table></figure>
 <p>　　Docker run命名的具体使用将在后续的博客中进行详细说明。这里给出一个简单的示例，通过运行 ubuntu 容器输出 <code>Hello world</code>：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker run ubuntu /bin/echo "Hello world"</div><div class="line">Hello world</div></pre></td></tr></table></figure>
 <h4 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h4><p>　　删除本地的镜像，可以使用 ：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</div></pre></td></tr></table></figure>
 <p>　　其中， <code>&lt;镜像&gt;</code> 可以是 <code>镜像短 ID</code> 、 <code>镜像长 ID</code> 、 <code>镜像名</code> 或者 <code>镜像摘要</code> 。 </p>
 <ul>
 <li>选项 <code>--force , -f</code> ，强制删除镜像；</li>
@@ -440,7 +440,7 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker image rm ubuntu</div><div class="line">Untagged: ubuntu:latest</div><div class="line">Untagged: ubuntu@sha256:868fd30a0e47b8d8ac485df174795b5e2fe8a6c8f056cc707b232d65b8a1ab68</div><div class="line">Deleted: sha256:1d9c17228a9e80a0a23927f24f3cf17d012cf0bb3eae5e3541a8c6987ab9bd5a</div><div class="line">Deleted: sha256:3288cd6e6e7d42bcb4a74121b412c42a11f96da52685e42dbf9de6a747a55c6b</div><div class="line">Deleted: sha256:b1636589630239bdb9153f95ac564bcd2afd9202aaf8511cbf5a9a37e03daf35</div><div class="line">Deleted: sha256:043f492f40c539cfe7cee4cb8aae00ed1d5b19e864fbe6ea35ec92a2333bacc4</div><div class="line">Deleted: sha256:2fb7bfc6145d0ad40334f1802707c2e2390bdcfc16ca636d9ed8a56c1101f5b9</div></pre></td></tr></table></figure>
 <h4 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h4><p>　　在运行着的容器的基础上生成镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-a</code> ：提交的镜像作者；</li>
 <li>选项 <code>-c</code> ：使用 Dockerfile 指令来创建镜像；</li>
@@ -450,27 +450,27 @@
 <p>　　示例，将容器 9fbbb230909a 保存为新的镜像，并添加提交人信息和说明信息：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</div><div class="line">9fbbb230909a        ubuntu              "/bin/bash -c 'while…"   23 minutes ago      Up 23 minutes                           admiring_chatterjee</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker commit -a "fanzhenyu" -m "my ubuntu" 9fbbb230909a ubuntu:my</div><div class="line">sha256:fe0e9216b2dd575dff6b5521616b55ce996fdb89fd893ba9e80a8a671f6acc2d</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker images</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">ubuntu              my                  fe0e9216b2dd        13 seconds ago      87.5MB</div><div class="line">ubuntu              latest              20bb25d32758        4 days ago          87.5MB</div></pre></td></tr></table></figure>
 <p>　　构建镜像也可以通过：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
 <p>　　或：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
 <p>　　使用 Dockerfiles 来实现。Dockerfile 是一个文本文件，其内包含了一条条的指令，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。 </p>
 <p>　　示例，以定制 nginx 镜像为例，Dockerfile 的内容如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; /usr/share/nginx/html/index.html</span></div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span> echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div></pre></td></tr></table></figure>
 <p>　　在 Dockerfile 文件所在目录执行： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker image build -t nginx:my .</div><div class="line">Sending build context to Docker daemon  90.01MB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line">latest: Pulling from library/nginx</div><div class="line">5e6ec7f28fb7: Pull complete </div><div class="line">ab804f9bbcbe: Pull complete </div><div class="line">052b395f16bc: Pull complete </div><div class="line">Digest: sha256:56bcd35e8433343dbae0484ed5b740843dd8bff9479400990f251c13bbb94763</div><div class="line">Status: Downloaded newer image for nginx:latest</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> 42b4762643dc</span></div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> Running <span class="keyword">in</span> da558d0a335d</span></div><div class="line">Removing intermediate container da558d0a335d</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> b6cca0cd24a1</span></div><div class="line">Successfully built b6cca0cd24a1</div><div class="line">Successfully tagged nginx:my</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker image build -t nginx:my .</div><div class="line">Sending build context to Docker daemon  90.01MB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line">latest: Pulling from library/nginx</div><div class="line">5e6ec7f28fb7: Pull complete </div><div class="line">ab804f9bbcbe: Pull complete </div><div class="line">052b395f16bc: Pull complete </div><div class="line">Digest: sha256:56bcd35e8433343dbae0484ed5b740843dd8bff9479400990f251c13bbb94763</div><div class="line">Status: Downloaded newer image for nginx:latest</div><div class="line"><span class="meta"> ---&gt;</span> 42b4762643dc</div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span> Running in da558d0a335d</div><div class="line">Removing intermediate container da558d0a335d</div><div class="line"><span class="meta"> ---&gt;</span> b6cca0cd24a1</div><div class="line">Successfully built b6cca0cd24a1</div><div class="line">Successfully tagged nginx:my</div></pre></td></tr></table></figure>
 <p>　　特别注意命令最后的 <code>.</code> 符号，这个点一定要有，否则会报错。这里的 <code>.</code> 是在指定上下文路径 。</p>
 <p>　　当构建的时候，用户会指定构建镜像上下文的路径， docker build 命令得知这个路径后，会将路径下的所有内容打包，然后上传给 Docker 引擎。这样Docker 引擎收到这个上下文包后，展开就会获得构建镜像所需的一切文件。 </p>
 <h4 id="导入和导出镜像"><a href="#导入和导出镜像" class="headerlink" title="导入和导出镜像"></a>导入和导出镜像</h4><p>　　导出镜像，将一个或多个镜像保存到tar存档（默认情况下流式传输到标准输出）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker save [OPTIONS] IMAGE [IMAGE...]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker save [OPTIONS] IMAGE [IMAGE...]</div></pre></td></tr></table></figure>
 <p>　　或：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image save [OPTIONS] IMAGE [IMAGE...]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image save [OPTIONS] IMAGE [IMAGE...]</div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--output , -o</code> ，输出到的文件。</li>
 </ul>
 <p>　　示例，导出 ubuntu 镜像为 tar 文件：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker save -o ubuntu.tar ubuntu</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# ls -lh</div><div class="line">total 86M</div><div class="line">-rw------- 1 root root 86M Jan 27 10:21 ubuntu.tar</div></pre></td></tr></table></figure>
 <p>　　导入镜像，从tar存档或标准输入加载镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image load [OPTIONS]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image load [OPTIONS]</div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--input , -i</code> ，从tar归档文件中读取，而不是标准输入；</li>
 <li>选项 <code>--quiet , -q</code>，安静模式，不输出load的中间信息。</li>
@@ -649,7 +649,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-count">249</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -779,7 +779,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

@@ -402,7 +402,7 @@
       
         <p><center>Docker 镜像基本操作介绍。</center><br><a id="more"></a></p>
 <h4 id="基于容器构建镜像"><a href="#基于容器构建镜像" class="headerlink" title="基于容器构建镜像"></a>基于容器构建镜像</h4><p>　　在上篇中已经介绍了如何基于运行着的容器生成镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-a</code> ：提交的镜像作者；</li>
 <li>选项 <code>-c</code> ：使用 Dockerfile 指令来创建镜像；</li>
@@ -507,9 +507,9 @@
 </ul>
 <p>　　<code>LABEL</code> 指令用于为镜像添加元数据。格式为：<code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code> 。⽤于指定维护者信息的 <code>MAINTAINER</code> 指令已经过时，可使用 <code>LABEL maintainer=&quot;xxx@xxx.com&quot;</code> 替代。</p>
 <h5 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h5><p>　　<code>docker build</code> 和 <code>docker image build</code> 命令使用 Dockerfile 创建镜像。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker image build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
 <p>　　或：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--tag, -t</code> ：设置标签，格式： <code>name:tag</code>， tag 可选；</li>
 <li>选项 <code>--no-cache</code> ：创建镜像的过程不使用缓存；</li>
@@ -520,14 +520,14 @@
 </ul>
 <p>　　<strong>PATH|URL</strong>： 指定构建镜像的上下文的路径，构建镜像的过程中，可以且只可以引用上下文中的任何文件。</p>
 <p>　　<code>docker build</code> 支持从从 URL 构建，例如从 Git 仓库：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker build git仓库地址</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> docker build git仓库地址</div></pre></td></tr></table></figure>
 <p>　　如果所给出的 URL 不是个 Git 仓库，而是个  tar  压缩包，那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。用给定的 tar 压缩包构建：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ docker build - &lt; context.tar.gz</div></pre></td></tr></table></figure>
 <p>　　也可以使用当前目录的 Dockerfile 创建镜像，或者通过 -f Dockerfile 文件的位置。还支持从标准输入中读取 Dockerfile 进行构建。</p>
 <p>　　示例，创建 Dockerfile 文件，内容如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; /usr/share/nginx/html/index.html</span></div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span> echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div></pre></td></tr></table></figure>
 <p>　　构建镜像：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker build -t mynginx .</div><div class="line">Sending build context to Docker daemon  2.048kB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> f09fe80eb0e7</span></div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> Running <span class="keyword">in</span> 403fbe9c02bf</span></div><div class="line">Removing intermediate container 403fbe9c02bf</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> b3074b079926</span></div><div class="line">Successfully built b3074b079926</div><div class="line">Successfully tagged mynginx:latest</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker build -t mynginx .</div><div class="line">Sending build context to Docker daemon  2.048kB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line"><span class="meta"> ---&gt;</span> f09fe80eb0e7</div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span> Running in 403fbe9c02bf</div><div class="line">Removing intermediate container 403fbe9c02bf</div><div class="line"><span class="meta"> ---&gt;</span> b3074b079926</div><div class="line">Successfully built b3074b079926</div><div class="line">Successfully tagged mynginx:latest</div></pre></td></tr></table></figure>
 <p>　　在这条命令中，使用 <code>-t</code> 指定了镜像名为 mynginx，由于没有使用 <code>-f</code> 指令，所以默认使用上下文路径下名为 Dockerfile 的文件认为是构建镜像的”Dockerfile”。最后指定上下文路径，在这条命令中，上下文路径是 <code>.</code> 。</p>
 <h4 id="精简镜像体积"><a href="#精简镜像体积" class="headerlink" title="精简镜像体积"></a>精简镜像体积</h4><h5 id="选择最精简的基础镜像"><a href="#选择最精简的基础镜像" class="headerlink" title="选择最精简的基础镜像"></a>选择最精简的基础镜像</h5><p>　　选择体积最小的基础镜像可有效降低镜像体积。如：<code>alpine</code>、<code>busybox</code> 等。</p>
 <h5 id="清理镜像构建的中间产物"><a href="#清理镜像构建的中间产物" class="headerlink" title="清理镜像构建的中间产物"></a>清理镜像构建的中间产物</h5><p>　　构建镜像的过程中，当 Dockerfile 的指令执行完成后，删除镜像不需要用的的文件。<code>apt-get autoremove</code> 和 <code>apt-get clean all</code> 把所有不必要的依赖全删，或者使用系统 rm 命令删除不需要的源文件。</p>
@@ -705,7 +705,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">247</span>
+                <span class="site-state-item-count">249</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -835,7 +835,7 @@
         <div class="copyright" >
   
   &copy;  2016 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
