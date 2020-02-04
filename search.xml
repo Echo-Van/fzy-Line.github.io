@@ -1983,7 +1983,7 @@
 <h5 id="处理流程"><a href="#处理流程" class="headerlink" title="处理流程"></a>处理流程</h5><p>　　处理流程下图所示，例如，制定一个filter表的规则，filter表决定是否放行数据包通过，那如果通过，则必须经由INPUT链流入数据包，INPUT链是处理入站数据的，如果没问题，继续放行到用户空间，再经由OUTPUT链将数据包流出。而对于 NAT 表的规则，NAT 表主要实现转发功能，数据包先经由PREROUTING链进行路由选择，选择好路线后再经由FORWARD链转发数据，然后再进行一个路由选择，最后由POSTROUTING链流出数据。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2019/3/12-2.png" alt="12-2"></p>
 <h5 id="Iptables-语法"><a href="#Iptables-语法" class="headerlink" title="Iptables 语法"></a>Iptables 语法</h5><p>　　语法格式如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iptables [-t 表名] 选项 [链名] [条件] [-j 控制类型]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iptables [-t 表名] 选项 [链名] [条件] [-j 控制类型]</span></div></pre></td></tr></table></figure>
 <p>　　参数说明：</p>
 <ul>
 <li><code>-P</code>：设置默认策略：iptables；</li>
@@ -2014,7 +2014,7 @@
 </ul>
 <p>　　MASQUERADE 是 SNAT 的一个特例，因为它在 Iptables 中有着和 SNAT 相近的效果。SNAT 是指在数据包从网卡发送出去的时候，把数据包中的源地址部分替换为指定的 IP，这样，接收方就认为数据包的来源是被替换的那个 IP 的主机。MASQUERADE是用发送数据的网卡上的IP来替换源IP，因此，对于那些IP不固定的场合，比如拨号网络或者通过 dhcp 分配 IP 的情况下，就得用 MASQUERADE。</p>
 <h4 id="容器访问控制"><a href="#容器访问控制" class="headerlink" title="容器访问控制"></a>容器访问控制</h4><h5 id="容器访问外部网络"><a href="#容器访问外部网络" class="headerlink" title="容器访问外部网络"></a>容器访问外部网络</h5><p>　　容器要想访问外部网络，需要本地系统的转发支持。在 Linux 系统中，检查转发是否打开，即<code>net.ipv4.ip_forward</code> 是否等于 0。如果为 0，说明没有开启转发，则需要手动打开。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span>sysctl net.ipv4.ip_forward</div><div class="line">net.ipv4.ip_forward = 1</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash">sysctl net.ipv4.ip_forward</span></div><div class="line">net.ipv4.ip_forward = 1</div></pre></td></tr></table></figure>
 <p>　　也可以在启动 Docker 服务的时候设定 <code>--ip-forward=true</code> , Docker 就会自动设定系统的 ip_forward 参数为 1。 </p>
 <h5 id="容器之间访问"><a href="#容器之间访问" class="headerlink" title="容器之间访问"></a>容器之间访问</h5><p>　　容器之间相互访问，需要两方面的支持：</p>
 <ul>
@@ -2041,7 +2041,7 @@
 <li><code>--mtu=BYTES</code> ：容器网络中的 MTU。</li>
 </ul>
 <p>　　示例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span> 编辑docker默认配置：DOCKER_OPTS="--icc=false --iptables=true "</div><div class="line"><span class="meta">$</span> sudo vim /etc/default/docker</div><div class="line"><span class="meta">#</span> 重启docker服务</div><div class="line"><span class="meta">$</span> sudo service docker restart</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"> 编辑docker默认配置：DOCKER_OPTS=<span class="string">"--icc=false --iptables=true "</span></span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo vim /etc/default/docker</span></div><div class="line"><span class="meta">#</span><span class="bash"> 重启docker服务</span></div><div class="line"><span class="meta">$</span><span class="bash"> sudo service docker restart</span></div></pre></td></tr></table></figure>
 <p>　　既可以在启动服务时指定，也可以在启动容器时指定的命令选项：</p>
 <ul>
 <li><code>--dns=IP_ADDRESS...</code> 使用指定的DNS服务器；</li>
@@ -2254,7 +2254,7 @@
     <url>/2019/02/12/Docker-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-%E5%AE%B9%E5%99%A8%E7%AF%87/</url>
     <content><![CDATA[<p><center>Docker 容器基本操作介绍。</center><br><a id="more"></a></p>
 <h4 id="启动与运行"><a href="#启动与运行" class="headerlink" title="启动与运行"></a>启动与运行</h4><p>　　启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态（stopped ） 的容器重新启动。使用 <code>docker run</code> 或 <code>docker container run</code>  命令基于镜像新建并启动一个新的容器。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-d</code> ：表示后台运行；</li>
 <li>选项 <code>-i</code>：以交互模式运行容器，通常与 <code>-t</code> 同时使用；</li>
@@ -2294,7 +2294,7 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker logs 5ed90f3deafe</div><div class="line">hello world</div><div class="line">hello world</div><div class="line">hello world</div></pre></td></tr></table></figure>
 <p>　　注： 容器是否会长久运行，是和 <code>docker run</code> 或 <code>docker container run</code>  指定的命令有关，和 <code>-d</code> 参数无关。 </p>
 <h4 id="列出容器"><a href="#列出容器" class="headerlink" title="列出容器"></a>列出容器</h4><p>　　命令 <code>docker ps</code> 和 <code>docker container ls</code> 用于列出运行中的容器。如需列出所有容器（包括已停止的容器），可使用 <code>-a</code> 参数。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker ps [OPTIONS]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container ls [OPTIONS]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker ps [OPTIONS]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container ls [OPTIONS]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--all, -a</code> ：显示所有的容器，包括未运行的；</li>
 <li>选项 <code>--filter, -f</code> ：根据条件过滤显示的内容；</li>
@@ -2320,20 +2320,20 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker run -it ubuntu</div><div class="line">root@76866ccb8619:/# root@iZwz96uyro861qckgz89ljZ:~# 此时，ctrl+p+q 退回到宿主机的终端，容器没有被关闭</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps # 查看容器状态</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         10 seconds ago      Up 9 seconds                            condescending_ptolemy</div></pre></td></tr></table></figure>
 <p>　　此时，如果想要进入运行着的容器则可以使用命令 <code>docker attach</code> 、<code>nsenter</code>和 <code>docker exec</code> 。</p>
 <h5 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a>docker attach</h5><p>　　使用 <code>docker attach</code> 或 <code>docker container attach</code> 命令进入容器。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker attach [OPTIONS] CONTAINER COMMAND [ARG...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container attach [OPTIONS] CONTAINER</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker attach [OPTIONS] CONTAINER COMMAND [ARG...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container attach [OPTIONS] CONTAINER</span></div></pre></td></tr></table></figure>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker attach 76866ccb8619</div><div class="line">root@76866ccb8619:/# 已经进入到容器内</div></pre></td></tr></table></figure>
 <p>　　但是，很多场景下， 使用 <code>docker attach</code> 命令并不方便。 当多个窗口同时 <code>attach</code> 到同⼀个容器时， 所有窗口都会同步显示。 同理， 如果某个窗口发生阻塞， 其他窗口也无法执行操作。 </p>
 <h5 id="nsenter"><a href="#nsenter" class="headerlink" title="nsenter"></a>nsenter</h5><p>　　nsenter 工具可以访问另一个进程的名称空间，它已经被包含在 util-linux 2.23 或更高版本中。为了连接到容器， 需要找到容器第⼀个进程的 PID 。首先，使用 <code>docker inspect</code> 来查看该容器的详细信息，截取 PID 部分进行显示：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker inspect -f &#123;&#123;.State.Pid&#125;&#125; $CONTAINER_ID</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker inspect -f &#123;&#123;.State.Pid&#125;&#125; <span class="variable">$CONTAINER_ID</span></span></div></pre></td></tr></table></figure>
 <p>　　获得 PID 后， 然后使用 nsenter 命令进入容器：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> nsenter --target "$PID" --mount --uts --ipc --net --pid</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> nsenter --target <span class="string">"<span class="variable">$PID</span>"</span> --mount --uts --ipc --net --pid</span></div></pre></td></tr></table></figure>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         10 seconds ago      Up 9 seconds                            condescending_ptolemy</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker inspect -f &#123;&#123;.State.Pid&#125;&#125; 76866ccb8619</div><div class="line">31542</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# nsenter --target 31542 --mount --uts --ipc --net --pid    </div><div class="line">mesg: ttyname failed: No such device</div><div class="line">root@76866ccb8619:/# 已经进入到容器内</div></pre></td></tr></table></figure>
 <p>　　测试发现，通过这种，<code>ctrl+p+q</code> 也无法退回到宿主机的终端，需要使用 <code>exit</code> ，此时的 <code>exit</code> 并不会关闭容器。</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@76866ccb8619:/# 此时，ctrl+p+q 也无法退回到宿主机的终端</div><div class="line">root@76866ccb8619:/# exit</div><div class="line">logout</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         9 minutes ago       Up 9 minutes                            condescending_ptolemy</div></pre></td></tr></table></figure>
 <h5 id="docker-exec（推荐）"><a href="#docker-exec（推荐）" class="headerlink" title="docker exec（推荐）"></a>docker exec（推荐）</h5><p>　　在运行的容器中执行命令 <code>docker exec</code> 。命令格式：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker exec [OPTIONS] CONTAINER COMMAND [ARG...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> [OPTIONS] CONTAINER COMMAND [ARG...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-d</code> ：分离模式，在后台运行；</li>
 <li>选项 <code>-i</code> ：即使没有附加也保持 STDIN 打开；</li>
@@ -2343,7 +2343,7 @@
 <p>　　注意，该命令必须提供两个参数，一是容器名或ID，二是在运行的容器中执行的命令。操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker exec -it 76866ccb8619 /bin/bash</div><div class="line">root@76866ccb8619:/#</div></pre></td></tr></table></figure>
 <h4 id="终止容器"><a href="#终止容器" class="headerlink" title="终止容器"></a>终止容器</h4><p>　　命令<code>docker stop</code> 和 <code>docker container stop</code> 命令用于终止容器。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker stop [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container stop [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker stop [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container stop [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--time, -t</code> ：强制杀死容器前等待的时间， 单位是秒，默认值 10。</li>
 </ul>
@@ -2351,25 +2351,25 @@
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker stop 76866ccb8619</div><div class="line">76866ccb8619</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div></pre></td></tr></table></figure>
 <h4 id="启动已终止容器"><a href="#启动已终止容器" class="headerlink" title="启动已终止容器"></a>启动已终止容器</h4><p>　　对于已停止的容器， 可使用 <code>docker start</code> 命令来启动。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker start [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container start [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker start [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container start [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <p>　　操作示例，使用 <code>docker ps -a</code> 找到已停止的容器的ID，然后通过 <code>docker start</code> 命令将其再次启动：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps -a</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         31 minutes ago      Exited (0) 13 minutes ago                       condescending_ptolemy</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker start 76866ccb8619</div><div class="line">76866ccb8619</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         32 minutes ago      Up 3 seconds                            condescending_ptolemy</div></pre></td></tr></table></figure>
 <h4 id="重启容器"><a href="#重启容器" class="headerlink" title="重启容器"></a>重启容器</h4><p>　　使用 <code>docker restart</code> 命令来重启容器。 该命令实际上是先执行了 <code>docker stop</code> 命令， 然后执行了 <code>docker start</code> 命令。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker restart [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container restart [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker restart [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container restart [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--time, -t</code> ：关闭容器前等待的时间， 单位是秒，默认是 10 。</li>
 </ul>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker restart 76866ccb8619</div><div class="line">76866ccb8619</div></pre></td></tr></table></figure>
 <h4 id="导出和导入容器"><a href="#导出和导入容器" class="headerlink" title="导出和导入容器"></a>导出和导入容器</h4><h5 id="导出容器"><a href="#导出容器" class="headerlink" title="导出容器"></a>导出容器</h5><p>　　使用 <code>docker export</code> 或 <code>docker container export</code> 命令，导出容器快照到本地文件：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker export [OPTIONS] CONTAINER</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container export [OPTIONS] CONTAINER</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">export</span> [OPTIONS] CONTAINER</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container <span class="built_in">export</span> [OPTIONS] CONTAINER</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--output, -o</code> ：将输入内容写到文件。</li>
 </ul>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES</div><div class="line">76866ccb8619        ubuntu              "/bin/bash"         35 minutes ago      Up About a minute                       condescending_ptolemy</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker export 76866ccb8619 &gt; ubuntu.tar</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# ls</div><div class="line">ubuntu.tar</div></pre></td></tr></table></figure>
 <h5 id="导入容器"><a href="#导入容器" class="headerlink" title="导入容器"></a>导入容器</h5><p>　　使用 <code>docker import</code> 命令，从容器快照文件中再导入为镜像：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker import [OPTIONS] file|URL|- [REPOSITORY[:TAG]]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-c</code> ：应用docker 指令创建镜像；</li>
 <li>选项 <code>-m</code> ：提交时的说明文字。</li>
@@ -2377,19 +2377,19 @@
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# cat ubuntu.tar | docker import - my/ubuntu:v1.0  </div><div class="line">sha256:e4f23944020551aaa9da470d3af9520cb6e8d5857c855bedf8f3345e524a57a4</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker image ls</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">my/ubuntu           v1.0                e4f239440205        8 seconds ago       69.8MB</div></pre></td></tr></table></figure>
 <p>　　此外，也可以通过指定 URL 或者某个目录来导入：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker import URL 镜像标签</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker import URL 镜像标签</span></div></pre></td></tr></table></figure>
 <p>　　既可以使用 <code>docker load</code> 来导入镜像存储文件到本地镜像库，也可以使用 <code>docker import</code> 来导入一个容器快照到本地镜像库。区别在于容器快照文件将丢弃所有的历史记录和元数据信息（即仅保存容器当时的快照状态） ，而镜像存储文件将保存完整记录，体积也要大。此外，从容器快照文件导入时可以重新指定标签等元数据信息。 </p>
 <h4 id="删除容器"><a href="#删除容器" class="headerlink" title="删除容器"></a>删除容器</h4><p>　　命令 <code>docker rm</code> 和 <code>docker container rm</code> 用于删除一个处于终止状态的容器。命令格式： </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker rm [OPTIONS] CONTAINER [CONTAINER...]</div><div class="line">or</div><div class="line"><span class="meta">$</span> docker container rm [OPTIONS] CONTAINER [CONTAINER...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker rm [OPTIONS] CONTAINER [CONTAINER...]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> docker container rm [OPTIONS] CONTAINER [CONTAINER...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--force, -f</code> ：通过 SIGKILL 信号强制删除正在运行中的容器；</li>
 <li>选项 <code>--link, -l</code>：删除容器间的网络连接；</li>
 <li>选项 <code>--volumes, -v</code> ：删除与容器关联的卷。</li>
 </ul>
 <p>　　不加 <code>-f</code> 选项的命令只能删除已停止的容器， 如需删除正在运行的容器， 需使用 <code>-f</code> 参数。 如果要删除所有的容器：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker rm -f $(docker ps -a -q)</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker rm -f $(docker ps -a -q)</span></div></pre></td></tr></table></figure>
 <p>　　清理所有处于终止状态的容器 ：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker container prune</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker container prune</span></div></pre></td></tr></table></figure>
 <p>　　操作示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker rm -f 76866ccb8619</div><div class="line">76866ccb8619</div></pre></td></tr></table></figure>
 ]]></content>
@@ -2405,7 +2405,7 @@
     <url>/2019/02/06/Docker-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-%E9%95%9C%E5%83%8F%E7%AF%87%EF%BC%88%E4%B8%8B%EF%BC%89/</url>
     <content><![CDATA[<p><center>Docker 镜像基本操作介绍。</center><br><a id="more"></a></p>
 <h4 id="基于容器构建镜像"><a href="#基于容器构建镜像" class="headerlink" title="基于容器构建镜像"></a>基于容器构建镜像</h4><p>　　在上篇中已经介绍了如何基于运行着的容器生成镜像：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-a</code> ：提交的镜像作者；</li>
 <li>选项 <code>-c</code> ：使用 Dockerfile 指令来创建镜像；</li>
@@ -2510,9 +2510,9 @@
 </ul>
 <p>　　<code>LABEL</code> 指令用于为镜像添加元数据。格式为：<code>LABEL &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</code> 。⽤于指定维护者信息的 <code>MAINTAINER</code> 指令已经过时，可使用 <code>LABEL maintainer=&quot;xxx@xxx.com&quot;</code> 替代。</p>
 <h5 id="构建镜像"><a href="#构建镜像" class="headerlink" title="构建镜像"></a>构建镜像</h5><p>　　<code>docker build</code> 和 <code>docker image build</code> 命令使用 Dockerfile 创建镜像。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker image build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
 <p>　　或：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--tag, -t</code> ：设置标签，格式： <code>name:tag</code>， tag 可选；</li>
 <li>选项 <code>--no-cache</code> ：创建镜像的过程不使用缓存；</li>
@@ -2523,14 +2523,14 @@
 </ul>
 <p>　　<strong>PATH|URL</strong>： 指定构建镜像的上下文的路径，构建镜像的过程中，可以且只可以引用上下文中的任何文件。</p>
 <p>　　<code>docker build</code> 支持从从 URL 构建，例如从 Git 仓库：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker build git仓库地址</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker build git仓库地址</span></div></pre></td></tr></table></figure>
 <p>　　如果所给出的 URL 不是个 Git 仓库，而是个  tar  压缩包，那么 Docker 引擎会下载这个包，并自动解压缩，以其作为上下文，开始构建。用给定的 tar 压缩包构建：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$ docker build - &lt; context.tar.gz</div></pre></td></tr></table></figure>
 <p>　　也可以使用当前目录的 Dockerfile 创建镜像，或者通过 -f Dockerfile 文件的位置。还支持从标准输入中读取 Dockerfile 进行构建。</p>
 <p>　　示例，创建 Dockerfile 文件，内容如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span> echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; /usr/share/nginx/html/index.html</span></div></pre></td></tr></table></figure>
 <p>　　构建镜像：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker build -t mynginx .</div><div class="line">Sending build context to Docker daemon  2.048kB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line"><span class="meta"> ---&gt;</span> f09fe80eb0e7</div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span> Running in 403fbe9c02bf</div><div class="line">Removing intermediate container 403fbe9c02bf</div><div class="line"><span class="meta"> ---&gt;</span> b3074b079926</div><div class="line">Successfully built b3074b079926</div><div class="line">Successfully tagged mynginx:latest</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker build -t mynginx .</div><div class="line">Sending build context to Docker daemon  2.048kB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> f09fe80eb0e7</span></div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> Running <span class="keyword">in</span> 403fbe9c02bf</span></div><div class="line">Removing intermediate container 403fbe9c02bf</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> b3074b079926</span></div><div class="line">Successfully built b3074b079926</div><div class="line">Successfully tagged mynginx:latest</div></pre></td></tr></table></figure>
 <p>　　在这条命令中，使用 <code>-t</code> 指定了镜像名为 mynginx，由于没有使用 <code>-f</code> 指令，所以默认使用上下文路径下名为 Dockerfile 的文件认为是构建镜像的”Dockerfile”。最后指定上下文路径，在这条命令中，上下文路径是 <code>.</code> 。</p>
 <h4 id="精简镜像体积"><a href="#精简镜像体积" class="headerlink" title="精简镜像体积"></a>精简镜像体积</h4><h5 id="选择最精简的基础镜像"><a href="#选择最精简的基础镜像" class="headerlink" title="选择最精简的基础镜像"></a>选择最精简的基础镜像</h5><p>　　选择体积最小的基础镜像可有效降低镜像体积。如：<code>alpine</code>、<code>busybox</code> 等。</p>
 <h5 id="清理镜像构建的中间产物"><a href="#清理镜像构建的中间产物" class="headerlink" title="清理镜像构建的中间产物"></a>清理镜像构建的中间产物</h5><p>　　构建镜像的过程中，当 Dockerfile 的指令执行完成后，删除镜像不需要用的的文件。<code>apt-get autoremove</code> 和 <code>apt-get clean all</code> 把所有不必要的依赖全删，或者使用系统 rm 命令删除不需要的源文件。</p>
@@ -2858,7 +2858,7 @@
     <url>/2019/01/27/Docker-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C-%E9%95%9C%E5%83%8F%E7%AF%87%EF%BC%88%E4%B8%8A%EF%BC%89/</url>
     <content><![CDATA[<p><center>Docker 镜像基本操作介绍。</center><br><a id="more"></a></p>
 <h4 id="获取镜像"><a href="#获取镜像" class="headerlink" title="获取镜像"></a>获取镜像</h4><p>　　Docker 运行容器前需要本地存在对应的镜像，如果本地不存在该镜像，Docker 会从镜像仓库下载该镜像。 从 Docker 镜像仓库获取镜像的命令是：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker pull [选项] [Docker Registry 地址[:端口号]/]仓库名[:标签]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>Docker 镜像仓库地址：地址的格式一般是 &lt;域名/IP&gt;[:端口号] 。默认地址是 Docker Hub。</li>
 <li>仓库名：如之前所说，这里的仓库名是两段式名称，即 &lt;用户名&gt;/&lt;软件名&gt; 。对于 Docker Hub，如果不给出用户名，则默认为 library ，也就是官方镜像。 </li>
@@ -2869,9 +2869,9 @@
 <p>　　示例，从Docker Hub 拉取 ubuntu 系统的镜像：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker pull ubuntu</div><div class="line">Using default tag: latest</div><div class="line">latest: Pulling from library/ubuntu</div><div class="line">84ed7d2f608f: Pull complete </div><div class="line">be2bf1c4a48d: Pull complete </div><div class="line">a5bdc6303093: Pull complete </div><div class="line">e9055237d68d: Pull complete </div><div class="line">Digest: sha256:868fd30a0e47b8d8ac485df174795b5e2fe8a6c8f056cc707b232d65b8a1ab68</div><div class="line">Status: Downloaded newer image for ubuntu:latest</div></pre></td></tr></table></figure>
 <h4 id="列出镜像"><a href="#列出镜像" class="headerlink" title="列出镜像"></a>列出镜像</h4><p>　　列出已经下载到本地的镜像，使用：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker image ls</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image ls</span></div></pre></td></tr></table></figure>
 <p>　　或者：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker images</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker images</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--all, -a</code>，列出本地所有的镜像（含中间映像层，默认情况下，过滤掉中间映像层）；</li>
 <li>选项 <code>--digests</code>，显示镜像的摘要信息；</li>
@@ -2884,11 +2884,11 @@
 <p>　　示例：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker image ls</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">hello-world         latest              fce289e99eb9        3 weeks ago         1.84kB</div><div class="line">ubuntu              latest              1d9c17228a9e        3 weeks ago         86.7MB</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker images</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">hello-world         latest              fce289e99eb9        3 weeks ago         1.84kB</div><div class="line">ubuntu              latest              1d9c17228a9e        3 weeks ago         86.7MB</div></pre></td></tr></table></figure>
 <h4 id="运行镜像"><a href="#运行镜像" class="headerlink" title="运行镜像"></a>运行镜像</h4><p>　　镜像是静态的定义，容器是镜像运行时的实体。这里称之为运行镜像其实是不合理的，因为只有容器才能说是运行。但是，启动容器有两种方式，一种是基于镜像新建一个容器并启动，另外一个是将在终止状态的容器重新启动。这里要说的就是基于镜像来启动容器：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span></div></pre></td></tr></table></figure>
 <p>　　Docker run命名的具体使用将在后续的博客中进行详细说明。这里给出一个简单的示例，通过运行 ubuntu 容器输出 <code>Hello world</code>：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker run ubuntu /bin/echo "Hello world"</div><div class="line">Hello world</div></pre></td></tr></table></figure>
 <h4 id="删除本地镜像"><a href="#删除本地镜像" class="headerlink" title="删除本地镜像"></a>删除本地镜像</h4><p>　　删除本地的镜像，可以使用 ：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image rm [选项] &lt;镜像1&gt; [&lt;镜像2&gt; ...]</span></div></pre></td></tr></table></figure>
 <p>　　其中， <code>&lt;镜像&gt;</code> 可以是 <code>镜像短 ID</code> 、 <code>镜像长 ID</code> 、 <code>镜像名</code> 或者 <code>镜像摘要</code> 。 </p>
 <ul>
 <li>选项 <code>--force , -f</code> ，强制删除镜像；</li>
@@ -2896,7 +2896,7 @@
 </ul>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~# docker image rm ubuntu</div><div class="line">Untagged: ubuntu:latest</div><div class="line">Untagged: ubuntu@sha256:868fd30a0e47b8d8ac485df174795b5e2fe8a6c8f056cc707b232d65b8a1ab68</div><div class="line">Deleted: sha256:1d9c17228a9e80a0a23927f24f3cf17d012cf0bb3eae5e3541a8c6987ab9bd5a</div><div class="line">Deleted: sha256:3288cd6e6e7d42bcb4a74121b412c42a11f96da52685e42dbf9de6a747a55c6b</div><div class="line">Deleted: sha256:b1636589630239bdb9153f95ac564bcd2afd9202aaf8511cbf5a9a37e03daf35</div><div class="line">Deleted: sha256:043f492f40c539cfe7cee4cb8aae00ed1d5b19e864fbe6ea35ec92a2333bacc4</div><div class="line">Deleted: sha256:2fb7bfc6145d0ad40334f1802707c2e2390bdcfc16ca636d9ed8a56c1101f5b9</div></pre></td></tr></table></figure>
 <h4 id="创建镜像"><a href="#创建镜像" class="headerlink" title="创建镜像"></a>创建镜像</h4><p>　　在运行着的容器的基础上生成镜像：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker commit [OPTIONS] CONTAINER [REPOSITORY[:TAG]]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>-a</code> ：提交的镜像作者；</li>
 <li>选项 <code>-c</code> ：使用 Dockerfile 指令来创建镜像；</li>
@@ -2906,27 +2906,27 @@
 <p>　　示例，将容器 9fbbb230909a 保存为新的镜像，并添加提交人信息和说明信息：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker ps</div><div class="line">CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES</div><div class="line">9fbbb230909a        ubuntu              "/bin/bash -c 'while…"   23 minutes ago      Up 23 minutes                           admiring_chatterjee</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker commit -a "fanzhenyu" -m "my ubuntu" 9fbbb230909a ubuntu:my</div><div class="line">sha256:fe0e9216b2dd575dff6b5521616b55ce996fdb89fd893ba9e80a8a671f6acc2d</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker images</div><div class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</div><div class="line">ubuntu              my                  fe0e9216b2dd        13 seconds ago      87.5MB</div><div class="line">ubuntu              latest              20bb25d32758        4 days ago          87.5MB</div></pre></td></tr></table></figure>
 <p>　　构建镜像也可以通过：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker image build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
 <p>　　或：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker build [OPTIONS] PATH | URL | -</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker build [OPTIONS] PATH | URL | -</span></div></pre></td></tr></table></figure>
 <p>　　使用 Dockerfiles 来实现。Dockerfile 是一个文本文件，其内包含了一条条的指令，每一条指令构建一层，因此每一条指令的内容，就是描述该层应当如何构建。 </p>
 <p>　　示例，以定制 nginx 镜像为例，Dockerfile 的内容如下：</p>
-<figure class="highlight dockerfile"><table><tr><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span> echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div></pre></td></tr></table></figure>
+<figure class="highlight dockerfile"><table><tr><td class="code"><pre><div class="line"><span class="keyword">FROM</span> nginx</div><div class="line"><span class="keyword">RUN</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'&lt;h1&gt;Hello, Docker!&lt;/h1&gt;'</span> &gt; /usr/share/nginx/html/index.html</span></div></pre></td></tr></table></figure>
 <p>　　在 Dockerfile 文件所在目录执行： </p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker image build -t nginx:my .</div><div class="line">Sending build context to Docker daemon  90.01MB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line">latest: Pulling from library/nginx</div><div class="line">5e6ec7f28fb7: Pull complete </div><div class="line">ab804f9bbcbe: Pull complete </div><div class="line">052b395f16bc: Pull complete </div><div class="line">Digest: sha256:56bcd35e8433343dbae0484ed5b740843dd8bff9479400990f251c13bbb94763</div><div class="line">Status: Downloaded newer image for nginx:latest</div><div class="line"><span class="meta"> ---&gt;</span> 42b4762643dc</div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span> Running in da558d0a335d</div><div class="line">Removing intermediate container da558d0a335d</div><div class="line"><span class="meta"> ---&gt;</span> b6cca0cd24a1</div><div class="line">Successfully built b6cca0cd24a1</div><div class="line">Successfully tagged nginx:my</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker image build -t nginx:my .</div><div class="line">Sending build context to Docker daemon  90.01MB</div><div class="line">Step 1/2 : FROM nginx</div><div class="line">latest: Pulling from library/nginx</div><div class="line">5e6ec7f28fb7: Pull complete </div><div class="line">ab804f9bbcbe: Pull complete </div><div class="line">052b395f16bc: Pull complete </div><div class="line">Digest: sha256:56bcd35e8433343dbae0484ed5b740843dd8bff9479400990f251c13bbb94763</div><div class="line">Status: Downloaded newer image for nginx:latest</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> 42b4762643dc</span></div><div class="line">Step 2/2 : RUN echo '&lt;h1&gt;Hello, Docker!&lt;/h1&gt;' &gt; /usr/share/nginx/html/index.html</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> Running <span class="keyword">in</span> da558d0a335d</span></div><div class="line">Removing intermediate container da558d0a335d</div><div class="line"><span class="meta"> ---&gt;</span><span class="bash"> b6cca0cd24a1</span></div><div class="line">Successfully built b6cca0cd24a1</div><div class="line">Successfully tagged nginx:my</div></pre></td></tr></table></figure>
 <p>　　特别注意命令最后的 <code>.</code> 符号，这个点一定要有，否则会报错。这里的 <code>.</code> 是在指定上下文路径 。</p>
 <p>　　当构建的时候，用户会指定构建镜像上下文的路径， docker build 命令得知这个路径后，会将路径下的所有内容打包，然后上传给 Docker 引擎。这样Docker 引擎收到这个上下文包后，展开就会获得构建镜像所需的一切文件。 </p>
 <h4 id="导入和导出镜像"><a href="#导入和导出镜像" class="headerlink" title="导入和导出镜像"></a>导入和导出镜像</h4><p>　　导出镜像，将一个或多个镜像保存到tar存档（默认情况下流式传输到标准输出）：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker save [OPTIONS] IMAGE [IMAGE...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker save [OPTIONS] IMAGE [IMAGE...]</span></div></pre></td></tr></table></figure>
 <p>　　或：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker image save [OPTIONS] IMAGE [IMAGE...]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image save [OPTIONS] IMAGE [IMAGE...]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--output , -o</code> ，输出到的文件。</li>
 </ul>
 <p>　　示例，导出 ubuntu 镜像为 tar 文件：</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# docker save -o ubuntu.tar ubuntu</div><div class="line">root@iZwz96uyro861qckgz89ljZ:~/docker# ls -lh</div><div class="line">total 86M</div><div class="line">-rw------- 1 root root 86M Jan 27 10:21 ubuntu.tar</div></pre></td></tr></table></figure>
 <p>　　导入镜像，从tar存档或标准输入加载镜像：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> docker image load [OPTIONS]</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> docker image load [OPTIONS]</span></div></pre></td></tr></table></figure>
 <ul>
 <li>选项 <code>--input , -i</code> ，从tar归档文件中读取，而不是标准输入；</li>
 <li>选项 <code>--quiet , -q</code>，安静模式，不输出load的中间信息。</li>
@@ -5340,11 +5340,11 @@
 <ul>
 <li>缓存查看</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> arp -a	# 参数-a的意思是显示高速缓存中所有的内容。</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> arp -a	<span class="comment"># 参数-a的意思是显示高速缓存中所有的内容。</span></span></div></pre></td></tr></table></figure>
 <ul>
 <li>缓存清空</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> arp -d</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> arp -d</span></div></pre></td></tr></table></figure>
 <h4 id="代理-ARP"><a href="#代理-ARP" class="headerlink" title="代理 ARP"></a>代理 ARP</h4><p>　　如果 ARP 请求是从一个网络的主机发往另一个网络上的主机，可能需要经过很多路由器，而路由器隔离广播域，每个接口/网段都是独立的广播域， ARP 请求又是二层广播包，所以 ARP 广播包没法通过过路由器。。因此，网关设备收到此 ARP 请求，会用自己的 MAC 地址返回给请求者，这便是代理 ARP（Proxy ARP）。</p>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2018/9/13-1.png" alt=""></p>
 <p>　　上图中，PC 发送 ARP 请求服务器 8.8.8.8 的 MAC 地址，路由器（网关）收到这个请求时会进行判断，由于目标 8.8.8.8 不属于本网段（即跨网段），此时便返回自己的接口 MAC 地址给 PC，后续电脑访问服务器时，目标 MAC 直接封装为 MAC254。</p>
@@ -7026,14 +7026,14 @@
     <content><![CDATA[<p>　　Django 是一个 Web 框架，它采用 MTV（Model-Template-View）模型组织，相比其他框架，Django 充分利用 Python 特点，开发效率更高。</p>
 <a id="more"></a>
 <h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p>　　这篇博客基于：Python3.6 + PyCharm社区版 + Windows7命令行。使用 pip 安装 Django：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pip install django</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pip install django</div></pre></td></tr></table></figure>
 <h4 id="Django开发简单示例"><a href="#Django开发简单示例" class="headerlink" title="Django开发简单示例"></a>Django开发简单示例</h4><ol>
 <li>创建工程：<code>django-admin startproject mysite</code></li>
 <li>修改工程：<br> 2.1 创建一个具体应用（app）<br> 2.2 修改应用的 views.py：对 URL 的具体响应功能<br> 2.3 修改URL路由：指定 URL 与响应之间的关系</li>
 <li>运行测试工程：<code>$ python manage.py runserver</code></li>
 </ol>
 <h4 id="Django工程"><a href="#Django工程" class="headerlink" title="Django工程"></a>Django工程</h4><h5 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h5><p>　　打开 cmd，使用 django-admin 工具创建 Django 工程：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> django-admin startproject mysite</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> django-admin startproject mysite</div></pre></td></tr></table></figure>
 <h5 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">.</div><div class="line">├── manage.py</div><div class="line">└── mysite</div><div class="line">    ├── __init__.py</div><div class="line">    ├── settings.py</div><div class="line">    ├── urls.py</div><div class="line">    └── wsgi.py</div></pre></td></tr></table></figure>
 <ul>
 <li>manage.py</li>
@@ -7067,10 +7067,10 @@
 <p>　　查看更多命令可使用帮助：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">$  django-admin -help</div></pre></td></tr></table></figure>
 <h5 id="manage-py"><a href="#manage-py" class="headerlink" title="manage.py"></a>manage.py</h5><p>　　与 django-admin 类似，但 manage.py 仅针对当前项目。查看更多命令可使用帮助：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python manage.py <span class="built_in">help</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> python manage.py help</div></pre></td></tr></table></figure>
 <p>　　使用示例：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python manage.py &lt;<span class="built_in">command</span>&gt; [options]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> python –m django &lt;<span class="built_in">command</span>&gt; [options]</span></div></pre></td></tr></table></figure>
-<h5 id="运行工程"><a href="#运行工程" class="headerlink" title="运行工程"></a>运行工程</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python manage.py runserver</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> python manage.py &lt;command&gt; [options]</div><div class="line">or</div><div class="line"><span class="meta">$</span> python –m django &lt;command&gt; [options]</div></pre></td></tr></table></figure>
+<h5 id="运行工程"><a href="#运行工程" class="headerlink" title="运行工程"></a>运行工程</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> python manage.py runserver</div></pre></td></tr></table></figure>
 <p>　　打开浏览器，输入 <a href="http://127.0.0.1:8080" target="_blank" rel="external">http://127.0.0.1:8080</a> 即可看到 Django 默认的页面。</p>
 <h4 id="Django-应用"><a href="#Django-应用" class="headerlink" title="Django 应用"></a>Django 应用</h4><p>　　工程对应于一个网站，是配置和应用的集合，应用对应于特定功能，是具体功能的载体，配置和功能分离是高度模块化的体现。</p>
 <h5 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h5><p>　　一般一个项目有多个 app，当然通用的 app 也可以在多个项目中使用。</p>
@@ -7108,7 +7108,7 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><div class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</div><div class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</div><div class="line"><span class="keyword">from</span> app <span class="keyword">import</span> views   <span class="comment"># 添加app的views</span></div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</div><div class="line">    path(<span class="string">'index/'</span>, views.hello)   <span class="comment"># 添加路由条目</span></div><div class="line">]</div></pre></td></tr></table></figure>
 <p>　　注：Pycharm 导入自己写的包时可能会报错，这时候需要在项目目录上右键选择 Mark Directory as，然后选择 Source Root。</p>
 <h4 id="运行测试工程"><a href="#运行测试工程" class="headerlink" title="运行测试工程"></a>运行测试工程</h4><p>　　运行 Django：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;</span><span class="bash"> python manage.py runserver</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;</span> python manage.py runserver</div></pre></td></tr></table></figure>
 <p>　　使用浏览器访问以下地址：<a href="http://127.0.0.1:8000/index/" target="_blank" rel="external">http://127.0.0.1:8000/index/</a></p>
 <p>　　可以看到已经正常显示了：Hello, Welcome!</p>
 ]]></content>
@@ -7668,10 +7668,10 @@
 <a id="more"></a>
 <p>　　iwconfig 用于 Linux 系统配置无线网络设备或显示无线网络设备信息。iwconfig 命令类似于 ifconfig 命令，但是他配置对象是无线网卡，它对网络设备进行无线操作，如设置无线通信频段。</p>
 <h4 id="iwconfig-安装"><a href="#iwconfig-安装" class="headerlink" title="iwconfig 安装"></a>iwconfig 安装</h4><p>　　Ubuntu 下使用如下命令安装，wireless-tools 工具包中包含了 iwconfig。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install wireless-tools</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt install wireless-tools</div></pre></td></tr></table></figure>
 <h4 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Usage: iwconfig [interface]</div><div class="line">                interface essid &#123;NNN|any|on|off&#125;</div><div class="line">                interface mode &#123;managed|ad-hoc|master|...&#125;</div><div class="line">                interface freq N.NNN[k|M|G]</div><div class="line">                interface channel N</div><div class="line">                interface bit &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface rate &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface enc &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface key &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface power &#123;period N|timeout N|saving N|off&#125;</div><div class="line">                interface nickname NNN</div><div class="line">                interface nwid &#123;NN|on|off&#125;</div><div class="line">                interface ap &#123;N|off|auto&#125;</div><div class="line">                interface txpower &#123;NmW|NdBm|off|auto&#125;</div><div class="line">                interface sens N</div><div class="line">                interface retry &#123;limit N|lifetime N&#125;</div><div class="line">                interface rts &#123;N|auto|fixed|off&#125;</div><div class="line">                interface frag &#123;N|auto|fixed|off&#125;</div><div class="line">                interface modulation &#123;11g|11a|CCK|OFDMg|...&#125;</div><div class="line">                interface commit</div><div class="line">       Check man pages for more details.</div></pre></td></tr></table></figure>
 <h5 id="essid"><a href="#essid" class="headerlink" title="essid"></a>essid</h5><p>　　设置无线网卡的 ESSID(Extension Service Set ID)。通过 ESSID 来区分不同的无线网络，正常情况下只有相同 ESSID 的无线站点才可以互相通讯，除非想监听无线网络。其后的参数为双引号括起的 ESSID 字符串，或者是any/on/off，如果 ESSID字符串中包含any/no/off，则需要在前面加”–”。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid <span class="string">"My Network"</span><span class="string">"</span></span></div><div class="line"><span class="meta">$</span><span class="bash"><span class="string"> iwconfig eth0 essid -- "</span>ANY<span class="string">""</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig eth0 essid any</div><div class="line"><span class="meta">$</span> iwconfig eth0 essid "My Network""</div><div class="line"><span class="meta">$</span> iwconfig eth0 essid -- "ANY""</div></pre></td></tr></table></figure>
 <h5 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h5><p>　　设置无线网卡的工作模式，可以是</p>
 <ul>
 <li>Ad-hoc：不带 AP 的点对点无线网络</li>
@@ -7682,23 +7682,23 @@
 <li>Monitor：监听模式</li>
 <li>Auto：由无线网卡自动选择工作模式</li>
 </ul>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Managed</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Ad-Hoc</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 mode Managed</div><div class="line"><span class="meta">$</span> iwconfig wlan0 mode Ad-Hoc</div></pre></td></tr></table></figure>
 <h5 id="freq-channel"><a href="#freq-channel" class="headerlink" title="freq/channel"></a>freq/channel</h5><p>　　设置无线网卡的工作频率或者频道，小于 1000 的参数被认为是频道，大于 10000 的参数被认为是频率。频率单位为 Hz，可以在数字后面附带 k, M, G 来改变数量级，比如 2.4G。频道从1开始。使用 lwlist 工具可以查看无线网卡支持的频率和频道。参数 off/auto 指示无线网络自动挑选频率。</p>
 <p>　　注意：如果是 Managed 模式，AP 会指示无线网卡的工作频率，因此该设置的参数会被忽略。Ad-hoc 模式下只使用该设定的频率初始无线网络，如果加入已经存在的 Ad-hoc 网络则会忽略该设置的频率参数。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2422000000</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2.422G</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel auto</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 freq 2422000000</div><div class="line"><span class="meta">$</span> iwconfig wlan0 freq 2.422G</div><div class="line"><span class="meta">$</span> iwconfig wlan0 channel 3</div><div class="line"><span class="meta">$</span> iwconfig wlan0 channel auto</div></pre></td></tr></table></figure>
 <h5 id="rate-bit"><a href="#rate-bit" class="headerlink" title="rate/bit"></a>rate/bit</h5><p>　　如果无线网卡支持多速率，则可以通过该命令设置工作的速率。小于 1000 的参数由具体的无线网卡驱动定义，一般是传输速率的索引值，大于 1000 的为速率，单位 bps，可以在数字后面附带 k，M，G 来指定数量级。auto 参数让无线网卡自动选择速率 fixed 参数让无线网卡不使用自动速率模式。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 11M</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 5.5M auto</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 rate 11M</div><div class="line"><span class="meta">$</span> iwconfig wlan0 rate auto</div><div class="line"><span class="meta">$</span> iwconfig wlan0 rate 5.5M auto</div></pre></td></tr></table></figure>
 <h5 id="ap"><a href="#ap" class="headerlink" title="ap"></a>ap</h5><p>　　连接到指定的 AP 或者无线网络，后面的参数可以是 AP 的 MAC 地址，也可以是 iwlist scan 出来的标识符。如果是 Ad-hoc，则连接一个已经存在的 Ad-hoc 网络。使用 off 参数让无线网卡不改变当前已连接的 AP 下进入自动模式。any/auto 参数，无线网卡自动选择最好的 AP。</p>
 <p>　　注意：如果无线信号低到一定程度，无线网络会进入自动选择AP模式。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap 00:60:1D:01:23:45</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap off</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 ap 00:60:1D:01:23:45</div><div class="line"><span class="meta">$</span> iwconfig wlan0 ap any</div><div class="line"><span class="meta">$</span> iwconfig wlan0 ap off</div></pre></td></tr></table></figure>
 <h5 id="key-enc"><a href="#key-enc" class="headerlink" title="key/enc"></a>key/enc</h5><p>　　设置无线网卡使用的加密密钥，此处为设置 WEP 模式的加密 key，如果要使用 WPA，需要 wpa_supplicant 工具包。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key [3] 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key s:password [2]</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 key 0123-4567-89</div><div class="line"><span class="meta">$</span> iwconfig wlan0 key [3] 0123-4567-89</div><div class="line"><span class="meta">$</span> iwconfig wlan0 key s:password [2]</div></pre></td></tr></table></figure>
 <h5 id="power"><a href="#power" class="headerlink" title="power"></a>power</h5><p>　　设置无线网卡的电源管理模式。period ‘value’  指定唤醒的周期，timeout ‘value’ 指定进入休眠的等待时间，这两个参数之前可以加 min 和 max 修饰，这些值的单位为秒，可以附加 m 和 u 来指定毫秒和微秒。off/on 参数指定是否允许电源管理，all/unicast/multicast 指定允许唤醒的数据包类型。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power period 2</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power 500m unicast</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power timeout 300u all</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power saving 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power off</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power min period 2 power max period 4</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 power period 2</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power 500m unicast</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power timeout 300u all</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power saving 3</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power off</div><div class="line"><span class="meta">$</span> iwconfig wlan0 power min period 2 power max period 4</div></pre></td></tr></table></figure>
 <h5 id="txpower"><a href="#txpower" class="headerlink" title="txpower"></a>txpower</h5><p>　　如果无线网卡支持多发射功率设定，则使用该参数设定发射，单位为 dBm，如果指定为 W（毫瓦），只转换公式为：<br>dBm=30+log(W)。参数 on/off 可以打开和关闭发射单元，auto 和 fixed 指定无线是否自动选择发射功率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 15</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 30mW</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower off</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower 15</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower 30mW</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower auto</div><div class="line"><span class="meta">$</span> iwconfig wlan0 txpower off</div></pre></td></tr></table></figure>
 <h5 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h5><p>　　设置无线网卡的重传机制。limit ‘value’  指定最大重传次数；lifetime ‘value’ 指定最长重试时间，单位为秒，可以附带 m 和 u 来指定单位为毫秒和微秒。如果无线网卡支持自动模式，则在 limit 和 lifetime 之前还可以附加 min 和 max 来指定上下限值。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry 16</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry lifetime 300m</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry short 12</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry min <span class="built_in">limit</span> 8</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> iwconfig wlan0 retry 16</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry lifetime 300m</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry short 12</div><div class="line"><span class="meta">$</span> iwconfig wlan0 retry min limit 8</div></pre></td></tr></table></figure>
 <h5 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h5><p>　　提交所有的参数修改给无线网卡驱动。有些无线网卡驱动会先缓存无线网卡参数修，使用这个命令来让无线网卡的参数修改生效。不过一般不需要使用该命令，因为无线网卡驱动最终都会是参数的修改生效，一般在 debug 时会用到。</p>
 <h5 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- nwid: Network ID  # 只用于pre-802.11的无线网卡，802.11网卡利用ESSID和AP的MAC地址来替换nwid，现在基本上不用设置。</div><div class="line">- nick: Nickname  # 一些网卡需要设置该参数，但是802.11协议栈、MAC都没有用到该参数，一般也不用设置。</div><div class="line">- sens # 设置接收灵敏度的下限，在该下限之下，无线网卡认为该无线网络信号太差。</div><div class="line">- rts   # 设置节点发送RTS的最小包的大小</div><div class="line">- frag  # 设置发送数据包的分片大小。</div><div class="line">- modu  # 设定的特定调制集</div></pre></td></tr></table></figure>
 ]]></content>
@@ -7749,39 +7749,39 @@
     <content><![CDATA[<p>　　pidstat 主要用于监控全部或指定进程占用系统资源的情况，如 CPU，内存、设备 IO、任务切换、线程等。</p>
 <a id="more"></a>
 <h4 id="pidstat安装"><a href="#pidstat安装" class="headerlink" title="pidstat安装"></a>pidstat安装</h4><p>　　要使用 pidstat 需要安装 Sysstat，它是一个工具集，包括 sar、pidstat、iostat、mpstat、sadf、sadc。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install sysstat</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install sysstat</div></pre></td></tr></table></figure>
 <p>　　pidstat 首次运行时显示自系统启动开始的各项统计信息，之后运行 pidstat 将显示自上次运行该命令以后的统计信息。用户可以通过指定统计的次数和时间来获得所需的统计信息。</p>
 <h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p>　　用户手册：<a href="http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html" target="_blank" rel="external">http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html</a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Usage: pidstat [ options ] [ &lt;interval&gt; [ &lt;count&gt; ] ]</div><div class="line">Options are:</div><div class="line">[ -d ] [ -h ] [ -I ] [ -l ] [ -R ] [ -r ] [ -s ] [ -t ] [ -U [ &lt;username&gt; ] ]</div><div class="line">[ -u ] [ -V ] [ -v ] [ -w ] [ -C &lt;command&gt; ] [ -G &lt;process_name&gt; ]</div><div class="line">[ -p &#123; &lt;pid&gt; [,...] | SELF | ALL &#125; ] [ -T &#123; TASK | CHILD | ALL &#125; ]</div></pre></td></tr></table></figure>
 <h5 id="指定采样周期和采样次数"><a href="#指定采样周期和采样次数" class="headerlink" title="指定采样周期和采样次数"></a>指定采样周期和采样次数</h5><p>　　pidstat 命令指定采样周期和采样次数，例如以 2 秒为采样周期，输出 10 次 CPU 使用统计信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10</div></pre></td></tr></table></figure>
 <h5 id="p-参数"><a href="#p-参数" class="headerlink" title="-p 参数"></a>-p 参数</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-p &#123; pid [,...] | SELF | ALL &#125; #指定进程显示其报告</div></pre></td></tr></table></figure>
 <p>　　选择要报告统计信息的任务（进程）。pid 是进程标识号。 SELF 关键字表示要为 pidstat 进程本身报告统计信息，而 ALL 关键字表示要为系统管理的所有任务报告统计信息。SELF 和 ALL 可不指定，如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -p 进程号</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -p 进程号</div></pre></td></tr></table></figure>
 <p>　　可使用以下命令获得进程号，以下命令会列出所有进程的进程号：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ps -e</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> ps -e</div></pre></td></tr></table></figure>
 <p>　　也可以通过 top 命令或者直接查看某个服务的状态得到该服务涉及的进程。</p>
 <h5 id="u参数"><a href="#u参数" class="headerlink" title="-u参数"></a>-u参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的 CPU 使用统计，执行 ”pidstat -u” 与单独执行 ”pidstat” 的效果一样。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat</div><div class="line">or</div><div class="line"><span class="meta">$</span> pidstat -u</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-1.png" alt="26-1"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- %usr  # 在用户级（应用程序）执行任务时使用的CPU的百分比，有或没有优先级。请注意，此字段不包括运行虚拟处理器的时间</div><div class="line">- %system   # 在系统级别（内核）执行任务时CPU占用的百分比</div><div class="line">- %guest    # 虚拟机中任务占用的CPU的百分比（运行虚拟处理器）</div><div class="line">- %CPU  # 该任务使用的CPU时间的总百分比</div><div class="line">- CPU   # 处理器号，任务被哪个处理器处理</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="r参数"><a href="#r参数" class="headerlink" title="-r参数"></a>-r参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的页面故障和内存利用率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-2.png" alt="26-2"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- minflt/s  # 每秒次缺页错误次数(minor page faults)，次缺页错误次数意即虚拟内存地址映射成物理内存地址产生的page fault次数</div><div class="line">- majflt/s  # 每秒主缺页错误次数(major page faults)，当虚拟内存地址映射成物理内存地址时，相应的page在swap中，这样的page fault为major page fault，一般在内存使用紧张时产生</div><div class="line">- VSZ   # 该进程使用的虚拟内存(以kB为单位)</div><div class="line">- RSS   # 该进程使用的物理内存(以kB为单位)</div><div class="line">- %MEM  # 当前任务使用的有效内存的百分比</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="d参数"><a href="#d参数" class="headerlink" title="-d参数"></a>-d参数</h5><p>　　使用 -d 选项，pidstat 将将显示各活动进程的 I/O 统计信息（内核 2.6.20 及更高版本）。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -d</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -d</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-3.png" alt="26-3"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- kB_rd/s   # 每秒此进程从磁盘读取的千字节数</div><div class="line">- kB_wr/s   # 此进程已经或者将要写入磁盘的每秒千字节数</div><div class="line">- kB_ccwr/s # 由任务取消的写入磁盘的千字节数</div><div class="line">- iodelay   # 阻止正在监视的任务的I/O延迟，以时钟滴答测量</div><div class="line">- Command   # 命令的名字</div></pre></td></tr></table></figure>
 <h5 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-h  # 显示所有的活动的任务</div><div class="line">-I  # 在SMP环境，指出任务的CPU使用（等同于选项-u）应该被除于cpu的总数</div><div class="line">-l  # 显示进程的命令名和它的参数</div><div class="line">-T &#123; TASK | CHILD | ALL &#125;   # 指定必须监测的内容：TASK是默认的，单个任务的报告；CHILD：指定的进程和他们的子进程的全局报告，ALL：相当于TASK和CHILD</div><div class="line">-s  # 堆栈的使用</div><div class="line">-t  # 显示与所选任务相关的线程的统计数据</div><div class="line">-w  # 报告任务切换情况</div></pre></td></tr></table></figure>
 <h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r -p 1643 2 5</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r -p 1643 2 5</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息以及 CPU 使用率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u -r -p 1643 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -u -r -p 1643 2 10</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 10 次系统中所有任务的子进程的页面错误统计信息。只显示具有非零统计值的子进程。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -T CHILD -r 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -T CHILD -r 2 10</div></pre></td></tr></table></figure>
 <h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><p>　　重定向输出即可，例如，每隔两秒记录 1 次，一共 10 次，并输出到 data.txt 文件。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10 &gt; data.txt</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10 &gt; data.txt</div></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Linux</category>
@@ -9568,7 +9568,7 @@
 <h5 id="leds-blink-c-文件"><a href="#leds-blink-c-文件" class="headerlink" title="leds_blink.c 文件"></a>leds_blink.c 文件</h5><figure class="highlight c"><table><tr><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"contiki.h"</span>  </span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"dev/leds.h"</span>  </span></div><div class="line"><span class="comment">/*---------------------------------------------------------------------------*/</span>  </div><div class="line">PROCESS(blink_process, <span class="string">"Blink"</span>);  </div><div class="line">AUTOSTART_PROCESSES(&amp;blink_process);  </div><div class="line"><span class="comment">/*---------------------------------------------------------------------------*/</span>  </div><div class="line">PROCESS_THREAD(blink_process, ev, data)  </div><div class="line">&#123;  </div><div class="line">  <span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">etimer</span> <span class="title">et_led_blink</span>;</span></div><div class="line"></div><div class="line">  PROCESS_BEGIN();</div><div class="line"></div><div class="line">  <span class="keyword">while</span>(<span class="number">1</span>) &#123;</div><div class="line">    etimer_set(&amp;et_led_blink, CLOCK_SECOND);     <span class="comment">// etimer溢出周期为1s  </span></div><div class="line">    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et_led_blink));  </div><div class="line">    leds_on(<span class="number">1</span>);                                 <span class="comment">// 打开LED1  </span></div><div class="line">    etimer_set(&amp;et_led_blink, CLOCK_SECOND);  </div><div class="line">    PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&amp;et_led_blink));  </div><div class="line">    leds_off(<span class="number">1</span>);  </div><div class="line">  &#125;  </div><div class="line"></div><div class="line">  PROCESS_END();  </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <h5 id="Makefile-文件"><a href="#Makefile-文件" class="headerlink" title="Makefile 文件"></a>Makefile 文件</h5><figure class="highlight makefile"><table><tr><td class="code"><pre><div class="line">CONTIKI_PROJECT = led_blink</div><div class="line"></div><div class="line"><span class="section">all: <span class="variable">$(CONTIKI_PROJECT)</span></span></div><div class="line"></div><div class="line">CONTIKI = ../../..</div><div class="line">CONTIKI_WITH_RIME = 1</div><div class="line"><span class="keyword">include</span> <span class="variable">$(CONTIKI)</span>/Makefile.<span class="keyword">include</span></div></pre></td></tr></table></figure>
 <h5 id="Makefile-target-文件"><a href="#Makefile-target-文件" class="headerlink" title="Makefile.target 文件"></a>Makefile.target 文件</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">TARGET = cc2538dk</div></pre></td></tr></table></figure>
-<h5 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> make TARGET=cc2538dk</div></pre></td></tr></table></figure>
+<h5 id="编译程序"><a href="#编译程序" class="headerlink" title="编译程序"></a>编译程序</h5><figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> make TARGET=cc2538dk</span></div></pre></td></tr></table></figure>
 <h5 id="烧录程序"><a href="#烧录程序" class="headerlink" title="烧录程序"></a>烧录程序</h5><p>　　得到 bin 和 hex 文件，将其复制到 Windows 使用 TI Flash Programmer2 将其烧录到 cc2538dk 开发板上即可看到灯的亮灭情况。</p>
 ]]></content>
       <categories>
@@ -12917,8 +12917,8 @@
         <category>Python</category>
       </categories>
       <tags>
-        <tag>文件</tag>
         <tag>Python</tag>
+        <tag>文件</tag>
       </tags>
   </entry>
   <entry>
