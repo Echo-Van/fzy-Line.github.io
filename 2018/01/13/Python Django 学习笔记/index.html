@@ -135,8 +135,6 @@
 
 
 
-<script data-ad-client="ca-pub-2956264821096487" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
   <title>Python Django 学习笔记 | Line's Blog</title>
 </head>
 
@@ -416,14 +414,14 @@
         <p>　　Django 是一个 Web 框架，它采用 MTV（Model-Template-View）模型组织，相比其他框架，Django 充分利用 Python 特点，开发效率更高。</p>
 <a id="more"></a>
 <h4 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h4><p>　　这篇博客基于：Python3.6 + PyCharm社区版 + Windows7命令行。使用 pip 安装 Django：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> pip install django</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pip install django</span></div></pre></td></tr></table></figure>
 <h4 id="Django开发简单示例"><a href="#Django开发简单示例" class="headerlink" title="Django开发简单示例"></a>Django开发简单示例</h4><ol>
 <li>创建工程：<code>django-admin startproject mysite</code></li>
 <li>修改工程：<br> 2.1 创建一个具体应用（app）<br> 2.2 修改应用的 views.py：对 URL 的具体响应功能<br> 2.3 修改URL路由：指定 URL 与响应之间的关系</li>
 <li>运行测试工程：<code>$ python manage.py runserver</code></li>
 </ol>
 <h4 id="Django工程"><a href="#Django工程" class="headerlink" title="Django工程"></a>Django工程</h4><h5 id="创建工程"><a href="#创建工程" class="headerlink" title="创建工程"></a>创建工程</h5><p>　　打开 cmd，使用 django-admin 工具创建 Django 工程：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> django-admin startproject mysite</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> django-admin startproject mysite</span></div></pre></td></tr></table></figure>
 <h5 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── manage.py</div><div class="line">└── mysite</div><div class="line">    ├── __init__.py</div><div class="line">    ├── settings.py</div><div class="line">    ├── urls.py</div><div class="line">    └── wsgi.py</div></pre></td></tr></table></figure>
 <ul>
 <li>manage.py</li>
@@ -457,10 +455,10 @@
 <p>　　查看更多命令可使用帮助：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$  django-admin -help</div></pre></td></tr></table></figure>
 <h5 id="manage-py"><a href="#manage-py" class="headerlink" title="manage.py"></a>manage.py</h5><p>　　与 django-admin 类似，但 manage.py 仅针对当前项目。查看更多命令可使用帮助：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> python manage.py help</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python manage.py <span class="built_in">help</span></span></div></pre></td></tr></table></figure>
 <p>　　使用示例：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> python manage.py &lt;command&gt; [options]</div><div class="line">or</div><div class="line"><span class="meta">$</span> python –m django &lt;command&gt; [options]</div></pre></td></tr></table></figure>
-<h5 id="运行工程"><a href="#运行工程" class="headerlink" title="运行工程"></a>运行工程</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> python manage.py runserver</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python manage.py &lt;<span class="built_in">command</span>&gt; [options]</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> python –m django &lt;<span class="built_in">command</span>&gt; [options]</span></div></pre></td></tr></table></figure>
+<h5 id="运行工程"><a href="#运行工程" class="headerlink" title="运行工程"></a>运行工程</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> python manage.py runserver</span></div></pre></td></tr></table></figure>
 <p>　　打开浏览器，输入 <a href="http://127.0.0.1:8080" target="_blank" rel="external">http://127.0.0.1:8080</a> 即可看到 Django 默认的页面。</p>
 <h4 id="Django-应用"><a href="#Django-应用" class="headerlink" title="Django 应用"></a>Django 应用</h4><p>　　工程对应于一个网站，是配置和应用的集合，应用对应于特定功能，是具体功能的载体，配置和功能分离是高度模块化的体现。</p>
 <h5 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h5><p>　　一般一个项目有多个 app，当然通用的 app 也可以在多个项目中使用。</p>
@@ -498,7 +496,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> django.contrib <span class="keyword">import</span> admin</div><div class="line"><span class="keyword">from</span> django.urls <span class="keyword">import</span> path</div><div class="line"><span class="keyword">from</span> app <span class="keyword">import</span> views   <span class="comment"># 添加app的views</span></div><div class="line"></div><div class="line">urlpatterns = [</div><div class="line">    path(<span class="string">'admin/'</span>, admin.site.urls),</div><div class="line">    path(<span class="string">'index/'</span>, views.hello)   <span class="comment"># 添加路由条目</span></div><div class="line">]</div></pre></td></tr></table></figure>
 <p>　　注：Pycharm 导入自己写的包时可能会报错，这时候需要在项目目录上右键选择 Mark Directory as，然后选择 Source Root。</p>
 <h4 id="运行测试工程"><a href="#运行测试工程" class="headerlink" title="运行测试工程"></a>运行测试工程</h4><p>　　运行 Django：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span> python manage.py runserver</div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;</span><span class="bash"> python manage.py runserver</span></div></pre></td></tr></table></figure>
 <p>　　使用浏览器访问以下地址：<a href="http://127.0.0.1:8000/index/" target="_blank" rel="external">http://127.0.0.1:8000/index/</a></p>
 <p>　　可以看到已经正常显示了：Hello, Welcome!</p>
 
@@ -626,8 +624,6 @@
 
           
   <div class="comments" id="comments">
-    
-	  <div id="gitalk-container"></div>
     
   </div>
 
@@ -970,24 +966,6 @@
 
 
 
-
-
-
-  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
-  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
-  <script src="/js/src/md5.min.js"></script>
-   <script type="text/javascript">
-        var gitalk = new Gitalk({
-          clientID: '9f74a018210b61ac4709',
-          clientSecret: 'ced40aa2bbae5d0603c155b08bddb98e6f91c1be',
-          repo: 'fzy-Line.github.io',
-          owner: 'fzy-Line',
-          admin: ['fzy-Line'],
-          id: md5(location.pathname),
-          distractionFreeMode: 'true'
-        })
-        gitalk.render('gitalk-container')           
-       </script>
 
 
 
