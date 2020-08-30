@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Linux,iwconfig," />
+  <meta name="keywords" content="IoT,Python,Life,Android,Raspberry Pi,Linux" />
 
 
 
@@ -90,18 +90,16 @@
 
 
 
-<meta name="description" content="iwconfig - 配置无线网络接口">
-<meta name="keywords" content="Linux,iwconfig">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Linux Wireless Tools：iwconfig">
-<meta property="og:url" content="https://fzy-line.github.io/2017/11/11/Linux Wireless Tools：iwconfig/index.html">
+<meta name="description" content="fanzhenyu@csu.edu.cn">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Line&#39;s Blog">
+<meta property="og:url" content="https://fzy-line.github.io/archives/2020/08/index.html">
 <meta property="og:site_name" content="Line&#39;s Blog">
-<meta property="og:description" content="iwconfig - 配置无线网络接口">
+<meta property="og:description" content="fanzhenyu@csu.edu.cn">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-30T15:54:45.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux Wireless Tools：iwconfig">
-<meta name="twitter:description" content="iwconfig - 配置无线网络接口">
+<meta name="twitter:title" content="Line&#39;s Blog">
+<meta name="twitter:description" content="fanzhenyu@csu.edu.cn">
 
 
 
@@ -129,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="https://fzy-line.github.io/2017/11/11/Linux Wireless Tools：iwconfig/"/>
+  <link rel="canonical" href="https://fzy-line.github.io/archives/2020/08/"/>
 
 
 
 
 
-  <title>Linux Wireless Tools：iwconfig | Line's Blog</title>
+  <title>归档 | Line's Blog</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -161,7 +159,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -299,261 +297,65 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2017/11/11/Linux Wireless Tools：iwconfig/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="fzy-Line">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/logo.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Line's Blog">
+    <span class="archive-page-counter">
+      
+      
+       
+        
+      太棒了! 目前共计 251 篇日志。 继续努力。
     </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">Linux Wireless Tools：iwconfig</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-11T10:58:28+08:00">
-                2017-11-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-            <span class="post-meta-divider">|</span>
-            <span class="page-pv"><i class="fa fa-file-o"></i>
-            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
-            </span>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
       
-        <p>　　iwconfig - 配置无线网络接口</p>
-<a id="more"></a>
-<p>　　iwconfig 用于 Linux 系统配置无线网络设备或显示无线网络设备信息。iwconfig 命令类似于 ifconfig 命令，但是他配置对象是无线网卡，它对网络设备进行无线操作，如设置无线通信频段。</p>
-<h4 id="iwconfig-安装"><a href="#iwconfig-安装" class="headerlink" title="iwconfig 安装"></a>iwconfig 安装</h4><p>　　Ubuntu 下使用如下命令安装，wireless-tools 工具包中包含了 iwconfig。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt install wireless-tools</span></div></pre></td></tr></table></figure>
-<h4 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">Usage: iwconfig [interface]</div><div class="line">                interface essid &#123;NNN|any|on|off&#125;</div><div class="line">                interface mode &#123;managed|ad-hoc|master|...&#125;</div><div class="line">                interface freq N.NNN[k|M|G]</div><div class="line">                interface channel N</div><div class="line">                interface bit &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface rate &#123;N[k|M|G]|auto|fixed&#125;</div><div class="line">                interface enc &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface key &#123;NNNN-NNNN|off&#125;</div><div class="line">                interface power &#123;period N|timeout N|saving N|off&#125;</div><div class="line">                interface nickname NNN</div><div class="line">                interface nwid &#123;NN|on|off&#125;</div><div class="line">                interface ap &#123;N|off|auto&#125;</div><div class="line">                interface txpower &#123;NmW|NdBm|off|auto&#125;</div><div class="line">                interface sens N</div><div class="line">                interface retry &#123;limit N|lifetime N&#125;</div><div class="line">                interface rts &#123;N|auto|fixed|off&#125;</div><div class="line">                interface frag &#123;N|auto|fixed|off&#125;</div><div class="line">                interface modulation &#123;11g|11a|CCK|OFDMg|...&#125;</div><div class="line">                interface commit</div><div class="line">       Check man pages for more details.</div></pre></td></tr></table></figure>
-<h5 id="essid"><a href="#essid" class="headerlink" title="essid"></a>essid</h5><p>　　设置无线网卡的 ESSID(Extension Service Set ID)。通过 ESSID 来区分不同的无线网络，正常情况下只有相同 ESSID 的无线站点才可以互相通讯，除非想监听无线网络。其后的参数为双引号括起的 ESSID 字符串，或者是any/on/off，如果 ESSID字符串中包含any/no/off，则需要在前面加”–”。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig eth0 essid <span class="string">"My Network"</span><span class="string">"</span></span></div><div class="line"><span class="meta">$</span><span class="bash"><span class="string"> iwconfig eth0 essid -- "</span>ANY<span class="string">""</span></span></div></pre></td></tr></table></figure>
-<h5 id="mode"><a href="#mode" class="headerlink" title="mode"></a>mode</h5><p>　　设置无线网卡的工作模式，可以是</p>
-<ul>
-<li>Ad-hoc：不带 AP 的点对点无线网络</li>
-<li>Managed：通过多个 AP 组成的网络，无线设备可以在这个网络中漫游</li>
-<li>Master：设置该无线网卡为一个 AP</li>
-<li>Repeater：设置为无线网络中继设备，可以转发网络包</li>
-<li>Secondary：设置为备份的 AP/Repeater</li>
-<li>Monitor：监听模式</li>
-<li>Auto：由无线网卡自动选择工作模式</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Managed</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 mode Ad-Hoc</span></div></pre></td></tr></table></figure>
-<h5 id="freq-channel"><a href="#freq-channel" class="headerlink" title="freq/channel"></a>freq/channel</h5><p>　　设置无线网卡的工作频率或者频道，小于 1000 的参数被认为是频道，大于 10000 的参数被认为是频率。频率单位为 Hz，可以在数字后面附带 k, M, G 来改变数量级，比如 2.4G。频道从1开始。使用 lwlist 工具可以查看无线网卡支持的频率和频道。参数 off/auto 指示无线网络自动挑选频率。</p>
-<p>　　注意：如果是 Managed 模式，AP 会指示无线网卡的工作频率，因此该设置的参数会被忽略。Ad-hoc 模式下只使用该设定的频率初始无线网络，如果加入已经存在的 Ad-hoc 网络则会忽略该设置的频率参数。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2422000000</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 freq 2.422G</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 channel auto</span></div></pre></td></tr></table></figure>
-<h5 id="rate-bit"><a href="#rate-bit" class="headerlink" title="rate/bit"></a>rate/bit</h5><p>　　如果无线网卡支持多速率，则可以通过该命令设置工作的速率。小于 1000 的参数由具体的无线网卡驱动定义，一般是传输速率的索引值，大于 1000 的为速率，单位 bps，可以在数字后面附带 k，M，G 来指定数量级。auto 参数让无线网卡自动选择速率 fixed 参数让无线网卡不使用自动速率模式。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 11M</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 rate 5.5M auto</span></div></pre></td></tr></table></figure>
-<h5 id="ap"><a href="#ap" class="headerlink" title="ap"></a>ap</h5><p>　　连接到指定的 AP 或者无线网络，后面的参数可以是 AP 的 MAC 地址，也可以是 iwlist scan 出来的标识符。如果是 Ad-hoc，则连接一个已经存在的 Ad-hoc 网络。使用 off 参数让无线网卡不改变当前已连接的 AP 下进入自动模式。any/auto 参数，无线网卡自动选择最好的 AP。</p>
-<p>　　注意：如果无线信号低到一定程度，无线网络会进入自动选择AP模式。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap 00:60:1D:01:23:45</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap any</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 ap off</span></div></pre></td></tr></table></figure>
-<h5 id="key-enc"><a href="#key-enc" class="headerlink" title="key/enc"></a>key/enc</h5><p>　　设置无线网卡使用的加密密钥，此处为设置 WEP 模式的加密 key，如果要使用 WPA，需要 wpa_supplicant 工具包。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key [3] 0123-4567-89</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 key s:password [2]</span></div></pre></td></tr></table></figure>
-<h5 id="power"><a href="#power" class="headerlink" title="power"></a>power</h5><p>　　设置无线网卡的电源管理模式。period ‘value’  指定唤醒的周期，timeout ‘value’ 指定进入休眠的等待时间，这两个参数之前可以加 min 和 max 修饰，这些值的单位为秒，可以附加 m 和 u 来指定毫秒和微秒。off/on 参数指定是否允许电源管理，all/unicast/multicast 指定允许唤醒的数据包类型。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power period 2</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power 500m unicast</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power timeout 300u all</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power saving 3</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power off</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 power min period 2 power max period 4</span></div></pre></td></tr></table></figure>
-<h5 id="txpower"><a href="#txpower" class="headerlink" title="txpower"></a>txpower</h5><p>　　如果无线网卡支持多发射功率设定，则使用该参数设定发射，单位为 dBm，如果指定为 W（毫瓦），只转换公式为：<br>dBm=30+log(W)。参数 on/off 可以打开和关闭发射单元，auto 和 fixed 指定无线是否自动选择发射功率。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 15</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower 30mW</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower auto</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 txpower off</span></div></pre></td></tr></table></figure>
-<h5 id="retry"><a href="#retry" class="headerlink" title="retry"></a>retry</h5><p>　　设置无线网卡的重传机制。limit ‘value’  指定最大重传次数；lifetime ‘value’ 指定最长重试时间，单位为秒，可以附带 m 和 u 来指定单位为毫秒和微秒。如果无线网卡支持自动模式，则在 limit 和 lifetime 之前还可以附加 min 和 max 来指定上下限值。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry 16</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry lifetime 300m</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry short 12</span></div><div class="line"><span class="meta">$</span><span class="bash"> iwconfig wlan0 retry min <span class="built_in">limit</span> 8</span></div></pre></td></tr></table></figure>
-<h5 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h5><p>　　提交所有的参数修改给无线网卡驱动。有些无线网卡驱动会先缓存无线网卡参数修，使用这个命令来让无线网卡的参数修改生效。不过一般不需要使用该命令，因为无线网卡驱动最终都会是参数的修改生效，一般在 debug 时会用到。</p>
-<h5 id="其他配置"><a href="#其他配置" class="headerlink" title="其他配置"></a>其他配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">- nwid: Network ID  # 只用于pre-802.11的无线网卡，802.11网卡利用ESSID和AP的MAC地址来替换nwid，现在基本上不用设置。</div><div class="line">- nick: Nickname  # 一些网卡需要设置该参数，但是802.11协议栈、MAC都没有用到该参数，一般也不用设置。</div><div class="line">- sens # 设置接收灵敏度的下限，在该下限之下，无线网卡认为该无线网络信号太差。</div><div class="line">- rts   # 设置节点发送RTS的最小包的大小</div><div class="line">- frag  # 设置发送数据包的分片大小。</div><div class="line">- modu  # 设定的特定调制集</div></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
-          <p>微信打赏</p>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2020">2020</h2>
         </div>
       
       
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
-          <p>支付宝打赏</p>
-        </div>
-      
-    </div>
-  </div>
-
 
       
-    </div>
 
-    <div>
-      
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
-
-      
-    </div>
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Linux/" rel="tag"># Linux</a>
-          
-            <a href="/tags/iwconfig/" rel="tag"># iwconfig</a>
-          
-        </div>
-      
-
-      
+            <a class="post-title-link" href="/2020/08/30/我的2020书单/" itemprop="url">
+              
+                <span itemprop="name">我的2020书单</span>
+              
+            </a>
         
-      
+      </h2>
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/11/11/电协三周年分享/" rel="next" title="电协三周年分享">
-                <i class="fa fa-chevron-left"></i> 电协三周年分享
-              </a>
-            
-          </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2020-08-30T10:36:56+08:00"
+              content="2020-08-30" >
+          08-30
+        </time>
+      </div>
 
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/18/开源物联网操作系统：RIOT-OS/" rel="prev" title="开源物联网操作系统：RIOT-OS">
-                开源物联网操作系统：RIOT-OS <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-  <a class="jiathis_button_tsina"></a>
-  <a class="jiathis_button_tqq"></a>
-  <a class="jiathis_button_weixin"></a>
-  <a class="jiathis_button_cqq"></a>
-  <a class="jiathis_button_douban"></a>
-  <a class="jiathis_button_renren"></a>
-  <a class="jiathis_button_qzone"></a>
-  <a class="jiathis_button_kaixin001"></a>
-  <a class="jiathis_button_copy"></a>
-  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
-  <a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-  var jiathis_config={
-    hideMore:false
-  }
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
-<!-- JiaThis Button END -->
+    
 
-      
-    </div>
-  </div>
+  </section>
+
+  
+
 
 
           </div>
@@ -561,10 +363,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -584,17 +382,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/logo.jpg"
@@ -710,22 +499,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#iwconfig-安装"><span class="nav-number">1.</span> <span class="nav-text">iwconfig 安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用说明"><span class="nav-number">2.</span> <span class="nav-text">使用说明</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#essid"><span class="nav-number">2.1.</span> <span class="nav-text">essid</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#mode"><span class="nav-number">2.2.</span> <span class="nav-text">mode</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#freq-channel"><span class="nav-number">2.3.</span> <span class="nav-text">freq/channel</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#rate-bit"><span class="nav-number">2.4.</span> <span class="nav-text">rate/bit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#ap"><span class="nav-number">2.5.</span> <span class="nav-text">ap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#key-enc"><span class="nav-number">2.6.</span> <span class="nav-text">key/enc</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#power"><span class="nav-number">2.7.</span> <span class="nav-text">power</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#txpower"><span class="nav-number">2.8.</span> <span class="nav-text">txpower</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#retry"><span class="nav-number">2.9.</span> <span class="nav-text">retry</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#commit"><span class="nav-number">2.10.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#其他配置"><span class="nav-number">2.11.</span> <span class="nav-text">其他配置</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -866,9 +639,11 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
@@ -1254,6 +1029,26 @@
 
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
