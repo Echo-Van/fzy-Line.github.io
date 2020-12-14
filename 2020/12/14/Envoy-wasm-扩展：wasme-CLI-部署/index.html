@@ -1,0 +1,1323 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="云原生," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/logo.jpg?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="学习了解 wasm - 面向未来的 Envoy 扩展方式。">
+<meta name="keywords" content="云原生">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Envoy Wasm 扩展：Wasm CLI 部署">
+<meta property="og:url" content="https://fzy-line.github.io/2020/12/14/Envoy-Wasm-扩展：Wasme-CLI-部署/index.html">
+<meta property="og:site_name" content="Line&#39;s Blog">
+<meta property="og:description" content="学习了解 wasm - 面向未来的 Envoy 扩展方式。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-12-14T15:29:10.562Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Envoy Wasm 扩展：Wasm CLI 部署">
+<meta name="twitter:description" content="学习了解 wasm - 面向未来的 Envoy 扩展方式。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://fzy-line.github.io/2020/12/14/Envoy-Wasm-扩展：Wasme-CLI-部署/"/>
+
+
+
+
+
+  <title>Envoy Wasm 扩展：Wasm CLI 部署 | Line's Blog</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Line's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">心之所向，素履以往</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://fzy-line.github.io/2020/12/14/Envoy-Wasm-扩展：Wasme-CLI-部署/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="fzy-Line">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/logo.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Line's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Envoy Wasm 扩展：Wasm CLI 部署</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-12-14T23:22:28+08:00">
+                2020-12-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Cloud-Edge-Computing/" itemprop="url" rel="index">
+                    <span itemprop="name">Cloud/Edge Computing</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <center>学习了解 wasm - 面向未来的 Envoy 扩展方式。</center>
+
+<a id="more"></a>
+<p>　　<code>WebAssembly</code> 原本是一种可以使用非 <code>JavaScript</code> 编程语言编写代码并且能在浏览器上运行的技术方案。现在，它还可以被用于动态扩展 <code>Envoy</code> 代理，这为提升 <code>Envoy</code> 的可扩展性提供了更多的可能。但是，原生态集成 <code>wasm</code> 是十分繁琐的，需要手动处理依赖的工具链，<code>ABI</code> 版本验证保证兼容、访问权限控制等等。此外，在 <code>Istio</code> 中部署时也需要额外的操作，例如，挂在插件、创建 <code>EnvoyFilter&#39;</code> 等。</p>
+<p>　　因此，<code>Solo.io</code> 发布了 <code>WebAssembly Hub</code> ，它是一套用于构建、部署、共享和发现 <code>Envoy</code> 代理 的 <code>Wasm</code> 扩展工具和库。可以把它理解成 <code>WASM</code> 的 <code>docker</code>，一人构建四处分享，一处构建任意部署。实现了完全自动化开发和部署 <code>Wasm</code> 扩展所需的许多步骤。</p>
+<h5 id="wasme-CLI"><a href="#wasme-CLI" class="headerlink" title="wasme CLI"></a>wasme CLI</h5><p>　<code>Solo.io</code> 还提供了一个强大的 <code>CLI</code> 以及一个易于使用的图形用户界面。 使用命令用户可以将构建的 <code>Wasm</code> 扩展上传到 <code>Hub</code> 注册中心，然后通过镜像的方式部署到 <code>Istio</code>。 </p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>　　按照官方教程，通过如下命令进行安装（<code>Windows</code> 下直接下载 <code>exe</code> 文件，然后添加到环境变量即可使用）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> curl -sL https://run.solo.io/wasme/install | sh</div><div class="line"><span class="meta">$</span> export PATH=$HOME/.wasme/bin:$PATH</div><div class="line"><span class="meta"></span></div><div class="line">$ wasme --version</div><div class="line">wasme version 0.0.31</div></pre></td></tr></table></figure>
+<p>　　<code>wasme</code> 支持的子命令包括：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme --help</div><div class="line">The tool for building, pushing, and deploying Envoy WebAssembly Filters</div><div class="line"></div><div class="line">Usage:</div><div class="line">  wasme [command]</div><div class="line"></div><div class="line">Available Commands:</div><div class="line">  build       Build a wasm image from the filter source directory.</div><div class="line">  deploy      Deploy an Envoy WASM Filter to the data plane (Envoy proxies).</div><div class="line">  help        Help about any command</div><div class="line">  init        Initialize a project directory for a new Envoy WASM Filter.</div><div class="line">  list        List Envoy WASM Filters stored locally or published to webassemblyhub.io.</div><div class="line">  login       Log in so you can push images to the remote server.</div><div class="line">  pull        Pull wasm filters from remote registry</div><div class="line">  push        Push a wasm filter to remote registry</div><div class="line">  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE</div><div class="line">  undeploy    Remove a deployed Envoy WASM Filter from the data plane (Envoy proxies).</div><div class="line"></div><div class="line">Flags:</div><div class="line">  -h, --help      help for wasme</div><div class="line">  -v, --verbose   verbose output</div><div class="line">      --version   version for wasme</div><div class="line"></div><div class="line">Use "wasme [command] --help" for more information about a command.</div></pre></td></tr></table></figure>
+<h5 id="wasme-init"><a href="#wasme-init" class="headerlink" title="wasme init"></a>wasme init</h5><p>　　初始化 <code>wasm</code> 项目，选择语言：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme init tinygo-add-header</div><div class="line">Use the arrow keys to navigate: j k l h</div><div class="line">? What language do you wish to use for the filter:</div><div class="line"><span class="meta">  &gt;</span> cpp</div><div class="line">    rust</div><div class="line">    assemblyscript</div><div class="line">    tinygo</div></pre></td></tr></table></figure>
+<p>　　目前，只支持 <code>cpp</code>、<code>rust</code>、<code>assemblyscript</code> 和 <code>tinygo</code> 4 种语言。对应的 <code>SDK</code> 是：</p>
+<ul>
+<li><code>TinyGo</code>：<a href="https://github.com/tetratelabs/proxy-wasm-go-sdk" target="_blank" rel="external">https://github.com/tetratelabs/proxy-wasm-go-sdk</a></li>
+<li><code>C++</code>：<a href="https://github.com/proxy-wasm/proxy-wasm-cpp-sdk" target="_blank" rel="external">https://github.com/proxy-wasm/proxy-wasm-cpp-sdk</a></li>
+<li><code>Rust</code>：<a href="https://github.com/proxy-wasm/proxy-wasm-rust-sdk" target="_blank" rel="external">https://github.com/proxy-wasm/proxy-wasm-rust-sdk</a></li>
+<li><code>WebAssemblyScript</code>：<a href="https://github.com/solo-io/proxy-runtime" target="_blank" rel="external">https://github.com/solo-io/proxy-runtime</a></li>
+</ul>
+<p>　　选择版本（这里我们以 <code>tinygo</code> 为例）后，需要选择对应部署到的服务网格版本（其中，<code>gloo</code> 是 ）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme init tinygo-add-header</div><div class="line">v tinygo</div><div class="line">Use the arrow keys to navigate: j k l h</div><div class="line">? With which platforms do you wish to use the filter?:</div><div class="line"><span class="meta">  &gt;</span> istio:1.7.x, gloo:1.6.x, istio:1.8.x</div></pre></td></tr></table></figure>
+<p>　　创建成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span>  wasme init tinygo-add-header</div><div class="line">v tinygo</div><div class="line">v istio:1.7.x, gloo:1.6.x, istio:1.8.x</div><div class="line">time="2020-12-14T21:35:09+08:00" level=info msg="extracting 872 bytes to D:\\Tools\\cmder\\tinygo-add-header"</div></pre></td></tr></table></figure>
+<p>　　生成的项目结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> tree</div><div class="line">.</div><div class="line">├── go.mod</div><div class="line">├── main.go</div><div class="line">└── runtime-config.json</div></pre></td></tr></table></figure>
+<p>　　<code>main.go</code>（继承抽象基类定义自己的业务 <code>Context</code>，重载自己需要的方法，在重载方法里做自己需要业务逻辑即可）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm"</span></div><div class="line">	<span class="string">"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm/types"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">// Other examples can be found at https://github.com/tetratelabs/proxy-wasm-go-sdk/tree/v0.0.8/examples</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	proxywasm.SetNewHttpContext(newHttpContext)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> httpHeaders <span class="keyword">struct</span> &#123;</div><div class="line">	<span class="comment">// we must embed the default context so that you need not to reimplement all the methods by yourself</span></div><div class="line">	proxywasm.DefaultHttpContext</div><div class="line">	contextID <span class="keyword">uint32</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">newHttpContext</span><span class="params">(rootContextID, contextID <span class="keyword">uint32</span>)</span> <span class="title">proxywasm</span>.<span class="title">HttpContext</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> &amp;httpHeaders&#123;contextID: contextID&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// override</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *httpHeaders)</span> <span class="title">OnHttpRequestHeaders</span><span class="params">(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>)</span> <span class="title">types</span>.<span class="title">Action</span></span> &#123;</div><div class="line">	hs, err := proxywasm.GetHttpRequestHeaders()</div><div class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">		proxywasm.LogCriticalf(<span class="string">"failed to get request headers: %v"</span>, err)</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> _, h := <span class="keyword">range</span> hs &#123;</div><div class="line">		proxywasm.LogInfof(<span class="string">"request header: %s: %s"</span>, h[<span class="number">0</span>], h[<span class="number">1</span>])</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> types.ActionContinue</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// override</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *httpHeaders)</span> <span class="title">OnHttpResponseHeaders</span><span class="params">(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>)</span> <span class="title">types</span>.<span class="title">Action</span></span> &#123;</div><div class="line">	<span class="keyword">if</span> err := proxywasm.SetHttpResponseHeader(<span class="string">"hello"</span>, <span class="string">"world"</span>); err != <span class="literal">nil</span> &#123;</div><div class="line">		proxywasm.LogCriticalf(<span class="string">"failed to set response header: %v"</span>, err)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> types.ActionContinue</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// override</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *httpHeaders)</span> <span class="title">OnHttpStreamDone</span><span class="params">()</span></span> &#123;</div><div class="line">	proxywasm.LogInfof(<span class="string">"%d finished"</span>, ctx.contextID)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　<code>proxy-wasm-go-sdk</code> 目前支持重载的函数包括：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">type</span> RootContext <span class="keyword">interface</span> &#123;</div><div class="line">	OnQueueReady(queueID <span class="keyword">uint32</span>)</div><div class="line">	OnTick()</div><div class="line">	OnVMStart(vmConfigurationSize <span class="keyword">int</span>) <span class="keyword">bool</span></div><div class="line">	OnPluginStart(pluginConfigurationSize <span class="keyword">int</span>) <span class="keyword">bool</span></div><div class="line">	OnVMDone() <span class="keyword">bool</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> StreamContext <span class="keyword">interface</span> &#123;</div><div class="line">	OnDownstreamData(dataSize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnDownstreamClose(peerType types.PeerType)</div><div class="line">	OnNewConnection() types.Action</div><div class="line">	OnUpstreamData(dataSize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnUpstreamClose(peerType types.PeerType)</div><div class="line">	OnStreamDone()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> HttpContext <span class="keyword">interface</span> &#123;</div><div class="line">	OnHttpRequestHeaders(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpRequestBody(bodySize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpRequestTrailers(numTrailers <span class="keyword">int</span>) types.Action</div><div class="line">	OnHttpResponseHeaders(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpResponseBody(bodySize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpResponseTrailers(numTrailers <span class="keyword">int</span>) types.Action</div><div class="line">	OnHttpStreamDone()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="wasme-build"><a href="#wasme-build" class="headerlink" title="wasme build"></a>wasme build</h5><p>　　我们修改 <code>OnHttpRequestHeaders</code> 方法，添加如下内容：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> err := proxywasm.SetHttpRequestHeader(<span class="string">"Test"</span>, <span class="string">"wasm"</span>); err != <span class="literal">nil</span> &#123;	<span class="comment">// 在请求头中添加 Test:wasm 键值对</span></div><div class="line">		proxywasm.LogCriticalf(<span class="string">"failed to set request header: %v"</span>, err)</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>　　使用 <code>wasme build</code> 子命令进行构建：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build</div><div class="line">Options for the build are specific to the target language.</div><div class="line"></div><div class="line">Usage:</div><div class="line">  wasme build [command]</div><div class="line"></div><div class="line">Available Commands:</div><div class="line">  assemblyscript Build a wasm image from an AssemblyScript filter using NPM-in-Docker</div><div class="line">  cpp            Build a wasm image from a CPP filter using Bazel-in-Docker</div><div class="line">  precompiled    Build a wasm image from a Precompiled filter.</div><div class="line">  rust           Build a wasm image from a Rust filter using Bazel-in-Docker</div><div class="line">  tinygo         Build a wasm image from a TinyGo filter using TinyGo-in-Docker</div></pre></td></tr></table></figure>
+<p>　　示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build tinygo -t webassemblyhub.io/fzy/test-wasm:v0.1 .</div></pre></td></tr></table></figure>
+<p>　　构建完成后，会将镜像存储到：<code>$HOME/.wasme/store/tag签名/</code> 目录下，其中包括以下四个文件：</p>
+<ul>
+<li><p><code>descriptor.json</code> ：定义文件的类型，<code>wasm</code> 文件的 <code>sha256</code> 签名，文件大小和文件名。</p>
+</li>
+<li><p><code>filter.wasm</code> ：构建出来的 <code>wasm</code> 插件。</p>
+</li>
+<li><p><code>image_ref</code> ：<code>tag</code> 标签字符串。</p>
+</li>
+<li><p><code>runtime-config.json</code> ：从项目路径下拷贝过来的。</p>
+</li>
+</ul>
+<p>　　<strong>build 子命令的原理</strong>：调用 <code>sdk</code> 的编译工具，同时生成 <code>descriptor.json</code> 、<code>image_ref</code> 和 <code>runtime-config.json</code> 文件。通过查看<code>wasme</code> 的源码发现，它构建时使用的是 <code>docker</code> 的方式进行构建（即不需要自己去搭建构建环境）。</p>
+<p>　　<strong>编译不成功</strong>：由于国内网络的问题，构建时可能会出现 <code>go package</code> 无法下载的问题。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build tinygo -t webassemblyhub.io/fzy/tinygo-add-header:v0.1 .</div><div class="line">Building with tinygo...go: github.com/tetratelabs/proxy-wasm-go-sdk@v0.0.8: Get "https://proxy.golang.org/github.com/tetratelabs/proxy-wasm-go-sdk/@v/v0.0.8.mod": dial tcp 172.217.160.113:443: connect: connection refused</div><div class="line">Error: failed producing filter file: exit status 1</div></pre></td></tr></table></figure>
+<p>　　如果使用 <code>tinygo</code> 编写 <code>wasm</code> 扩展 ，实际使用的就是 <code>proxy-wasm-go-sdk</code> 的编译脚本中的命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">.DEFAULT_GOAL := build.examples</div><div class="line"></div><div class="line">ISTIO_VERSION ?= 1.7.3</div><div class="line"></div><div class="line">.PHONY: build.example build.example.docker build.examples build.examples.docker lint test test.sdk test.e2e</div><div class="line"></div><div class="line">build.example:</div><div class="line">	tinygo build -o ./examples/$&#123;name&#125;/main.go.wasm -scheduler=none -target=wasi -wasm-abi=generic ./examples/$&#123;name&#125;/main.go</div><div class="line"></div><div class="line">build.example.docker:</div><div class="line">	docker run -it -w /tmp/proxy-wasm-go -v $(shell pwd):/tmp/proxy-wasm-go tinygo/tinygo-dev:latest \</div><div class="line">		tinygo build -o /tmp/proxy-wasm-go/examples/$&#123;name&#125;/main.go.wasm -scheduler=none -target=wasi \</div><div class="line">		-wasm-abi=generic /tmp/proxy-wasm-go/examples/$&#123;name&#125;/main.go</div><div class="line"></div><div class="line">build.examples:</div><div class="line">	find ./examples -type f -name "main.go" | xargs -Ip tinygo build -o p.wasm -scheduler=none -target=wasi -wasm-abi=generic p</div><div class="line"></div><div class="line">build.examples.docker:</div><div class="line">	docker run -it -w /tmp/proxy-wasm-go -v $(shell pwd):/tmp/proxy-wasm-go tinygo/tinygo:latest /bin/bash -c \</div><div class="line">		'find /tmp/proxy-wasm-go/examples/ -type f -name "main.go" | xargs -Ip tinygo build -o p.wasm -scheduler=none -target=wasi -wasm-abi=generic p'</div></pre></td></tr></table></figure>
+<p>　　<strong>暂时的解决办法</strong>：参考 <code>proxy-wasm-go-sdk</code> 的方法本地编译，不使用 <code>docker</code> 容器，安装好 <code>tinygo</code> ，使用 <code>go mod</code> 将项目所需要的包都下载到本地。然后，使用如下命令进行编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> tinygo build -o ./examples/$&#123;name&#125;/main.go.wasm -scheduler=none -target=wasi -wasm-abi=generic ./examples/$&#123;name&#125;/main.go</div></pre></td></tr></table></figure>
+<p>　　示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> tinygo build -o test-wasm.wasm -scheduler=none -target=wasi -wasm-abi=generic main.go</div></pre></td></tr></table></figure>
+<p>　　再使用 <code>wasme build</code> 命令进行编译：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build precompiled tinygo-add-header.wasm -t webassemblyhub.io/fzy/tinygo-add-header:v0.1</div><div class="line">time="2020-12-14T21:44:57+08:00" level=info msg="adding image to cache..." filter file=tinygo-add-header.wasm tag="webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T21:44:57+08:00" level=info msg="tagged image" digest="sha256:8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681" image="webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div></pre></td></tr></table></figure>
+<h5 id="wasme-push"><a href="#wasme-push" class="headerlink" title="wasme push"></a>wasme push</h5><p>　　在 <code>webassemblyhub</code> 上注册账号，然后就可以通过 <code>wasme push</code> 命令将镜像推送到 <code>webassemblyhub</code> 。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme login # 登录 webassemblyhub 的账号，已登录可以免去此操作</div><div class="line"><span class="meta"></span></div><div class="line">$  wasme push webassemblyhub.io/fzy/tinygo-add-header:v0.1</div><div class="line">time="2020-12-14T21:52:34+08:00" level=info msg="Pushing image webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T21:52:44+08:00" level=info msg="Pushed webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T21:52:44+08:00" level=info msg="Digest: sha256:9e787fcbe0bc876a00140fd4e02fac0146f8d6bf7aaa9e031a98a04a1b32bdfa"</div></pre></td></tr></table></figure>
+<p>　　推送时会将编译得到的 <code>.wasm</code> 、<code>descriptor.json</code> 、<code>image_ref</code> 和 <code>runtime-config.json</code> 文件上传到  <code>webassemblyhub.io</code> 仓库。</p>
+<h5 id="wasme-pull"><a href="#wasme-pull" class="headerlink" title="wasme pull"></a>wasme pull</h5><p>　　使用 <code>wasme pull</code> 命令从 <code>webassemblyhub.io</code> 仓库拉取镜像：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme pull webassemblyhub.io/life4honor/tinygo-filter:log</div><div class="line">time="2020-12-02T20:32:47+08:00" level=info msg="Pulling image webassemblyhub.io/life4honor/tinygo-filter:log"</div><div class="line">time="2020-12-02T20:32:53+08:00" level=info msg="Image: webassemblyhub.io/life4honor/tinygo-filter:log"</div><div class="line">time="2020-12-02T20:32:53+08:00" level=info msg="Digest: sha256:8407c76923ca49750d60168454566e6ab96622b7740fad4032244e4c7a898b70"</div></pre></td></tr></table></figure>
+<p>　　拉取完成后，镜像（包括上述的 <code>4</code> 个文件）默认存储在：<code>$HOME/.wasme/store</code> 目录下。</p>
+<h5 id="wasme-list"><a href="#wasme-list" class="headerlink" title="wasme list"></a>wasme list</h5><p>　　列出本地缓存的镜像（实际就是 <code>$HOME/.wasme/store</code> 目录下的所有镜像）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme list</div><div class="line">NAME                                            TAG         SIZE     SHA      UPDATED</div><div class="line">webassemblyhub.io/fzy/test-wasm                 v0.1        241.2 kB 6d1700cb 03 Dec 20 16:31 CST</div><div class="line">webassemblyhub.io/fzy/tinygo-add-header         v0.1        241.9 kB 8e378835 14 Dec 20 21:51 CST</div><div class="line">webassemblyhub.io/life4honor/tinygo-filter      log         242.5 kB 8407c769 02 Dec 20 20:32 CST</div><div class="line">......</div></pre></td></tr></table></figure>
+<h5 id="wasme-deploy"><a href="#wasme-deploy" class="headerlink" title="wasme deploy"></a>wasme deploy</h5><p>　　部署应用：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl apply -f httpbin-v1.yaml -n fzy</div><div class="line">service/httpbin created</div><div class="line">deployment.apps/httpbin created</div></pre></td></tr></table></figure>
+<p>　　第一次使用 <code>wasme deploy</code> 命令时，会在集群中创建 <code>wasme</code> 命名空间，并创建 <code>wasme daemonset</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl get ds -n wasme</div><div class="line">NAME          DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE</div><div class="line">wasme-cache   1         1         1       1            1           &lt;none&gt;          3d</div></pre></td></tr></table></figure>
+<p>　　<code>daemonset</code> 会在每个节点上创建一个 <code>Pod</code>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl get pod -n wasme</div><div class="line">NAME                READY   STATUS    RESTARTS   AGE</div><div class="line">wasme-cache-wxch4   1/1     Running   0          3d</div></pre></td></tr></table></figure>
+<p>　　这个 <code>pod</code> 主要用于挂载两个目录：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="attr">volumeMounts:</span></div><div class="line"><span class="attr">- mountPath:</span> <span class="string">/var/local/lib/wasme-cache</span></div><div class="line"><span class="attr">  name:</span> <span class="string">cache-dir</span></div><div class="line"><span class="attr">- mountPath:</span> <span class="string">/etc/wasme-cache</span></div><div class="line"><span class="attr">  name:</span> <span class="string">config</span></div><div class="line"></div><div class="line"><span class="attr">volumes:</span>                              </div><div class="line"><span class="attr">- hostPath:</span>                           </div><div class="line"><span class="attr">    path:</span> <span class="string">/var/local/lib/wasme-cache</span>  </div><div class="line"><span class="attr">    type:</span> <span class="string">DirectoryOrCreate</span>           </div><div class="line"><span class="attr">  name:</span> <span class="string">cache-dir</span></div></pre></td></tr></table></figure>
+<p>　　部署 <code>wasm</code> 扩展示例：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme deploy istio webassemblyhub.io/fzy/tinygo-add-header:v0.1 --id=myfilter --namespace=fzy --labels app=httpbin</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache namespace already exists" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache configmap already exists" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache service account already exists" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache role updated" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache rolebinding updated" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache daemonset updated" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:07:08+08:00" level=info msg="image is already cached" cache="&#123;wasme-cache wasme&#125;" image="webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T22:07:08+08:00" level=info msg="updated workload sidecar annotations" filter="id:\"myfilter\" image:\"webassemblyhub.io/fzy/tinygo-add-header:v0.1\" rootID:\"root_id\" " workload=httpbin</div><div class="line">time="2020-12-14T22:07:08+08:00" level=info msg="created Istio EnvoyFilter resource" envoy_filter_resource=httpbin-myfilter.fzy filter="id:\"myfilter\" image:\"webassemblyhub.io/fzy/tinygo-add-header:v0.1\" rootID:\"root_id\" " workload=httpbin</div></pre></td></tr></table></figure>
+<p>　　如果不使用 <code>--labels</code> 参数，则表示该 <code>wasm</code> 插件将应用于 <code>--namespace</code> 空间下的所有 <code>workload</code> 。<code>wasme</code> 会为每个 <code>workload</code>创建一个 <code>EnvoyFilter</code> ，每个 <code>EnvoyFilter</code> 通过  <code>workload selector</code> 与特定的 <code>wordload</code> 绑定。新创建的应用不会被执行上述操作，也就是说 <code>wasme</code> 并不会一直监听该命名空间的资源创建。</p>
+<p>　　<strong>主要流程</strong>：</p>
+<ul>
+<li>更新 <code>DeamonSet</code>，拉取并缓存镜像。</li>
+<li>更新 <code>workload sidecar</code> 的注解。</li>
+<li>创建 <code>Istio EnvoyFilter</code> 。</li>
+</ul>
+<p>　　由于部署需要在 <code>Deployment</code> 的 <code>template</code> 中添加注解，会导致 <code>pod</code> 重启：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  template:</span></div><div class="line"><span class="attr">    metadata:</span></div><div class="line"><span class="attr">      annotations:</span></div><div class="line">	    <span class="string">sidecar.istio.io/userVolume:</span> <span class="string">'[&#123;"name":"cache-dir","hostPath":&#123;"path":"/var/local/lib/wasme-cache"&#125;&#125;]'</span></div><div class="line">	    <span class="string">sidecar.istio.io/userVolumeMount:</span> <span class="string">'[&#123;"mountPath":"/var/local/lib/wasme-cache","name":"cache-dir"&#125;]'</span></div></pre></td></tr></table></figure>
+<p>　　<code>Pod</code> 重启后，日志显示应用不健康：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl get pod -n fzy</div><div class="line">NAME                       READY   STATUS    RESTARTS   AGE</div><div class="line">httpbin-5b8c6f5857-x2prs   1/2     Running   0          89s</div></pre></td></tr></table></figure>
+<p>　　<code>Pod</code> 重启后，其中主要有如下变化：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></div><div class="line"><span class="attr">kind:</span> <span class="string">Pod</span></div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  annotations:</span></div><div class="line">    <span class="string">sidecar.istio.io/userVolume:</span> <span class="string">'[&#123;"name":"cache-dir","hostPath":&#123;"path":"/var/local/lib/wasme-cache"&#125;&#125;]'</span></div><div class="line">    <span class="string">sidecar.istio.io/userVolumeMount:</span> <span class="string">'[&#123;"mountPath":"/var/local/lib/wasme-cache","name":"cache-dir"&#125;]'</span></div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  containers:</span></div><div class="line">    <span class="string">......</span></div><div class="line"><span class="attr">    name:</span> <span class="string">istio-proxy</span></div><div class="line"><span class="attr">    volumeMounts:</span></div><div class="line"><span class="attr">      - mountPath:</span> <span class="string">/var/local/lib/wasme-cache</span></div><div class="line"><span class="attr">      name:</span> <span class="string">cache-dir</span></div><div class="line">    <span class="string">.....</span></div><div class="line"><span class="attr">  volumes:</span></div><div class="line"><span class="attr">  - hostPath:</span></div><div class="line"><span class="attr">      path:</span> <span class="string">/var/local/lib/wasme-cache</span></div><div class="line"><span class="attr">      type:</span> <span class="string">""</span></div><div class="line"><span class="attr">    name:</span> <span class="string">cache-dir</span></div><div class="line">  <span class="string">......</span></div></pre></td></tr></table></figure>
+<p>　　部署的 <code>EnvoyFilter</code> 如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> <span class="string">networking.istio.io/v1alpha3</span></div><div class="line"><span class="attr">kind:</span> <span class="string">EnvoyFilter</span></div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  creationTimestamp:</span> <span class="string">"2020-12-14T14:07:08Z"</span></div><div class="line"><span class="attr">  generation:</span> <span class="number">1</span></div><div class="line"><span class="attr">  name:</span> <span class="string">httpbin-myfilter</span></div><div class="line"><span class="attr">  namespace:</span> <span class="string">fzy</span></div><div class="line"><span class="attr">  resourceVersion:</span> <span class="string">"1656576"</span></div><div class="line"><span class="attr">  selfLink:</span> <span class="string">/apis/networking.istio.io/v1alpha3/namespaces/fzy/envoyfilters/httpbin-myfilter</span></div><div class="line"><span class="attr">  uid:</span> <span class="number">308</span><span class="string">adcf3-385d-4790-a90a-a6cad87322ff</span></div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  configPatches:</span></div><div class="line"><span class="attr">  - applyTo:</span> <span class="string">HTTP_FILTER</span></div><div class="line"><span class="attr">    match:</span></div><div class="line"><span class="attr">      context:</span> <span class="string">SIDECAR_INBOUND</span></div><div class="line"><span class="attr">      listener:</span></div><div class="line"><span class="attr">        filterChain:</span></div><div class="line"><span class="attr">          filter:</span></div><div class="line"><span class="attr">            name:</span> <span class="string">envoy.http_connection_manager</span></div><div class="line"><span class="attr">            subFilter:</span></div><div class="line"><span class="attr">              name:</span> <span class="string">envoy.router</span></div><div class="line"><span class="attr">    patch:</span></div><div class="line"><span class="attr">      operation:</span> <span class="string">INSERT_BEFORE</span></div><div class="line"><span class="attr">      value:</span></div><div class="line"><span class="attr">        name:</span> <span class="string">envoy.filters.http.wasm</span></div><div class="line"><span class="attr">        typedConfig:</span></div><div class="line">          <span class="string">'@type'</span><span class="string">:</span> <span class="string">type.googleapis.com/udpa.type.v1.TypedStruct</span></div><div class="line"><span class="attr">          typeUrl:</span> <span class="string">type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm</span></div><div class="line"><span class="attr">          value:</span></div><div class="line"><span class="attr">            config:</span></div><div class="line"><span class="attr">              name:</span> <span class="string">myfilter</span></div><div class="line"><span class="attr">              rootId:</span> <span class="string">root_id</span></div><div class="line"><span class="attr">              vmConfig:</span></div><div class="line"><span class="attr">                code:</span></div><div class="line"><span class="attr">                  local:</span></div><div class="line"><span class="attr">                    filename:</span> <span class="string">\var\local\lib\wasme-cache\8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681</span></div><div class="line"><span class="attr">                runtime:</span> <span class="string">envoy.wasm.runtime.v8</span></div><div class="line"><span class="attr">                vmId:</span> <span class="string">myfilter</span></div><div class="line"><span class="attr">  workloadSelector:</span></div><div class="line"><span class="attr">    labels:</span></div><div class="line"><span class="attr">      app:</span> <span class="string">httpbin</span></div><div class="line"><span class="attr">      version:</span> <span class="string">v1</span></div></pre></td></tr></table></figure>
+<p>　　查看应用的 <code>sidecar</code> 日志，报错如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">2020-12-14T14:08:19.032180Z     warning envoy config    gRPC config for type.googleapis.com/envoy.config.listener.v3.Listener rejected: Error adding/updating listener(s) virtualInbound: Invalid path: \var\local\lib\wasme-cache\8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681</div><div class="line">2020-12-14T14:08:19.037900Z     info    envoy config    all dependencies initialized. starting workers</div><div class="line">2020-12-14T14:08:20.015414Z     warn    Envoy proxy is NOT ready: config not received from Pilot (is Pilot running?): cds updates: 1 successful, 0 rejected; lds updates: 0 successful, 1 rejected</div></pre></td></tr></table></figure>
+<p>　　<strong>踩坑</strong>：在 <code>Windows</code> 上，由于 <code>wasme</code> 是 <code>Windows</code> 版本的，所以生成 <code>EnvoyFilter</code> 资源时，其定义的 <code>filename</code> 的路径使用的是 <code>Windows</code> 的路径分隔符 <code>\</code>，但是，<code>Envoy Proxy</code> 的镜像是基于 <code>Linux</code> 的（路径分隔符为 <code>/</code>），所以在读取 <code>wasm</code> 插件时，会出现找不到路径的清空。</p>
+<p>　　此时，需要手动修改 <code>filename</code> 的路径：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attr">filename:</span> <span class="string">/var/local/lib/wasme-cache/8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681</span></div></pre></td></tr></table></figure>
+<p>　　然后，<code>Envoy Proxy</code> 即可恢复正常。</p>
+ <figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">2020-12-14T14:13:17.596981Z     info    envoy upstream  lds: add/update listener 'virtualInbound'</div><div class="line">2020-12-14T14:13:18.013491Z     info    Envoy proxy is ready</div></pre></td></tr></table></figure>
+<p>　　通过部署 <code>sleep</code> 应用，并在应用容器中使用 <code>curl</code> 测试插件是否正常工作：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl apply -f sleep.yaml -n fzy</div><div class="line">service/sleep unchanged</div><div class="line">deployment.apps/sleep created</div><div class="line"><span class="meta"></span></div><div class="line">$ kubectl get pod -n fzy</div><div class="line">NAME                       READY   STATUS    RESTARTS   AGE</div><div class="line">httpbin-5b8c6f5857-cq59n   2/2     Running   0          2m43s</div><div class="line">sleep-545bbd7b88-dw8mg     2/2     Running   0          65s</div><div class="line"><span class="meta"></span></div><div class="line">$ kubectl exec -it sleep-545bbd7b88-dw8mg -c sleep -n fzy -- sh</div><div class="line">/ # curl http://httpbin:8000/headers</div><div class="line">&#123;</div><div class="line">  "headers": &#123;</div><div class="line">    "Accept": "*/*",</div><div class="line">    "Content-Length": "0",</div><div class="line">    "Host": "httpbin:8000",</div><div class="line">    "Test": "wasm",</div><div class="line">    "User-Agent": "curl/7.69.1",</div><div class="line">    ......</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　可以看到，插件已经成功为 <code>http</code> 请求添加了 <code>&quot;Test&quot;: &quot;wasm&quot; header</code> 。</p>
+<h5 id="wasme-undeploy"><a href="#wasme-undeploy" class="headerlink" title="wasme undeploy"></a>wasme undeploy</h5><p>　　根据 <code>id</code> 删除 <code>wasm</code> 扩展：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">$</span> wasme undeploy istio --id=myfilter --namespace=fzy --labels app=httpbin</div><div class="line">time="2020-12-14T22:15:15+08:00" level=info msg="removing filter from one or more workloads..." filter=myfilter params="&#123;map[app:httpbin] fzy deployment&#125;"</div><div class="line">time="2020-12-14T22:15:15+08:00" level=info msg="removing sidecar annotations from workload" filter=myfilter workload=httpbin</div><div class="line">time="2020-12-14T22:15:15+08:00" level=info msg="deleted Istio EnvoyFilter resource" filter=httpbin-myfilter</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://ohe7ixo05.bkt.clouddn.com/wechat-reward-image.png" alt="fzy-Line WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="http://ohe7ixo05.bkt.clouddn.com/alipay-reward-image.jpg" alt="fzy-Line Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/云原生/" rel="tag"># 云原生</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/12/06/我的2020书单/" rel="next" title="我的2020书单">
+                <i class="fa fa-chevron-left"></i> 我的2020书单
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/logo.jpg"
+               alt="fzy-Line" />
+          <p class="site-author-name" itemprop="name">fzy-Line</p>
+           
+              <p class="site-description motion-element" itemprop="description">fanzhenyu@csu.edu.cn</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">252</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">109</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fzy-Line" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://blog.csdn.net/u013151320" target="_blank" title="CSDN">
+                  
+                    <i class="fa fa-fw fa-wordpress"></i>
+                  
+                  CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.ruanyifeng.com/blog/" title="阮一峰" target="_blank">阮一峰</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://lixiaolai.com/#/" title="李笑来" target="_blank">李笑来</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://www.tomczhen.com/" title="TomCzHen" target="_blank">TomCzHen</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="https://zhouzhipeng.com/" title="一叶孤舟" target="_blank">一叶孤舟</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://gaocegege.com/Blog/" title="高策" target="_blank">高策</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.hi-roy.com/" title="Roy" target="_blank">Roy</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-CLI"><span class="nav-number">1.</span> <span class="nav-text">wasme CLI</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-init"><span class="nav-number">3.</span> <span class="nav-text">wasme init</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-build"><span class="nav-number">4.</span> <span class="nav-text">wasme build</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-push"><span class="nav-number">5.</span> <span class="nav-text">wasme push</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-pull"><span class="nav-number">6.</span> <span class="nav-text">wasme pull</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-list"><span class="nav-number">7.</span> <span class="nav-text">wasme list</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-deploy"><span class="nav-number">8.</span> <span class="nav-text">wasme deploy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#wasme-undeploy"><span class="nav-number">9.</span> <span class="nav-text">wasme undeploy</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">fzy-Line</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (search_path.endsWith("json")) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

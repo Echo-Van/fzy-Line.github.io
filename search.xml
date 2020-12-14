@@ -1,8 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Envoy Wasm 扩展：Wasm CLI 部署</title>
+    <url>/2020/12/14/Envoy-Wasm-%E6%89%A9%E5%B1%95%EF%BC%9AWasme-CLI-%E9%83%A8%E7%BD%B2/</url>
+    <content><![CDATA[<center>学习了解 wasm - 面向未来的 Envoy 扩展方式。</center>
+
+<a id="more"></a>
+<p>　　<code>WebAssembly</code> 原本是一种可以使用非 <code>JavaScript</code> 编程语言编写代码并且能在浏览器上运行的技术方案。现在，它还可以被用于动态扩展 <code>Envoy</code> 代理，这为提升 <code>Envoy</code> 的可扩展性提供了更多的可能。但是，原生态集成 <code>wasm</code> 是十分繁琐的，需要手动处理依赖的工具链，<code>ABI</code> 版本验证保证兼容、访问权限控制等等。此外，在 <code>Istio</code> 中部署时也需要额外的操作，例如，挂在插件、创建 <code>EnvoyFilter&#39;</code> 等。</p>
+<p>　　因此，<code>Solo.io</code> 发布了 <code>WebAssembly Hub</code> ，它是一套用于构建、部署、共享和发现 <code>Envoy</code> 代理 的 <code>Wasm</code> 扩展工具和库。可以把它理解成 <code>WASM</code> 的 <code>docker</code>，一人构建四处分享，一处构建任意部署。实现了完全自动化开发和部署 <code>Wasm</code> 扩展所需的许多步骤。</p>
+<h5 id="wasme-CLI"><a href="#wasme-CLI" class="headerlink" title="wasme CLI"></a>wasme CLI</h5><p>　<code>Solo.io</code> 还提供了一个强大的 <code>CLI</code> 以及一个易于使用的图形用户界面。 使用命令用户可以将构建的 <code>Wasm</code> 扩展上传到 <code>Hub</code> 注册中心，然后通过镜像的方式部署到 <code>Istio</code>。 </p>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><p>　　按照官方教程，通过如下命令进行安装（<code>Windows</code> 下直接下载 <code>exe</code> 文件，然后添加到环境变量即可使用）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> curl -sL https://run.solo.io/wasme/install | sh</div><div class="line"><span class="meta">$</span> export PATH=$HOME/.wasme/bin:$PATH</div><div class="line"><span class="meta"></span></div><div class="line">$ wasme --version</div><div class="line">wasme version 0.0.31</div></pre></td></tr></table></figure>
+<p>　　<code>wasme</code> 支持的子命令包括：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme --help</div><div class="line">The tool for building, pushing, and deploying Envoy WebAssembly Filters</div><div class="line"></div><div class="line">Usage:</div><div class="line">  wasme [command]</div><div class="line"></div><div class="line">Available Commands:</div><div class="line">  build       Build a wasm image from the filter source directory.</div><div class="line">  deploy      Deploy an Envoy WASM Filter to the data plane (Envoy proxies).</div><div class="line">  help        Help about any command</div><div class="line">  init        Initialize a project directory for a new Envoy WASM Filter.</div><div class="line">  list        List Envoy WASM Filters stored locally or published to webassemblyhub.io.</div><div class="line">  login       Log in so you can push images to the remote server.</div><div class="line">  pull        Pull wasm filters from remote registry</div><div class="line">  push        Push a wasm filter to remote registry</div><div class="line">  tag         Create a tag TARGET_IMAGE that refers to SOURCE_IMAGE</div><div class="line">  undeploy    Remove a deployed Envoy WASM Filter from the data plane (Envoy proxies).</div><div class="line"></div><div class="line">Flags:</div><div class="line">  -h, --help      help for wasme</div><div class="line">  -v, --verbose   verbose output</div><div class="line">      --version   version for wasme</div><div class="line"></div><div class="line">Use "wasme [command] --help" for more information about a command.</div></pre></td></tr></table></figure>
+<h5 id="wasme-init"><a href="#wasme-init" class="headerlink" title="wasme init"></a>wasme init</h5><p>　　初始化 <code>wasm</code> 项目，选择语言：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme init tinygo-add-header</div><div class="line">Use the arrow keys to navigate: j k l h</div><div class="line">? What language do you wish to use for the filter:</div><div class="line"><span class="meta">  &gt;</span> cpp</div><div class="line">    rust</div><div class="line">    assemblyscript</div><div class="line">    tinygo</div></pre></td></tr></table></figure>
+<p>　　目前，只支持 <code>cpp</code>、<code>rust</code>、<code>assemblyscript</code> 和 <code>tinygo</code> 4 种语言。对应的 <code>SDK</code> 是：</p>
+<ul>
+<li><code>TinyGo</code>：<a href="https://github.com/tetratelabs/proxy-wasm-go-sdk" target="_blank" rel="external">https://github.com/tetratelabs/proxy-wasm-go-sdk</a></li>
+<li><code>C++</code>：<a href="https://github.com/proxy-wasm/proxy-wasm-cpp-sdk" target="_blank" rel="external">https://github.com/proxy-wasm/proxy-wasm-cpp-sdk</a></li>
+<li><code>Rust</code>：<a href="https://github.com/proxy-wasm/proxy-wasm-rust-sdk" target="_blank" rel="external">https://github.com/proxy-wasm/proxy-wasm-rust-sdk</a></li>
+<li><code>WebAssemblyScript</code>：<a href="https://github.com/solo-io/proxy-runtime" target="_blank" rel="external">https://github.com/solo-io/proxy-runtime</a></li>
+</ul>
+<p>　　选择版本（这里我们以 <code>tinygo</code> 为例）后，需要选择对应部署到的服务网格版本（其中，<code>gloo</code> 是 ）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme init tinygo-add-header</div><div class="line">v tinygo</div><div class="line">Use the arrow keys to navigate: j k l h</div><div class="line">? With which platforms do you wish to use the filter?:</div><div class="line"><span class="meta">  &gt;</span> istio:1.7.x, gloo:1.6.x, istio:1.8.x</div></pre></td></tr></table></figure>
+<p>　　创建成功：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span>  wasme init tinygo-add-header</div><div class="line">v tinygo</div><div class="line">v istio:1.7.x, gloo:1.6.x, istio:1.8.x</div><div class="line">time="2020-12-14T21:35:09+08:00" level=info msg="extracting 872 bytes to D:\\Tools\\cmder\\tinygo-add-header"</div></pre></td></tr></table></figure>
+<p>　　生成的项目结构如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> tree</div><div class="line">.</div><div class="line">├── go.mod</div><div class="line">├── main.go</div><div class="line">└── runtime-config.json</div></pre></td></tr></table></figure>
+<p>　　<code>main.go</code>（继承抽象基类定义自己的业务 <code>Context</code>，重载自己需要的方法，在重载方法里做自己需要业务逻辑即可）：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	<span class="string">"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm"</span></div><div class="line">	<span class="string">"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm/types"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="comment">// Other examples can be found at https://github.com/tetratelabs/proxy-wasm-go-sdk/tree/v0.0.8/examples</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	proxywasm.SetNewHttpContext(newHttpContext)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> httpHeaders <span class="keyword">struct</span> &#123;</div><div class="line">	<span class="comment">// we must embed the default context so that you need not to reimplement all the methods by yourself</span></div><div class="line">	proxywasm.DefaultHttpContext</div><div class="line">	contextID <span class="keyword">uint32</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">newHttpContext</span><span class="params">(rootContextID, contextID <span class="keyword">uint32</span>)</span> <span class="title">proxywasm</span>.<span class="title">HttpContext</span></span> &#123;</div><div class="line">	<span class="keyword">return</span> &amp;httpHeaders&#123;contextID: contextID&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// override</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *httpHeaders)</span> <span class="title">OnHttpRequestHeaders</span><span class="params">(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>)</span> <span class="title">types</span>.<span class="title">Action</span></span> &#123;</div><div class="line">	hs, err := proxywasm.GetHttpRequestHeaders()</div><div class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</div><div class="line">		proxywasm.LogCriticalf(<span class="string">"failed to get request headers: %v"</span>, err)</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="keyword">for</span> _, h := <span class="keyword">range</span> hs &#123;</div><div class="line">		proxywasm.LogInfof(<span class="string">"request header: %s: %s"</span>, h[<span class="number">0</span>], h[<span class="number">1</span>])</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> types.ActionContinue</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// override</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *httpHeaders)</span> <span class="title">OnHttpResponseHeaders</span><span class="params">(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>)</span> <span class="title">types</span>.<span class="title">Action</span></span> &#123;</div><div class="line">	<span class="keyword">if</span> err := proxywasm.SetHttpResponseHeader(<span class="string">"hello"</span>, <span class="string">"world"</span>); err != <span class="literal">nil</span> &#123;</div><div class="line">		proxywasm.LogCriticalf(<span class="string">"failed to set response header: %v"</span>, err)</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> types.ActionContinue</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// override</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *httpHeaders)</span> <span class="title">OnHttpStreamDone</span><span class="params">()</span></span> &#123;</div><div class="line">	proxywasm.LogInfof(<span class="string">"%d finished"</span>, ctx.contextID)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　<code>proxy-wasm-go-sdk</code> 目前支持重载的函数包括：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><div class="line"><span class="keyword">type</span> RootContext <span class="keyword">interface</span> &#123;</div><div class="line">	OnQueueReady(queueID <span class="keyword">uint32</span>)</div><div class="line">	OnTick()</div><div class="line">	OnVMStart(vmConfigurationSize <span class="keyword">int</span>) <span class="keyword">bool</span></div><div class="line">	OnPluginStart(pluginConfigurationSize <span class="keyword">int</span>) <span class="keyword">bool</span></div><div class="line">	OnVMDone() <span class="keyword">bool</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> StreamContext <span class="keyword">interface</span> &#123;</div><div class="line">	OnDownstreamData(dataSize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnDownstreamClose(peerType types.PeerType)</div><div class="line">	OnNewConnection() types.Action</div><div class="line">	OnUpstreamData(dataSize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnUpstreamClose(peerType types.PeerType)</div><div class="line">	OnStreamDone()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">type</span> HttpContext <span class="keyword">interface</span> &#123;</div><div class="line">	OnHttpRequestHeaders(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpRequestBody(bodySize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpRequestTrailers(numTrailers <span class="keyword">int</span>) types.Action</div><div class="line">	OnHttpResponseHeaders(numHeaders <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpResponseBody(bodySize <span class="keyword">int</span>, endOfStream <span class="keyword">bool</span>) types.Action</div><div class="line">	OnHttpResponseTrailers(numTrailers <span class="keyword">int</span>) types.Action</div><div class="line">	OnHttpStreamDone()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="wasme-build"><a href="#wasme-build" class="headerlink" title="wasme build"></a>wasme build</h5><p>　　我们修改 <code>OnHttpRequestHeaders</code> 方法，添加如下内容：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><div class="line"><span class="keyword">if</span> err := proxywasm.SetHttpRequestHeader(<span class="string">"Test"</span>, <span class="string">"wasm"</span>); err != <span class="literal">nil</span> &#123;	<span class="comment">// 在请求头中添加 Test:wasm 键值对</span></div><div class="line">		proxywasm.LogCriticalf(<span class="string">"failed to set request header: %v"</span>, err)</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+<p>　　使用 <code>wasme build</code> 子命令进行构建：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build</div><div class="line">Options for the build are specific to the target language.</div><div class="line"></div><div class="line">Usage:</div><div class="line">  wasme build [command]</div><div class="line"></div><div class="line">Available Commands:</div><div class="line">  assemblyscript Build a wasm image from an AssemblyScript filter using NPM-in-Docker</div><div class="line">  cpp            Build a wasm image from a CPP filter using Bazel-in-Docker</div><div class="line">  precompiled    Build a wasm image from a Precompiled filter.</div><div class="line">  rust           Build a wasm image from a Rust filter using Bazel-in-Docker</div><div class="line">  tinygo         Build a wasm image from a TinyGo filter using TinyGo-in-Docker</div></pre></td></tr></table></figure>
+<p>　　示例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build tinygo -t webassemblyhub.io/fzy/test-wasm:v0.1 .</div></pre></td></tr></table></figure>
+<p>　　构建完成后，会将镜像存储到：<code>$HOME/.wasme/store/tag签名/</code> 目录下，其中包括以下四个文件：</p>
+<ul>
+<li><p><code>descriptor.json</code> ：定义文件的类型，<code>wasm</code> 文件的 <code>sha256</code> 签名，文件大小和文件名。</p>
+</li>
+<li><p><code>filter.wasm</code> ：构建出来的 <code>wasm</code> 插件。</p>
+</li>
+<li><p><code>image_ref</code> ：<code>tag</code> 标签字符串。</p>
+</li>
+<li><p><code>runtime-config.json</code> ：从项目路径下拷贝过来的。</p>
+</li>
+</ul>
+<p>　　<strong>build 子命令的原理</strong>：调用 <code>sdk</code> 的编译工具，同时生成 <code>descriptor.json</code> 、<code>image_ref</code> 和 <code>runtime-config.json</code> 文件。通过查看<code>wasme</code> 的源码发现，它构建时使用的是 <code>docker</code> 的方式进行构建（即不需要自己去搭建构建环境）。</p>
+<p>　　<strong>编译不成功</strong>：由于国内网络的问题，构建时可能会出现 <code>go package</code> 无法下载的问题。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build tinygo -t webassemblyhub.io/fzy/tinygo-add-header:v0.1 .</div><div class="line">Building with tinygo...go: github.com/tetratelabs/proxy-wasm-go-sdk@v0.0.8: Get "https://proxy.golang.org/github.com/tetratelabs/proxy-wasm-go-sdk/@v/v0.0.8.mod": dial tcp 172.217.160.113:443: connect: connection refused</div><div class="line">Error: failed producing filter file: exit status 1</div></pre></td></tr></table></figure>
+<p>　　如果使用 <code>tinygo</code> 编写 <code>wasm</code> 扩展 ，实际使用的就是 <code>proxy-wasm-go-sdk</code> 的编译脚本中的命令：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">.DEFAULT_GOAL := build.examples</div><div class="line"></div><div class="line">ISTIO_VERSION ?= 1.7.3</div><div class="line"></div><div class="line">.PHONY: build.example build.example.docker build.examples build.examples.docker lint test test.sdk test.e2e</div><div class="line"></div><div class="line">build.example:</div><div class="line">	tinygo build -o ./examples/$&#123;name&#125;/main.go.wasm -scheduler=none -target=wasi -wasm-abi=generic ./examples/$&#123;name&#125;/main.go</div><div class="line"></div><div class="line">build.example.docker:</div><div class="line">	docker run -it -w /tmp/proxy-wasm-go -v $(shell pwd):/tmp/proxy-wasm-go tinygo/tinygo-dev:latest \</div><div class="line">		tinygo build -o /tmp/proxy-wasm-go/examples/$&#123;name&#125;/main.go.wasm -scheduler=none -target=wasi \</div><div class="line">		-wasm-abi=generic /tmp/proxy-wasm-go/examples/$&#123;name&#125;/main.go</div><div class="line"></div><div class="line">build.examples:</div><div class="line">	find ./examples -type f -name "main.go" | xargs -Ip tinygo build -o p.wasm -scheduler=none -target=wasi -wasm-abi=generic p</div><div class="line"></div><div class="line">build.examples.docker:</div><div class="line">	docker run -it -w /tmp/proxy-wasm-go -v $(shell pwd):/tmp/proxy-wasm-go tinygo/tinygo:latest /bin/bash -c \</div><div class="line">		'find /tmp/proxy-wasm-go/examples/ -type f -name "main.go" | xargs -Ip tinygo build -o p.wasm -scheduler=none -target=wasi -wasm-abi=generic p'</div></pre></td></tr></table></figure>
+<p>　　<strong>暂时的解决办法</strong>：参考 <code>proxy-wasm-go-sdk</code> 的方法本地编译，不使用 <code>docker</code> 容器，安装好 <code>tinygo</code> ，使用 <code>go mod</code> 将项目所需要的包都下载到本地。然后，使用如下命令进行编译：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> tinygo build -o ./examples/$&#123;name&#125;/main.go.wasm -scheduler=none -target=wasi -wasm-abi=generic ./examples/$&#123;name&#125;/main.go</div></pre></td></tr></table></figure>
+<p>　　示例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> tinygo build -o test-wasm.wasm -scheduler=none -target=wasi -wasm-abi=generic main.go</div></pre></td></tr></table></figure>
+<p>　　再使用 <code>wasme build</code> 命令进行编译：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme build precompiled tinygo-add-header.wasm -t webassemblyhub.io/fzy/tinygo-add-header:v0.1</div><div class="line">time="2020-12-14T21:44:57+08:00" level=info msg="adding image to cache..." filter file=tinygo-add-header.wasm tag="webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T21:44:57+08:00" level=info msg="tagged image" digest="sha256:8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681" image="webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div></pre></td></tr></table></figure>
+<h5 id="wasme-push"><a href="#wasme-push" class="headerlink" title="wasme push"></a>wasme push</h5><p>　　在 <code>webassemblyhub</code> 上注册账号，然后就可以通过 <code>wasme push</code> 命令将镜像推送到 <code>webassemblyhub</code> 。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme login # 登录 webassemblyhub 的账号，已登录可以免去此操作</div><div class="line"><span class="meta"></span></div><div class="line">$  wasme push webassemblyhub.io/fzy/tinygo-add-header:v0.1</div><div class="line">time="2020-12-14T21:52:34+08:00" level=info msg="Pushing image webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T21:52:44+08:00" level=info msg="Pushed webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T21:52:44+08:00" level=info msg="Digest: sha256:9e787fcbe0bc876a00140fd4e02fac0146f8d6bf7aaa9e031a98a04a1b32bdfa"</div></pre></td></tr></table></figure>
+<p>　　推送时会将编译得到的 <code>.wasm</code> 、<code>descriptor.json</code> 、<code>image_ref</code> 和 <code>runtime-config.json</code> 文件上传到  <code>webassemblyhub.io</code> 仓库。</p>
+<h5 id="wasme-pull"><a href="#wasme-pull" class="headerlink" title="wasme pull"></a>wasme pull</h5><p>　　使用 <code>wasme pull</code> 命令从 <code>webassemblyhub.io</code> 仓库拉取镜像：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme pull webassemblyhub.io/life4honor/tinygo-filter:log</div><div class="line">time="2020-12-02T20:32:47+08:00" level=info msg="Pulling image webassemblyhub.io/life4honor/tinygo-filter:log"</div><div class="line">time="2020-12-02T20:32:53+08:00" level=info msg="Image: webassemblyhub.io/life4honor/tinygo-filter:log"</div><div class="line">time="2020-12-02T20:32:53+08:00" level=info msg="Digest: sha256:8407c76923ca49750d60168454566e6ab96622b7740fad4032244e4c7a898b70"</div></pre></td></tr></table></figure>
+<p>　　拉取完成后，镜像（包括上述的 <code>4</code> 个文件）默认存储在：<code>$HOME/.wasme/store</code> 目录下。</p>
+<h5 id="wasme-list"><a href="#wasme-list" class="headerlink" title="wasme list"></a>wasme list</h5><p>　　列出本地缓存的镜像（实际就是 <code>$HOME/.wasme/store</code> 目录下的所有镜像）：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme list</div><div class="line">NAME                                            TAG         SIZE     SHA      UPDATED</div><div class="line">webassemblyhub.io/fzy/test-wasm                 v0.1        241.2 kB 6d1700cb 03 Dec 20 16:31 CST</div><div class="line">webassemblyhub.io/fzy/tinygo-add-header         v0.1        241.9 kB 8e378835 14 Dec 20 21:51 CST</div><div class="line">webassemblyhub.io/life4honor/tinygo-filter      log         242.5 kB 8407c769 02 Dec 20 20:32 CST</div><div class="line">......</div></pre></td></tr></table></figure>
+<h5 id="wasme-deploy"><a href="#wasme-deploy" class="headerlink" title="wasme deploy"></a>wasme deploy</h5><p>　　部署应用：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl apply -f httpbin-v1.yaml -n fzy</div><div class="line">service/httpbin created</div><div class="line">deployment.apps/httpbin created</div></pre></td></tr></table></figure>
+<p>　　第一次使用 <code>wasme deploy</code> 命令时，会在集群中创建 <code>wasme</code> 命名空间，并创建 <code>wasme daemonset</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl get ds -n wasme</div><div class="line">NAME          DESIRED   CURRENT   READY   UP-TO-DATE   AVAILABLE   NODE SELECTOR   AGE</div><div class="line">wasme-cache   1         1         1       1            1           &lt;none&gt;          3d</div></pre></td></tr></table></figure>
+<p>　　<code>daemonset</code> 会在每个节点上创建一个 <code>Pod</code>：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl get pod -n wasme</div><div class="line">NAME                READY   STATUS    RESTARTS   AGE</div><div class="line">wasme-cache-wxch4   1/1     Running   0          3d</div></pre></td></tr></table></figure>
+<p>　　这个 <code>pod</code> 主要用于挂载两个目录：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">volumeMounts:</span></div><div class="line"><span class="attr">- mountPath:</span> <span class="string">/var/local/lib/wasme-cache</span></div><div class="line"><span class="attr">  name:</span> <span class="string">cache-dir</span></div><div class="line"><span class="attr">- mountPath:</span> <span class="string">/etc/wasme-cache</span></div><div class="line"><span class="attr">  name:</span> <span class="string">config</span></div><div class="line"></div><div class="line"><span class="attr">volumes:</span>                              </div><div class="line"><span class="attr">- hostPath:</span>                           </div><div class="line"><span class="attr">    path:</span> <span class="string">/var/local/lib/wasme-cache</span>  </div><div class="line"><span class="attr">    type:</span> <span class="string">DirectoryOrCreate</span>           </div><div class="line"><span class="attr">  name:</span> <span class="string">cache-dir</span></div></pre></td></tr></table></figure>
+<p>　　部署 <code>wasm</code> 扩展示例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme deploy istio webassemblyhub.io/fzy/tinygo-add-header:v0.1 --id=myfilter --namespace=fzy --labels app=httpbin</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache namespace already exists" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache configmap already exists" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache service account already exists" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache role updated" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache rolebinding updated" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:06:54+08:00" level=info msg="cache daemonset updated" cache=wasme-cache.wasme image="quay.io/solo-io/wasme:0.0.31"</div><div class="line">time="2020-12-14T22:07:08+08:00" level=info msg="image is already cached" cache="&#123;wasme-cache wasme&#125;" image="webassemblyhub.io/fzy/tinygo-add-header:v0.1"</div><div class="line">time="2020-12-14T22:07:08+08:00" level=info msg="updated workload sidecar annotations" filter="id:\"myfilter\" image:\"webassemblyhub.io/fzy/tinygo-add-header:v0.1\" rootID:\"root_id\" " workload=httpbin</div><div class="line">time="2020-12-14T22:07:08+08:00" level=info msg="created Istio EnvoyFilter resource" envoy_filter_resource=httpbin-myfilter.fzy filter="id:\"myfilter\" image:\"webassemblyhub.io/fzy/tinygo-add-header:v0.1\" rootID:\"root_id\" " workload=httpbin</div></pre></td></tr></table></figure>
+<p>　　如果不使用 <code>--labels</code> 参数，则表示该 <code>wasm</code> 插件将应用于 <code>--namespace</code> 空间下的所有 <code>workload</code> 。<code>wasme</code> 会为每个 <code>workload</code>创建一个 <code>EnvoyFilter</code> ，每个 <code>EnvoyFilter</code> 通过  <code>workload selector</code> 与特定的 <code>wordload</code> 绑定。新创建的应用不会被执行上述操作，也就是说 <code>wasme</code> 并不会一直监听该命名空间的资源创建。</p>
+<p>　　<strong>主要流程</strong>：</p>
+<ul>
+<li>更新 <code>DeamonSet</code>，拉取并缓存镜像。</li>
+<li>更新 <code>workload sidecar</code> 的注解。</li>
+<li>创建 <code>Istio EnvoyFilter</code> 。</li>
+</ul>
+<p>　　由于部署需要在 <code>Deployment</code> 的 <code>template</code> 中添加注解，会导致 <code>pod</code> 重启：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  template:</span></div><div class="line"><span class="attr">    metadata:</span></div><div class="line"><span class="attr">      annotations:</span></div><div class="line">	    <span class="string">sidecar.istio.io/userVolume:</span> <span class="string">'[&#123;"name":"cache-dir","hostPath":&#123;"path":"/var/local/lib/wasme-cache"&#125;&#125;]'</span></div><div class="line">	    <span class="string">sidecar.istio.io/userVolumeMount:</span> <span class="string">'[&#123;"mountPath":"/var/local/lib/wasme-cache","name":"cache-dir"&#125;]'</span></div></pre></td></tr></table></figure>
+<p>　　<code>Pod</code> 重启后，日志显示应用不健康：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl get pod -n fzy</div><div class="line">NAME                       READY   STATUS    RESTARTS   AGE</div><div class="line">httpbin-5b8c6f5857-x2prs   1/2     Running   0          89s</div></pre></td></tr></table></figure>
+<p>　　<code>Pod</code> 重启后，其中主要有如下变化：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></div><div class="line"><span class="attr">kind:</span> <span class="string">Pod</span></div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  annotations:</span></div><div class="line">    <span class="string">sidecar.istio.io/userVolume:</span> <span class="string">'[&#123;"name":"cache-dir","hostPath":&#123;"path":"/var/local/lib/wasme-cache"&#125;&#125;]'</span></div><div class="line">    <span class="string">sidecar.istio.io/userVolumeMount:</span> <span class="string">'[&#123;"mountPath":"/var/local/lib/wasme-cache","name":"cache-dir"&#125;]'</span></div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  containers:</span></div><div class="line">    <span class="string">......</span></div><div class="line"><span class="attr">    name:</span> <span class="string">istio-proxy</span></div><div class="line"><span class="attr">    volumeMounts:</span></div><div class="line"><span class="attr">      - mountPath:</span> <span class="string">/var/local/lib/wasme-cache</span></div><div class="line"><span class="attr">      name:</span> <span class="string">cache-dir</span></div><div class="line">    <span class="string">.....</span></div><div class="line"><span class="attr">  volumes:</span></div><div class="line"><span class="attr">  - hostPath:</span></div><div class="line"><span class="attr">      path:</span> <span class="string">/var/local/lib/wasme-cache</span></div><div class="line"><span class="attr">      type:</span> <span class="string">""</span></div><div class="line"><span class="attr">    name:</span> <span class="string">cache-dir</span></div><div class="line">  <span class="string">......</span></div></pre></td></tr></table></figure>
+<p>　　部署的 <code>EnvoyFilter</code> 如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">apiVersion:</span> <span class="string">networking.istio.io/v1alpha3</span></div><div class="line"><span class="attr">kind:</span> <span class="string">EnvoyFilter</span></div><div class="line"><span class="attr">metadata:</span></div><div class="line"><span class="attr">  creationTimestamp:</span> <span class="string">"2020-12-14T14:07:08Z"</span></div><div class="line"><span class="attr">  generation:</span> <span class="number">1</span></div><div class="line"><span class="attr">  name:</span> <span class="string">httpbin-myfilter</span></div><div class="line"><span class="attr">  namespace:</span> <span class="string">fzy</span></div><div class="line"><span class="attr">  resourceVersion:</span> <span class="string">"1656576"</span></div><div class="line"><span class="attr">  selfLink:</span> <span class="string">/apis/networking.istio.io/v1alpha3/namespaces/fzy/envoyfilters/httpbin-myfilter</span></div><div class="line"><span class="attr">  uid:</span> <span class="number">308</span><span class="string">adcf3-385d-4790-a90a-a6cad87322ff</span></div><div class="line"><span class="attr">spec:</span></div><div class="line"><span class="attr">  configPatches:</span></div><div class="line"><span class="attr">  - applyTo:</span> <span class="string">HTTP_FILTER</span></div><div class="line"><span class="attr">    match:</span></div><div class="line"><span class="attr">      context:</span> <span class="string">SIDECAR_INBOUND</span></div><div class="line"><span class="attr">      listener:</span></div><div class="line"><span class="attr">        filterChain:</span></div><div class="line"><span class="attr">          filter:</span></div><div class="line"><span class="attr">            name:</span> <span class="string">envoy.http_connection_manager</span></div><div class="line"><span class="attr">            subFilter:</span></div><div class="line"><span class="attr">              name:</span> <span class="string">envoy.router</span></div><div class="line"><span class="attr">    patch:</span></div><div class="line"><span class="attr">      operation:</span> <span class="string">INSERT_BEFORE</span></div><div class="line"><span class="attr">      value:</span></div><div class="line"><span class="attr">        name:</span> <span class="string">envoy.filters.http.wasm</span></div><div class="line"><span class="attr">        typedConfig:</span></div><div class="line">          <span class="string">'@type'</span><span class="string">:</span> <span class="string">type.googleapis.com/udpa.type.v1.TypedStruct</span></div><div class="line"><span class="attr">          typeUrl:</span> <span class="string">type.googleapis.com/envoy.extensions.filters.http.wasm.v3.Wasm</span></div><div class="line"><span class="attr">          value:</span></div><div class="line"><span class="attr">            config:</span></div><div class="line"><span class="attr">              name:</span> <span class="string">myfilter</span></div><div class="line"><span class="attr">              rootId:</span> <span class="string">root_id</span></div><div class="line"><span class="attr">              vmConfig:</span></div><div class="line"><span class="attr">                code:</span></div><div class="line"><span class="attr">                  local:</span></div><div class="line"><span class="attr">                    filename:</span> <span class="string">\var\local\lib\wasme-cache\8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681</span></div><div class="line"><span class="attr">                runtime:</span> <span class="string">envoy.wasm.runtime.v8</span></div><div class="line"><span class="attr">                vmId:</span> <span class="string">myfilter</span></div><div class="line"><span class="attr">  workloadSelector:</span></div><div class="line"><span class="attr">    labels:</span></div><div class="line"><span class="attr">      app:</span> <span class="string">httpbin</span></div><div class="line"><span class="attr">      version:</span> <span class="string">v1</span></div></pre></td></tr></table></figure>
+<p>　　查看应用的 <code>sidecar</code> 日志，报错如下：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">2020-12-14T14:08:19.032180Z     warning envoy config    gRPC config for type.googleapis.com/envoy.config.listener.v3.Listener rejected: Error adding/updating listener(s) virtualInbound: Invalid path: \var\local\lib\wasme-cache\8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681</div><div class="line">2020-12-14T14:08:19.037900Z     info    envoy config    all dependencies initialized. starting workers</div><div class="line">2020-12-14T14:08:20.015414Z     warn    Envoy proxy is NOT ready: config not received from Pilot (is Pilot running?): cds updates: 1 successful, 0 rejected; lds updates: 0 successful, 1 rejected</div></pre></td></tr></table></figure>
+<p>　　<strong>踩坑</strong>：在 <code>Windows</code> 上，由于 <code>wasme</code> 是 <code>Windows</code> 版本的，所以生成 <code>EnvoyFilter</code> 资源时，其定义的 <code>filename</code> 的路径使用的是 <code>Windows</code> 的路径分隔符 <code>\</code>，但是，<code>Envoy Proxy</code> 的镜像是基于 <code>Linux</code> 的（路径分隔符为 <code>/</code>），所以在读取 <code>wasm</code> 插件时，会出现找不到路径的清空。</p>
+<p>　　此时，需要手动修改 <code>filename</code> 的路径：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><div class="line"><span class="attr">filename:</span> <span class="string">/var/local/lib/wasme-cache/8e378835be639101143eb4ba99add4461615be919844a9c8ac59dab24f2f3681</span></div></pre></td></tr></table></figure>
+<p>　　然后，<code>Envoy Proxy</code> 即可恢复正常。</p>
+ <figure class="highlight shell"><table><tr><td class="code"><pre><div class="line">2020-12-14T14:13:17.596981Z     info    envoy upstream  lds: add/update listener 'virtualInbound'</div><div class="line">2020-12-14T14:13:18.013491Z     info    Envoy proxy is ready</div></pre></td></tr></table></figure>
+<p>　　通过部署 <code>sleep</code> 应用，并在应用容器中使用 <code>curl</code> 测试插件是否正常工作：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> kubectl apply -f sleep.yaml -n fzy</div><div class="line">service/sleep unchanged</div><div class="line">deployment.apps/sleep created</div><div class="line"><span class="meta"></span></div><div class="line">$ kubectl get pod -n fzy</div><div class="line">NAME                       READY   STATUS    RESTARTS   AGE</div><div class="line">httpbin-5b8c6f5857-cq59n   2/2     Running   0          2m43s</div><div class="line">sleep-545bbd7b88-dw8mg     2/2     Running   0          65s</div><div class="line"><span class="meta"></span></div><div class="line">$ kubectl exec -it sleep-545bbd7b88-dw8mg -c sleep -n fzy -- sh</div><div class="line">/ # curl http://httpbin:8000/headers</div><div class="line">&#123;</div><div class="line">  "headers": &#123;</div><div class="line">    "Accept": "*/*",</div><div class="line">    "Content-Length": "0",</div><div class="line">    "Host": "httpbin:8000",</div><div class="line">    "Test": "wasm",</div><div class="line">    "User-Agent": "curl/7.69.1",</div><div class="line">    ......</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>　　可以看到，插件已经成功为 <code>http</code> 请求添加了 <code>&quot;Test&quot;: &quot;wasm&quot; header</code> 。</p>
+<h5 id="wasme-undeploy"><a href="#wasme-undeploy" class="headerlink" title="wasme undeploy"></a>wasme undeploy</h5><p>　　根据 <code>id</code> 删除 <code>wasm</code> 扩展：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> wasme undeploy istio --id=myfilter --namespace=fzy --labels app=httpbin</div><div class="line">time="2020-12-14T22:15:15+08:00" level=info msg="removing filter from one or more workloads..." filter=myfilter params="&#123;map[app:httpbin] fzy deployment&#125;"</div><div class="line">time="2020-12-14T22:15:15+08:00" level=info msg="removing sidecar annotations from workload" filter=myfilter workload=httpbin</div><div class="line">time="2020-12-14T22:15:15+08:00" level=info msg="deleted Istio EnvoyFilter resource" filter=httpbin-myfilter</div></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Cloud/Edge Computing</category>
+      </categories>
+      <tags>
+        <tag>云原生</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>我的2020书单</title>
-    <url>/2020/08/30/%E6%88%91%E7%9A%842020%E4%B9%A6%E5%8D%95/</url>
+    <url>/2020/12/06/%E6%88%91%E7%9A%842020%E4%B9%A6%E5%8D%95/</url>
     <content><![CDATA[<center>我的2020年书单，附带评分和点评，不断更新中……</center>
 
 <a id="more"></a>
@@ -126,6 +238,44 @@
 <p>希望这个世界的女性都能被温柔以待，也希望每个人都有追求梦想和自由的权利，可以活出自我。</p>
 </li>
 </ul>
+<p>[17] 道路与梦想：我与万科（1983-1999）</p>
+<ul>
+<li><p>作者：王石</p>
+</li>
+<li><p>评分：5 星</p>
+</li>
+<li><p>点评：整本书读下来，语言朴实无华，却令人感动，仿佛就像王石在你面前给你讲诉他不凡的人生经历。一个传奇企业家，很多精彩的故事，几十年跌宕起伏，最终成就了现在的万科。在改革开放的前沿，他所讲述的那些亲身经历让我们清晰的看到了那个到处充满机会的时代，更进一步理解了“时间就是金钱，效率就是生命”。后面，他给朱总理汇报的那一段真是十分精彩，充分体现了他超高的情商和沟通能力。可惜，这本书只写到了2000年左右，近年来的很多事情没有被写进来，特别是万科大战野蛮人的，想必也一定是十分精彩的。</p>
+<p>俗话说，商场如战场，看完这本书，我觉得是他骨子里当过兵的那股劲，时刻恪守的原则，灵活应变的能力，以及长期解决各种问题的积累经验成就了他不凡的人生。虽然如今他已经功成身退，但是他建立起来的万科文化和制度使得万科可以持续稳定的发展下去。世界在变，中国更是在发生巨变，道路与梦想，万科的路还有很长。</p>
+</li>
+</ul>
+<p>[17] 蚂蚁金服：科技金融独角兽的崛起</p>
+<ul>
+<li><p>作者：由曦</p>
+</li>
+<li><p>评分：5 星</p>
+</li>
+<li><p>点评：从蚂蚁要上市开始读这本书，到现在蚂蚁暂缓上市，读完。近期，蚂蚁集团上市可谓一波三折，主要事件发展脉络如下：</p>
+<ol>
+<li><p>第二届外滩金融峰会，马云公开批评监管。</p>
+</li>
+<li><p>银保监会和人民银行就《网络小额贷款业务管理暂行办法（征求意见稿）》公开征求意见。</p>
+</li>
+<li><p>四部委对蚂蚁集团实际控制人马云、董事长井贤栋、总裁胡晓明进行了监管约谈。</p>
+</li>
+<li><p>上交所宣布暂缓蚂蚁在科创板的上市进程。随后蚂蚁宣布，同步暂缓其在H股的上市。</p>
+</li>
+<li><p>正式启动退款程序，投资者已认购的股份相继注销，连本带息退还打新资金。</p>
+</li>
+</ol>
+<p>大家很容易以为，是马云的言论导致了新规意见稿，然后造成暂缓上市。但新规意见稿不可能一夜之间出现，像蚂蚁这样的头部企业应该是参与到意见稿的制定过程中的。所以，真实的情况，很有可能是新规意见稿导致了马云的言论，以及后续的暂缓上市。吃瓜群众表示，蚂蚁这一波确实是创造了历史，我们也又见证了一次历史。</p>
+<p>尽管蚂蚁暂缓上市了，但是并不影响它给金融行业带来的发展，以及给我们的生活带来的改变。通过阅读这本书，我对蚂蚁集团有了更深入的了解，回顾蚂蚁集团的发展历程，确实有很多值得我们深思的地方。感触比较深的主要有以下几点：</p>
+<p>一是，蚂蚁的成功，得来不易。作为一家金融科技公司，从无到有，他们做到了，争取各种牌照，拥抱监管。作为互联网金融行业的头部创新企业，当时连政策都没有，是他们在倒逼金融行业创新。从克服环境，到慢慢改变环境。从一开始寻找银行进行合作，到后来不断开拓新的业务。从支付宝到余额宝，再到花呗借呗、芝麻信用等等，蚂蚁金服不断突破想象，完成了从支付到金融的转变。艰辛漫长的不断创新，成就了现在的蚂蚁集团。</p>
+<p>二是，重视用户体验。2010年支付宝年会，马云对支付宝的用户体验提出了严厉的批评。彭蕾也不断地向支付宝员工灌输一种危机意识，她告诉员工，提升用户体验是第一要务。到后来蚂蚁金服成立，其中“金服”二字，重在服务。蚂蚁金服希望既能服务“草根”消费者和小微企业，也能服务金融机构，并和后者共同为未来社会的金融服务提供支撑。到现在，看看支付宝，再对比很多银行的App，用户体验确实做的很不错啊。个人体验，支付宝极少出现页面打不开的情况，而银行的App嘛，真不好说。当自己的员工都不使用自家的产品时，基本上这个领域就完蛋了。比如，现在银行的网上基金销售，支付宝和微信理财通的购买基金的费率通常是银行App的10%，在这一点上已经吸引了很多的年轻人，虽然基金销售并不是银行的主业，但是如果不去重视用户体验，未来会怎么样是显而易见的。</p>
+<p>三是，重视优秀的人才。阿里巴巴和支付宝都是非常重视HR的公司，在阿里巴巴创业之初，马云就异乎寻常地关注人才，他总是善于从员工身上发现闪光点。不可否认，在蚂蚁金服的发展历程中，吸引的优秀人才发挥了非常关键的作用，例如余额宝的祖国明（来自中国证券市场设计研究中心）、负责人力资源的曾松柏（来自麦当劳）、负责风险管理的俞吴杰（来自Paypal）、网商银行行长俞胜法（来自杭州市金融办）、芝麻信用负责人胡滔（来自招商银行）等等，他们都成为了蚂蚁金服许多产品创新的主导人。另外，蚂蚁金服灵活的用人机制吸引了来自各行各业的优秀人才，员工流动性相对较强，有助于蚂蚁金服扩展业务，特别是在从无到有的过程中，需要专业的人才以及有公关能力的员工。而银行的用人机制大多局限在校园招聘，招聘的员工基本上都有编制，因此，员工的流动比较受限，组织活力也就相对来说比较受限。</p>
+<p>四是，团队强大的活力。在支付宝发展的早期，员工在别墅中闭门几个月进行系统开发，没日没夜的工作。在支付宝向外扩张时，要求员工马上到客户身边去，当天接到通知被安排到北京、深圳等地，要求用一天时间安抚家属，第二天就出发。近乎疯狂的激情，全情投入的拼搏，大家通力合作，使命必达。从工行离职加入支付宝的葛勇荻曾经说：这家公司虽然每个人工作都很辛苦，但大家干起活来很开心，这和传统单位的讲究层级、比较刻板的工作氛围形成了鲜明的对比。面对危机，ALL IN 无线时所有员工积极的态度，组织灵活的应变能力，都是这个企业生生不息的象征。蚂蚁集团的员工为什么这么有激情，可以没日没夜拼命工作？我觉得有一部分原因应该是因为他们知道自己在做有意义、有成就感的事情，这也是优秀的人才所看重的吧。</p>
+<p>最后，我想说，银行的优势在金融，蚂蚁这类互联网金融/金融科技公司的优势在科技。不得不说，蚂蚁的发展倒逼银行走出舒适区，大力发展金融科技，但是，我认为不仅仅是金融科技发展这么简单的问题，重要的还是人、组织和环境的变革，而银行的这种自我革新的过程必定无比漫长和艰辛。</p>
+</li>
+</ul>
 <h5 id="理财与经济类"><a href="#理财与经济类" class="headerlink" title="理财与经济类"></a>理财与经济类</h5><p>[1] 指数基金投资指南</p>
 <ul>
 <li>银行螺丝钉</li>
@@ -220,11 +370,25 @@
 </ul>
 <p>[15] 中国创投史</p>
 <ul>
-<li><p>作者：投资界网站 PEdaily</p>
-</li>
-<li><p>评分：4 星</p>
-</li>
+<li>作者：投资界网站 PEdaily</li>
+<li>评分：4 星</li>
 <li>点评：回顾中国创投的历史，只能膜拜各位创投大佬。创投确实在很大程度上支持了新兴企业的发展，从而促进了我国经济的腾飞。看过高瓴资本张磊的一些视频，十分认同他的投资理念，也十分羡慕他们的工作给社会带来的价值。只可惜，我应该是成为不了他们那样的人了。</li>
+</ul>
+<p>[16] 小岛经济学</p>
+<ul>
+<li>作者：彼得·希夫 安德鲁·希夫</li>
+<li>评分：4 星</li>
+<li>点评：很有趣的经济学入门书籍。作者通过虚构的小岛上发生的一系列通俗易懂的经济学案例来讲解经济学的知识，生动形象且贯穿全书的一个个小故事让我很好的理解了经济活动的形成与运转。不过，这本书对于美国近些年来的经济和货币政策的讽刺意味也很浓厚，书中很多的故事都是为了支撑作者反对凯恩斯主义的观点，显得不够客观。</li>
+</ul>
+<p>[17] 给投资新手的极简股票课</p>
+<ul>
+<li><p>作者：lip 师兄</p>
+</li>
+<li><p>评分：5 星</p>
+</li>
+<li><p>点评：以轻松幽默的方式，讲解最简单的股票知识，作为股市入门书确实是值得推荐的。作者用一个故事串起整本书的内容，读起来确实要轻松很多，但是故事中的一些对话略显生硬，越读就越想要快速跳过故事情节。</p>
+<p>书中关于投资的观点呢，也和很多理财类的书类似，比如要提升被动收入的比例，做时间的朋友等等。作为股市新手，我始终认为，在实践过程中，我们需要不断通过读书来深化理论知识，从而指导自己的实践。最后，用书中的一句话共勉：对于追求的事物，最好的方法，就是让自己配得上TA。伴侣如此，财富亦如此。</p>
+</li>
 </ul>
 <h5 id="专业与技术类"><a href="#专业与技术类" class="headerlink" title="专业与技术类"></a>专业与技术类</h5><p>[1] MySQL必知必会</p>
 <ul>
@@ -278,11 +442,29 @@
 <p>命名数据网络现在面临的主要矛盾是，想要替换掉现有网络，又还不够成熟。而想要继续改进，现在整体的研究又显得似乎没有明确的方向。因此，从近几年来看，命名数据网络已经没有以前那么火。当然，科学研究总是超前的，就像当年的TCP/IP，谁也不知道它会成为当今网络的支柱，信息中心网络的研究也受到质疑，但是，在我看来这些探索终将会是有意义的。</p>
 </li>
 </ul>
-<p>[7] 从0到1：HTML+CSS快速上手</p>
+<p>[8] 从0到1：HTML+CSS快速上手</p>
 <ul>
 <li>作者：莫振杰</li>
 <li>评分：4 星</li>
 <li>点评：作为快速入门书籍，这本书的内容简洁明了，理论结合实践，讲解清晰，只是有一些小错误。在全栈工程师的路上飞奔，快速入门了前端基础，可是这完全不够，还有高级语法以及很多框架需要学习，慢慢来。</li>
+</ul>
+<p>[8] Istio 实战指南</p>
+<ul>
+<li>作者：马若飞</li>
+<li>评分：3 星</li>
+<li>点评：这本书的内容过于简单，而且书中使用的 Istio 版本也已经很旧了，只适合初学者简单了解 Istio。推荐直接看官方文档或者Service Mesh中文社区的Istio handbook，讲解得都比较详细。另外，也很推荐作者在极客时间上的课程《Service Mesh 实战》。</li>
+</ul>
+<p>[9] 每天5分钟玩转 Kubernetes</p>
+<ul>
+<li>作者：CloudMan</li>
+<li>评分：4 星</li>
+<li>点评：一本不错的Kubernetes入门书，简单易懂，思路清晰，和标题比较贴切。内容也比较全面，但是都只是点到为止。每天看一点点，轻松入个门还是不错的。如果想要深入了解，还得看看深入一点的书，然后多实践。</li>
+</ul>
+<p>[10] 深入浅出 Istio：Service Mesh 快速入门与实践</p>
+<ul>
+<li>作者：崔秀龙</li>
+<li>评分：5 星</li>
+<li>点评：这是我读过的服务网格书籍中最棒的一本，内容全面，讲解清晰，理论与实践相结合。不是官方文档和案例的简单堆砌，还有作者的对于Istio的思考和建议。只可惜，Istio的版本更新迭代太快了，这本书中的一些内容已经过时。不过，对于初学者深入了解Istio还是很有帮助的。</li>
 </ul>
 ]]></content>
       <categories>
@@ -8116,39 +8298,39 @@
     <content><![CDATA[<p>　　pidstat 主要用于监控全部或指定进程占用系统资源的情况，如 CPU，内存、设备 IO、任务切换、线程等。</p>
 <a id="more"></a>
 <h4 id="pidstat安装"><a href="#pidstat安装" class="headerlink" title="pidstat安装"></a>pidstat安装</h4><p>　　要使用 pidstat 需要安装 Sysstat，它是一个工具集，包括 sar、pidstat、iostat、mpstat、sadf、sadc。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> sudo apt-get install sysstat</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> sudo apt-get install sysstat</div></pre></td></tr></table></figure>
 <p>　　pidstat 首次运行时显示自系统启动开始的各项统计信息，之后运行 pidstat 将显示自上次运行该命令以后的统计信息。用户可以通过指定统计的次数和时间来获得所需的统计信息。</p>
 <h4 id="基本命令"><a href="#基本命令" class="headerlink" title="基本命令"></a>基本命令</h4><p>　　用户手册：<a href="http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html" target="_blank" rel="external">http://sebastien.godard.pagesperso-orange.fr/man_pidstat.html</a></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">Usage: pidstat [ options ] [ &lt;interval&gt; [ &lt;count&gt; ] ]</div><div class="line">Options are:</div><div class="line">[ -d ] [ -h ] [ -I ] [ -l ] [ -R ] [ -r ] [ -s ] [ -t ] [ -U [ &lt;username&gt; ] ]</div><div class="line">[ -u ] [ -V ] [ -v ] [ -w ] [ -C &lt;command&gt; ] [ -G &lt;process_name&gt; ]</div><div class="line">[ -p &#123; &lt;pid&gt; [,...] | SELF | ALL &#125; ] [ -T &#123; TASK | CHILD | ALL &#125; ]</div></pre></td></tr></table></figure>
 <h5 id="指定采样周期和采样次数"><a href="#指定采样周期和采样次数" class="headerlink" title="指定采样周期和采样次数"></a>指定采样周期和采样次数</h5><p>　　pidstat 命令指定采样周期和采样次数，例如以 2 秒为采样周期，输出 10 次 CPU 使用统计信息：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10</div></pre></td></tr></table></figure>
 <h5 id="p-参数"><a href="#p-参数" class="headerlink" title="-p 参数"></a>-p 参数</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-p &#123; pid [,...] | SELF | ALL &#125; #指定进程显示其报告</div></pre></td></tr></table></figure>
 <p>　　选择要报告统计信息的任务（进程）。pid 是进程标识号。 SELF 关键字表示要为 pidstat 进程本身报告统计信息，而 ALL 关键字表示要为系统管理的所有任务报告统计信息。SELF 和 ALL 可不指定，如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -p 进程号</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -p 进程号</div></pre></td></tr></table></figure>
 <p>　　可使用以下命令获得进程号，以下命令会列出所有进程的进程号：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> ps -e</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> ps -e</div></pre></td></tr></table></figure>
 <p>　　也可以通过 top 命令或者直接查看某个服务的状态得到该服务涉及的进程。</p>
 <h5 id="u参数"><a href="#u参数" class="headerlink" title="-u参数"></a>-u参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的 CPU 使用统计，执行 ”pidstat -u” 与单独执行 ”pidstat” 的效果一样。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat</span></div><div class="line">or</div><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat</div><div class="line">or</div><div class="line"><span class="meta">$</span> pidstat -u</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-1.png" alt="26-1"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- %usr  # 在用户级（应用程序）执行任务时使用的CPU的百分比，有或没有优先级。请注意，此字段不包括运行虚拟处理器的时间</div><div class="line">- %system   # 在系统级别（内核）执行任务时CPU占用的百分比</div><div class="line">- %guest    # 虚拟机中任务占用的CPU的百分比（运行虚拟处理器）</div><div class="line">- %CPU  # 该任务使用的CPU时间的总百分比</div><div class="line">- CPU   # 处理器号，任务被哪个处理器处理</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="r参数"><a href="#r参数" class="headerlink" title="-r参数"></a>-r参数</h5><p>　　使用 -u 选项，pidstat 将显示各活动进程的页面故障和内存利用率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-2.png" alt="26-2"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- minflt/s  # 每秒次缺页错误次数(minor page faults)，次缺页错误次数意即虚拟内存地址映射成物理内存地址产生的page fault次数</div><div class="line">- majflt/s  # 每秒主缺页错误次数(major page faults)，当虚拟内存地址映射成物理内存地址时，相应的page在swap中，这样的page fault为major page fault，一般在内存使用紧张时产生</div><div class="line">- VSZ   # 该进程使用的虚拟内存(以kB为单位)</div><div class="line">- RSS   # 该进程使用的物理内存(以kB为单位)</div><div class="line">- %MEM  # 当前任务使用的有效内存的百分比</div><div class="line">- Command   # 任务的命令名</div></pre></td></tr></table></figure>
 <h5 id="d参数"><a href="#d参数" class="headerlink" title="-d参数"></a>-d参数</h5><p>　　使用 -d 选项，pidstat 将将显示各活动进程的 I/O 统计信息（内核 2.6.20 及更高版本）。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -d</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -d</div></pre></td></tr></table></figure>
 <p><img src="http://fzy-blog.oss-cn-shenzhen.aliyuncs.com/2017/10/26-3.png" alt="26-3"></p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">- UID   # 正在监视的任务的真实用户识别号</div><div class="line">- USER  # 正在监视的任务的真实用户名</div><div class="line">- PID   # 被监视任务的识别号</div><div class="line">- kB_rd/s   # 每秒此进程从磁盘读取的千字节数</div><div class="line">- kB_wr/s   # 此进程已经或者将要写入磁盘的每秒千字节数</div><div class="line">- kB_ccwr/s # 由任务取消的写入磁盘的千字节数</div><div class="line">- iodelay   # 阻止正在监视的任务的I/O延迟，以时钟滴答测量</div><div class="line">- Command   # 命令的名字</div></pre></td></tr></table></figure>
 <h5 id="其他参数"><a href="#其他参数" class="headerlink" title="其他参数"></a>其他参数</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">-h  # 显示所有的活动的任务</div><div class="line">-I  # 在SMP环境，指出任务的CPU使用（等同于选项-u）应该被除于cpu的总数</div><div class="line">-l  # 显示进程的命令名和它的参数</div><div class="line">-T &#123; TASK | CHILD | ALL &#125;   # 指定必须监测的内容：TASK是默认的，单个任务的报告；CHILD：指定的进程和他们的子进程的全局报告，ALL：相当于TASK和CHILD</div><div class="line">-s  # 堆栈的使用</div><div class="line">-t  # 显示与所选任务相关的线程的统计数据</div><div class="line">-w  # 报告任务切换情况</div></pre></td></tr></table></figure>
 <h4 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h4><p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -r -p 1643 2 5</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -r -p 1643 2 5</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 5 次进程号为 1643 的页面故障和内存使用统计信息以及 CPU 使用率。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -u -r -p 1643 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -u -r -p 1643 2 10</div></pre></td></tr></table></figure>
 <p>　　以 2 秒为采样周期，输出 10 次系统中所有任务的子进程的页面错误统计信息。只显示具有非零统计值的子进程。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat -T CHILD -r 2 10</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat -T CHILD -r 2 10</div></pre></td></tr></table></figure>
 <h4 id="保存数据"><a href="#保存数据" class="headerlink" title="保存数据"></a>保存数据</h4><p>　　重定向输出即可，例如，每隔两秒记录 1 次，一共 10 次，并输出到 data.txt 文件。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> pidstat 2 10 &gt; data.txt</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span> pidstat 2 10 &gt; data.txt</div></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Linux</category>

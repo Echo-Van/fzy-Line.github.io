@@ -4,12 +4,32 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2020/08/30/%E6%88%91%E7%9A%842020%E4%B9%A6%E5%8D%95/</loc>
-    <lastmod>2020-08-30T03:16:26.646Z</lastmod>
+    <loc>https://fzy-line.github.io/2020/12/14/Envoy-Wasm-%E6%89%A9%E5%B1%95%EF%BC%9AWasme-CLI-%E9%83%A8%E7%BD%B2/</loc>
+    <lastmod>2020-12-14T15:29:10.562Z</lastmod>
+    <data>
+        <display>
+        <title>Envoy Wasm 扩展：Wasm CLI 部署</title>
+        <pubTime>2020-12-14T15:22:28.000Z</pubTime>
+        
+        <tag>云原生</tag>
+         
+         
+           
+             
+              <breadCrumb title="Cloud/Edge Computing" url="https://fzy-line.github.io/categories/Cloud-Edge-Computing/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://fzy-line.github.io/2020/12/06/%E6%88%91%E7%9A%842020%E4%B9%A6%E5%8D%95/</loc>
+    <lastmod>2020-12-06T08:20:31.422Z</lastmod>
     <data>
         <display>
         <title>我的2020书单</title>
-        <pubTime>2020-08-30T02:36:56.000Z</pubTime>
+        <pubTime>2020-12-06T02:36:56.000Z</pubTime>
         
         <tag>Life</tag>
          
@@ -777,12 +797,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2019/07/25/%E5%89%91%E6%8C%87offer-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/</loc>
+    <loc>https://fzy-line.github.io/2019/08/04/%E5%89%91%E6%8C%87offer-%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
     <lastmod>2019-08-25T14:13:27.948Z</lastmod>
     <data>
         <display>
-        <title>剑指offer-搜索算法</title>
-        <pubTime>2019-07-25T14:08:43.000Z</pubTime>
+        <title>剑指offer-位运算</title>
+        <pubTime>2019-08-04T14:09:14.000Z</pubTime>
         
         <tag>Python</tag>
          
@@ -804,12 +824,12 @@
 
     
   <url>
-    <loc>https://fzy-line.github.io/2019/08/04/%E5%89%91%E6%8C%87offer-%E4%BD%8D%E8%BF%90%E7%AE%97/</loc>
+    <loc>https://fzy-line.github.io/2019/07/25/%E5%89%91%E6%8C%87offer-%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2019-08-25T14:13:27.948Z</lastmod>
     <data>
         <display>
-        <title>剑指offer-位运算</title>
-        <pubTime>2019-08-04T14:09:14.000Z</pubTime>
+        <title>剑指offer-搜索算法</title>
+        <pubTime>2019-07-25T14:08:43.000Z</pubTime>
         
         <tag>Python</tag>
          
